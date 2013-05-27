@@ -8,11 +8,12 @@ class BuddyForms_Members {
 	 * @since 0.1-beta
 	 */
 	public function __construct() {
-		$this->init_hook();
-		$this->load_constants();
-
+		
 		add_action('bp_include'				, array($this, 'includes')					, 4, 1);
 		add_action('init'					, array($this, 'load_plugin_textdomain')	, 10, 1);
+
+		$this->init_hook();
+		$this->load_constants();
 
 	}
 
@@ -27,7 +28,7 @@ class BuddyForms_Members {
 	 * @since 0.1-beta
 	 */
 	public function init_hook() {
-		do_action('buddyforms_init');
+		do_action('buddyforms_members_init');
 	}
 
 	/**
@@ -59,11 +60,11 @@ class BuddyForms_Members {
 	 */
 	public function includes() {
 		
-		require_once (BUDDYFORMS_INCLUDES_PATH . 'functions.php');
-		require_once (BUDDYFORMS_INCLUDES_PATH . 'member-extention.php');
+		require_once (BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'functions.php');
+		require_once (BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'member-extention.php');
 		
 		if (!class_exists('BP_Theme_Compat'))
-			require_once (BUDDYFORMS_INCLUDES_PATH . 'bp-backwards-compatibililty-functions.php');
+			require_once (BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'bp-backwards-compatibililty-functions.php');
 	}
 
 	/**
