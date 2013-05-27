@@ -1,6 +1,11 @@
 <?php
-class BuddyForms_Members {
+class BuddyForms_Members_Extention {
 
+
+ 	public static function init() {
+        $class = __CLASS__;
+        new $class;
+    }
 	/**
 	 * Initiate the class
 	 *
@@ -10,7 +15,6 @@ class BuddyForms_Members {
 	public function __construct() {
 		add_action('bp_setup_nav', array($this, 'profile_setup_nav'), 20, 1);
 		add_action('bp_located_template', array($this, 'buddyforms_load_template_filter'), 10, 2);
-		
 	}
 	
 	/**
@@ -36,7 +40,7 @@ class BuddyForms_Members {
 		global $buddyforms, $bp;
 
 		get_currentuserinfo();
-
+		
 		session_start();
 
 		$position = 20;
@@ -133,7 +137,7 @@ class BuddyForms_Members {
 				//
 				// this tells BP to look for templates in our plugin directory last
 				// when the template isn't found in the parent / child theme
-				bp_register_template_stack('buddyforms_get_template_directory', 14);
+				bp_register_template_stack('buddyforms_members_get_template_directory', 14);
 	
 				// locate_template() will attempt to find the plugins.php template in the
 				// child and parent theme and return the located template when found
@@ -159,9 +163,9 @@ class BuddyForms_Members {
 			}
 		}
 	
-		return apply_filters('buddyforms_load_template_filter', $found_template);
+		return apply_filters('buddyforms_members_load_template_filter', $found_template);
 	}
 }
-
-add_action('buddyforms_init', new BuddyForms_Members());
+add_action( 'buddyforms_init', array( 'BuddyForms_Members_Extention', 'init' ));
+//add_action('buddyforms_init', new BuddyForms_Members_Extention());
 ?>

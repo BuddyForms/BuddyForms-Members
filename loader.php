@@ -18,14 +18,14 @@ define('buddyforms', '1.0 rc1');
  * @package BuddyPress Custom Group Types
  * @since 0.1-beta
  */
-function buddyforms_init() {
+function buddyforms_members_init() {
 	global $wpdb;
 
 	if (is_multisite() && BP_ROOT_BLOG != $wpdb->blogid)
 		return;
 
-	require (dirname(__FILE__) . '/buddyforms.php');
+	require (dirname(__FILE__) . '/buddyforms_members.php');
 	$buddyforms_members = new BuddyForms_Members();
 }
 
-add_action('bp_loaded', 'buddyforms_init', 0);
+add_action('bp_loaded', 'buddyforms_members_init', 0);

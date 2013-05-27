@@ -19,7 +19,7 @@
 	}
 	$the_lp_query = new WP_Query( $args );
 
-	buddyforms_locate_template('buddyforms/members/members-post-loop.php');
+	buddyforms_members_locate_template('buddyforms/members/members-post-loop.php');
 	
 	// Support for wp_pagenavi
 	if(function_exists('wp_pagenavi')){
