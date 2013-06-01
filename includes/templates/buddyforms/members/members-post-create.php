@@ -1,5 +1,5 @@
     <div id="item-body">
 
-  	<?php do_shortcode('[buddyforms_create_edit_form]'); ?>
+  	<?php global $bp; do_shortcode('[buddyforms_form post_type="'.$bp->current_component.'"]'); ?>
    
     </div><!-- #item-body -->

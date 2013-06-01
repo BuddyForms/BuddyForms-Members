@@ -34,7 +34,7 @@ if ( $the_lp_query->have_posts() ) : ?>
 				<?php if ($bp->displayed_user->id ==  get_current_user_id()){ ?>
 					<div class="meta">
 						<div class="item-status"><?php echo get_post_status(); ?></div>
-						<a href='<?php echo trailingslashit( bp_loggedin_user_domain() ).get_post_type().'?post_id='.get_the_ID(); ?>'>Edit</a>
+						<a href='<?php echo trailingslashit( bp_loggedin_user_domain() ).get_post_type().'?post_id='.get_the_ID().'&post_type='.get_post_type(); ?>'>Edit</a>
 						- <a onclick="return confirm('Are you sure you want to delete this entry?');" href='<?php echo trailingslashit( bp_loggedin_user_domain() ).get_post_type().'?delete='.get_the_ID() ?>'>Delete</a>
 					</div>
 				<?php } ?>
