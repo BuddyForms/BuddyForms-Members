@@ -48,15 +48,21 @@ class BuddyForms_Members_Extention {
 		if (empty($buddyforms[selected_post_types]))
 			return;
 
-		foreach ($buddyforms[selected_post_types] as $post_type) {
+		foreach ($buddyforms[selected_post_types] as $key => $selected_post_type) {
 			$position++;
+			
+			if(isset($selected_post_type[selected])) :
 
-			$count = $this->get_user_posts_count($user_ID, array('post_type' => $post_type));
+				$form = $selected_post_type[form];
+				$slug = $buddyforms['buddyforms'][$form]['slug'];
 
-			bp_core_new_nav_item(array('name' => sprintf('%s <span>%d</span>', $buddyforms['bp_post_types'][$post_type]['name'], $count), 'slug' => $post_type, 'position' => $position, 'screen_function' => array($this, 'buddyforms_screen_settings')));
-
-			bp_core_new_subnav_item(array('name' => sprintf(__(' Add %s', 'buddyforms'), $buddyforms['bp_post_types'][$post_type]['singular_name']), 'slug' => 'create', 'parent_slug' => $post_type, 'parent_url' => trailingslashit(bp_loggedin_user_domain() . $post_type), 'item_css_id' => 'apps_sub_nav', 'screen_function' => array($this, 'load_members_post_create'), 'user_has_access' => bp_is_my_profile()));
-
+				$count = $this->get_user_posts_count($user_ID, array('post_type' => $key));
+	
+				bp_core_new_nav_item(array('name' => sprintf('%s <span>%d</span>', $buddyforms['buddyforms'][$form]['name'], $count), 'slug' => $slug, 'position' => $position, 'screen_function' => array($this, 'buddyforms_screen_settings')));
+	
+				bp_core_new_subnav_item(array('name' => sprintf(__(' Add %s', 'buddyforms'), $buddyforms['buddyforms'][$form]['singular_name']), 'slug' => 'create', 'parent_slug' => $slug, 'parent_url' => trailingslashit(bp_loggedin_user_domain() . $slug), 'item_css_id' => 'apps_sub_nav', 'screen_function' => array($this, 'load_members_post_create'), 'user_has_access' => bp_is_my_profile()));
+			
+			endif;
 		}
 
 		//bp_core_remove_nav_item( 'groups' ); // @TODO here needs to come one global option to turn Groups nav on off
@@ -167,5 +173,5 @@ class BuddyForms_Members_Extention {
 	}
 }
 add_action( 'buddyforms_init', array( 'BuddyForms_Members_Extention', 'init' ));
-//add_action('buddyforms_init', new BuddyForms_Members_Extention());
+
 ?>
