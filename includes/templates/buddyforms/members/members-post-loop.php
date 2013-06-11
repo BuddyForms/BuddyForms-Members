@@ -30,15 +30,15 @@ if ( $the_lp_query->have_posts() ) : ?>
 			</div>
 
 			<div class="action">
-				Created <?php the_time('F j, Y') ?>
+				<?php _e( 'Created', 'buddyforms' ); ?> <?php the_time('F j, Y') ?>
 				<?php if ($bp->displayed_user->id ==  get_current_user_id()){ 
 					$componente = $buddyforms['selected_post_types'][get_post_type()][form];
 					
 					?>
 					<div class="meta">
 						<div class="item-status"><?php echo get_post_status(); ?></div>
-						<a href='<?php echo trailingslashit( bp_loggedin_user_domain() ).$componente.'?post_id='.get_the_ID().'&post_type='.get_post_type(); ?>'>Edit</a>
-						- <a onclick="return confirm('Are you sure you want to delete this entry?');" href='<?php echo trailingslashit( bp_loggedin_user_domain() ).$componente.'?delete='.get_the_ID() ?>'>Delete</a>
+						<a title="Edit me" href='<?php echo trailingslashit( bp_loggedin_user_domain() ).$componente.'?post_id='.get_the_ID().'&post_type='.get_post_type(); ?>'><?php _e( 'Edit', 'buddyforms' ); ?></a>
+						- <a title="Delete me" onclick="return confirm('Are you sure you want to delete this entry?');" href='<?php echo trailingslashit( bp_loggedin_user_domain() ).$componente.'?delete='.get_the_ID() ?>'><?php _e( 'Delete', 'buddyforms' ); ?></a>
 					</div>
 				<?php } ?>
 			</div>
@@ -53,8 +53,8 @@ if ( $the_lp_query->have_posts() ) : ?>
     <div class="navigation">
 
     <?php if(function_exists('wp_pagenavi')) : wp_pagenavi(); else: ?>
-        <div class="alignleft"><?php next_posts_link( __( '&larr; Previous Entries', 'cc' ) ) ?></div>
-        <div class="alignright"><?php previous_posts_link( __( 'Next Entries &rarr;', 'cc' ) ) ?></div>
+        <div class="alignleft"><?php next_posts_link( __( '&larr; Previous Entries', 'buddyforms' ) ) ?></div>
+        <div class="alignright"><?php previous_posts_link( __( 'Next Entries &rarr;', 'buddyforms' ) ) ?></div>
     <?php endif; ?>
 
     </div>
@@ -64,7 +64,7 @@ if ( $the_lp_query->have_posts() ) : ?>
 <?php else : ?>
 
 	<div id="message" class="info">
-		<p><?php _e( 'There were no posts found.', 'buddypress' ); ?></p>
+		<p><?php _e( 'There were no posts found.', 'buddyforms' ); ?></p>
 	</div>
 
 <?php endif; ?>

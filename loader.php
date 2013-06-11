@@ -1,10 +1,10 @@
 <?php
 /*
- Plugin Name: BuddyForms_Members
+ Plugin Name: BuddyForms Members
  Plugin URI: http://buddyforms.com
- Description:   
- Version: 0.1 rc1
- Author: Sven Lehnert
+ Description: The BuddyForms Members Component. Let your members write right out of their profiles.    
+ Version: Beta 1.0
+ Author: ThemeKraft
  Author URI: http://themekraft.com
  Licence: GPLv3
  Network: true
@@ -13,10 +13,10 @@
 define('buddyforms', '1.0 rc1');
 
 /**
- * Loads buddyforms files only if BuddyPress is present
+ * Loads BuddyForms files only if BuddyPress is present
  *
- * @package BuddyPress Custom Group Types
- * @since 0.1-beta
+ * @package BuddyForms
+ * @since 0.1 beta
  */
 function buddyforms_members_init() {
 	global $wpdb;

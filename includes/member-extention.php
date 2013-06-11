@@ -9,8 +9,8 @@ class BuddyForms_Members_Extention {
 	/**
 	 * Initiate the class
 	 *
-	 * @package buddyforms
-	 * @since 0.1-beta
+	 * @package BuddyForms
+	 * @since 0.1 beta
 	*/
 	public function __construct() {
 		add_action('bp_setup_nav', array($this, 'profile_setup_nav'), 20, 1);
@@ -18,10 +18,10 @@ class BuddyForms_Members_Extention {
 	}
 	
 	/**
-	 * get the user posts count
+	 * Get the user posts count
 	 *
-	 * @package buddyforms
-	 * @since 0.1-beta
+	 * @package BuddyForms
+	 * @since 0.1 beta
 	*/
 	function get_user_posts_count($user_id, $args) {
 		$args['author'] = $user;
@@ -33,8 +33,8 @@ class BuddyForms_Members_Extention {
 	/**
 	 * Setup profile navigation
 	 *
-	 * @package buddyforms
-	 * @since 0.1-beta
+	 * @package BuddyForms
+	 * @since 0.1 beta
 	*/
 	public function profile_setup_nav() {
 		global $buddyforms, $bp;
@@ -65,14 +65,14 @@ class BuddyForms_Members_Extention {
 			endif;
 		}
 
-		//bp_core_remove_nav_item( 'groups' ); // @TODO here needs to come one global option to turn Groups nav on off
+		// bp_core_remove_nav_item( 'groups' ); // @todo here needs to come one global option to turn groups nav on off
 	}
 
 	/**
 	 * Display the posts or the edit screen
 	 *
-	 * @package buddyforms
-	 * @since 0.2-beta
+	 * @package BuddyForms
+	 * @since 0.2 beta
 	*/
 	public function buddyforms_screen_settings() {
 		global $current_user, $bp;
@@ -97,7 +97,7 @@ class BuddyForms_Members_Extention {
 			wp_delete_post($_GET[delete]);
 
 		}
-		wp_enqueue_style('members-profil-css', plugins_url('css/members-profil.css', __FILE__));
+		wp_enqueue_style('member-profile-css', plugins_url('css/member-profile.css', __FILE__));
 		$bp->current_action = 'my-posts';
 		bp_core_load_template('buddyforms/members/members-post-display');
 
@@ -106,19 +106,19 @@ class BuddyForms_Members_Extention {
 	/**
 	 * Show the post create form
 	 *
-	 * @package buddyforms
-	 * @since 0.2-beta
+	 * @package BuddyForms
+	 * @since 0.2 beta
 	*/
 	public function load_members_post_create() {
 		bp_core_load_template('buddyforms/members/members-post-create');
 	}
 	
 	/**
-	 * buddyforms template loader.
+	 * BuddyForms template loader.
 	 * 
-	 * this function I copied from the buddypress.org website and modifired it for my needs 
+	 * I copied this function from the buddypress.org website and modified it for my needs. 
 	 *
-	 * This function sets up buddyforms to use custom templates.
+	 * This function sets up BuddyForms to use custom templates.
 	 *
 	 * If a template does not exist in the current theme, we will use our own
 	 * bundled templates.

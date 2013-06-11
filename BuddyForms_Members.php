@@ -4,8 +4,8 @@ class BuddyForms_Members {
 	/**
 	 * Initiate the class
 	 *
-	 * @package buddyforms
-	 * @since 0.1-beta
+	 * @package BuddyForms
+	 * @since 0.1 beta
 	 */
 	public function __construct() {
 		
@@ -36,8 +36,8 @@ class BuddyForms_Members {
 	 *
 	 * These constants can be overridden in bp-custom.php or wp-config.php.
 	 *
-	 * @package buddyforms
-	 * @since 0.1-beta
+	 * @package BuddyForms
+	 * @since 0.1 beta
 	 */
 	public function load_constants() {
 			
@@ -53,10 +53,10 @@ class BuddyForms_Members {
 	}
 
 	/**
-	 * Includes files needed by buddyforms
+	 * Includes files needed by BuddyForms
 	 *
-	 * @package buddyforms
-	 * @since 0.1-beta
+	 * @package BuddyForms
+	 * @since 0.1 beta
 	 */
 	public function includes() {
 		
@@ -70,8 +70,8 @@ class BuddyForms_Members {
 	/**
 	 * Loads the textdomain for the plugin
 	 *
-	 * @package buddyforms
-	 * @since 0.1-beta
+	 * @package BuddyForms
+	 * @since 0.1 beta
 	 */
 	public function load_plugin_textdomain() {
 		load_plugin_textdomain('buddyforms', false, dirname(plugin_basename(__FILE__)) . '/languages/');

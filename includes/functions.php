@@ -63,9 +63,9 @@ function buddyforms_select_posttypes($form){
 		
 		$form->addElement(new Element_HTML('
  		<div class="accordion-group">
-			<div class="accordion-heading"><p class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_buddyforms_general_settings_members" href="#accordion_buddyforms_general_settings_members">Select the PostType you want to use in BuddyPress Profiles</p></div>
+			<div class="accordion-heading"><p class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_buddyforms_general_settings_members" href="#accordion_buddyforms_general_settings_members">BuddyForms Members</p></div>
 		    <div id="accordion_buddyforms_general_settings_members" class="accordion-body collapse">
-				<div class="accordion-inner">')); 
+				<div class="accordion-inner"><p>Select the post type you want to use in BuddyPress Profiles.</p>')); 
 					$form->addElement( new Element_HTML('<ul class="buddyforms_members">'));
 					foreach( $post_types as $key => $post_type) {
 						$form->addElement( new Element_HTML('<li>'));
@@ -91,11 +91,11 @@ add_filter('buddyforms_general_settings','buddyforms_select_posttypes',1,1);
 /**
  * hook the buddypress default single.php hooks into the form display field
  * 
- * this functions is support for the bp_default theme and an can be used as example for other theme/plugin developer
- * how to hook there theme plugin hooks. 
+ * this function is support for the bp_default theme and an can be used as example for other theme/plugin developer
+ * how to hook their theme or plugin hooks. 
  *
- * @package buddyforms
- * @since 0.2-beta
+ * @package BuddyForms
+ * @since 0.2 beta
 */
 function buddyforms_form_element_single_hooks($buddyforms_form_element_hooks,$post_type,$field_id){
 	if(get_template() != 'bp-default')
@@ -111,9 +111,9 @@ function buddyforms_form_element_single_hooks($buddyforms_form_element_hooks,$po
 add_filter('buddyforms_form_element_hooks','buddyforms_form_element_single_hooks',1,3);
 
 /**
- * Get the buddyforms template directory.
+ * Get the BuddyForms template directory
  *
- * @author Sven Lehnert
+ * @package BuddyForms
  * @since 0.1 beta
  *
  * @uses apply_filters()
@@ -126,8 +126,8 @@ function buddyforms_members_get_template_directory() {
 /**
  * Locate a template
  *
- * @package BuddyPress Custom Group Types
- * @since 0.1-beta
+ * @package BuddyForms
+ * @since 0.1 beta
  */
 function buddyforms_members_locate_template($file) {
 	if (locate_template(array($file), false)) {
