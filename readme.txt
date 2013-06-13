@@ -3,7 +3,7 @@ Contributors: Sven Lehnert, Konrad Sroka
 Tags: buddyforms, members, profiles, buddypress, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: WordPress 3.x, BuddyPress 1.7.x
 Tested up to: WordPress 3.5.1, BuddyPress 1.7.1
-Stable tag: Beta 1.0 
+Stable tag: 1.0 beta 1
 
 
 

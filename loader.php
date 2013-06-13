@@ -3,14 +3,14 @@
  Plugin Name: BuddyForms Members
  Plugin URI: http://buddyforms.com
  Description: The BuddyForms Members Component. Let your members write right out of their profiles.    
- Version: Beta 1.0
- Author: ThemeKraft
- Author URI: http://themekraft.com
+ Version: 1.0 beta 1
+ Author: Sven Lehnert
+ Author URI: http://themekraft.com/members/svenl77/
  Licence: GPLv3
  Network: true
  */
 
-define('buddyforms', '1.0 rc1');
+define('buddyforms', '1.0 beta 1');
 
 /**
  * Loads BuddyForms files only if BuddyPress is present
