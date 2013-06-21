@@ -4,11 +4,12 @@ function buddyforms_admin_bar_remove() {
     global $wp_admin_bar, $buddyforms;
 	
 	// echo '<pre>';
-	// print_r($wp_admin_bar);
+	// print_r($buddyforms);
 	// echo '</pre>';
 	
-	foreach ($buddyforms['buddyforms'] as $key => $buddyform) {
-		$wp_admin_bar->remove_menu('my-account-'.$buddyform['slug']);
+	foreach ($buddyforms['selected_post_types'] as $key => $selected_post_type) {
+		
+		$wp_admin_bar->remove_menu('my-account-'.$selected_post_type['form']);
 	}
     
 }
