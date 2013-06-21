@@ -37,30 +37,80 @@ class BuddyForms_Members_Extention {
 	 * @since 0.1 beta
 	*/
 	public function profile_setup_nav() {
-		global $buddyforms, $bp;
+		global $buddyforms, $bp, $wp_admin_bar;
 
+
+		// echo '<pre>';
+		// print_r($buddyforms);
+		// echo '</pre>';
 		get_currentuserinfo();
 		
 		session_start();
 
 		$position = 20;
 
-		if (empty($buddyforms[selected_post_types]))
+		if (empty($buddyforms['selected_post_types']))
 			return;
 
-		foreach ($buddyforms[selected_post_types] as $key => $selected_post_type) {
+		foreach ($buddyforms['selected_post_types'] as $key => $selected_post_type) {
 			$position++;
 			
-			if(isset($selected_post_type[selected])) :
-
-				$form = $selected_post_type[form];
-				$slug = $buddyforms['buddyforms'][$form]['slug'];
-
+			if(isset($selected_post_type['selected'])) :
+				
+				if(isset($selected_post_type['form'])){
+					$form = $selected_post_type['form'];
+				}
+				$slug = $key;
+				if(isset($form) && isset($buddyforms['buddyforms'][$form]['slug']))
+					$slug = $buddyforms['buddyforms'][$form]['slug'];
+				
+				$post_type_object = get_post_type_object( $key );
+				$name = $post_type_object->labels->name;
+				
+				if(isset($form) && isset($buddyforms['buddyforms'][$form]['name']))
+					$name = $buddyforms['buddyforms'][$form]['name'];
+				
 				$count = $this->get_user_posts_count($user_ID, array('post_type' => $key));
+
+				bp_core_new_nav_item( array(
+					'name' => sprintf('%s <span>%d</span>',$name , $count),
+					'slug' => $slug,
+					'position' => $position,
+					'screen_function' => array($this, 'buddyforms_screen_settings')
+				));
 	
-				bp_core_new_nav_item(array('name' => sprintf('%s <span>%d</span>', $buddyforms['buddyforms'][$form]['name'], $count), 'slug' => $slug, 'position' => $position, 'screen_function' => array($this, 'buddyforms_screen_settings')));
-	
-				bp_core_new_subnav_item(array('name' => sprintf(__(' Add %s', 'buddyforms'), $buddyforms['buddyforms'][$form]['singular_name']), 'slug' => 'create', 'parent_slug' => $slug, 'parent_url' => trailingslashit(bp_loggedin_user_domain() . $slug), 'item_css_id' => 'apps_sub_nav', 'screen_function' => array($this, 'load_members_post_create'), 'user_has_access' => bp_is_my_profile()));
+				if(isset($form) && $form != 'no-form') {
+					bp_core_new_subnav_item( array(
+						'name'				=> sprintf(__(' Add %s', 'buddyforms'), $buddyforms['buddyforms'][$form]['singular_name']),
+						'slug'				=> 'create',
+						'parent_slug'		=> $slug,
+						'parent_url'		=> trailingslashit(bp_loggedin_user_domain() . $slug),
+						'item_css_id'		=> 'apps_sub_nav',
+						'screen_function'	=> array($this,'load_members_post_create'),
+						'user_has_access'	=> bp_is_my_profile()
+					));
+				}
+
+				$wp_admin_bar->add_menu( array(
+					'parent'	=> 'my-account-buddypress',
+					'id'		=> 'my-account-buddypress-'.$key,
+					'title'		=> __($name, 'buddypress'),
+					'href'		=> trailingslashit(bp_loggedin_user_domain() . $slug)
+				));
+				$wp_admin_bar->add_menu( array(
+						'parent'	=> 'my-account-buddypress-'.$key,
+						'id'		=> 'my-account-buddypress-'.$key.'-view',
+						'title'		=> __('View my '.$name,'buddypress'),
+						'href'		=> trailingslashit(bp_loggedin_user_domain() . $slug)
+				)); 
+				if(isset($form) && $form != 'no-form') {
+					 $wp_admin_bar->add_menu( array(
+						'parent'	=> 'my-account-buddypress-'.$key,
+						'id'		=> 'my-account-buddypress-'.$key.'-new',
+						'title'		=> __('New '.$buddyforms['buddyforms'][$form]['singular_name'],'buddypress'),
+						'href'		=> trailingslashit(bp_loggedin_user_domain() . $slug).'/create'
+					));  
+				}
 			
 			endif;
 		}

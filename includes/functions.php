@@ -1,5 +1,19 @@
 <?php
 
+function buddyforms_admin_bar_remove() {
+    global $wp_admin_bar, $buddyforms;
+	
+	// echo '<pre>';
+	// print_r($wp_admin_bar);
+	// echo '</pre>';
+	
+	foreach ($buddyforms['buddyforms'] as $key => $buddyform) {
+		$wp_admin_bar->remove_menu('my-account-'.$buddyform['slug']);
+	}
+    
+}
+add_action('wp_before_admin_bar_render', 'buddyforms_admin_bar_remove' ,10,1);
+
 function members_form($form, $post_type){
 	global $buddyforms;
 
@@ -54,7 +68,7 @@ function buddyforms_select_posttypes($form){
     $post_types=get_post_types($args,$output,$operator); 
 	
 	if(is_array($buddyforms['buddyforms'])){
-		$the_forms[] = 'Select the form to use';
+		$the_forms[] = 'no-form';
 		foreach ($buddyforms['buddyforms'] as $key => $buddyform) {
 			$the_forms[] = $buddyform['slug'];
 		}
