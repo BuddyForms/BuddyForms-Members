@@ -1,11 +1,27 @@
 <?php
 
+
+add_filter( 'buddyforms_before_admin_form_render', 'buddyforms_before_admin_form_render');
+
+function buddyforms_before_admin_form_render($form){
+	
+	// echo '<pre>';
+	// print_r($form);
+	// echo '</pre>';
+	
+	return $form;
+}
+
+
+
 function buddyforms_admin_bar_remove() {
     global $wp_admin_bar, $buddyforms;
 	
 	// echo '<pre>';
 	// print_r($buddyforms);
 	// echo '</pre>';
+	if(!isset($buddyforms['selected_post_types']))
+		return;
 	
 	foreach ($buddyforms['selected_post_types'] as $key => $selected_post_type) {
 		
