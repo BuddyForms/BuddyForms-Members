@@ -90,28 +90,7 @@ class BuddyForms_Members_Extention {
 						'user_has_access'	=> bp_is_my_profile()
 					));
 				}
-				if(isset($buddyforms['buddyforms'][$selected_post_type['form']]['admin_bar'][0])){
-					$wp_admin_bar->add_menu( array(
-						'parent'	=> 'my-account-buddypress',
-						'id'		=> 'my-account-buddypress-'.$key,
-						'title'		=> __($name, 'buddypress'),
-						'href'		=> trailingslashit(bp_loggedin_user_domain() . $slug)
-					));
-					$wp_admin_bar->add_menu( array(
-							'parent'	=> 'my-account-buddypress-'.$key,
-							'id'		=> 'my-account-buddypress-'.$key.'-view',
-							'title'		=> __('View my '.$name,'buddypress'),
-							'href'		=> trailingslashit(bp_loggedin_user_domain() . $slug)
-					)); 
-					if(isset($form) && $form != 'no-form') {
-						 $wp_admin_bar->add_menu( array(
-							'parent'	=> 'my-account-buddypress-'.$key,
-							'id'		=> 'my-account-buddypress-'.$key.'-new',
-							'title'		=> __('New '.$buddyforms['buddyforms'][$form]['singular_name'],'buddypress'),
-							'href'		=> trailingslashit(bp_loggedin_user_domain() . $slug).'/create'
-						));  
-					}
-				}
+				
 			endif;
 		}
 

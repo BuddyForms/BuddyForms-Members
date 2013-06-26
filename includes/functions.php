@@ -12,9 +12,59 @@ function buddyforms_before_admin_form_render($form){
 	return $form;
 }
 
+// add the forms to the admin bar
+function buddyforms_members_wp_before_admin_bar_render(){
+	global $wp_admin_bar, $buddyforms;
 
+	if (empty($buddyforms['selected_post_types']))
+		return;
 
-function buddyforms_admin_bar_remove() {
+	foreach ($buddyforms['selected_post_types'] as $key => $selected_post_type) {
+		if(isset($selected_post_type['selected'])) :
+			
+			if(isset($selected_post_type['form'])){
+				$form = $selected_post_type['form'];
+			}
+			$slug = $key;
+			if(isset($form) && isset($buddyforms['buddyforms'][$form]['slug']))
+				$slug = $buddyforms['buddyforms'][$form]['slug'];
+			
+			$post_type_object = get_post_type_object( $key );
+			$name = $post_type_object->labels->name;
+			
+			if(isset($form) && isset($buddyforms['buddyforms'][$form]['name']))
+				$name = $buddyforms['buddyforms'][$form]['name'];
+			
+		
+			if(isset($buddyforms['buddyforms'][$selected_post_type['form']]['admin_bar'][0])){
+				$wp_admin_bar->add_menu( array(
+					'parent'	=> 'my-account-buddypress',
+					'id'		=> 'my-account-buddypress-'.$key,
+					'title'		=> __($name, 'buddypress'),
+					'href'		=> trailingslashit(bp_loggedin_user_domain() . $slug)
+				));
+				$wp_admin_bar->add_menu( array(
+						'parent'	=> 'my-account-buddypress-'.$key,
+						'id'		=> 'my-account-buddypress-'.$key.'-view',
+						'title'		=> __('View','buddypress'),
+						'href'		=> trailingslashit(bp_loggedin_user_domain() . $slug)
+				)); 
+				if(isset($form) && $form != 'no-form') {
+					 $wp_admin_bar->add_menu( array(
+						'parent'	=> 'my-account-buddypress-'.$key,
+						'id'		=> 'my-account-buddypress-'.$key.'-new',
+						'title'		=> __('New ','buddypress'),
+						'href'		=> trailingslashit(bp_loggedin_user_domain() . $slug).'/create'
+					));  
+				}
+			}
+		endif;
+	}
+}
+add_action('wp_before_admin_bar_render', 'buddyforms_members_wp_before_admin_bar_render',99,1);
+
+function buddyforms_admin_bar_members() {
+	
     global $wp_admin_bar, $buddyforms;
 	
 	// echo '<pre>';
@@ -27,9 +77,10 @@ function buddyforms_admin_bar_remove() {
 		
 		$wp_admin_bar->remove_menu('my-account-'.$selected_post_type['form']);
 	}
+
     
 }
-add_action('wp_before_admin_bar_render', 'buddyforms_admin_bar_remove' ,10,1);
+add_action('wp_before_admin_bar_render', 'buddyforms_admin_bar_members' ,10,1);
 
 function members_form($form, $post_type){
 	global $buddyforms;
