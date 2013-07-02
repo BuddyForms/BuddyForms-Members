@@ -32,7 +32,7 @@ if ( $the_lp_query->have_posts() ) : ?>
 			<div class="action">
 				<?php _e( 'Created', 'buddyforms' ); ?> <?php the_time('F j, Y') ?>
 				<?php if ($bp->displayed_user->id ==  get_current_user_id()){ 
-					$componente = $buddyforms['selected_post_types'][get_post_type()][form];
+					$componente = $buddyforms['selected_post_types'][get_post_type()]['form'];
 					
 					?>
 					<div class="meta">
