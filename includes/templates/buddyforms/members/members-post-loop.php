@@ -4,7 +4,7 @@ global $buddyforms, $bp, $the_lp_query;
 
 if ( $the_lp_query->have_posts() ) : ?>
 
-	<ul id="groups-list" class="item-list" role="main">
+	<ul id="buddyforms-list" class="item-list" role="main">
 
     <?php while ( $the_lp_query->have_posts() ) : $the_lp_query->the_post();
 		
