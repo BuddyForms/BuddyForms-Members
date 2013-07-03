@@ -34,10 +34,13 @@ if ( $the_lp_query->have_posts() ) : ?>
 				<?php if ($bp->displayed_user->id ==  get_current_user_id()){ 
 					$componente = $buddyforms['selected_post_types'][get_post_type()]['form'];
 					
+					$post_status = get_post_status();
+					if( $post_status == 'publish')
+						$post_status = 'published';
 					?>
 					<div class="meta">
-						<div class="item-status"><?php echo get_post_status(); ?></div>
-						<a title="Edit me" href='<?php echo trailingslashit( bp_loggedin_user_domain() ).$componente.'?post_id='.get_the_ID().'&post_type='.get_post_type(); ?>'><?php _e( 'Edit', 'buddyforms' ); ?></a>
+						<div class="item-status"><?php echo $post_status; ?></div>
+					<a title="Edit me" href='<?php echo trailingslashit( bp_loggedin_user_domain() ).$componente.'?post_id='.get_the_ID().'&post_type='.get_post_type(); ?>'><?php _e( 'Edit', 'buddyforms' ); ?></a>
 						- <a title="Delete me" onclick="return confirm('Are you sure you want to delete this entry?');" href='<?php echo trailingslashit( bp_loggedin_user_domain() ).$componente.'?delete='.get_the_ID() ?>'><?php _e( 'Delete', 'buddyforms' ); ?></a>
 					</div>
 				<?php } ?>

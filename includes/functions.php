@@ -54,7 +54,7 @@ function buddyforms_members_wp_before_admin_bar_render(){
 						'parent'	=> 'my-account-buddypress-'.$key,
 						'id'		=> 'my-account-buddypress-'.$key.'-new',
 						'title'		=> __('New ','buddypress'),
-						'href'		=> trailingslashit(bp_loggedin_user_domain() . $slug).'/create'
+						'href'		=> trailingslashit(bp_loggedin_user_domain() . $slug).'create'
 					));  
 				}
 			}
@@ -151,9 +151,16 @@ function buddyforms_select_posttypes($form){
 					$form->addElement( new Element_HTML('<ul class="buddyforms_members">'));
 					foreach( $post_types as $key => $post_type) {
 						$form->addElement( new Element_HTML('<li>'));
-							$form->addElement( new Element_Checkbox("","buddyforms_options[selected_post_types][".$post_type."][selected]",array($post_type),array('id' => 'select_posttype_'.$post_type, 'class' => 'select_posttype', 'value' => $buddyforms['selected_post_types'][$post_type]['selected'])));
+						$selected = '';
+						if(isset($buddyforms['selected_post_types'][$post_type]['selected']))
+							$selected = $buddyforms['selected_post_types'][$post_type]['selected'];
+											
+							$form->addElement( new Element_Checkbox("","buddyforms_options[selected_post_types][".$post_type."][selected]",array($post_type),array('id' => 'select_posttype_'.$post_type, 'class' => 'select_posttype', 'value' => $selected)));
+						$selected_form = '';
+						if(isset($buddyforms['selected_post_types'][$post_type]['form']))
+							$selected_form = $buddyforms['selected_post_types'][$post_type]['form'];
 							
-							$form->addElement( new Element_Select("", "buddyforms_options[selected_post_types][".$post_type."][form]", $the_forms, array('class' => 'select_posttype_'.$post_type.'-0 bf_select','value' => $buddyforms['selected_post_types'][$post_type]['form'])));
+							$form->addElement( new Element_Select("", "buddyforms_options[selected_post_types][".$post_type."][form]", $the_forms, array('class' => 'select_posttype_'.$post_type.'-0 bf_select','value' => $selected_form)));
 						$form->addElement(new Element_HTML('</li>'));
 					}
 					$form->addElement(new Element_HTML('</ul>'));

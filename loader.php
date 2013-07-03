@@ -10,7 +10,7 @@
  Network: true
  */
 
-define('buddyforms-members', '1.0 beta 3');
+define('buddyforms_members', '1.0 beta 3');
 
 /**
  * Loads BuddyForms files only if BuddyPress is present

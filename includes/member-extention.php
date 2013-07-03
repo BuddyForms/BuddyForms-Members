@@ -23,8 +23,10 @@ class BuddyForms_Members_Extention {
 	 * @package BuddyForms
 	 * @since 0.1 beta
 	*/
-	function get_user_posts_count($user_id, $args) {
-		$args['author'] = $user;
+	function get_user_posts_count($user_id, $post_type) {
+		
+		$args['author'] = $user_id;
+		$args['post_type'] = $post_type;
 		$args['fields'] = 'ids';
 		$ps = get_posts($args);
 		return count($ps);
@@ -39,14 +41,16 @@ class BuddyForms_Members_Extention {
 	public function profile_setup_nav() {
 		global $buddyforms, $bp, $wp_admin_bar;
 
-
+		if(!bp_is_user())
+			return;
 		// echo '<pre>';
 		// print_r($buddyforms);
 		// echo '</pre>';
 		get_currentuserinfo();
 		
-		session_start();
-
+		if(session_id()) {
+		  session_start('buddyforms');
+		}
 		$position = 20;
 
 		if (empty($buddyforms['selected_post_types']))
@@ -70,7 +74,7 @@ class BuddyForms_Members_Extention {
 				if(isset($form) && isset($buddyforms['buddyforms'][$form]['name']))
 					$name = $buddyforms['buddyforms'][$form]['name'];
 				
-				$count = $this->get_user_posts_count($user_ID, array('post_type' => $key));
+				$count = $this->get_user_posts_count($bp->displayed_user->id, $key);
 
 				bp_core_new_nav_item( array(
 					'name' => sprintf('%s <span>%d</span>',$name , $count),
@@ -106,24 +110,24 @@ class BuddyForms_Members_Extention {
 	public function buddyforms_screen_settings() {
 		global $current_user, $bp;
 			
-		if ($_GET[post_id]) {
+		if (isset($_GET['post_id'])) {
 			$bp->current_action = 'create';
 			bp_core_load_template('buddyforms/members/members-post-create');
 			return;
 		}
-		if ($_GET[delete]) {
+		if (isset($_GET['delete'])) {
 			$bp->current_action = 'create';
 			get_currentuserinfo();
-			$the_post = get_post($_GET[delete]);
+			$the_post = get_post($_GET['delete']);
 
 			if ($the_post->post_author != $current_user->ID) {
 				echo '<div class="error alert">You are not allowed to delete this entry! What are you doing here?</div>';
 				return;
 			}
 			
-			do_action('buddyforms_delete_post',$_GET[delete]);
+			do_action('buddyforms_delete_post',$_GET['delete']);
 			
-			wp_delete_post($_GET[delete]);
+			wp_delete_post($_GET['delete']);
 
 		}
 		wp_enqueue_style('member-profile-css', plugins_url('css/member-profile.css', __FILE__));
@@ -164,7 +168,11 @@ class BuddyForms_Members_Extention {
 	 * @since 1.0
 	 */
 	function buddyforms_load_template_filter($found_template, $templates) {
-	global $bp;
+	global $bp, $wp_query;
+	
+	// echo '<pre>';
+		// print_r($wp_query);
+		// echo '</pre>';
 	if ($bp->current_action == 'create' || $bp->current_action == 'my-posts') {
 	
 			if (empty($found_template)) {
