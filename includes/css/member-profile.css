@@ -1,20 +1,22 @@
-#buddypress ul#buddyforms-list.item-list li div.item-desc {
-	font-size: 80%;
+ul#buddyforms-list.item-list li div.item-desc {
+	font-size: 100%;
 	margin: 10px 0 0 0px;
 	width: 50%;
+	margin: 5px 5px 5px 0;
+	clear: right;
 }
-.item-status { 
-	padding: 3px 5px; 
-	border-radius: 3px; 
-	-moz-border-radius: 3px; 
-	-webkit-border-radius: 3px; 
-	font-weight: bold; 
-	color: white; 
-	background: #555555; 
+.item-status {
+	padding: 3px 5px;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	font-weight: bold;
+	color: white;
+	background: #555555;
 	font-size: 11px;
-	float: left;
-	margin-right: 5px;
-	text-shadow: -1px -1px 0px #222;
+	float: right;
+	margin-left: 5px;
+	text-shadow: -1px -1px 0px #333;
 }
 .publish .item-status { background: green; } 
 .pending .item-status { background: orange; }
