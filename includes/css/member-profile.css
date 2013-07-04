@@ -19,3 +19,8 @@
 .publish .item-status { background: green; } 
 .pending .item-status { background: orange; }
 .draft .item-status { background: red; }
+
+#sub_nav_edit{
+	
+	display:none;
+}

@@ -1,21 +1,55 @@
 <?php
-class BuddyForms_Members_Extention {
 
 
- 	public static function init() {
-        $class = __CLASS__;
-        new $class;
-    }
-	/**
+class BuddyForms_Members_Extention extends BP_Component{
+
+public $id = 'eintest';
+
+ 	/**
 	 * Initiate the class
 	 *
 	 * @package BuddyForms
 	 * @since 0.1 beta
 	*/
 	public function __construct() {
-		add_action('bp_setup_nav', array($this, 'profile_setup_nav'), 20, 1);
+		global $bp;
+
+		parent::start(
+			$this->id,
+			__( 'BuddyPress Test', 'buddyforms_test' ),
+			BUDDYFORMS_MEMBERS_INSTALL_PATH
+		);
+
+		$bp->active_components[$this->id] = '1';
+		
+		$this->setup_hooks();
+	
+	}
+	
+	function setup_hooks() {
+
+		//add_action('bp_setup_nav', array($this, 'profile_setup_nav'), 20, 1);
 		add_action('bp_located_template', array($this, 'buddyforms_load_template_filter'), 10, 2);
 	}
+	/**
+     * Setup globals
+     *
+     * @since     Marketplace 0.9
+     * @global    object    $bp		The one true BuddyPress instance
+     */
+    public function setup_globals() {
+        global $buddyforms_members;
+
+
+
+        $globals = array(
+            'path'          => BUDDYFORMS_MEMBERS_INSTALL_PATH,
+            'slug'          => 'testo',
+            'has_directory' => false
+        );
+
+        parent::setup_globals( $globals );
+    }
 	
 	/**
 	 * Get the user posts count
@@ -38,14 +72,13 @@ class BuddyForms_Members_Extention {
 	 * @package BuddyForms
 	 * @since 0.1 beta
 	*/
-	public function profile_setup_nav() {
+	public function setup_nav() {
 		global $buddyforms, $bp, $wp_admin_bar;
+
 
 		if(!bp_is_user())
 			return;
-		// echo '<pre>';
-		// print_r($buddyforms);
-		// echo '</pre>';
+
 		get_currentuserinfo();
 		
 		if(session_id()) {
@@ -76,15 +109,19 @@ class BuddyForms_Members_Extention {
 				
 				$count = $this->get_user_posts_count($bp->displayed_user->id, $key);
 
-				bp_core_new_nav_item( array(
+
+				$main_nav = array(
 					'name' => sprintf('%s <span>%d</span>',$name , $count),
 					'slug' => $slug,
 					'position' => $position,
-					'screen_function' => array($this, 'buddyforms_screen_settings')
-				));
+					'screen_function' => array($this, 'buddyforms_screen_settings'),
+					'default_subnav_slug' => 'my-posts'
+				);
+
 	
 				if(isset($form) && $form != 'no-form') {
-					bp_core_new_subnav_item( array(
+					
+					$sub_nav[] = array(
 						'name'				=> sprintf(__(' Add %s', 'buddyforms'), $buddyforms['buddyforms'][$form]['singular_name']),
 						'slug'				=> 'create',
 						'parent_slug'		=> $slug,
@@ -92,12 +129,22 @@ class BuddyForms_Members_Extention {
 						'item_css_id'		=> 'apps_sub_nav',
 						'screen_function'	=> array($this,'load_members_post_create'),
 						'user_has_access'	=> bp_is_my_profile()
-					));
+					);
+					$sub_nav[] = array(
+						'name'				=> sprintf(__(' Edit %s', 'buddyforms'), $buddyforms['buddyforms'][$form]['singular_name']),
+						'slug'				=> 'edit',
+						'parent_slug'		=> $slug,
+						'parent_url'		=> trailingslashit(bp_loggedin_user_domain() . $slug),
+						'item_css_id'		=> 'sub_nav_edit',
+						'screen_function'	=> array($this,'buddyforms_screen_settings'),
+						'user_has_access'	=> bp_is_my_profile()
+					);
+								
 				}
-				
+				parent::setup_nav( $main_nav, $sub_nav );
 			endif;
 		}
-
+		
 		// bp_core_remove_nav_item( 'groups' ); // @todo here needs to come one global option to turn groups nav on off
 	}
 
@@ -109,6 +156,7 @@ class BuddyForms_Members_Extention {
 	*/
 	public function buddyforms_screen_settings() {
 		global $current_user, $bp;
+			
 			
 		if (isset($_GET['post_id'])) {
 			$bp->current_action = 'create';
@@ -131,8 +179,12 @@ class BuddyForms_Members_Extention {
 
 		}
 		wp_enqueue_style('member-profile-css', plugins_url('css/member-profile.css', __FILE__));
-		$bp->current_action = 'my-posts';
-		bp_core_load_template('buddyforms/members/members-post-display');
+
+		if($bp->current_action == 'my-posts')
+			bp_core_load_template('buddyforms/members/members-post-display');	
+			
+		if($bp->current_action == 'edit')
+			bp_core_load_template('buddyforms/members/members-post-create');
 
 	}
 
@@ -143,6 +195,15 @@ class BuddyForms_Members_Extention {
 	 * @since 0.2 beta
 	*/
 	public function load_members_post_create() {
+		bp_core_load_template('buddyforms/members/members-post-create');
+	}
+	/**
+	 * Show the post create form
+	 *
+	 * @package BuddyForms
+	 * @since 0.2 beta
+	*/
+	public function load_members_post_edit() {
 		bp_core_load_template('buddyforms/members/members-post-create');
 	}
 	
@@ -170,10 +231,8 @@ class BuddyForms_Members_Extention {
 	function buddyforms_load_template_filter($found_template, $templates) {
 	global $bp, $wp_query;
 	
-	// echo '<pre>';
-		// print_r($wp_query);
-		// echo '</pre>';
-	if ($bp->current_action == 'create' || $bp->current_action == 'my-posts') {
+	echo $bp->current_component;
+	//if ($bp->current_component == 'buddyforms') {
 	
 			if (empty($found_template)) {
 				// register our theme compat directory
@@ -193,7 +252,6 @@ class BuddyForms_Members_Extention {
 				$found_template = locate_template('members/single/plugins.php', false, false);
 	
 				// add our hook to inject content into BP
-				
 				if ($bp->current_action == 'my-posts') {
 					add_action('bp_template_content', create_function('', "
 					bp_get_template_part( 'buddyforms/members/members-post-display' );
@@ -202,13 +260,18 @@ class BuddyForms_Members_Extention {
 					add_action('bp_template_content', create_function('', "
 					bp_get_template_part( 'buddyforms/members/members-post-create' );
 				"));
+				} elseif ($bp->current_action == 'edit') {
+					add_action('bp_template_content', create_function('', "
+					bp_get_template_part( 'buddyforms/members/members-post-create' );
+				"));
 				}
 			}
-		}
+	//	}
 	
 		return apply_filters('buddyforms_members_load_template_filter', $found_template);
 	}
 }
-add_action( 'buddyforms_init', array( 'BuddyForms_Members_Extention', 'init' ));
+//add_action( 'buddyforms_init', array( 'BuddyForms_Members_Extention', 'init' ));
+
 
 ?>

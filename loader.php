@@ -19,7 +19,7 @@ define('buddyforms_members', '1.0 beta 3');
  * @since 0.1 beta
  */
 function buddyforms_members_init() {
-	global $wpdb;
+	global $wpdb, $buddyforms_members;
 
 	if (is_multisite() && BP_ROOT_BLOG != $wpdb->blogid)
 		return;
@@ -28,4 +28,4 @@ function buddyforms_members_init() {
 	$buddyforms_members = new BuddyForms_Members();
 }
 
-add_action('bp_loaded', 'buddyforms_members_init', 0);
+add_action('bp_loaded', 'buddyforms_members_init');

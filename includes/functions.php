@@ -1,5 +1,10 @@
 <?php
 
+function bp_4209_remove_nav_items() {
+ //   bp_core_remove_subnav_item( 'buddyforms', 'edit' );
+}
+add_action( 'bp_setup_nav', 'bp_4209_remove_nav_items', 100 );
+
 
 add_filter( 'buddyforms_before_admin_form_render', 'buddyforms_before_admin_form_render');
 
