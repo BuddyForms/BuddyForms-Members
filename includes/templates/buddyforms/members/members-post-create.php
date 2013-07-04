@@ -3,7 +3,6 @@
 
   	<?php 
     global $bp, $buddyforms;
-
 	
 	foreach ($buddyforms['selected_post_types'] as $key => $selected_post_type) {
 			if($selected_post_type['form'] == $bp->current_component)

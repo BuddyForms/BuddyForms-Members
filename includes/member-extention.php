@@ -231,7 +231,7 @@ public $id = 'eintest';
 	function buddyforms_load_template_filter($found_template, $templates) {
 	global $bp, $wp_query;
 	
-	echo $bp->current_component;
+
 	//if ($bp->current_component == 'buddyforms') {
 	
 			if (empty($found_template)) {
