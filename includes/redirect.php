@@ -10,45 +10,11 @@
 // No direct access is allowed
 if( ! defined( 'ABSPATH' ) ) exit;
 
-
-// handle custom page
-// do flush if changing rule, then reload an admin page
-//add_action('admin_init', 'buddyforms_members_attached_page_rewrite_rules');
-// function buddyforms_members_attached_page_rewrite_rules(){
-	// global $buddyforms;
-// 
-	// if(!isset($buddyforms['buddyforms']))
-		// return;
-// 	
-		// if(isset($buddyforms['selected_post_types'])){
-		// foreach ($buddyforms['selected_post_types'] as $key => $selected_post_type) {
-// 				
-			// if(isset($buddyforms['buddyforms'][$selected_post_type['form']]['attached_page'])){
-// 					
-				// $attached_page_id = $buddyforms['buddyforms'][$selected_post_type['form']]['attached_page'];
-				// $post_data = get_post($buddyform['attached_page'], ARRAY_A);
-				// //http://localhost/~svenl77/buddyforms/blogposts/create/buddyforms/
-				// //add_rewrite_rule(bp_loggedin_user_domain() .$buddyforms['buddyforms'][$selected_post_type['form']]['slug'].'/edit/([^/]+)/([^/]+)/?', 'index.php?pagename=members&bf_action=edit&bf_form_slug=$matches[1]&bf_post_id=$matches[2]', 'top');
-				// add_rewrite_rule(bp_loggedin_user_domain() .$buddyforms['buddyforms'][$selected_post_type['form']]['slug'].'/edit/([^/]+)/([^/]+)/?', 'index.php?pagename=members&bf_action=edit&bf_form_slug=$matches[1]&bf_post_id=$matches[2]', 'top');
-// 			
-// 				
-			// }
-// 
-// 				
-		// }
-	// }
-// 
-	// flush_rewrite_rules();
-// }
-
-
-
-
-
 /**
  * Get the redirect link
- *
- * @since 1.0.6
+ * 
+ * @package BuddyForms
+ * @since 0.3 beta
  */
 function bf_members_get_redirect_link( $id = false ) {
 	global $bp, $buddyforms, $wp_query;
@@ -64,7 +30,7 @@ function bf_members_get_redirect_link( $id = false ) {
 				$attached_page_id = $buddyforms['buddyforms'][$selected_post_type['form']]['attached_page'];
 			
 			if(isset($attached_page_id) && $attached_page_id == $id){
-					//echo $bp->unfiltered_uri[0];
+
 				$link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$selected_post_type['form']]['slug'].'/';
 				
 				if(isset($bp->unfiltered_uri[1])){
@@ -74,6 +40,8 @@ function bf_members_get_redirect_link( $id = false ) {
 						$link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$selected_post_type['form']]['slug'].'/edit/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
 					if($bp->unfiltered_uri[1] == 'delete')
 						$link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$selected_post_type['form']]['slug'].'/delete/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
+					if($bp->unfiltered_uri[1] == 'revison')
+						$link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$selected_post_type['form']]['slug'].'/revison/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
 				}
 				
 			}
@@ -87,7 +55,8 @@ function bf_members_get_redirect_link( $id = false ) {
 /**
  * Redirect the user to their respective profile page
  *
- * @since 1.0.6
+ * @package BuddyForms
+ * @since 0.3 beta
  */
 function bf_members_redirect_to_profile() {
 	global $post, $wp_query, $bp;
@@ -107,7 +76,8 @@ add_action( 'template_redirect', 'bf_members_redirect_to_profile' );
 /**
  * Link router function
  *
- * @since 	1.0.6
+ * @package BuddyForms
+ * @since 0.3 beta
  * @uses	bp_get_option()
  * @uses	is_page()
  * @uses	bp_loggedin_user_domain()

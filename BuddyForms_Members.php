@@ -20,7 +20,7 @@ class BuddyForms_Members {
 	 */
 	 function __construct() {
 
-		// Let plugins know that BP Docs has started loading
+		// Let plugins know that BuddyForms has started loading
 		add_action( 'plugins_loaded',   array( $this, 'load_hook' ), 20 );
 
 		// Load predefined constants first thing
@@ -35,7 +35,7 @@ class BuddyForms_Members {
 		// Load textdomain
 		add_action( 'buddyforms_members_load',     array( $this, 'load_plugin_textdomain' ) );
 		
-		// Let other plugins know that BP Docs has finished initializing
+		// Let other plugins know that BuddyForms has finished initializing
 		add_action( 'bp_init',  array( $this, 'init_hook' ) );
 
 	}
@@ -43,10 +43,10 @@ class BuddyForms_Members {
 
 
 	/**
-	 * Defines bp_docs_load action
+	 * Defines buddyforms_load action
 	 *
 	 * This action fires on WP's plugins_loaded action and provides a way for the rest of
-	 * BuddyPress Docs, as well as other dependent plugins, to hook into the loading process in
+	 * BuddyForms, as well as other dependent plugins, to hook into the loading process in
 	 * an orderly fashion.
 	 *
 	 * @package BuddyPress Docs
@@ -57,10 +57,10 @@ class BuddyForms_Members {
 	}
 
 	/**
-	 * Defines bp_docs_init action
+	 * Defines buddyforms_init action
 	 *
-	 * This action fires on WP's init action and provides a way for the rest of BuddyPress
-	 * Docs, as well as other dependent plugins, to hook into the loading process in an
+	 * This action fires on WP's init action and provides a way for the rest of BuddyForms
+	 * as well as other dependent plugins, to hook into the loading process in an
 	 * orderly fashion.
 	 *
 	 * @package BuddyPress Docs
@@ -71,7 +71,7 @@ class BuddyForms_Members {
 	}
 
 	/**
-	 * Defines bp_docs_loaded action
+	 * Defines buddyforms_loaded action
 	 *
 	 * This action tells BP Docs and other plugins that the main initialization process has
 	 * finished.
@@ -130,18 +130,16 @@ class BuddyForms_Members {
 		load_plugin_textdomain('buddyforms', false, dirname(plugin_basename(__FILE__)) . '/languages/');
 	}
 
-/**
- * Sets up the component
- *
- * @since   Marketplace 0.9.1
- */
-function buddyforms_setup_component() {
-	global $bp, $wp_query;
-
-	$bp->buddyforms = new BuddyForms_Members_Extention();
-
-}
-//add_action( 'bp_setup_components', 'buddyforms_setup_component', 11 );
-
+	/**
+	 * Sets up the component
+	 *
+	 * @since   Marketplace 0.9.1
+	 */
+	function buddyforms_setup_component() {
+		global $bp, $wp_query;
+	
+		$bp->buddyforms = new BuddyForms_Members_Extention();
+	
+	}
 
 }

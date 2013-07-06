@@ -1,23 +1,28 @@
 <?php
 
-function bp_4209_remove_nav_items() {
+/**
+ * It is not possible to disable nav items but still use the screen_function.
+ *I do not want to have this views enabled for now and only way I found is to use css to set them to display none.
+ * 
+ * @package BuddyForms
+ * @since 0.3 beta
+ *
+ * @uses add_action()
+ */
+//add_action( 'bp_setup_nav', 'buddyforms_remove_nav_items', 100 );
+function buddyforms_remove_nav_items() {
     bp_core_remove_subnav_item( 'buddyforms', 'edit' );
 }
-//add_action( 'bp_setup_nav', 'bp_4209_remove_nav_items', 100 );
 
-
-add_filter( 'buddyforms_before_admin_form_render', 'buddyforms_before_admin_form_render');
-
-function buddyforms_before_admin_form_render($form){
-	
-	// echo '<pre>';
-	// print_r($form);
-	// echo '</pre>';
-	
-	return $form;
-}
-
-// add the forms to the admin bar
+/**
+ * add the forms to the admin bar
+ *
+ * @package BuddyForms
+ * @since 0.3 beta
+ *
+ * @uses add_action()
+ */
+add_action('wp_before_admin_bar_render', 'buddyforms_members_wp_before_admin_bar_render',99,1);
 function buddyforms_members_wp_before_admin_bar_render(){
 	global $wp_admin_bar, $buddyforms;
 
@@ -66,15 +71,19 @@ function buddyforms_members_wp_before_admin_bar_render(){
 		endif;
 	}
 }
-add_action('wp_before_admin_bar_render', 'buddyforms_members_wp_before_admin_bar_render',99,1);
 
+/**
+ * remove forms from the admin used by buddyforms thay will be added under the buddypress menu
+ *
+ * @package BuddyForms
+ * @since 0.3 beta
+ *
+ * @uses add_action()
+ */
+add_action('wp_before_admin_bar_render', 'buddyforms_admin_bar_members' ,10,1);
 function buddyforms_admin_bar_members() {
+	global $wp_admin_bar, $buddyforms;
 	
-    global $wp_admin_bar, $buddyforms;
-	
-	// echo '<pre>';
-	// print_r($buddyforms);
-	// echo '</pre>';
 	if(!isset($buddyforms['selected_post_types']))
 		return;
 	
@@ -82,21 +91,37 @@ function buddyforms_admin_bar_members() {
 		
 		$wp_admin_bar->remove_menu('my-account-'.$selected_post_type['form']);
 	}
-
     
 }
-add_action('wp_before_admin_bar_render', 'buddyforms_admin_bar_members' ,10,1);
 
-function members_form($form, $post_type){
+/**
+ * hook the form_slug into the form. this is not needed anymore will be removed
+ *
+ * @package BuddyForms
+ * @since 0.3 beta
+ *
+ * @uses add_filter()
+ * @return string
+ */
+function buddyforms_members_form($form_slug, $post_type){
 	global $buddyforms;
 
-	$form = $buddyforms['selected_post_types'][$post_type]['form'];
+	$form_slug = $buddyforms['selected_post_types'][$post_type]['form'];
 
-	return $form;
+	return $form_slug;
 }
-add_filter('buddyforms_the_form_to_use','members_form',1,2);
+//add_filter('buddyforms_the_form_to_use','buddyforms_members_form',1,2);
 
-
+/**
+ * if the form slug has bean changed the attached foem slug option ned to be changed too
+ *
+ * @package BuddyForms
+ * @since 0.3 beta
+ *
+ * @uses apply_filters()
+ * @return array
+ */
+add_filter('buddyforms_set_globals_new_slug','buddyforms_set_globals_new_slug',1,3);
 function buddyforms_set_globals_new_slug($buddyforms,$new_slug,$old_slug){
 	
 	if(!isset($buddyforms['selected_post_types']))
@@ -109,8 +134,17 @@ function buddyforms_set_globals_new_slug($buddyforms,$new_slug,$old_slug){
 	}
 	return $buddyforms;
 }
-add_filter('buddyforms_set_globals_new_slug','buddyforms_set_globals_new_slug',1,3);
 
+/**
+ * rewrite the buddyforms members array for easy use
+ *
+ * @package BuddyForms
+ * @since 0.3 beta
+ *
+ * @uses add_filter()
+ * @return array
+ */
+add_filter('buddyforms_set_globals','buddyforms_set_globals_members',1,1);
 function buddyforms_set_globals_members($buddyforms){
 	
 	if(!isset($buddyforms['selected_post_types']))
@@ -127,8 +161,17 @@ function buddyforms_set_globals_members($buddyforms){
 
 	return $buddyforms;
 }
-add_filter('buddyforms_set_globals','buddyforms_set_globals_members',1,1);
 
+/**
+ * secect the posttype to integrate into buddypress and attache the form to use.
+ *
+ * @package BuddyForms
+ * @since 0.3 beta
+ *
+ * @uses add_filter()
+ * @return object
+ */
+add_filter('buddyforms_general_settings','buddyforms_select_posttypes',1,1);
 function buddyforms_select_posttypes($form){
 	global $buddyforms; 
 		// Get all post types
@@ -173,14 +216,10 @@ function buddyforms_select_posttypes($form){
 				</div>
 			</div>
 		</div>'));	
-			
-			
-
 					
 	}
 return $form;	
 }
-add_filter('buddyforms_general_settings','buddyforms_select_posttypes',1,1);
 
 /**
  * hook the buddypress default single.php hooks into the form display field
@@ -191,6 +230,7 @@ add_filter('buddyforms_general_settings','buddyforms_select_posttypes',1,1);
  * @package BuddyForms
  * @since 0.2 beta
 */
+add_filter('buddyforms_form_element_hooks','buddyforms_form_element_single_hooks',1,3);
 function buddyforms_form_element_single_hooks($buddyforms_form_element_hooks,$post_type,$field_id){
 	if(get_template() != 'bp-default')
 		return $buddyforms_form_element_hooks;
@@ -202,7 +242,7 @@ function buddyforms_form_element_single_hooks($buddyforms_form_element_hooks,$po
 
 	return $buddyforms_form_element_hooks;
 }
-add_filter('buddyforms_form_element_hooks','buddyforms_form_element_single_hooks',1,3);
+
 
 /**
  * Get the BuddyForms template directory

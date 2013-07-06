@@ -1,9 +1,8 @@
 <?php
 
-
 class BuddyForms_Members_Extention extends BP_Component{
 
-public $id = 'eintest';
+public $id = 'buddyforms';
 
  	/**
 	 * Initiate the class
@@ -16,7 +15,7 @@ public $id = 'eintest';
 
 		parent::start(
 			$this->id,
-			__( 'BuddyPress Test', 'buddyforms_test' ),
+			__( 'BuddyForms', 'buddyforms' ),
 			BUDDYFORMS_MEMBERS_INSTALL_PATH
 		);
 
@@ -28,26 +27,23 @@ public $id = 'eintest';
 	
 	function setup_hooks() {
 
-		//add_action('bp_setup_nav', array($this, 'profile_setup_nav'), 20, 1);
-		add_action('bp_located_template', array($this, 'buddyforms_load_template_filter'), 10, 2);
-		add_action('wp_enqueue_scripts', array($this, 'wp_enqueue_style'), 10, 2);
-		
-
+		add_action('bp_located_template',	array($this, 'buddyforms_load_template_filter'), 10, 2);
+		add_action('wp_enqueue_scripts',	array($this, 'wp_enqueue_style'), 10, 2);
+	
 	}
+	
 	/**
      * Setup globals
      *
      * @since     Marketplace 0.9
-     * @global    object    $bp		The one true BuddyPress instance
+     * @global    object $bp The one true BuddyPress instance
      */
     public function setup_globals() {
         global $buddyforms_members;
 
-
-
         $globals = array(
             'path'          => BUDDYFORMS_MEMBERS_INSTALL_PATH,
-            'slug'          => 'testo',
+            'slug'          => 'buddyforms',
             'has_directory' => false
         );
 
@@ -67,6 +63,7 @@ public $id = 'eintest';
 		$args['fields'] = 'ids';
 		$ps = get_posts($args);
 		return count($ps);
+		
 	}
 
 	/**
@@ -240,10 +237,7 @@ public $id = 'eintest';
 	 */
 	function buddyforms_load_template_filter($found_template, $templates) {
 	global $bp, $wp_query;
-	
-		
 
-	//if ($bp->current_component == 'buddyforms') {
 	
 			if (empty($found_template)) {
 				// register our theme compat directory
@@ -285,17 +279,14 @@ public $id = 'eintest';
 				"));
 				} 
 			}
-	//	}
+
 	
 		return apply_filters('buddyforms_members_load_template_filter', $found_template);
 	}
 
-function wp_enqueue_style(){
-	wp_enqueue_style('member-profile-css', plugins_url('css/member-profile.css', __FILE__));
-}
+	function wp_enqueue_style(){
+		wp_enqueue_style('member-profile-css', plugins_url('css/member-profile.css', __FILE__));
+	}
 
 }
-//add_action( 'buddyforms_init', array( 'BuddyForms_Members_Extention', 'init' ));
-
-
 ?>

@@ -1,14 +1,13 @@
 <div id="item-body">
-
 	<?php 
 	global $current_user, $the_lp_query, $bp, $buddyforms, $form_slug;
 
 	foreach ($buddyforms['selected_post_types'] as $key => $selected_post_type) {
-			if(isset($selected_post_type['form']) && $selected_post_type['form'] == $bp->current_component)
-				$post_type = $selected_post_type['selected'][0];
-			
-			if($bp->current_component == $key)
-				$post_type = $key;
+		if(isset($selected_post_type['form']) && $selected_post_type['form'] == $bp->current_component)
+			$post_type = $selected_post_type['selected'][0];
+		
+		if($bp->current_component == $key)
+			$post_type = $key;
 	}
 	
 	if ($bp->displayed_user->id == $current_user->ID){	
@@ -37,5 +36,4 @@
 	}
 	
 	?>              
-
 </div><!-- #item-body -->
