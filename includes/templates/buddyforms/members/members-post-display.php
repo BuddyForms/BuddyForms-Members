@@ -27,7 +27,7 @@
 	
 	
 	$the_lp_query = new WP_Query( $args );
-	
+
 	$form_slug = $bp->current_component;
 	buddyforms_locate_template('buddyforms/the-loop.php');
 	

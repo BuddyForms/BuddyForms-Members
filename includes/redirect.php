@@ -64,13 +64,16 @@ function bf_members_get_redirect_link( $id = false ) {
 				$attached_page_id = $buddyforms['buddyforms'][$selected_post_type['form']]['attached_page'];
 			
 			if(isset($attached_page_id) && $attached_page_id == $id){
-				$link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$selected_post_type['form']]['slug'];
+					//echo $bp->unfiltered_uri[0];
+				$link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$selected_post_type['form']]['slug'].'/';
 				
 				if(isset($bp->unfiltered_uri[1])){
 					if($bp->unfiltered_uri[1] == 'create')
 						$link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$selected_post_type['form']]['slug'].'/create/';
 					if($bp->unfiltered_uri[1] == 'edit')
 						$link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$selected_post_type['form']]['slug'].'/edit/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
+					if($bp->unfiltered_uri[1] == 'delete')
+						$link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$selected_post_type['form']]['slug'].'/delete/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
 				}
 				
 			}
@@ -120,4 +123,4 @@ function bf_members_page_link_router( $link, $id )	{
 
 	return apply_filters( 'bf_members_router_link', $link );
 }
-//add_filter( 'page_link', 'bf_members_page_link_router', 10, 2 );
+add_filter( 'page_link', 'bf_members_page_link_router', 10, 2 );

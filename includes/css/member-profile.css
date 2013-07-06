@@ -23,6 +23,11 @@ ul.buddyforms-list.item-list li div.item-desc {
 .draft .item-status { background: red; }
 
 #sub_nav_edit{
-	
-	display:none;
+	display:none !important;
+}
+#sub_nav_delete{
+	display:none !important;
+}
+#sub_nav_revison{
+	display:none !important;
 }

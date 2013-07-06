@@ -30,6 +30,9 @@ public $id = 'eintest';
 
 		//add_action('bp_setup_nav', array($this, 'profile_setup_nav'), 20, 1);
 		add_action('bp_located_template', array($this, 'buddyforms_load_template_filter'), 10, 2);
+		add_action('wp_enqueue_scripts', array($this, 'wp_enqueue_style'), 10, 2);
+		
+
 	}
 	/**
      * Setup globals
@@ -74,7 +77,6 @@ public $id = 'eintest';
 	*/
 	public function setup_nav() {
 		global $buddyforms, $bp, $wp_admin_bar;
-
 
 		if(!bp_is_user())
 			return;
@@ -139,6 +141,24 @@ public $id = 'eintest';
 						'screen_function'	=> array($this,'buddyforms_screen_settings'),
 						'user_has_access'	=> bp_is_my_profile()
 					);
+					$sub_nav[] = array(
+						'name'				=> sprintf(__(' Delete %s', 'buddyforms'), $buddyforms['buddyforms'][$form]['singular_name']),
+						'slug'				=> 'delete',
+						'parent_slug'		=> $slug,
+						'parent_url'		=> trailingslashit(bp_loggedin_user_domain() . $slug),
+						'item_css_id'		=> 'sub_nav_delete',
+						'screen_function'	=> array($this,'buddyforms_screen_settings'),
+						'user_has_access'	=> bp_is_my_profile(),
+					);
+					$sub_nav[] = array(
+						'name'				=> sprintf(__(' Revison %s', 'buddyforms'), $buddyforms['buddyforms'][$form]['singular_name']),
+						'slug'				=> 'revison',
+						'parent_slug'		=> $slug,
+						'parent_url'		=> trailingslashit(bp_loggedin_user_domain() . $slug),
+						'item_css_id'		=> 'sub_nav_revison',
+						'screen_function'	=> array($this,'buddyforms_screen_settings'),
+						'user_has_access'	=> bp_is_my_profile(),
+					);
 								
 				}
 				parent::setup_nav( $main_nav, $sub_nav );
@@ -156,35 +176,34 @@ public $id = 'eintest';
 	*/
 	public function buddyforms_screen_settings() {
 		global $current_user, $bp;
-			
-			
-		if (isset($_GET['post_id'])) {
-			$bp->current_action = 'create';
-			bp_core_load_template('buddyforms/members/members-post-create');
-			return;
-		}
-		if (isset($_GET['delete'])) {
-			$bp->current_action = 'create';
-			get_currentuserinfo();
-			$the_post = get_post($_GET['delete']);
 
-			if ($the_post->post_author != $current_user->ID) {
-				echo '<div class="error alert">You are not allowed to delete this entry! What are you doing here?</div>';
-				return;
-			}
-			
-			do_action('buddyforms_delete_post',$_GET['delete']);
-			
-			wp_delete_post($_GET['delete']);
-
-		}
-		wp_enqueue_style('member-profile-css', plugins_url('css/member-profile.css', __FILE__));
 
 		if($bp->current_action == 'my-posts')
 			bp_core_load_template('buddyforms/members/members-post-display');	
 			
 		if($bp->current_action == 'edit')
 			bp_core_load_template('buddyforms/members/members-post-create');
+	
+		if($bp->current_action == 'revison')
+			bp_core_load_template('buddyforms/members/members-post-create');
+
+		if($bp->current_action == 'delete'){
+
+			get_currentuserinfo();
+			$the_post = get_post($bp->action_variables[1]);
+	
+			if ($the_post->post_author != $current_user->ID) {
+				echo '<div class="error alert">You are not allowed to delete this entry! What are you doing here?</div>';
+				return;
+			}
+			
+			do_action('buddyforms_delete_post',$bp->action_variables[1]);
+			
+			wp_delete_post($bp->action_variables[1]);
+			bp_core_load_template('buddyforms/members/members-post-display');	
+
+		}
+			
 
 	}
 
@@ -195,15 +214,6 @@ public $id = 'eintest';
 	 * @since 0.2 beta
 	*/
 	public function load_members_post_create() {
-		bp_core_load_template('buddyforms/members/members-post-create');
-	}
-	/**
-	 * Show the post create form
-	 *
-	 * @package BuddyForms
-	 * @since 0.2 beta
-	*/
-	public function load_members_post_edit() {
 		bp_core_load_template('buddyforms/members/members-post-create');
 	}
 	
@@ -231,6 +241,7 @@ public $id = 'eintest';
 	function buddyforms_load_template_filter($found_template, $templates) {
 	global $bp, $wp_query;
 	
+		
 
 	//if ($bp->current_component == 'buddyforms') {
 	
@@ -264,12 +275,25 @@ public $id = 'eintest';
 					add_action('bp_template_content', create_function('', "
 					bp_get_template_part( 'buddyforms/members/members-post-create' );
 				"));
-				}
+				} elseif ($bp->current_action == 'revison') {
+					add_action('bp_template_content', create_function('', "
+					bp_get_template_part( 'buddyforms/members/members-post-create' );
+				"));
+				} elseif ($bp->current_action == 'delete') {
+					add_action('bp_template_content', create_function('', "
+					bp_get_template_part( 'buddyforms/members/members-post-display' );
+				"));
+				} 
 			}
 	//	}
 	
 		return apply_filters('buddyforms_members_load_template_filter', $found_template);
 	}
+
+function wp_enqueue_style(){
+	wp_enqueue_style('member-profile-css', plugins_url('css/member-profile.css', __FILE__));
+}
+
 }
 //add_action( 'buddyforms_init', array( 'BuddyForms_Members_Extention', 'init' ));
 
