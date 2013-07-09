@@ -40,7 +40,9 @@ function buddyforms_members_wp_before_admin_bar_render(){
 				$slug = $buddyforms['buddyforms'][$form]['slug'];
 			
 			$post_type_object = get_post_type_object( $key );
-			$name = $post_type_object->labels->name;
+			
+			if(isset($post_type_object->labels->name))
+				$name = $post_type_object->labels->name;
 			
 			if(isset($form) && isset($buddyforms['buddyforms'][$form]['name']))
 				$name = $buddyforms['buddyforms'][$form]['name'];
