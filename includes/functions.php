@@ -2,20 +2,20 @@
 
 /**
  * It is not possible to disable nav items but still use the screen_function.
- *I do not want to have this views enabled for now and only way I found is to use css to set them to display none.
+ * I don't want to have this views enabled for now and the only way I found is to use CSS to set them to display none.
  * 
  * @package BuddyForms
  * @since 0.3 beta
  *
  * @uses add_action()
  */
-//add_action( 'bp_setup_nav', 'buddyforms_remove_nav_items', 100 );
+// add_action( 'bp_setup_nav', 'buddyforms_remove_nav_items', 100 );
 function buddyforms_remove_nav_items() {
     bp_core_remove_subnav_item( 'buddyforms', 'edit' );
 }
 
 /**
- * add the forms to the admin bar
+ * Add the forms to the admin bar
  *
  * @package BuddyForms
  * @since 0.3 beta
@@ -73,7 +73,7 @@ function buddyforms_members_wp_before_admin_bar_render(){
 }
 
 /**
- * remove forms from the admin used by buddyforms thay will be added under the buddypress menu
+ * Remove forms from the admin used by BuddyForms. They will be added to the BuddyPress menu
  *
  * @package BuddyForms
  * @since 0.3 beta
@@ -95,7 +95,7 @@ function buddyforms_admin_bar_members() {
 }
 
 /**
- * hook the form_slug into the form. this is not needed anymore will be removed
+ * Hook the form_slug into the form. this is not needed anymore will be removed
  *
  * @package BuddyForms
  * @since 0.3 beta
@@ -110,10 +110,10 @@ function buddyforms_members_form($form_slug, $post_type){
 
 	return $form_slug;
 }
-//add_filter('buddyforms_the_form_to_use','buddyforms_members_form',1,2);
+// add_filter('buddyforms_the_form_to_use','buddyforms_members_form',1,2);
 
 /**
- * if the form slug has bean changed the attached foem slug option ned to be changed too
+ * If the form slug has been changed, the attached form slug option needs to be changed too
  *
  * @package BuddyForms
  * @since 0.3 beta
@@ -136,7 +136,7 @@ function buddyforms_set_globals_new_slug($buddyforms,$new_slug,$old_slug){
 }
 
 /**
- * rewrite the buddyforms members array for easy use
+ * Rewrite the BuddyForms members array for easy usage
  *
  * @package BuddyForms
  * @since 0.3 beta
@@ -163,7 +163,7 @@ function buddyforms_set_globals_members($buddyforms){
 }
 
 /**
- * secect the posttype to integrate into buddypress and attache the form to use.
+ * Select the posttype to integrate into BuddyPress and attach the form to use.
  *
  * @package BuddyForms
  * @since 0.3 beta
@@ -222,9 +222,9 @@ return $form;
 }
 
 /**
- * hook the buddypress default single.php hooks into the form display field
+ * Hook the BuddyPress default single.php hooks into the form display field
  * 
- * this function is support for the bp_default theme and an can be used as example for other theme/plugin developer
+ * This function is support for the bp_default theme and an can be used as example for other theme/plugin developer
  * how to hook their theme or plugin hooks. 
  *
  * @package BuddyForms
