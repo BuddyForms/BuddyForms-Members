@@ -176,41 +176,27 @@ function buddyforms_set_globals_members($buddyforms){
 add_filter('buddyforms_general_settings','buddyforms_select_posttypes',1,1);
 function buddyforms_select_posttypes($form){
 	global $buddyforms; 
-		// Get all post types
-    $args=array(
-		'public' => true,
-		'show_ui' => true
-    ); 
-    $output = 'names'; // names or objects, note names is the default
-    $operator = 'and'; // 'and' or 'or'
-    $post_types=get_post_types($args,$output,$operator); 
 	
 	if(is_array($buddyforms['buddyforms'])){
-		$the_forms[] = 'no-form';
-		foreach ($buddyforms['buddyforms'] as $key => $buddyform) {
-			$the_forms[] = $buddyform['slug'];
-		}
-		$form_fields = Array();
-		
 		
 		$form->addElement(new Element_HTML('
  		<div class="accordion-group">
 			<div class="accordion-heading"><p class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_buddyforms_general_settings_members" href="#accordion_buddyforms_general_settings_members">BuddyForms Members</p></div>
 		    <div id="accordion_buddyforms_general_settings_members" class="accordion-body collapse">
-				<div class="accordion-inner"><p>Select the post type you want to use in BuddyPress Profiles.</p>')); 
+				<div class="accordion-inner"><p>Select the Forms you want to use in BuddyPress Profiles.</p>')); 
 					$form->addElement( new Element_HTML('<ul class="buddyforms_members">'));
-					foreach( $post_types as $key => $post_type) {
+					
+					foreach( $buddyforms['buddyforms'] as $key => $buddyform) {
+
 						$form->addElement( new Element_HTML('<li>'));
+						
 						$selected = '';
-						if(isset($buddyforms['selected_post_types'][$post_type]['selected']))
-							$selected = $buddyforms['selected_post_types'][$post_type]['selected'];
-											
-							$form->addElement( new Element_Checkbox("","buddyforms_options[selected_post_types][".$post_type."][selected]",array($post_type),array('id' => 'select_posttype_'.$post_type, 'class' => 'select_posttype', 'value' => $selected)));
-						$selected_form = '';
-						if(isset($buddyforms['selected_post_types'][$post_type]['form']))
-							$selected_form = $buddyforms['selected_post_types'][$post_type]['form'];
-							
-							$form->addElement( new Element_Select("", "buddyforms_options[selected_post_types][".$post_type."][form]", $the_forms, array('class' => 'select_posttype_'.$post_type.'-0 bf_select','value' => $selected_form)));
+						
+						if(isset($buddyforms['buddypress'][$key]['selected']))
+							$selected = $buddyform['name'];
+
+						$form->addElement( new Element_Checkbox("","buddyforms_options[buddypress][".$key."][selected]",array($buddyform['name']),array('id' => 'select_form_'.$key, 'class' => 'select_form', 'value' => $selected)));
+						
 						$form->addElement(new Element_HTML('</li>'));
 					}
 					$form->addElement(new Element_HTML('</ul>'));

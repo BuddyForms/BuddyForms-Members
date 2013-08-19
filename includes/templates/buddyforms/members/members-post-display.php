@@ -2,14 +2,8 @@
 	<?php 
 	global $current_user, $the_lp_query, $bp, $buddyforms, $form_slug;
 
-	foreach ($buddyforms['selected_post_types'] as $key => $selected_post_type) {
-		if(isset($selected_post_type['form']) && $selected_post_type['form'] == $bp->current_component)
-			$post_type = $selected_post_type['selected'][0];
-		
-		if($bp->current_component == $key)
-			$post_type = $key;
-	}
-	
+	$post_type = $buddyforms['buddyforms'][$bp->current_component]['post_type'];
+
 	if ($bp->displayed_user->id == $current_user->ID){	
 		$args = array( 
 			'post_type' => $post_type,
@@ -23,7 +17,6 @@
 			'posts_per_page' => 10,
 			'author' => $bp->displayed_user->id );
 	}
-	
 	
 	$the_lp_query = new WP_Query( $args );
 
