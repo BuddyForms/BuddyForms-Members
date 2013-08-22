@@ -26,29 +26,27 @@ add_action('wp_before_admin_bar_render', 'buddyforms_members_wp_before_admin_bar
 function buddyforms_members_wp_before_admin_bar_render(){
 	global $wp_admin_bar, $buddyforms;
 
-	if (empty($buddyforms['selected_post_types']))
+	if (empty($buddyforms['buddypress']))
 		return;
-
-	foreach ($buddyforms['selected_post_types'] as $key => $selected_post_type) {
-		if(isset($selected_post_type['selected'])) :
+		
+		
+	foreach ($buddyforms['buddypress'] as $key => $buddyform) {
+		if(isset($buddyform['selected'])) :
 			
-			if(isset($selected_post_type['form'])){
-				$form = $selected_post_type['form'];
-			}
 			$slug = $key;
-			if(isset($form) && isset($buddyforms['buddyforms'][$form]['slug']))
-				$slug = $buddyforms['buddyforms'][$form]['slug'];
+			if(isset($buddyforms['buddyforms'][$key]['slug']))
+				$slug = $buddyforms['buddyforms'][$key]['slug'];
 			
 			$post_type_object = get_post_type_object( $key );
 			
 			if(isset($post_type_object->labels->name))
 				$name = $post_type_object->labels->name;
 			
-			if(isset($form) && isset($buddyforms['buddyforms'][$form]['name']))
-				$name = $buddyforms['buddyforms'][$form]['name'];
+			if(isset($buddyforms['buddyforms'][$key]['name']))
+				$name = $buddyforms['buddyforms'][$key]['name'];
 			
 		
-			if(isset($buddyforms['buddyforms'][$selected_post_type['form']]['admin_bar'][0])){
+			if(isset($buddyforms['buddyforms'][$key]['admin_bar'][0])){
 				$wp_admin_bar->add_menu( array(
 					'parent'	=> 'my-account-buddypress',
 					'id'		=> 'my-account-buddypress-'.$key,
@@ -61,14 +59,12 @@ function buddyforms_members_wp_before_admin_bar_render(){
 						'title'		=> __('View','buddypress'),
 						'href'		=> trailingslashit(bp_loggedin_user_domain() . $slug)
 				)); 
-				if(isset($form) && $form != 'no-form') {
-					 $wp_admin_bar->add_menu( array(
-						'parent'	=> 'my-account-buddypress-'.$key,
-						'id'		=> 'my-account-buddypress-'.$key.'-new',
-						'title'		=> __('New ','buddypress'),
-						'href'		=> trailingslashit(bp_loggedin_user_domain() . $slug).'create'
-					));  
-				}
+				$wp_admin_bar->add_menu( array(
+					'parent'	=> 'my-account-buddypress-'.$key,
+					'id'		=> 'my-account-buddypress-'.$key.'-new',
+					'title'		=> __('New ','buddypress'),
+					'href'		=> trailingslashit(bp_loggedin_user_domain() . $slug).'create'
+				));  
 			}
 		endif;
 	}
@@ -86,12 +82,13 @@ add_action('wp_before_admin_bar_render', 'buddyforms_admin_bar_members' ,10,1);
 function buddyforms_admin_bar_members() {
 	global $wp_admin_bar, $buddyforms;
 	
-	if(!isset($buddyforms['selected_post_types']))
+	if(!isset($buddyforms['buddypress']))
 		return;
 	
-	foreach ($buddyforms['selected_post_types'] as $key => $selected_post_type) {
+	foreach ($buddyforms['buddypress'] as $key => $buddyform) {
 		
-		$wp_admin_bar->remove_menu('my-account-'.$selected_post_type['form']);
+		$wp_admin_bar->remove_menu('my-account-'.$key);
+		
 	}
     
 }
@@ -108,7 +105,7 @@ function buddyforms_admin_bar_members() {
 function buddyforms_members_form($form_slug, $post_type){
 	global $buddyforms;
 
-	$form_slug = $buddyforms['selected_post_types'][$post_type]['form'];
+	$form_slug = $buddyforms['buddypress'][$post_type]['form'];
 
 	return $form_slug;
 }
@@ -126,13 +123,16 @@ function buddyforms_members_form($form_slug, $post_type){
 add_filter('buddyforms_set_globals_new_slug','buddyforms_set_globals_new_slug',1,3);
 function buddyforms_set_globals_new_slug($buddyforms,$new_slug,$old_slug){
 	
-	if(!isset($buddyforms['selected_post_types']))
+	if(!isset($buddyforms['buddypress']))
 		return $buddyforms;
 	
-	foreach ($buddyforms['selected_post_types'] as $key => $selected_post_type) {	
-		if($selected_post_type['form'] == $old_slug){
-			$buddyforms['selected_post_types'][$key]['form'] = $new_slug;
+	foreach ($buddyforms['buddypress'] as $key => $buddyform) {
+			
+		if($key == $old_slug){
+			$buddyforms['buddypress'][$new_slug] = $buddyform;
+			unset($buddyforms_options['buddypress'][$key]);
 		}
+		
 	}
 	return $buddyforms;
 }
@@ -146,20 +146,20 @@ function buddyforms_set_globals_new_slug($buddyforms,$new_slug,$old_slug){
  * @uses add_filter()
  * @return array
  */
-add_filter('buddyforms_set_globals','buddyforms_set_globals_members',1,1);
+//add_filter('buddyforms_set_globals','buddyforms_set_globals_members',1,1);
 function buddyforms_set_globals_members($buddyforms){
 	
-	if(!isset($buddyforms['selected_post_types']))
+	if(!isset($buddyforms['buddypress']))
 		return $buddyforms;
 	
 	$theposttypes = Array();
-	foreach ($buddyforms['selected_post_types'] as $key => $selected_post_type) {
+	foreach ($buddyforms['buddypress'] as $key => $buddyform) {
 		
-		if(isset($selected_post_type['selected'])){
-			$theposttypes[$key] = $selected_post_type;
+		if(isset($buddyform['selected'])){
+			$theposttypes[$key] = $buddyform;
 		}
 	}
-	$buddyforms['selected_post_types'] = $theposttypes;
+	$buddyforms['buddypress'] = $theposttypes;
 
 	return $buddyforms;
 }
@@ -173,11 +173,12 @@ function buddyforms_set_globals_members($buddyforms){
  * @uses add_filter()
  * @return object
  */
-add_filter('buddyforms_general_settings','buddyforms_select_posttypes',1,1);
-function buddyforms_select_posttypes($form){
-	global $buddyforms; 
+add_filter('buddyforms_general_settings','buddyforms_member_forms',1,1);
+function buddyforms_member_forms($form){
+	global $buddyforms;
 	
-	if(is_array($buddyforms['buddyforms'])){
+	if(!isset($buddyforms['buddyforms']))
+		return $form;
 		
 		$form->addElement(new Element_HTML('
  		<div class="accordion-group">
@@ -205,7 +206,7 @@ function buddyforms_select_posttypes($form){
 			</div>
 		</div>'));	
 					
-	}
+
 return $form;	
 }
 

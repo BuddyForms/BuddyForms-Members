@@ -23,25 +23,25 @@ function bf_members_get_redirect_link( $id = false ) {
 		return false;
 	
 	$link = '';
-	if(isset($buddyforms['selected_post_types'])){
-		foreach ($buddyforms['selected_post_types'] as $key => $selected_post_type) {
+	if(isset($buddyforms['buddypress'])){
+		foreach ($buddyforms['buddypress'] as $key => $buddyform) {
 				
-			if(isset($buddyforms['buddyforms'][$selected_post_type['form']]['attached_page']))
-				$attached_page_id = $buddyforms['buddyforms'][$selected_post_type['form']]['attached_page'];
+			if(isset($buddyforms['buddyforms'][$key]['attached_page']))
+				$attached_page_id = $buddyforms['buddyforms'][$key]['attached_page'];
 			
 			if(isset($attached_page_id) && $attached_page_id == $id){
 
-				$link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$selected_post_type['form']]['slug'].'/';
+				$link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$key]['slug'].'/';
 				
 				if(isset($bp->unfiltered_uri[1])){
 					if($bp->unfiltered_uri[1] == 'create')
-						$link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$selected_post_type['form']]['slug'].'/create/';
+						$link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$key]['slug'].'/create/';
 					if($bp->unfiltered_uri[1] == 'edit')
-						$link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$selected_post_type['form']]['slug'].'/edit/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
+						$link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$key]['slug'].'/edit/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
 					if($bp->unfiltered_uri[1] == 'delete')
-						$link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$selected_post_type['form']]['slug'].'/delete/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
+						$link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$key]['slug'].'/delete/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
 					if($bp->unfiltered_uri[1] == 'revison')
-						$link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$selected_post_type['form']]['slug'].'/revison/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
+						$link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$key]['slug'].'/revison/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
 				}
 				
 			}
