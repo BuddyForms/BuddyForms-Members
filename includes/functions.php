@@ -130,7 +130,7 @@ function buddyforms_set_globals_new_slug($buddyforms,$new_slug,$old_slug){
 			
 		if($key == $old_slug){
 			$buddyforms['buddypress'][$new_slug] = $buddyform;
-			unset($buddyforms_options['buddypress'][$key]);
+			unset($buddyforms['buddypress'][$key]);
 		}
 		
 	}
