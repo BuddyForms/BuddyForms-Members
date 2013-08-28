@@ -219,8 +219,8 @@ return $form;
  * @package BuddyForms
  * @since 0.2 beta
 */
-add_filter('buddyforms_form_element_hooks','buddyforms_form_element_single_hooks',1,3);
-function buddyforms_form_element_single_hooks($buddyforms_form_element_hooks,$post_type,$field_id){
+add_filter('buddyforms_form_element_hooks','buddyforms_form_element_single_hooks',1,2);
+function buddyforms_form_element_single_hooks($buddyforms_form_element_hooks,$form_slug){
 	if(get_template() != 'bp-default')
 		return $buddyforms_form_element_hooks;
 	 
