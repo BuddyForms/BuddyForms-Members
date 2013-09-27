@@ -156,8 +156,8 @@ public $id = 'buddyforms';
 		endif;
 		}
 		
-		 bp_core_remove_nav_item( 'groups' ); // @todo here needs to come one global option to turn groups nav on off
-	 bp_core_remove_nav_item( 'forums' ); // @todo here needs to come one global option to turn groups nav on off
+		//bp_core_remove_nav_item( 'groups' ); // @todo here needs to come one global option to turn groups nav on off
+		//bp_core_remove_nav_item( 'forums' ); // @todo here needs to come one global option to turn groups nav on off
 	}
 
 	/**
