@@ -24,7 +24,7 @@ function buddyforms_members_init() {
 	if (is_multisite() && BP_ROOT_BLOG != $wpdb->blogid)
 		return;
 
-	require (dirname(__FILE__) . '/buddyforms_members.php');
+	require (dirname(__FILE__) . '/buddyforms-members.php');
 	$buddyforms_members = new BuddyForms_Members();
 }
 
