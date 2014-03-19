@@ -1,16 +1,7 @@
 <?php
 class BuddyForms_Members {
 	
-	
-	/**
-	 * PHP 4 constructor
-	 *
-	 * @package BuddyPress Docs
-	 * @since 1.0-beta
-	 */
-	function BuddyForms_Members() {
-		$this->__construct();
-	}
+
 	
 	/**
 	 * Initiate the class

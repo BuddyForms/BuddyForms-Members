@@ -38,7 +38,7 @@ public $id = 'buddyforms';
      * @since     Marketplace 0.9
      * @global    object $bp The one true BuddyPress instance
      */
-    public function setup_globals() {
+    public function setup_globals($args = Array()) {
         global $buddyforms_members;
 
         $globals = array(
@@ -72,7 +72,7 @@ public $id = 'buddyforms';
 	 * @package BuddyForms
 	 * @since 0.1 beta
 	*/
-	public function setup_nav() {
+	public function setup_nav( $main_nav = Array(), $sub_nav = Array() ) {
 		global $buddyforms, $bp, $wp_admin_bar;
 
 		if(!bp_is_user())
