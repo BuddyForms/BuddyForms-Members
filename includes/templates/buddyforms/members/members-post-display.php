@@ -21,7 +21,8 @@
 	$the_lp_query = new WP_Query( $args );
 
 	$form_slug = $bp->current_component;
-	buddyforms_locate_template('buddyforms/the-loop.php');
+
+    buddyforms_locate_template('buddyforms/the-loop.php');
 	
 	// Support for wp_pagenavi
 	if(function_exists('wp_pagenavi')){

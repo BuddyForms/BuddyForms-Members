@@ -280,7 +280,7 @@ public $id = 'buddyforms';
 	}
 
 	function wp_enqueue_style(){
-		wp_enqueue_style('member-profile-css', plugins_url('css/member-profile.css', __FILE__));
+    	wp_enqueue_style('member-profile-css', plugins_url('css/member-profile.css', __FILE__));
 	}
 
 }
