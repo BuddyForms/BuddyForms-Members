@@ -80,9 +80,7 @@ public $id = 'buddyforms';
 
 		get_currentuserinfo();
 		
-		if(session_id()) {
-		  session_start('buddyforms');
-		}
+
 		$position = 20;
 
 		if (empty($buddyforms['buddypress']))

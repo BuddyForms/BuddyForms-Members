@@ -28,8 +28,7 @@ function buddyforms_members_wp_before_admin_bar_render(){
 
 	if (empty($buddyforms['buddypress']))
 		return;
-		
-		
+
 	foreach ($buddyforms['buddypress'] as $key => $buddyform) {
 		if(isset($buddyform['selected'])) :
 			
@@ -209,6 +208,28 @@ function buddyforms_member_forms($form){
 
 return $form;	
 }
+
+
+function save_buddypress_forms() {
+    global $buddyforms;
+    if(isset($_POST['addons-submit'])){
+
+        if (isset($_POST["buddyforms_options"])) {
+            $buddyforms['buddypress'] = $_POST["buddyforms_options"]['buddypress'];
+        } else {
+            if(isset($buddyforms['buddypress']))
+                unset($buddyforms['buddypress']);
+        }
+
+        $update_option = update_option("buddyforms_options", $buddyforms);
+        echo "<div id=\"settings_updated\" class=\"updated\"> <p><strong>Settings saved.</strong></p></div>";
+
+    }
+}
+add_action('bf-add-ons-options','save_buddypress_forms');
+
+
+
 
 /**
  * Hook the BuddyPress default single.php hooks into the form display field
