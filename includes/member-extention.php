@@ -79,7 +79,6 @@ public $id = 'buddyforms';
 			return;
 
 		get_currentuserinfo();
-		
 
 		$position = 20;
 
@@ -153,9 +152,7 @@ public $id = 'buddyforms';
 			parent::setup_nav( $main_nav, $sub_nav );
 		endif;
 		}
-		
-		//bp_core_remove_nav_item( 'groups' ); // @todo here needs to come one global option to turn groups nav on off
-		//bp_core_remove_nav_item( 'forums' ); // @todo here needs to come one global option to turn groups nav on off
+
 	}
 
 	/**
