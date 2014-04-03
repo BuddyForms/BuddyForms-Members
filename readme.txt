@@ -7,7 +7,7 @@ Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-WordPress Front End Editor For Your User Generated Content
+WordPress Front End Editor And Form Builder For Your User Generated Content
 
 == Description ==
 
