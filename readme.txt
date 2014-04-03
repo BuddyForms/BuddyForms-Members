@@ -11,29 +11,29 @@ WordPress Front End Editor And Form Builder For Your User Generated Content
 
 == Description ==
 
-This is the BuddyForms Members Component
-Integrate your BuddyForms Forms into your BuddyPress Members Profile
+This is the BuddyForms Members Component.
+Integrate your BuddyForms Forms into your BuddyPress Members Profile.
 
-Let your users write posts on your site, right from there BuddyPress Profile. With standardized WordPress front-end editor,
-full moderation and revision control. Build Forms with an easy Form Builder. Setup within minutes and use it for complex Sites.
+Let your users write posts on your site, right from their BuddyPress Member Profiles. With standardized WordPress front-end editor,
+full moderation and revision control. Build forms with an easy Form Builder. Setup within minutes and use it for complex sites.
 
-<h4> For Any Post Type </h4>
+<h4>For Any Post Type</h4>
 
-You can choose which post type should be created when user submit your form.
+You can choose which post type should be created when users submit your form.
 
 Turn any custom-post-type based WordPress plugin into a collaborative publishing tool and let your users add the content to your site.
-For example for all kinds of magazines, blogs, catalog, stores, online-portals, FAQs,…
+For example for all kinds of magazines, blogs, directories, stores, online-portals, FAQs,...
 
-The easy way to bring your existing plugins into the BuddyPress ecosystem and make it accessible for your users right from there profile.
+The easy way to bring your existing plugins into the BuddyPress ecosystem and make it accessible for your users right from their profile.
 
-<h4> Easy Form Builder </h4>
+<h4>Easy Form Builder</h4>
 
-Create Forms on the fly with the drag and drop Form Builder.
+Create forms on the fly with the drag and drop Form Builder.
 Easy options. No need of coding. You have all elements like Text Fields, Email, Checkboxes, Dropdowns and more.
 
-<h4> Form Elements </h4>
+<h4>Form Elements</h4>
 
-The custom form builder provides the following elements to create you custom post forms:
+The custom form builder provides the following elements to create your custom post forms:
 
 Classic Fields = Custom Fields
 
@@ -52,7 +52,7 @@ Post Fields
 * Hidden
 * Turn comments on/off
 
-<h4> Moderation and Revisions </h4>
+<h4>Moderation and Revisions</h4>
 
 You can choose how your members create, manage and edit their posts.
 Full control of the publishing process with reviews and revisions.
@@ -60,7 +60,7 @@ Full control of the publishing process with reviews and revisions.
 
 == Documentation & Support ==
 
-<h4> Extensive Documentation and Support </h4>
+<h4>Extensive Documentation and Support</h4>
 
 All code is neat, clean and well documented (inline as well as in the documentation).
 
@@ -85,13 +85,22 @@ Check it out at http://buddyforms.com
 
 When is it the right choice for you?
 
-As soon as you plan a WordPress BuddyPress Site where users should be able to submit content from the front-end.
+As soon as you plan a WordPress and BuddyPress powered site where users should be able to submit content from the front-end.
 BuddyForms gives you these possibilities for a wide variety of uses.
 
 == Screenshots ==
 
-1. **NAME** - Was is zu Sehen?
+1. **Overview in Member Profile** - The overview of each author's posts to be seen in the related member profile.
+
+2. **Create/Edit Post in Member Profile** - When creating a new post or editing an existing one, right from the member profile.
+
+3. **Add New Form** - This is how it looks when you add a new form with BuddyForms.
+
+4. **Form Builder** - Enjoy the easy drag-and-drop form builder of BuddyForms.
+
+5. **Backend Overview** - The backend overview of your existing forms. 
 
 == Changelog ==
 
-finale 1.0 Version
+** 03 / April / 2014 **
+final 1.0 version
