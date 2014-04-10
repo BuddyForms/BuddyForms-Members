@@ -3,7 +3,7 @@ Contributors: Sven Lehnert
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: WordPress 3.x, BuddyPress 1.7.x
 Tested up to: WordPress 3.9, BuddyPress 2.x
-Stable tag: 1.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -102,5 +102,8 @@ BuddyForms gives you these possibilities for a wide variety of uses.
 
 == Changelog ==
 
-** 03 / April / 2014 **
+= 1.0 =
 final 1.0 version
+
+= 1.0.1 =
+add buddyforms_members_requirements check

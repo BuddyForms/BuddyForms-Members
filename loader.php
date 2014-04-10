@@ -3,7 +3,7 @@
  Plugin Name: BuddyForms Members
  Plugin URI: http://buddyforms.com
  Description: The BuddyForms Members Component. Let your members write right out of their profiles.    
- Version: 1.0
+ Version: 1.0.1
  Author: Sven Lehnert
  Author URI: http://themekraft.com/members/svenl77/
  License: GPLv2 or later
@@ -28,8 +28,6 @@
  ****************************************************************************
  */
 
-define('buddyforms_members', '1.0');
-
 /**
  * Loads BuddyForms files only if BuddyPress is present
  *
@@ -38,15 +36,34 @@ define('buddyforms_members', '1.0');
  */
 
 
+function buddyforms_members_requirements(){
+
+    // Needs to be rewritetn in Otto style ;-)
+    if( ! defined( 'BP_VERSION' )){
+        add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BuddyForms Members needs BuddyPress to be installed. <a href="%s">Download it now</a>!\', " buddyforms" ) . \'</strong></p></div>\', admin_url("plugin-install.php") );' ) );
+        return;
+    }
+
+    if( ! defined( 'buddyforms' )){
+        add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BuddyForms Members needs BuddyForms to be installed. <a href="%s" target="_new">Download it now</a>!\', " buddyforms" ) . \'</strong></p></div>\',  "http://buddyforms.com" );' ) );
+        return;
+    }
+
+}
+
+add_action('plugins_loaded', 'buddyforms_members_requirements');
 
 function buddyforms_members_init() {
 	global $wpdb, $buddyforms_members;
+
+    define('buddyforms_members', '1.0.1');
 
 	if (is_multisite() && BP_ROOT_BLOG != $wpdb->blogid)
 		return;
 
 	require (dirname(__FILE__) . '/buddyforms-members.php');
 	$buddyforms_members = new BuddyForms_Members();
+
 }
 
 add_action('bp_loaded', 'buddyforms_members_init');

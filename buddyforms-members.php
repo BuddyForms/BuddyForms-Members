@@ -1,8 +1,6 @@
 <?php
 class BuddyForms_Members {
 
-
-	
 	/**
 	 * Initiate the class
 	 *
@@ -30,8 +28,6 @@ class BuddyForms_Members {
 		add_action( 'bp_init',  array( $this, 'init_hook' ) );
 
 	}
-
-
 
 	/**
 	 * Defines buddyforms_load action
