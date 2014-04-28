@@ -3,7 +3,7 @@ Contributors: Sven Lehnert
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: WordPress 3.x, BuddyPress 1.7.x
 Tested up to: WordPress 3.9, BuddyPress 2.x
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,52 +11,45 @@ WordPress Front End Editor And Form Builder For Your User Generated Content
 
 == Description ==
 
-This is the BuddyForms Members Component.
-Integrate your BuddyForms Forms into your BuddyPress Members Profile.
+Do you really have the time to be posting and updating your blog everyday? Didn’t think so… <b>BuddyForms Members is a premium plugin for BuddyPress</b> that allows your users to write, edit and upload posts, images, video, & just about any other content to your site, right from their BuddyPress Member Profile!
 
-Let your users write posts on your site, right from their BuddyPress Member Profiles. With standardized WordPress front-end editor,
-full moderation and revision control. Build forms with an easy Form Builder. Setup within minutes and use it for complex sites.
+Once you download the plugin, it’s super simple to setup:
+All you have to do is drag-and-drop to build the form your users will be submitting on the front-end.
 
-<h4>For Any Post Type</h4>
+<h4>...with full moderation and revision control feautures.</h4>
+It doesn’t matter how complex or big your site is, BuddyForms can handle ALL of your user-generated content.
 
-You can choose which post type should be created when users submit your form.
+Build forms with an easy Form Builder. The easy way to bring your existing plugins into the BuddyPress ecosystem and make it accessible for your users right from their profile.
 
-Turn any custom-post-type based WordPress plugin into a collaborative publishing tool and let your users add the content to your site.
-For example for all kinds of magazines, blogs, directories, stores, online-portals, FAQs,...
+This is the BuddyForms Members Extension. Integrate your BuddyForms Forms into your BuddyPress Members Profile. You need the BuddyForms plugin installed for the plugin to work. <a href="http://themekraft.com/store/wordpress-front-end-editor-and-form-builder-buddyforms/" target="_blank">Get BuddyForms now!</a>
 
-The easy way to bring your existing plugins into the BuddyPress ecosystem and make it accessible for your users right from their profile.
+<h4>For Any Post Type </h4>
+Choose which post type should be created when users submit your form.
+Turn any custom-post-type based WordPress plugin into a collaborative publishing tool and let your users do the dirty work of adding content for you! Perfect for online magazines, blogs, directories, stores, FAQ’s… you name it.
+Easy Form Builder
+Create and customize forms on the fly with easy drag and drop editing. No coding necessary.
 
-<h4>Easy Form Builder</h4>
-
-Create forms on the fly with the drag and drop Form Builder.
-Easy options. No need of coding. You have all elements like Text Fields, Email, Checkboxes, Dropdowns and more.
-
+You get all the necessary elements like Text Fields, Email Input, Checkboxes, Dropdowns and more.
 <h4>Form Elements</h4>
-
 The custom form builder provides the following elements to create your custom post forms:
 
-Classic Fields = Custom Fields
-
-* Text Field
-* Email Field
-* Link Field
-* Text Area
-* Radio Button
-* Checkbox
-* Dropdown
-* Multi Dropdown
-
-Post Fields
-
-* Taxonomy Dropdown
-* Hidden
-* Turn comments on/off
-
-<h4>Moderation and Revisions</h4>
-
-You can choose how your members create, manage and edit their posts.
-Full control of the publishing process with reviews and revisions.
-
+<b>Classic Fields = Custom Fields</b><br>
+Text Field<br>
+Email Field<br>
+Link Field<br>
+Text Area<br>
+Radio Button<br>
+Checkbox<br>
+Dropdown<br>
+Multi Dropdown<br>
+<br>
+<b>Post Fields</b><br>
+Taxonomy Dropdown<br>
+Hidden<br>
+Turn comments on/off<br>
+Moderation and Revisions<br>
+<br>
+You can choose how your members create, manage and edit their posts. Full control of the publishing process with reviews and revisions.
 
 == Documentation & Support ==
 
@@ -69,7 +62,13 @@ The BuddyForms Documentation with many how-to’s is following now!
 If you still get stuck somewhere, our support gets you back on the right track.
 You can find all help buttons in your BuddyForms Settings Panel in your WP Dashboard!
 
-or go to the Support Base: https://themekraft.zendesk.com/hc/en-us/categories/200022561-BuddyForms
+<h4>Got ideas or just missing something?</h4>
+
+If you still miss something, now it’s your time!
+
+Visit our ideas forums, add your ideas and vote for others!
+
+<a href="https://themekraft.zendesk.com/hc/communities/public/topics/200001402-BuddyForms-Ideas" target="_blank">Visit Ideas Forums</a>
 
 == Installation ==
 
@@ -107,3 +106,6 @@ final 1.0 version
 
 = 1.0.1 =
 add buddyforms_members_requirements check
+
+= 1.0.2 =
+add wp 3.9 support and added a more detailed readme description
