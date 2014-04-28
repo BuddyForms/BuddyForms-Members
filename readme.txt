@@ -11,6 +11,8 @@ WordPress Front End Editor And Form Builder For Your User Generated Content
 
 == Description ==
 
+This is the BuddyForms Members Extension. Integrate your BuddyForms Forms into your BuddyPress Members Profile. You need the BuddyForms plugin installed for the plugin to work. <a href="http://themekraft.com/store/wordpress-front-end-editor-and-form-builder-buddyforms/" target="_blank">Get BuddyForms now!</a>
+
 Do you really have the time to be posting and updating your blog everyday? Didn’t think so… <b>BuddyForms Members is a premium plugin for BuddyPress</b> that allows your users to write, edit and upload posts, images, video, & just about any other content to your site, right from their BuddyPress Member Profile!
 
 Once you download the plugin, it’s super simple to setup:
@@ -20,8 +22,6 @@ All you have to do is drag-and-drop to build the form your users will be submitt
 It doesn’t matter how complex or big your site is, BuddyForms can handle ALL of your user-generated content.
 
 Build forms with an easy Form Builder. The easy way to bring your existing plugins into the BuddyPress ecosystem and make it accessible for your users right from their profile.
-
-This is the BuddyForms Members Extension. Integrate your BuddyForms Forms into your BuddyPress Members Profile. You need the BuddyForms plugin installed for the plugin to work. <a href="http://themekraft.com/store/wordpress-front-end-editor-and-form-builder-buddyforms/" target="_blank">Get BuddyForms now!</a>
 
 <h4>For Any Post Type </h4>
 Choose which post type should be created when users submit your form.
