@@ -1,5 +1,5 @@
 === BuddyForms Members ===
-Contributors: Sven Lehnert
+Contributors: svenl77
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: WordPress 3.x, BuddyPress 1.7.x
 Tested up to: WordPress 3.9, BuddyPress 2.x
