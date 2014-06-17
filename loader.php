@@ -3,7 +3,7 @@
  Plugin Name: BuddyForms Members
  Plugin URI: http://buddyforms.com
  Description: The BuddyForms Members Component. Let your members write right out of their profiles.
- Version: 1.0.2
+ Version: 1.0.3
  Author: Sven Lehnert
  Author URI: http://themekraft.com/members/svenl77/
  License: GPLv2 or later
@@ -56,7 +56,7 @@ add_action('plugins_loaded', 'buddyforms_members_requirements');
 function buddyforms_members_init() {
 	global $wpdb, $buddyforms_members;
 
-    define('buddyforms_members', '1.0.1');
+    define('buddyforms_members', '1.0.3');
 
 	if (is_multisite() && BP_ROOT_BLOG != $wpdb->blogid)
 		return;
