@@ -21,8 +21,12 @@ function bf_members_get_redirect_link( $id = false ) {
 		
 	if( ! $id )
 		return false;
-	
-	$link = '';
+
+/*    echo '<pre>';
+    print_r($bp->unfiltered_uri);
+    echo '</pre>';*/
+
+    $link = '';
 	if(isset($buddyforms['buddypress'])){
 		foreach ($buddyforms['buddypress'] as $key => $buddyform) {
 				
@@ -40,9 +44,11 @@ function bf_members_get_redirect_link( $id = false ) {
 						$link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$key]['slug'].'/edit/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
 					if($bp->unfiltered_uri[1] == 'delete')
 						$link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$key]['slug'].'/delete/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
-					if($bp->unfiltered_uri[1] == 'revison')
-						$link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$key]['slug'].'/revison/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
-				}
+                    if($bp->unfiltered_uri[1] == 'revison')
+                        $link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$key]['slug'].'/revison/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
+                    if($bp->unfiltered_uri[1] == 'page')
+                        $link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$key]['slug'].'/page/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
+                }
 				
 			}
 				

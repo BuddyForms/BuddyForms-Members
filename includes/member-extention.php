@@ -60,10 +60,13 @@ public $id = 'buddyforms';
 		
 		$args['author'] = $user_id;
 		$args['post_type'] = $post_type;
-		$args['fields'] = 'ids';
+        $args['fields'] = 'ids';
+        $args['posts_per_page'] = -1;
+
 		$ps = get_posts($args);
-		return count($ps);
-		
+
+        return count($ps);
+
 	}
 
 	/**
@@ -141,13 +144,21 @@ public $id = 'buddyforms';
 				);
 				$sub_nav[] = array(
 					'name'				=> sprintf(__(' Revison %s', 'buddyforms'), $buddyforms['buddyforms'][$key]['singular_name']),
-					'slug'				=> 'revison',
-					'parent_slug'		=> $slug,
-					'parent_url'		=> trailingslashit(bp_loggedin_user_domain() . $slug),
-					'item_css_id'		=> 'sub_nav_revison',
-					'screen_function'	=> array($this,'buddyforms_screen_settings'),
-					'user_has_access'	=> bp_is_my_profile(),
-				);
+                    'slug'				=> 'revison',
+                    'parent_slug'		=> $slug,
+                    'parent_url'		=> trailingslashit(bp_loggedin_user_domain() . $slug),
+                    'item_css_id'		=> 'sub_nav_revison',
+                    'screen_function'	=> array($this,'buddyforms_screen_settings'),
+                    'user_has_access'	=> bp_is_my_profile(),
+                );
+                $sub_nav[] = array(
+                    'name'				=> sprintf(__(' Page %s', 'buddyforms'), $buddyforms['buddyforms'][$key]['singular_name']),
+                    'slug'				=> 'page',
+                    'parent_slug'		=> $slug,
+                    'parent_url'		=> trailingslashit(bp_loggedin_user_domain() . $slug),
+                    'item_css_id'		=> 'sub_nav_revison',
+                    'screen_function'	=> array($this,'buddyforms_screen_settings'),
+                );
 
 			parent::setup_nav( $main_nav, $sub_nav );
 		endif;
@@ -165,10 +176,13 @@ public $id = 'buddyforms';
 		global $current_user, $bp;
 
 
-		if($bp->current_action == 'my-posts')
-			bp_core_load_template('buddyforms/members/members-post-display');	
-			
-		if($bp->current_action == 'edit')
+        if($bp->current_action == 'my-posts')
+            bp_core_load_template('buddyforms/members/members-post-display');
+
+        if($bp->current_action == 'page')
+            bp_core_load_template('buddyforms/members/members-post-display');
+
+        if($bp->current_action == 'edit')
 			bp_core_load_template('buddyforms/members/members-post-create');
 	
 		if($bp->current_action == 'revison')
@@ -228,7 +242,6 @@ public $id = 'buddyforms';
 	function buddyforms_load_template_filter($found_template, $templates) {
 	global $bp, $wp_query;
 
-	
 			if (empty($found_template)) {
 				// register our theme compat directory
 				//
@@ -260,10 +273,14 @@ public $id = 'buddyforms';
 					bp_get_template_part( 'buddyforms/members/members-post-create' );
 				"));
 				} elseif ($bp->current_action == 'revison') {
-					add_action('bp_template_content', create_function('', "
+                    add_action('bp_template_content', create_function('', "
 					bp_get_template_part( 'buddyforms/members/members-post-create' );
 				"));
-				} elseif ($bp->current_action == 'delete') {
+                } elseif ($bp->current_action == 'page') {
+                    add_action('bp_template_content', create_function('', "
+					bp_get_template_part( 'buddyforms/members/members-post-display' );
+				"));
+                } elseif ($bp->current_action == 'delete') {
 					add_action('bp_template_content', create_function('', "
 					bp_get_template_part( 'buddyforms/members/members-post-display' );
 				"));
