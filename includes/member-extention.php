@@ -85,26 +85,26 @@ public $id = 'buddyforms';
 
 		$position = 20;
 
-		if (empty($buddyforms['buddypress']))
+		if (empty($buddyforms['buddyforms']))
 			return;
 
-		foreach ($buddyforms['buddypress'] as $key => $member_form) {
+		foreach ($buddyforms['buddyforms'] as $key => $member_form) {
 			$position++;
 			
-			if(isset($member_form['selected'])) :
+			if(isset($member_form['profiles_integration'])) :
 				
-				if(isset($buddyforms['buddyforms'][$key]['slug']))
-					$slug = $buddyforms['buddyforms'][$key]['slug'];
+
+				$slug = $member_form['slug'];
 				
-				$post_type_object = get_post_type_object( $buddyforms['buddyforms'][$key]['post_type'] );
+				$post_type_object = get_post_type_object( $member_form['post_type'] );
 				
 				if(isset($post_type_object->labels->name))
 					$name = $post_type_object->labels->name;
 				
-				if(isset($buddyforms['buddyforms'][$key]['name']))
-					$name = $buddyforms['buddyforms'][$key]['name'];
+				if(isset($member_form['name']))
+					$name = $member_form['name'];
 				
-				$count = $this->get_user_posts_count($bp->displayed_user->id, $buddyforms['buddyforms'][$key]['post_type']);
+				$count = $this->get_user_posts_count($bp->displayed_user->id, $member_form['post_type']);
 
 
 				$main_nav = array(
@@ -116,7 +116,7 @@ public $id = 'buddyforms';
 				);
 				
 				$sub_nav[] = array(
-					'name'				=> sprintf(__(' Add %s', 'buddyforms'), $buddyforms['buddyforms'][$key]['singular_name']),
+					'name'				=> sprintf(__(' Add %s', 'buddyforms'), $member_form['singular_name']),
 					'slug'				=> 'create',
 					'parent_slug'		=> $slug,
 					'parent_url'		=> trailingslashit(bp_loggedin_user_domain() . $slug),
@@ -125,7 +125,7 @@ public $id = 'buddyforms';
 					'user_has_access'	=> bp_is_my_profile()
 				);
 				$sub_nav[] = array(
-					'name'				=> sprintf(__(' Edit %s', 'buddyforms'), $buddyforms['buddyforms'][$key]['singular_name']),
+					'name'				=> sprintf(__(' Edit %s', 'buddyforms'), $member_form['singular_name']),
 					'slug'				=> 'edit',
 					'parent_slug'		=> $slug,
 					'parent_url'		=> trailingslashit(bp_loggedin_user_domain() . $slug),
@@ -134,7 +134,7 @@ public $id = 'buddyforms';
 					'user_has_access'	=> bp_is_my_profile()
 				);
 				$sub_nav[] = array(
-					'name'				=> sprintf(__(' Delete %s', 'buddyforms'), $buddyforms['buddyforms'][$key]['singular_name']),
+					'name'				=> sprintf(__(' Delete %s', 'buddyforms'), $member_form['singular_name']),
 					'slug'				=> 'delete',
 					'parent_slug'		=> $slug,
 					'parent_url'		=> trailingslashit(bp_loggedin_user_domain() . $slug),
@@ -143,7 +143,7 @@ public $id = 'buddyforms';
 					'user_has_access'	=> bp_is_my_profile(),
 				);
 				$sub_nav[] = array(
-					'name'				=> sprintf(__(' Revison %s', 'buddyforms'), $buddyforms['buddyforms'][$key]['singular_name']),
+					'name'				=> sprintf(__(' Revison %s', 'buddyforms'), $member_form['singular_name']),
                     'slug'				=> 'revison',
                     'parent_slug'		=> $slug,
                     'parent_url'		=> trailingslashit(bp_loggedin_user_domain() . $slug),
@@ -152,7 +152,7 @@ public $id = 'buddyforms';
                     'user_has_access'	=> bp_is_my_profile(),
                 );
                 $sub_nav[] = array(
-                    'name'				=> sprintf(__(' Page %s', 'buddyforms'), $buddyforms['buddyforms'][$key]['singular_name']),
+                    'name'				=> sprintf(__(' Page %s', 'buddyforms'), $member_form['singular_name']),
                     'slug'				=> 'page',
                     'parent_slug'		=> $slug,
                     'parent_url'		=> trailingslashit(bp_loggedin_user_domain() . $slug),

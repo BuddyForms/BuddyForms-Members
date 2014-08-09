@@ -17,37 +17,33 @@ if( ! defined( 'ABSPATH' ) ) exit;
  * @since 0.3 beta
  */
 function bf_members_get_redirect_link( $id = false ) {
-	global $bp, $buddyforms, $wp_query;
+	global $bp, $buddyforms;
 		
 	if( ! $id )
 		return false;
 
-/*    echo '<pre>';
-    print_r($bp->unfiltered_uri);
-    echo '</pre>';*/
-
     $link = '';
-	if(isset($buddyforms['buddypress'])){
-		foreach ($buddyforms['buddypress'] as $key => $buddyform) {
+	if(isset($buddyforms['buddyforms'])){
+		foreach ($buddyforms['buddyforms'] as $key => $buddyform) {
 				
-			if(isset($buddyforms['buddyforms'][$key]['attached_page']))
-				$attached_page_id = $buddyforms['buddyforms'][$key]['attached_page'];
+			if(isset($buddyform['attached_page']))
+				$attached_page_id = $buddyform['attached_page'];
 			
-			if(isset($attached_page_id) && $attached_page_id == $id){
+			if(isset($buddyform['profiles_integration']) && isset($attached_page_id) && $attached_page_id == $id){
 
-				$link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$key]['slug'].'/';
+				$link = bp_loggedin_user_domain() .$buddyform['slug'].'/';
 				
 				if(isset($bp->unfiltered_uri[1])){
 					if($bp->unfiltered_uri[1] == 'create')
-						$link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$key]['slug'].'/create/';
+						$link = bp_loggedin_user_domain() .$buddyform['slug'].'/create/';
 					if($bp->unfiltered_uri[1] == 'edit')
-						$link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$key]['slug'].'/edit/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
+						$link = bp_loggedin_user_domain() .$buddyform['slug'].'/edit/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
 					if($bp->unfiltered_uri[1] == 'delete')
-						$link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$key]['slug'].'/delete/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
+						$link = bp_loggedin_user_domain() .$buddyform['slug'].'/delete/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
                     if($bp->unfiltered_uri[1] == 'revison')
-                        $link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$key]['slug'].'/revison/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
+                        $link = bp_loggedin_user_domain() .$buddyform['slug'].'/revison/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
                     if($bp->unfiltered_uri[1] == 'page')
-                        $link = bp_loggedin_user_domain() .$buddyforms['buddyforms'][$key]['slug'].'/page/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
+                        $link = bp_loggedin_user_domain() .$buddyform['slug'].'/page/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
                 }
 				
 			}
@@ -65,7 +61,7 @@ function bf_members_get_redirect_link( $id = false ) {
  * @since 0.3 beta
  */
 function bf_members_redirect_to_profile() {
-	global $post, $wp_query, $bp;
+	global $post;
 
 	if( ! isset( $post->ID ) || ! is_user_logged_in() )
 		return false;
