@@ -2,7 +2,7 @@
 Contributors: svenl77
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: WordPress 3.x, BuddyPress 1.7.x
-Tested up to: WordPress 3.9, BuddyPress 2.x
+Tested up to: WordPress 4.0, BuddyPress 2.x
 Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -100,6 +100,11 @@ BuddyForms gives you these possibilities for a wide variety of uses.
 5. **Backend Overview** - The backend overview of your existing forms. 
 
 == Changelog ==
+
+= 1.0.4 =
+rewrite the integration and data object
+its now translation ready
+Small bug fixes
 
 = 1.0.3 =
 Small bug fixes

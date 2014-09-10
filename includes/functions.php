@@ -15,7 +15,7 @@ function buddyforms_members_admin_settings_sidebar_metabox($form, $selected_form
     if(isset($buddyforms_options['buddyforms'][$selected_form_slug]['profiles_integration']))
         $attache = $buddyforms_options['buddyforms'][$selected_form_slug]['profiles_integration'];
 
-    $form->addElement(new Element_Checkbox("<b>Add this form as Profile Tab</b>", "buddyforms_options[buddyforms][".$selected_form_slug."][profiles_integration]", array("integrate" => "integrate"), array('value' => $attache, 'shortDesc' => 'The attached page will be redirected to the members profile page')));
+    $form->addElement(new Element_Checkbox("<b>" . __('Add this form as Profile Tab', 'buddyforms') . "</b>", "buddyforms_options[buddyforms][".$selected_form_slug."][profiles_integration]", array("integrate" => "integrate"), array('value' => $attache, 'shortDesc' => __('The attached page will be redirected to the members profile page', 'buddyforms'))));
 
 
     $form->addElement(new Element_HTML('
