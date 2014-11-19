@@ -76,7 +76,7 @@ public $id = 'buddyforms';
 	 * @since 0.1 beta
 	*/
 	public function setup_nav( $main_nav = Array(), $sub_nav = Array() ) {
-		global $buddyforms, $bp, $wp_admin_bar;
+		global $buddyforms, $bp, $wp_admin_bar, $current_user;
 
 		if(!bp_is_user())
 			return;
@@ -87,6 +87,8 @@ public $id = 'buddyforms';
 
 		if (empty($buddyforms['buddyforms']))
 			return;
+
+
 
 		foreach ($buddyforms['buddyforms'] as $key => $member_form) {
 			$position++;
@@ -106,15 +108,14 @@ public $id = 'buddyforms';
 				
 				$count = $this->get_user_posts_count($bp->displayed_user->id, $member_form['post_type']);
 
-
-				$main_nav = array(
+                $main_nav = array(
 					'name' => sprintf('%s <span>%d</span>',$name , $count),
 					'slug' => $key,
 					'position' => $position,
 					'screen_function' => array($this, 'buddyforms_screen_settings'),
 					'default_subnav_slug' => 'my-posts'
 				);
-				
+
 				$sub_nav[] = array(
 					'name'				=> sprintf(__(' Add %s', 'buddyforms'), $member_form['singular_name']),
 					'slug'				=> 'create',
@@ -160,7 +161,14 @@ public $id = 'buddyforms';
                     'screen_function'	=> array($this,'buddyforms_screen_settings'),
                 );
 
-			parent::setup_nav( $main_nav, $sub_nav );
+                if($current_user->ID != bp_displayed_user_id()){
+                    parent::setup_nav( $main_nav, $sub_nav );
+                } elseif(current_user_can('buddyforms_'.$slug.'_create')){
+                    parent::setup_nav( $main_nav, $sub_nav );
+                }
+
+
+
 		endif;
 		}
 
@@ -240,9 +248,9 @@ public $id = 'buddyforms';
 	 * @since 1.0
 	 */
 	function buddyforms_load_template_filter($found_template, $templates) {
-	global $bp, $wp_query;
+	global $bp, $wp_query, $buddyforms;
 
-			if (empty($found_template)) {
+			if (empty($found_template) && array_key_exists(bp_current_component(),$buddyforms['buddyforms'])) {
 				// register our theme compat directory
 				//
 				// this tells BP to look for templates in our plugin directory last
