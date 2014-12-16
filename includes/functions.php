@@ -134,4 +134,16 @@ function buddyforms_members_locate_template($file) {
 		include (BUDDYFORMS_MEMBERS_TEMPLATE_PATH . $file);
 	}
 }
+
+
+add_filter('buddyforms_front_js_css_loader', 'buddyforms_front_js_loader_bp_support', 1);
+function buddyforms_front_js_loader_bp_support($found){
+	global $buddyforms;
+
+	// check the post content for the short code
+	if(isset($buddyforms['buddyforms'][bp_current_component()]))
+		$found = true;
+
+	return $found;
+}
 ?>

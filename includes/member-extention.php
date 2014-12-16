@@ -29,6 +29,7 @@ public $id = 'buddyforms';
 
 		add_action('bp_located_template',	array($this, 'buddyforms_load_template_filter'), 10, 2);
 		add_action('wp_enqueue_scripts',	array($this, 'wp_enqueue_style'), 10, 2);
+
 	
 	}
 	
@@ -301,6 +302,7 @@ public $id = 'buddyforms';
 
 	function wp_enqueue_style(){
     	wp_enqueue_style('member-profile-css', plugins_url('css/member-profile.css', __FILE__));
+
 	}
 
 }
