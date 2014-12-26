@@ -117,7 +117,7 @@ public $id = 'buddyforms';
 						'name' => sprintf('%s <span>%d</span>', $name, $count),
 						'slug' => $key,
 						'position' => $position,
-						'screen_function' => array($this, 'buddyforms_screen_settings'),
+						//'screen_function' => array($this, 'buddyforms_screen_settings'),
 						'default_subnav_slug' => 'my-posts'
 					);
 
@@ -125,11 +125,9 @@ public $id = 'buddyforms';
 						'name' => sprintf(__(' My %s', 'buddyforms'), $name),
 						'slug' => 'my-posts',
 						'parent_slug' => $slug,
-						'parent_url' => trailingslashit(bp_loggedin_user_domain() . $slug),
+						'parent_url' => get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. bp_get_displayed_user_username() . '/' . $slug,
 						'item_css_id' => 'my-posts',
-						'class' => 'current',
 						'screen_function' => array($this, 'buddyforms_screen_settings'),
-						'user_has_access' => bp_is_my_profile()
 					);
 					$sub_nav[] = array(
 						'name' => sprintf(__(' Add %s', 'buddyforms'), $member_form['singular_name']),
@@ -198,8 +196,7 @@ public $id = 'buddyforms';
 	public function buddyforms_screen_settings() {
 		global $current_user, $bp;
 
-
-        if($bp->current_action == 'my-posts')
+		if($bp->current_action == 'my-posts')
             bp_core_load_template('buddyforms/members/members-post-display');
 
         if($bp->current_action == 'page')
