@@ -3,7 +3,7 @@ Contributors: svenl77
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: WordPress 3.x, BuddyPress 1.7.x
 Tested up to: WordPress 4.0, BuddyPress 2.x
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,7 +18,7 @@ Do you really have the time to be posting and updating your blog everyday? Didn�
 Once you download the plugin, it’s super simple to setup:
 All you have to do is drag-and-drop to build the form your users will be submitting on the front-end.
 
-<h4>...with full moderation and revision control feautures.</h4>
+<h4>...with full moderation and revision control feature.</h4>
 It doesn’t matter how complex or big your site is, BuddyForms can handle ALL of your user-generated content.
 
 Build forms with an easy Form Builder. The easy way to bring your existing plugins into the BuddyPress ecosystem and make it accessible for your users right from their profile.
@@ -100,6 +100,12 @@ BuddyForms gives you these possibilities for a wide variety of uses.
 5. **Backend Overview** - The backend overview of your existing forms. 
 
 == Changelog ==
+
+= 1.0.5 =
+ *display the form tab only if the user has the needed role
+ *check if the buddy press component exists
+ *load the js css if buddyforms is displayed
+ *add new admin notice
 
 = 1.0.4 =
 rewrite the integration and data object
