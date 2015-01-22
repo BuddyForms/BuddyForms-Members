@@ -6,18 +6,20 @@
 
 	if ($bp->displayed_user->id == $current_user->ID){
 		$args = array(
-			'post_type' => $post_type,
-			'post_status' => array('publish', 'pending', 'draft'),
-			'posts_per_page' => 5,
-            'paged' => $paged,
-			'author' => get_current_user_id() );
+			'post_type'			=> $post_type,
+			'post_status'		=> array('publish', 'pending', 'draft'),
+			'posts_per_page'	=> 5,
+			'post_parent'		=> 0,
+            'paged'				=> $paged,
+			'author'			=> get_current_user_id() );
 	} else {
 		$args = array(
-			'post_type' => $post_type,
-			'post_status' => array('publish'),
-			'posts_per_page' => 5,
-            'paged' => $paged,
-			'author' => $bp->displayed_user->id );
+			'post_type'			=> $post_type,
+			'post_status'		=> array('publish'),
+			'posts_per_page'	=> 5,
+			'post_parent'		=> 0,
+			'paged'				=> $paged,
+			'author'			=> $bp->displayed_user->id );
 	}
 
 	$the_lp_query = new WP_Query( $args );
