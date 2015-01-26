@@ -4,17 +4,23 @@
 
     $post_type = $buddyforms['buddyforms'][$bp->current_component]['post_type'];
 
+	$form_slug = $bp->current_component;
+
 	if ($bp->displayed_user->id == $current_user->ID){
 		$args = array(
 			'post_type'			=> $post_type,
+			'form_slug'         => $form_slug,
 			'post_status'		=> array('publish', 'pending', 'draft'),
 			'posts_per_page'	=> 5,
-			'post_parent'		=> 0,
+			//'post_parent'		=> 0,
             'paged'				=> $paged,
-			'author'			=> get_current_user_id() );
+			'author'			=> get_current_user_id()
+		);
+		$args =  apply_filters('bf_post_to_display_args',$args);
 	} else {
 		$args = array(
 			'post_type'			=> $post_type,
+			'form_slug'         => $form_slug,
 			'post_status'		=> array('publish'),
 			'posts_per_page'	=> 5,
 			'post_parent'		=> 0,
@@ -24,7 +30,7 @@
 
 	$the_lp_query = new WP_Query( $args );
 
-	$form_slug = $bp->current_component;
+
 
     buddyforms_locate_template('buddyforms/the-loop.php');
 
