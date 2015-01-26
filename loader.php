@@ -1,7 +1,7 @@
 <?php
 /*
  Plugin Name: BuddyForms Members
- Plugin URI: http://buddyforms.com
+ Plugin URI: http://themekraft.com/store/wordpress-front-end-editor-and-form-builder-buddyforms/
  Description: The BuddyForms Members Component. Let your members write right out of their profiles.
  Version: 1.0.5
  Author: Sven Lehnert

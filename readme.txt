@@ -80,7 +80,7 @@ Activate BuddyPress in the "Plugins" admin panel using the "Activate" link. If y
 == Frequently Asked Questions ==
 
 You need the BuddyForms plugin installed for the plugin to work.
-Check it out at http://buddyforms.com
+<a href="http://themekraft.com/store/wordpress-front-end-editor-and-form-builder-buddyforms/" target="_blank">Get BuddyForms now!</a>
 
 When is it the right choice for you?
 
