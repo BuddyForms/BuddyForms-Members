@@ -136,7 +136,7 @@ function buddyforms_members_locate_template($file) {
 }
 
 
-add_filter('buddyforms_front_js_css_loader', 'buddyforms_front_js_loader_bp_support', 1);
+add_filter('buddyforms_front_js_css_loader', 'buddyforms_front_js_loader_bp_support', 10, 1);
 function buddyforms_front_js_loader_bp_support($found){
 	global $buddyforms;
 
@@ -146,4 +146,38 @@ function buddyforms_front_js_loader_bp_support($found){
 
 	return $found;
 }
+
+add_filter('buddyforms_button_view_posts', 'buddyforms_members_button_view_posts', 10, 2);
+function buddyforms_members_button_view_posts($button,$args){
+	global $buddyforms;
+
+	extract(shortcode_atts(array(
+		'form_slug' => '',
+		'label'     => 'View',
+	), $args));
+
+	if(isset($buddyforms['buddyforms'][$form_slug]['profiles_integration'])){
+        $url = trailingslashit(bp_loggedin_user_domain());
+		$button =   '<a class="button" href="'.$url.$form_slug.'/">'.__($label, 'buddyforms').' </a>';
+      }
+
+	return $button;
+}
+add_filter('buddyforms_button_add_new', 'buddyforms_members_button_add_new', 10, 2);
+function buddyforms_members_button_add_new($button,$args){
+	global $buddyforms;
+
+	extract(shortcode_atts(array(
+		'form_slug' => '',
+		'label'     => 'Add New',
+	), $args));
+
+	if(isset($buddyforms['buddyforms'][$form_slug]['profiles_integration'])){
+        $url = trailingslashit(bp_loggedin_user_domain());
+		$button =  '<a class="button" href="'.$url.$form_slug.'/create/">'.__($label, 'buddyforms').'</a>';
+    }
+
+	return $button;
+}
+
 ?>
