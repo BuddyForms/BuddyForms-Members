@@ -61,24 +61,26 @@ function buddyforms_members_wp_before_admin_bar_render(){
 			
 		
 			if(isset($buddyform['admin_bar'][0])){
-				$wp_admin_bar->add_menu( array(
-					'parent'	=> 'my-account-buddypress',
-					'id'		=> 'my-account-buddypress-'.$key,
-					'title'		=> __($name, 'buddypress'),
-					'href'		=> trailingslashit(bp_loggedin_user_domain() . $slug)
-				));
-				$wp_admin_bar->add_menu( array(
-						'parent'	=> 'my-account-buddypress-'.$key,
-						'id'		=> 'my-account-buddypress-'.$key.'-view',
-						'title'		=> __('View','buddypress'),
-						'href'		=> trailingslashit(bp_loggedin_user_domain() . $slug)
-				)); 
-				$wp_admin_bar->add_menu( array(
-					'parent'	=> 'my-account-buddypress-'.$key,
-					'id'		=> 'my-account-buddypress-'.$key.'-new',
-					'title'		=> __('New ','buddypress'),
-					'href'		=> trailingslashit(bp_loggedin_user_domain() . $slug).'create'
-				));  
+                if (current_user_can('buddyforms_' . $slug . '_create')) {
+                    $wp_admin_bar->add_menu(array(
+                        'parent' => 'my-account-buddypress',
+                        'id' => 'my-account-buddypress-' . $key,
+                        'title' => __($name, 'buddypress'),
+                        'href' => trailingslashit(bp_loggedin_user_domain() . $slug)
+                    ));
+                    $wp_admin_bar->add_menu(array(
+                        'parent' => 'my-account-buddypress-' . $key,
+                        'id' => 'my-account-buddypress-' . $key . '-view',
+                        'title' => __('View', 'buddypress'),
+                        'href' => trailingslashit(bp_loggedin_user_domain() . $slug)
+                    ));
+                    $wp_admin_bar->add_menu(array(
+                        'parent' => 'my-account-buddypress-' . $key,
+                        'id' => 'my-account-buddypress-' . $key . '-new',
+                        'title' => __('New ', 'buddypress'),
+                        'href' => trailingslashit(bp_loggedin_user_domain() . $slug) . 'create'
+                    ));
+                }
 			}
 		endif;
 	}
