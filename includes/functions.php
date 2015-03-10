@@ -45,6 +45,10 @@ function buddyforms_members_wp_before_admin_bar_render(){
 
 	foreach ($buddyforms['buddyforms'] as $key => $buddyform) {
 
+        if (!isset($buddyform['post_type']) || $buddyform['post_type'] == 'none'){
+            continue;
+        }
+
 		if(isset($buddyform['profiles_integration'])) :
 			
 			$slug = $key;
@@ -138,8 +142,8 @@ function buddyforms_members_locate_template($file) {
 }
 
 
-add_filter('buddyforms_front_js_css_loader', 'buddyforms_front_js_loader_bp_support', 10, 1);
-function buddyforms_front_js_loader_bp_support($found){
+add_filter('buddyforms_front_js_css_loader', 'buddyforms_front_js_loader_bp_members_support', 10, 1);
+function buddyforms_front_js_loader_bp_members_support($found){
 	global $buddyforms;
 
 	// check the post content for the short code
