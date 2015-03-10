@@ -56,7 +56,7 @@ add_action('plugins_loaded', 'buddyforms_members_requirements');
 function buddyforms_members_init() {
 	global $wpdb, $buddyforms_members;
 
-    define('buddyforms_members', '1.0.5');
+    define('buddyforms_members', '1.0.7');
 
 	if (is_multisite() && BP_ROOT_BLOG != $wpdb->blogid)
 		return;
