@@ -3,7 +3,7 @@ Contributors: svenl77
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: WordPress 3.x, BuddyPress 1.7.x
 Tested up to: WordPress 4.1.1, BuddyPress 2.2.1
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -101,7 +101,7 @@ BuddyForms gives you these possibilities for a wide variety of uses.
 
 == Changelog ==
 
-= 1.0.6 =
+= 1.0.7 =
 new language files for hebrew thanks to Milena
 add support for the shortcodes button
 changed the query to only show post parents
