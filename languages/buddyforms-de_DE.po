@@ -1,11 +1,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: BuddyForms Members\n"
-"POT-Creation-Date: 2015-03-11 15:52+0100\n"
-"PO-Revision-Date: 2015-03-11 15:52+0100\n"
+"POT-Creation-Date: 2015-03-11 15:37+0100\n"
+"PO-Revision-Date: 2015-03-11 15:41+0100\n"
 "Last-Translator: Sol Huebner <translations@it-specialist.net>\n"
-"Language-Team: \n"
-"Language: he_IL\n"
+"Language-Team: Sol Huebner <translations@it-specialist.net>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,59 +17,54 @@ msgstr ""
 "_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
 
 #: includes/functions.php:18
 msgid "Add this form as Profile Tab"
-msgstr "הוסף את הטופס הזה לתפריט הפרופיל"
+msgstr "Dieses Formular als Profilreiter hinzufügen"
 
 #: includes/functions.php:18
 msgid "The attached page will be redirected to the members profile page"
-msgstr "הדף הצמוד יהיה מנותב אל דף הפרופיל חברים"
+msgstr "Die angehängte Seite wird zum Mitgliederprofil umgeleitet"
 
-#: includes/functions.php:78
+#: includes/functions.php:74
 msgid "View my "
-msgstr ""
+msgstr "Zeige meine "
 
-#: includes/functions.php:84
+#: includes/functions.php:80
 msgid "New "
-msgstr "חדש"
+msgstr "Neu "
 
 #: includes/member-extention.php:125
 #, php-format
 msgid " My %s"
-msgstr "%s שלי"
+msgstr " Meine %s"
 
 #: includes/member-extention.php:133
 #, php-format
 msgid " Add %s"
-msgstr "להעלות %s"
+msgstr " Erstelle %s"
 
 #: includes/member-extention.php:142
 #, php-format
 msgid " Edit %s"
-msgstr "לערוך %s"
+msgstr " Bearbeite %s"
 
 #: includes/member-extention.php:151
 #, php-format
 msgid " Delete %s"
-msgstr "למחוק %s"
+msgstr " Lösche %s"
 
 #: includes/member-extention.php:160
 #, php-format
 msgid " Revison %s"
-msgstr "לשנות %s"
+msgstr " Revision %s"
 
 #: includes/member-extention.php:169
 #, php-format
 msgid " Page %s"
-msgstr "עמוד %s"
+msgstr " Seite %s"
 
 #: includes/member-extention.php:217
 msgid "You are not allowed to delete this entry! What are you doing here?"
-msgstr ""
-
-#~ msgid "View"
-#~ msgstr "לצפות"
-
-#~ msgid "BuddyForms"
-#~ msgstr "BuddyForms"
+msgstr "Sie dürfen diesen Eintrag nicht löschen! Was tun Sie?"
