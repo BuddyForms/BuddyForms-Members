@@ -4,8 +4,8 @@ msgstr ""
 "POT-Creation-Date: 2015-03-11 15:42+0100\n"
 "PO-Revision-Date: 2015-03-11 15:42+0100\n"
 "Last-Translator: Sol Huebner <translations@it-specialist.net>\n"
-"Language-Team: \n"
-"Language: he_IL\n"
+"Language-Team: Sol Huebner <translations@it-specialist.net>\n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,14 +17,15 @@ msgstr ""
 "_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
 
 #: includes/functions.php:18
 msgid "Add this form as Profile Tab"
-msgstr "הוסף את הטופס הזה לתפריט הפרופיל"
+msgstr ""
 
 #: includes/functions.php:18
 msgid "The attached page will be redirected to the members profile page"
-msgstr "הדף הצמוד יהיה מנותב אל דף הפרופיל חברים"
+msgstr ""
 
 #: includes/functions.php:74
 msgid "View my "
@@ -32,44 +33,38 @@ msgstr ""
 
 #: includes/functions.php:80
 msgid "New "
-msgstr "חדש"
+msgstr ""
 
 #: includes/member-extention.php:125
 #, php-format
 msgid " My %s"
-msgstr "%s שלי"
+msgstr ""
 
 #: includes/member-extention.php:133
 #, php-format
 msgid " Add %s"
-msgstr "להעלות %s"
+msgstr ""
 
 #: includes/member-extention.php:142
 #, php-format
 msgid " Edit %s"
-msgstr "לערוך %s"
+msgstr ""
 
 #: includes/member-extention.php:151
 #, php-format
 msgid " Delete %s"
-msgstr "למחוק %s"
+msgstr ""
 
 #: includes/member-extention.php:160
 #, php-format
 msgid " Revison %s"
-msgstr "לשנות %s"
+msgstr ""
 
 #: includes/member-extention.php:169
 #, php-format
 msgid " Page %s"
-msgstr "עמוד %s"
+msgstr ""
 
 #: includes/member-extention.php:217
 msgid "You are not allowed to delete this entry! What are you doing here?"
 msgstr ""
-
-#~ msgid "BuddyForms"
-#~ msgstr "BuddyForms"
-
-#~ msgid "View"
-#~ msgstr "לצפות"

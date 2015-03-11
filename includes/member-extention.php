@@ -15,7 +15,7 @@ public $id = 'buddyforms';
 
 		parent::start(
 			$this->id,
-			__( 'BuddyForms', 'buddyforms' ),
+			'BuddyForms',
 			BUDDYFORMS_MEMBERS_INSTALL_PATH
 		);
 
@@ -214,7 +214,7 @@ public $id = 'buddyforms';
 			$the_post = get_post($bp->action_variables[1]);
 	
 			if ($the_post->post_author != $current_user->ID) {
-				echo '<div class="error alert">You are not allowed to delete this entry! What are you doing here?</div>';
+				echo '<div class="error alert">'.__('You are not allowed to delete this entry! What are you doing here?', 'buddyforms').'</div>';
 				return;
 			}
 			
