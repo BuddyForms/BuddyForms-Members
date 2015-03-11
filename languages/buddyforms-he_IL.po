@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: BuddyForms Members\n"
-"POT-Creation-Date: 2015-03-11 15:42+0100\n"
-"PO-Revision-Date: 2015-03-11 15:42+0100\n"
+"POT-Creation-Date: 2015-03-11 15:52+0100\n"
+"PO-Revision-Date: 2015-03-11 15:52+0100\n"
 "Last-Translator: Sol Huebner <translations@it-specialist.net>\n"
 "Language-Team: \n"
 "Language: he_IL\n"
@@ -26,11 +26,11 @@ msgstr "הוסף את הטופס הזה לתפריט הפרופיל"
 msgid "The attached page will be redirected to the members profile page"
 msgstr "הדף הצמוד יהיה מנותב אל דף הפרופיל חברים"
 
-#: includes/functions.php:74
+#: includes/functions.php:78
 msgid "View my "
 msgstr ""
 
-#: includes/functions.php:80
+#: includes/functions.php:84
 msgid "New "
 msgstr "חדש"
 
@@ -68,8 +68,8 @@ msgstr "עמוד %s"
 msgid "You are not allowed to delete this entry! What are you doing here?"
 msgstr ""
 
-#~ msgid "BuddyForms"
-#~ msgstr "BuddyForms"
-
 #~ msgid "View"
 #~ msgstr "לצפות"
+
+#~ msgid "BuddyForms"
+#~ msgstr "BuddyForms"
