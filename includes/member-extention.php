@@ -157,11 +157,11 @@ public $id = 'buddyforms';
 						'user_has_access' => bp_is_my_profile(),
 					);
 					$sub_nav[] = array(
-						'name' => sprintf(__(' Revison %s', 'buddyforms'), $member_form['singular_name']),
-						'slug' => 'revison',
+						'name' => sprintf(__(' Revision %s', 'buddyforms'), $member_form['singular_name']),
+						'slug' => 'revision',
 						'parent_slug' => $slug,
 						'parent_url' => trailingslashit(bp_loggedin_user_domain() . $slug),
-						'item_css_id' => 'sub_nav_revison',
+						'item_css_id' => 'sub_nav_edit',
 						'screen_function' => array($this, 'buddyforms_screen_settings'),
 						'user_has_access' => bp_is_my_profile(),
 					);
@@ -170,7 +170,7 @@ public $id = 'buddyforms';
 						'slug' => 'page',
 						'parent_slug' => $slug,
 						'parent_url' => trailingslashit(bp_loggedin_user_domain() . $slug),
-						'item_css_id' => 'sub_nav_revison',
+						'item_css_id' => 'sub_nav_edit',
 						'screen_function' => array($this, 'buddyforms_screen_settings'),
 					);
 
@@ -205,7 +205,7 @@ public $id = 'buddyforms';
         if($bp->current_action == 'edit')
 			bp_core_load_template('buddyforms/members/members-post-create');
 	
-		if($bp->current_action == 'revison')
+		if($bp->current_action == 'revision')
 			bp_core_load_template('buddyforms/members/members-post-create');
 
 		if($bp->current_action == 'delete'){
@@ -292,7 +292,7 @@ public $id = 'buddyforms';
 					add_action('bp_template_content', create_function('', "
 					bp_get_template_part( 'buddyforms/members/members-post-create' );
 				"));
-				} elseif ($bp->current_action == 'revison') {
+				} elseif ($bp->current_action == 'revision') {
                     add_action('bp_template_content', create_function('', "
 					bp_get_template_part( 'buddyforms/members/members-post-create' );
 				"));
