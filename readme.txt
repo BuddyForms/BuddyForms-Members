@@ -1,9 +1,9 @@
 === BuddyForms Members ===
-Contributors: svenl77
+Contributors: svenl77, ThemeKraft
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: WordPress 3.x, BuddyPress 1.7.x
-Tested up to: WordPress 4.1.1, BuddyPress 2.2.1
-Stable tag: 1.0.7
+Tested up to: WordPress 4.2.2, BuddyPress 2.2.3.1
+Stable tag: 1.0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -100,6 +100,13 @@ BuddyForms gives you these possibilities for a wide variety of uses.
 5. **Backend Overview** - The backend overview of your existing forms. 
 
 == Changelog ==
+
+
+= 1.0.9 =
+Fixed a conflict with the BP Group Hierarchy Plugin. Props to Mitch for reporting and helping me fix this issue.
+
+= 1.0.8 =
+add a isset check to prevent a array_key_exists error if no form is created.
 
 = 1.0.7 =
 new language files for hebrew thanks to Milena

@@ -262,7 +262,10 @@ public $id = 'buddyforms';
 	function buddyforms_load_template_filter($found_template, $templates) {
 	global $bp, $wp_query, $buddyforms;
 
-			if (empty($found_template) && array_key_exists(bp_current_component(),$buddyforms['buddyforms'])) {
+        if(!bp_current_component())
+            return apply_filters('buddyforms_members_load_template_filter', $found_template);
+
+			if (is_array($templates) && empty($found_template) && isset($buddyforms['buddyforms']) && array_key_exists(bp_current_component(),$buddyforms['buddyforms'])) {
 				// register our theme compat directory
 				//
 				// this tells BP to look for templates in our plugin directory last
