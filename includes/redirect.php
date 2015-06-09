@@ -38,9 +38,7 @@ function bf_members_get_redirect_link( $id = false ) {
 						$link = bp_loggedin_user_domain() .$buddyform['slug'].'/create/';
 					if($bp->unfiltered_uri[1] == 'edit')
 						$link = bp_loggedin_user_domain() .$buddyform['slug'].'/edit/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
-					if($bp->unfiltered_uri[1] == 'delete')
-						$link = bp_loggedin_user_domain() .$buddyform['slug'].'/delete/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
-                    if($bp->unfiltered_uri[1] == 'revision')
+					if($bp->unfiltered_uri[1] == 'revision')
                         $link = bp_loggedin_user_domain() .$buddyform['slug'].'/revision/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3].'/'.$bp->unfiltered_uri[4];
                     if($bp->unfiltered_uri[1] == 'page')
                         $link = bp_loggedin_user_domain() .$buddyform['slug'].'/page/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];

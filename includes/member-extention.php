@@ -57,11 +57,13 @@ public $id = 'buddyforms';
 	 * @package BuddyForms
 	 * @since 0.1 beta
 	*/
-	function get_user_posts_count($user_id, $post_type) {
+	function get_user_posts_count($user_id, $post_type, $form_slug) {
 		
 		$args['author'] = $user_id;
 		$args['post_type'] = $post_type;
         $args['fields'] = 'ids';
+        $args['meta_key'] = '_bf_form_slug';
+        $args['meta_value'] = $form_slug;
         $args['posts_per_page'] = -1;
 
 		$ps = get_posts($args);
@@ -111,7 +113,7 @@ public $id = 'buddyforms';
 					if (isset($member_form['name']))
 						$name = $member_form['name'];
 
-					$count = $this->get_user_posts_count($bp->displayed_user->id, $member_form['post_type']);
+					$count = $this->get_user_posts_count($bp->displayed_user->id, $member_form['post_type'],$slug);
 
 					$main_nav = array(
 						'name' => sprintf('%s <span>%d</span>', $name, $count),
@@ -146,15 +148,6 @@ public $id = 'buddyforms';
 						'item_css_id' => 'sub_nav_edit',
 						'screen_function' => array($this, 'buddyforms_screen_settings'),
 						'user_has_access' => bp_is_my_profile()
-					);
-					$sub_nav[] = array(
-						'name' => sprintf(__(' Delete %s', 'buddyforms'), $member_form['singular_name']),
-						'slug' => 'delete',
-						'parent_slug' => $slug,
-						'parent_url' => trailingslashit(bp_loggedin_user_domain() . $slug),
-						'item_css_id' => 'sub_nav_delete',
-						'screen_function' => array($this, 'buddyforms_screen_settings'),
-						'user_has_access' => bp_is_my_profile(),
 					);
 					$sub_nav[] = array(
 						'name' => sprintf(__(' Revision %s', 'buddyforms'), $member_form['singular_name']),
@@ -207,24 +200,6 @@ public $id = 'buddyforms';
 	
 		if($bp->current_action == 'revision')
 			bp_core_load_template('buddyforms/members/members-post-create');
-
-		if($bp->current_action == 'delete'){
-
-			get_currentuserinfo();
-			$the_post = get_post($bp->action_variables[1]);
-	
-			if ($the_post->post_author != $current_user->ID) {
-				echo '<div class="error alert">'.__('You are not allowed to delete this entry! What are you doing here?', 'buddyforms').'</div>';
-				return;
-			}
-			
-			do_action('buddyforms_delete_post',$bp->action_variables[1]);
-			
-			wp_delete_post($bp->action_variables[1]);
-			bp_core_load_template('buddyforms/members/members-post-display');	
-
-		}
-			
 
 	}
 
@@ -303,11 +278,7 @@ public $id = 'buddyforms';
                     add_action('bp_template_content', create_function('', "
 					bp_get_template_part( 'buddyforms/members/members-post-display' );
 				"));
-                } elseif ($bp->current_action == 'delete') {
-					add_action('bp_template_content', create_function('', "
-					bp_get_template_part( 'buddyforms/members/members-post-display' );
-				"));
-				} 
+                }
 			}
 
 	
