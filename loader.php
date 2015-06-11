@@ -40,12 +40,12 @@ function buddyforms_members_requirements(){
 
     // Needs to be rewritetn in Otto style ;-)
     if( ! defined( 'BP_VERSION' )){
-        add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BuddyForms Members needs BuddyPress to be installed. <a href="%s">Download it now</a>!\', " buddyforms" ) . \'</strong></p></div>\', admin_url("plugin-install.php") );' ) );
+        add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BuddyForms Members needs BuddyPress to be installed. <a href="%s">Download it now</a>!\', " buddypress" ) . \'</strong></p></div>\', admin_url("plugin-install.php") );' ) );
         return;
     }
 
     if( ! defined( 'buddyforms' )){
-        add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BuddyForms WooCommerce Form Elements needs BuddyForms to be installed. <a target="_blank" href="%s">--> Get it now</a>!\', " wc4bp_xprofile" ) . \'</strong></p></div>\', "http://themekraft.com/store/wordpress-front-end-editor-and-form-builder-buddyforms/" );' ) );
+        add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BuddyForms Members needs BuddyForms to be installed. <a target="_blank" href="%s">--> Get it now</a>!\', " buddyforms" ) . \'</strong></p></div>\', "http://themekraft.com/store/wordpress-front-end-editor-and-form-builder-buddyforms/" );' ) );
         return;
     }
 
