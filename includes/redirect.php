@@ -35,7 +35,12 @@ function bf_members_get_redirect_link( $id = false ) {
 				
 				if(isset($bp->unfiltered_uri[1])){
 					if($bp->unfiltered_uri[1] == 'create')
-						$link = bp_loggedin_user_domain() .$buddyform['slug'].'/create/';
+                        if($bp->unfiltered_uri[2]){
+                            $link = bp_loggedin_user_domain() .$buddyform['slug'].'/create/'.$bp->unfiltered_uri[2];
+                        } else{
+                           $link = bp_loggedin_user_domain() .$buddyform['slug'].'/create/';
+                        }
+
 					if($bp->unfiltered_uri[1] == 'edit')
 						$link = bp_loggedin_user_domain() .$buddyform['slug'].'/edit/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
 					if($bp->unfiltered_uri[1] == 'revision')
