@@ -3,7 +3,7 @@ Contributors: svenl77, ThemeKraft
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: WordPress 3.x, BuddyPress 1.7.x
 Tested up to: WordPress 4.2.2, BuddyPress 2.2.3.1
-Stable tag: 1.0.9
+Stable tag: 1.0.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -101,6 +101,11 @@ BuddyForms gives you these possibilities for a wide variety of uses.
 
 == Changelog ==
 
+= 1.0.10 =
+only display posts created by the form
+remove the old delete post structure
+fixed the dependencies message
+rename session
 
 = 1.0.9 =
 Fixed a conflict with the BP Group Hierarchy Plugin. Props to Mitch for reporting and helping me fix this issue.
