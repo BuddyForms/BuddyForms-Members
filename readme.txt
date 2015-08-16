@@ -1,5 +1,5 @@
 === BuddyForms Members ===
-Contributors: svenl77, ThemeKraft
+Contributors: svenl77, themkraft, buddyforms
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: WordPress 3.x, BuddyPress 1.7.x
 Tested up to: WordPress 4.2.2, BuddyPress 2.2.3.1
@@ -11,7 +11,7 @@ WordPress Front End Editor And Form Builder For Your User Generated Content
 
 == Description ==
 
-This is the BuddyForms Members Extension. Integrate your BuddyForms Forms into your BuddyPress Members Profile. You need the BuddyForms plugin installed for the plugin to work. <a href="http://themekraft.com/store/wordpress-front-end-editor-and-form-builder-buddyforms/" target="_blank">Get BuddyForms now!</a>
+This is the BuddyForms Members Extension. Integrate your BuddyForms Forms into your BuddyPress Members Profile. You need the BuddyForms plugin installed for the plugin to work. <a href="http://buddyforms.com" target="_blank">Get BuddyForms now!</a>
 
 Do you really have the time to be posting and updating your blog everyday? Didn’t think so… <b>BuddyForms Members is a premium plugin for BuddyPress</b> that allows your users to write, edit and upload posts, images, video, & just about any other content to your site, right from their BuddyPress Member Profile!
 
@@ -62,14 +62,6 @@ The BuddyForms Documentation with many how-to’s is following now!
 If you still get stuck somewhere, our support gets you back on the right track.
 You can find all help buttons in your BuddyForms Settings Panel in your WP Dashboard!
 
-<h4>Got ideas or just missing something?</h4>
-
-If you still miss something, now it’s your time!
-
-Visit our ideas forums, add your ideas and vote for others!
-
-<a href="https://themekraft.zendesk.com/hc/communities/public/topics/200001402-BuddyForms-Ideas" target="_blank">Visit Ideas Forums</a>
-
 == Installation ==
 
 You can download and install BuddyForms Members using the built in WordPress plugin installer. If you download BuddyForms manually,
@@ -80,7 +72,7 @@ Activate BuddyPress in the "Plugins" admin panel using the "Activate" link. If y
 == Frequently Asked Questions ==
 
 You need the BuddyForms plugin installed for the plugin to work.
-<a href="http://themekraft.com/store/wordpress-front-end-editor-and-form-builder-buddyforms/" target="_blank">Get BuddyForms now!</a>
+<a href="http://buddyforms.com" target="_blank">Get BuddyForms now!</a>
 
 When is it the right choice for you?
 
