@@ -1,9 +1,9 @@
 === BuddyForms Members ===
-Contributors: svenl77, themkraft, buddyforms
+Contributors: svenl77, themekraft, buddyforms
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
-Requires at least: WordPress 3.x, BuddyPress 1.7.x
-Tested up to: WordPress 4.2.2, BuddyPress 2.2.3.1
-Stable tag: 1.0.10
+Requires at least: WordPress 3.9, BuddyPress 1.7.x
+Tested up to: WordPress 4.3, BuddyPress 2.3.2.1
+Stable tag: 1.0.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,9 @@ BuddyForms gives you these possibilities for a wide variety of uses.
 5. **Backend Overview** - The backend overview of your existing forms. 
 
 == Changelog ==
+
+= 1.0.11 =
+Fixed a small bug with BP_MEMBERS_SLUG. The constant does not work if the slug got changed
 
 = 1.0.10 =
 only display posts created by the form

@@ -127,7 +127,7 @@ public $id = 'buddyforms';
 						'name' => sprintf(__(' My %s', 'buddyforms'), $name),
 						'slug' => 'my-posts',
 						'parent_slug' => $slug,
-						'parent_url' => get_bloginfo('url') . '/'.BP_MEMBERS_SLUG.'/'. bp_get_displayed_user_username() . '/' . $slug,
+						'parent_url' => trailingslashit(bp_loggedin_user_domain() . $slug),
 						'item_css_id' => 'my-posts',
 						'screen_function' => array($this, 'buddyforms_screen_settings'),
 					);
