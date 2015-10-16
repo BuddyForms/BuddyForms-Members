@@ -1,32 +1,32 @@
 <?php
+function buddyforms_members_admin_settings_sidebar_metabox(){
+	add_meta_box('buddyforms_members', __("PB Member Profiles",'buddyforms'), 'buddyforms_members_admin_settings_sidebar_metabox_html', 'buddyforms', 'side', 'low');
+}
 
-function buddyforms_members_admin_settings_sidebar_metabox($form, $selected_form_slug){
+function buddyforms_members_admin_settings_sidebar_metabox_html(){
+	global $post;
 
-    $buddyforms_options = get_option('buddyforms_options');
+	if($post->post_type != 'buddyforms')
+		return;
+
+	$buddyform = get_post_meta(get_the_ID(), '_buddyforms_options', true);
 
 
-    $form->addElement(new Element_HTML('
-		<div class="accordion-group postbox">
-			<div class="accordion-heading"><p class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_'.$selected_form_slug.'" href="#accordion_'.$selected_form_slug.'_profiles_integration_options">Member Profiles</p></div>
-		    <div id="accordion_'.$selected_form_slug.'_profiles_integration_options" class="accordion-body collapse">
-				<div class="accordion-inner">'));
+	$form_setup = array();
 
     $attache = '';
-    if(isset($buddyforms_options['buddyforms'][$selected_form_slug]['profiles_integration']))
-        $attache = $buddyforms_options['buddyforms'][$selected_form_slug]['profiles_integration'];
+    if(isset($buddyform['profiles_integration']))
+        $attache = $buddyform['profiles_integration'];
 
-    $form->addElement(new Element_Checkbox("<b>" . __('Add this form as Profile Tab', 'buddyforms') . "</b>", "buddyforms_options[buddyforms][".$selected_form_slug."][profiles_integration]", array("integrate" => "integrate"), array('value' => $attache, 'shortDesc' => __('The attached page will be redirected to the members profile page', 'buddyforms'))));
+	$form_setup[] = new Element_Checkbox("<b>" . __('Add this form as Profile Tab', 'buddyforms') . "</b>", "buddyforms_options[profiles_integration]", array("integrate" => "integrate"), array('value' => $attache, 'shortDesc' => __('The attached page will be redirected to the members profile page', 'buddyforms')));
 
-
-    $form->addElement(new Element_HTML('
-				</div>
-			</div>
-		</div>'));
-
-    return $form;
+	foreach($form_setup as $key => $field){
+		echo '<div class="buddyforms_field_label">' . $field->getLabel() . '</div>';
+		echo '<div class="buddyforms_field_description">' . $field->getShortDesc() . '</div>';
+		echo '<div class="buddyforms_form_field">' . $field->render() . '</div>';
+	}
 }
-add_filter('buddyforms_admin_settings_sidebar_metabox','buddyforms_members_admin_settings_sidebar_metabox',1,2);
-
+add_filter('add_meta_boxes','buddyforms_members_admin_settings_sidebar_metabox');
 
 /**
  * Add the forms to the admin bar
@@ -40,10 +40,10 @@ add_action('wp_before_admin_bar_render', 'buddyforms_members_wp_before_admin_bar
 function buddyforms_members_wp_before_admin_bar_render(){
 	global $wp_admin_bar, $buddyforms;
 
-	if (empty($buddyforms['buddyforms']))
+	if (empty($buddyforms))
 		return;
 
-	foreach ($buddyforms['buddyforms'] as $key => $buddyform) {
+	foreach ($buddyforms as $key => $buddyform) {
 
         if (!isset($buddyform['post_type']) || $buddyform['post_type'] == 'none'){
             continue;
@@ -102,10 +102,10 @@ add_action('wp_before_admin_bar_render', 'buddyforms_admin_bar_members' ,10,1);
 function buddyforms_admin_bar_members() {
     global $wp_admin_bar, $buddyforms;
 
-    if(!isset($buddyforms['buddyforms']))
+    if(!isset($buddyforms))
         return;
 
-    foreach ($buddyforms['buddyforms'] as $key => $buddyform) {
+    foreach ($buddyforms as $key => $buddyform) {
 
         if(isset($buddyform['profiles_integration']))
             $wp_admin_bar->remove_menu('my-account-'.$key);
@@ -147,7 +147,7 @@ function buddyforms_front_js_loader_bp_members_support($found){
 	global $buddyforms;
 
 	// check the post content for the short code
-	if(isset($buddyforms['buddyforms'][bp_current_component()]))
+	if(isset($buddyforms[bp_current_component()]))
 		$found = true;
 
 	return $found;
@@ -162,7 +162,7 @@ function buddyforms_members_button_view_posts($button,$args){
 		'label'     => 'View',
 	), $args));
 
-	if(isset($buddyforms['buddyforms'][$form_slug]['profiles_integration'])){
+	if(isset($buddyforms[$form_slug]['profiles_integration'])){
         $url = trailingslashit(bp_loggedin_user_domain());
 		$button =   '<a class="button" href="'.$url.$form_slug.'/">'.__($label, 'buddyforms').' </a>';
       }
@@ -178,7 +178,7 @@ function buddyforms_members_button_add_new($button,$args){
 		'label'     => 'Add New',
 	), $args));
 
-	if(isset($buddyforms['buddyforms'][$form_slug]['profiles_integration'])){
+	if(isset($buddyforms[$form_slug]['profiles_integration'])){
         $url = trailingslashit(bp_loggedin_user_domain());
 		$button =  '<a class="button" href="'.$url.$form_slug.'/create/">'.__($label, 'buddyforms').'</a>';
     }

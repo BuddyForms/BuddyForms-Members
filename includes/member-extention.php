@@ -90,12 +90,12 @@ public $id = 'buddyforms';
 
 		$position = 20;
 
-		if (empty($buddyforms['buddyforms']))
+		if (empty($buddyforms))
 			return;
 
 
 
-		foreach ($buddyforms['buddyforms'] as $key => $member_form) {
+		foreach ($buddyforms as $key => $member_form) {
 			$position++;
 
 			if (isset($member_form['profiles_integration'])) :
@@ -240,7 +240,7 @@ public $id = 'buddyforms';
         if(!bp_current_component())
             return apply_filters('buddyforms_members_load_template_filter', $found_template);
 
-			if (is_array($templates) && empty($found_template) && isset($buddyforms['buddyforms']) && array_key_exists(bp_current_component(),$buddyforms['buddyforms'])) {
+			if (is_array($templates) && empty($found_template) && isset($buddyforms) && array_key_exists(bp_current_component(),$buddyforms)) {
 				// register our theme compat directory
 				//
 				// this tells BP to look for templates in our plugin directory last

@@ -2,7 +2,7 @@
 	<?php 
 	global $wp_query, $current_user, $the_lp_query, $bp, $buddyforms, $form_slug;
     $temp_query = $the_lp_query;
-    $post_type = $buddyforms['buddyforms'][$bp->current_component]['post_type'];
+    $post_type = $buddyforms[$bp->current_component]['post_type'];
 
 	$form_slug = $bp->current_component;
 

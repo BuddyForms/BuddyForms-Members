@@ -23,8 +23,8 @@ function bf_members_get_redirect_link( $id = false ) {
 		return false;
 
     $link = '';
-	if(isset($buddyforms['buddyforms'])){
-		foreach ($buddyforms['buddyforms'] as $key => $buddyform) {
+	if(isset($buddyforms)){
+		foreach ($buddyforms as $key => $buddyform) {
 				
 			if(isset($buddyform['attached_page']))
 				$attached_page_id = $buddyform['attached_page'];
