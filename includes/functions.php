@@ -1,6 +1,6 @@
 <?php
 function buddyforms_members_admin_settings_sidebar_metabox(){
-	add_meta_box('buddyforms_members', __("PB Member Profiles",'buddyforms'), 'buddyforms_members_admin_settings_sidebar_metabox_html', 'buddyforms', 'side', 'low');
+	add_meta_box('buddyforms_members', __("BP Member Profiles",'buddyforms'), 'buddyforms_members_admin_settings_sidebar_metabox_html', 'buddyforms', 'side', 'low');
 }
 
 function buddyforms_members_admin_settings_sidebar_metabox_html(){

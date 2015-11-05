@@ -44,7 +44,7 @@ function buddyforms_members_requirements(){
         return;
     }
 
-    if( ! defined( 'buddyforms' )){
+    if( ! defined( 'BUDDYFORMS_VERSION' )){
         add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BuddyForms Members needs BuddyForms to be installed. <a target="_blank" href="%s">--> Get it now</a>!\', " buddyforms" ) . \'</strong></p></div>\', "http://themekraft.com/store/wordpress-front-end-editor-and-form-builder-buddyforms/" );' ) );
         return;
     }

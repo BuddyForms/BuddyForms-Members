@@ -36,6 +36,10 @@
 
 	$the_lp_query = new WP_Query( $args );
 
+//	echo '<pre>';
+//	print_r($the_lp_query);
+//	echo '</pre>';
+
     buddyforms_locate_template('buddyforms/the-loop.php');
 
 	// Support for wp_pagenavi
