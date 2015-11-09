@@ -86,20 +86,15 @@ public $id = 'buddyforms';
 
 		get_currentuserinfo();
 
-
-
 		$position = 20;
 
 		if (empty($buddyforms))
 			return;
 
-
-
 		foreach ($buddyforms as $key => $member_form) {
 			$position++;
 
 			if (isset($member_form['profiles_integration'])) :
-
 
 				$slug = $member_form['slug'];
 
