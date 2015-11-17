@@ -110,57 +110,96 @@ public $id = 'buddyforms';
 
 					$count = $this->get_user_posts_count($bp->displayed_user->id, $member_form['post_type'],$slug);
 
-					$main_nav = array(
-						'name' => sprintf('%s <span>%d</span>', $name, $count),
-						'slug' => $key,
-						'position' => $position,
-						//'screen_function' => array($this, 'buddyforms_screen_settings'),
-						'default_subnav_slug' => 'my-posts'
-					);
+					if ( 'noparent' == $member_form['profiles_parent_tab'] ) {
 
-					$sub_nav[] = array(
-						'name' => sprintf(__(' My %s', 'buddyforms'), $name),
-						'slug' => 'my-posts',
-						'parent_slug' => $slug,
-						'parent_url' => trailingslashit(bp_loggedin_user_domain() . $slug),
-						'item_css_id' => 'my-posts',
-						'screen_function' => array($this, 'buddyforms_screen_settings'),
-					);
-					$sub_nav[] = array(
-						'name' => sprintf(__(' Add %s', 'buddyforms'), $member_form['singular_name']),
-						'slug' => 'create',
-						'parent_slug' => $slug,
-						'parent_url' => trailingslashit(bp_loggedin_user_domain() . $slug),
-						'item_css_id' => 'apps_sub_nav',
-						'screen_function' => array($this, 'load_members_post_create'),
-						'user_has_access' => bp_is_my_profile()
-					);
-					$sub_nav[] = array(
-						'name' => sprintf(__(' Edit %s', 'buddyforms'), $member_form['singular_name']),
-						'slug' => 'edit',
-						'parent_slug' => $slug,
-						'parent_url' => trailingslashit(bp_loggedin_user_domain() . $slug),
-						'item_css_id' => 'sub_nav_edit',
-						'screen_function' => array($this, 'buddyforms_screen_settings'),
-						'user_has_access' => bp_is_my_profile()
-					);
-					$sub_nav[] = array(
-						'name' => sprintf(__(' Revision %s', 'buddyforms'), $member_form['singular_name']),
-						'slug' => 'revision',
-						'parent_slug' => $slug,
-						'parent_url' => trailingslashit(bp_loggedin_user_domain() . $slug),
-						'item_css_id' => 'sub_nav_edit',
-						'screen_function' => array($this, 'buddyforms_screen_settings'),
-						'user_has_access' => bp_is_my_profile(),
-					);
-					$sub_nav[] = array(
-						'name' => sprintf(__(' Page %s', 'buddyforms'), $member_form['singular_name']),
-						'slug' => 'page',
-						'parent_slug' => $slug,
-						'parent_url' => trailingslashit(bp_loggedin_user_domain() . $slug),
-						'item_css_id' => 'sub_nav_edit',
-						'screen_function' => array($this, 'buddyforms_screen_settings'),
-					);
+						$main_nav = array(
+							'name' => sprintf('%s <span>%d</span>', $name, $count),
+							'slug' => $key,
+							'position' => $position,
+							//'screen_function' => array($this, 'buddyforms_screen_settings'),
+							'default_subnav_slug' => 'my-posts'
+						);
+
+						$sub_nav[] = array(
+							'name' => sprintf(__(' My %s', 'buddyforms'), $name),
+							'slug' => 'my-posts',
+							'parent_slug' => $slug,
+							'parent_url' => trailingslashit(bp_loggedin_user_domain() . $slug),
+							'item_css_id' => 'my-posts',
+							'screen_function' => array($this, 'buddyforms_screen_settings'),
+						);
+						$sub_nav[] = array(
+							'name' => sprintf(__(' Add %s', 'buddyforms'), $member_form['singular_name']),
+							'slug' => 'create',
+							'parent_slug' => $slug,
+							'parent_url' => trailingslashit(bp_loggedin_user_domain() . $slug),
+							'item_css_id' => 'apps_sub_nav',
+							'screen_function' => array($this, 'load_members_post_create'),
+							'user_has_access' => bp_is_my_profile()
+						);
+						$sub_nav[] = array(
+							'name' => sprintf(__(' Edit %s', 'buddyforms'), $member_form['singular_name']),
+							'slug' => 'edit',
+							'parent_slug' => $slug,
+							'parent_url' => trailingslashit(bp_loggedin_user_domain() . $slug),
+							'item_css_id' => 'sub_nav_edit',
+							'screen_function' => array($this, 'buddyforms_screen_settings'),
+							'user_has_access' => bp_is_my_profile()
+						);
+						$sub_nav[] = array(
+							'name' => sprintf(__(' Revision %s', 'buddyforms'), $member_form['singular_name']),
+							'slug' => 'revision',
+							'parent_slug' => $slug,
+							'parent_url' => trailingslashit(bp_loggedin_user_domain() . $slug),
+							'item_css_id' => 'sub_nav_edit',
+							'screen_function' => array($this, 'buddyforms_screen_settings'),
+							'user_has_access' => bp_is_my_profile(),
+						);
+						$sub_nav[] = array(
+							'name' => sprintf(__(' Page %s', 'buddyforms'), $member_form['singular_name']),
+							'slug' => 'page',
+							'parent_slug' => $slug,
+							'parent_url' => trailingslashit(bp_loggedin_user_domain() . $slug),
+							'item_css_id' => 'sub_nav_edit',
+							'screen_function' => array($this, 'buddyforms_screen_settings'),
+						);
+					}
+
+					if ( 'noparent' != $member_form['profiles_parent_tab'] ) {
+						$key = $member_form['profiles_parent_tab'];
+						$sub_nav[] = array(
+							'name' => sprintf(__(' My %s', 'buddyforms'), $name),
+							'slug' => $key . '-my-posts',
+							'position'   => $position + 100,
+							'parent_slug' => $key,
+							'parent_url' => trailingslashit(bp_loggedin_user_domain() . $key),
+							'item_css_id' => 'my-posts',
+							'screen_function' => array($this, 'buddyforms_screen_settings'),
+						);
+						$sub_nav[] = array(
+							'name' => sprintf(__(' Add %s', 'buddyforms'), $member_form['singular_name']),
+							'slug' => $key . '-create',
+							'position'   => $position + 100,
+							'parent_slug' => $key,
+							'parent_url' => trailingslashit(bp_loggedin_user_domain() . $key),
+							'item_css_id' => 'apps_sub_nav',
+							'screen_function' => array($this, 'load_members_post_create'),
+							'user_has_access' => bp_is_my_profile()
+						);
+						$sub_nav[] = array(
+							'name' => sprintf(__(' Edit %s', 'buddyforms'), $member_form['singular_name']),
+							'slug' => $key . '-edit',
+							'parent_slug' => $key,
+							'parent_url' => trailingslashit(bp_loggedin_user_domain() . $key),
+							'item_css_id' => 'sub_nav_edit',
+							'screen_function' => array($this, 'buddyforms_screen_settings'),
+							'user_has_access' => bp_is_my_profile()
+						);
+
+						
+
+
+					}
 
 					if ($current_user->ID != bp_displayed_user_id()) {
 						parent::setup_nav($main_nav, $sub_nav);
@@ -183,14 +222,15 @@ public $id = 'buddyforms';
 	*/
 	public function buddyforms_screen_settings() {
 		global $current_user, $bp;
+		$current_component = $bp->current_component;
 
-		if($bp->current_action == 'my-posts')
+		if($bp->current_action == 'my-posts' || $current_component . '-my-posts' )
             bp_core_load_template('buddyforms/members/members-post-display');
 
         if($bp->current_action == 'page')
             bp_core_load_template('buddyforms/members/members-post-display');
 
-        if($bp->current_action == 'edit')
+        if($bp->current_action == 'edit' || $current_component . '-edit' )
 			bp_core_load_template('buddyforms/members/members-post-create');
 	
 		if($bp->current_action == 'revision')
@@ -231,6 +271,9 @@ public $id = 'buddyforms';
 	 */
 	function buddyforms_load_template_filter($found_template, $templates) {
 	global $bp, $wp_query, $buddyforms;
+	
+	$current_component = $bp->current_component;
+	
 
         if(!bp_current_component())
             return apply_filters('buddyforms_members_load_template_filter', $found_template);
@@ -253,15 +296,15 @@ public $id = 'buddyforms';
 				$found_template = locate_template('members/single/plugins.php', false, false);
 	
 				// add our hook to inject content into BP
-				if ($bp->current_action == 'my-posts') {
+				if ($bp->current_action == 'my-posts' || $bp->current_action == $current_component . '-my-posts' ) {
 					add_action('bp_template_content', create_function('', "
 					bp_get_template_part( 'buddyforms/members/members-post-display' );
 				"));
-				} elseif ($bp->current_action == 'create') {
+				} elseif ($bp->current_action == 'create' || $bp->current_action == $current_component . '-create') {
 					add_action('bp_template_content', create_function('', "
 					bp_get_template_part( 'buddyforms/members/members-post-create' );
 				"));
-				} elseif ($bp->current_action == 'edit') {
+				} elseif ($bp->current_action == 'edit' || $current_component . '-edit' ) {
 					add_action('bp_template_content', create_function('', "
 					bp_get_template_part( 'buddyforms/members/members-post-create' );
 				"));
