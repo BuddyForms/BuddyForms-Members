@@ -104,6 +104,9 @@ function buddyforms_admin_bar_members() {
 
     if(!isset($buddyforms))
         return;
+        
+	if(!is_array($buddyforms))
+        return;
 
     foreach ($buddyforms as $key => $buddyform) {
 

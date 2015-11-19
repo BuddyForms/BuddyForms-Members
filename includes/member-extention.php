@@ -235,7 +235,7 @@ public $id = 'buddyforms';
         if(!bp_current_component())
             return apply_filters('buddyforms_members_load_template_filter', $found_template);
 
-			if (is_array($templates) && empty($found_template) && isset($buddyforms) && array_key_exists(bp_current_component(),$buddyforms)) {
+			if (is_array($templates) && is_array($buddyforms) && empty($found_template) && isset($buddyforms) && array_key_exists(bp_current_component(),$buddyforms)) {
 				// register our theme compat directory
 				//
 				// this tells BP to look for templates in our plugin directory last

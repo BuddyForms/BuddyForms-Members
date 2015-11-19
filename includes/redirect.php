@@ -18,12 +18,12 @@ if( ! defined( 'ABSPATH' ) ) exit;
  */
 function bf_members_get_redirect_link( $id = false ) {
 	global $bp, $buddyforms;
-		
+				
 	if( ! $id )
 		return false;
 
     $link = '';
-	if(isset($buddyforms)){
+	if(isset($buddyforms) && is_array($buddyforms)){
 		foreach ($buddyforms as $key => $buddyform) {
 				
 			if(isset($buddyform['attached_page']))
