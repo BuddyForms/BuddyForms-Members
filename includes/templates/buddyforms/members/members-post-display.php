@@ -3,15 +3,8 @@
 	global $wp_query, $current_user, $the_lp_query, $bp, $buddyforms, $form_slug;
     $temp_query = $the_lp_query;
     $post_type = $buddyforms[$bp->current_component]['post_type'];
-    $current_component = $bp->current_component;
 
 	$form_slug = $bp->current_component;
-	foreach ($buddyforms as $key => $member_form) {
-	    if ( 'noparent' != $member_form['profiles_parent_tab'] && $current_component .'-my-posts' ==  $bp->current_action ) {
-	        $form_slug = $member_form['slug'];
-	        $post_type = $member_form['post_type'];
-	    }
-	}
 
 	$list_posts_option = $buddyforms[$bp->current_component]['list_posts_option'];
 
