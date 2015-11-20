@@ -7,7 +7,7 @@
 
 	$form_slug = $bp->current_component;
 	foreach ($buddyforms as $key => $member_form) {
-	    if ( 'noparent' != $member_form['profiles_parent_tab'] && $current_component .'-my-posts' ==  $bp->current_action ) {
+	    if ( 'noparent' != $member_form['profiles_parent_tab'] && $member_form['slug'] .'-my-posts' ==  $bp->current_action ) {
 	        $form_slug = $member_form['slug'];
 	        $post_type = $member_form['post_type'];
 	    }

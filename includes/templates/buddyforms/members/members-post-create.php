@@ -6,11 +6,11 @@ $post_id = 0;
 $post_parent_id = 0;
 $revision_id = '';
 $current_component = $bp->current_component;
-if(bp_current_action() == 'create' || bp_current_action() == $current_component . '-create'){
+if(bp_current_action() == 'create' || bp_current_action() == $member_form['slug'] . '-create'){
     if(isset($bp->action_variables[1]))
         $post_parent_id = $bp->action_variables[1];
 }
-if(bp_current_action() == 'edit' || bp_current_action() == $current_component . '-edit'){
+if(bp_current_action() == 'edit' || bp_current_action() == $member_form['slug'] . '-edit'){
     if(isset($bp->action_variables[1]))
         $post_id = $bp->action_variables[1];
 }
@@ -23,10 +23,17 @@ $form_slug = $bp->current_component;
 //echo do_shortcode('[buddyforms_form post_type="'.$post_type.'" form_slug="'.$form_slug.'" post_id="'.$post_id.'" ]');
 
 foreach ($buddyforms as $key => $member_form) {
-    if ( 'noparent' != $member_form['profiles_parent_tab'] && $current_component . '-create' ==  $bp->current_action ) {
+    
+    if ( $member_form['slug']  . '-create' ==  $bp->current_action ) {
+        $post_type = $member_form['post_type'];
+    }
+    // if ( $member_form['slug'] . '-edit' ==  $bp->current_action ) {
+    //     $post_type = $member_form['post_type'];
+    // }
+    if ( 'noparent' != $member_form['profiles_parent_tab'] && $member_form['slug']  . '-create' ==  $bp->current_action ) {
         $form_slug = $member_form['slug'];
     }
-    if ( 'noparent' != $member_form['profiles_parent_tab'] && $current_component . '-edit' ==  $bp->current_action ) {
+    if ( 'noparent' != $member_form['profiles_parent_tab'] && $member_form['slug'] . '-edit' ==  $bp->current_action ) {
         $form_slug = $member_form['slug'];
     }
 }
