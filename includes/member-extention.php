@@ -58,17 +58,24 @@ public $id = 'buddyforms';
 	 * @since 0.1 beta
 	*/
 	function get_user_posts_count($user_id, $post_type, $form_slug) {
-		
+		global $buddyforms;
+
+
+
 		$args['author'] = $user_id;
 		$args['post_type'] = $post_type;
         $args['fields'] = 'ids';
-        $args['meta_key'] = '_bf_form_slug';
-        $args['meta_value'] = $form_slug;
-        $args['posts_per_page'] = -1;
+		$args['posts_per_page'] = -1;
 
-		$ps = get_posts($args);
+		if(isset($buddyforms[$form_slug]['list_posts_option']) && $buddyforms[$form_slug]['list_posts_option'] == 'list_all_form'){
+			$args['meta_key'] = '_bf_form_slug';
+			$args['meta_value'] = $form_slug;
+		}
 
-        return count($ps);
+		$post_status_array = bf_get_post_status_array();
+		$args['post_status'] = array_keys($post_status_array);
+
+        return count(get_posts($args));
 
 	}
 
@@ -96,11 +103,12 @@ public $id = 'buddyforms';
 
 			if (isset($member_form['profiles_integration'])) :
 
-				$slug = $member_form['slug'];
 
-				if (current_user_can('buddyforms_' . $slug . '_create') || user_can( bp_displayed_user_id(), 'buddyforms_' . $slug . '_create' )) {
+
+				if (current_user_can('buddyforms_' . $key . '_create') || user_can( bp_displayed_user_id(), 'buddyforms_' . $key . '_create' )) {
 
 					$post_type_object = get_post_type_object($member_form['post_type']);
+					$count = $this->get_user_posts_count($bp->displayed_user->id, $member_form['post_type'],$key);
 
 					if (isset($post_type_object->labels->name))
 						$name = $post_type_object->labels->name;
@@ -108,103 +116,122 @@ public $id = 'buddyforms';
 					if (isset($member_form['name']))
 						$name = $member_form['name'];
 
-					$count = $this->get_user_posts_count($bp->displayed_user->id, $member_form['post_type'],$slug);
 
 
-					if ( 'noparent' == $member_form['profiles_parent_tab'] ) {
+					//$member_form['profiles_parent_tab'] =  $parent_tab_page->post_name;
 
-						$main_nav = array(
-							'name' => sprintf('%s <span>%d</span>', $name, $count),
-							'slug' => $key,
-							'position' => $position,
-							//'screen_function' => array($this, 'buddyforms_screen_settings'),
-							'default_subnav_slug' => 'my-posts'
-						);
+					$parent_tab = buddyforms_members_parent_tab($member_form);
+
+					if ( $parent_tab  ) {
+
+
+						if(!array_key_exists($parent_tab, (array)$bp->bp_nav)){
+							$main_nav = array(
+									'name' => sprintf('%s <span>%d</span>', $parent_tab, $count),
+									'slug' => $parent_tab,
+									'position' => $position,
+								//'screen_function' => array($this, 'buddyforms_screen_settings'),
+									'default_subnav_slug' =>  $key  . '-my-posts'
+							);
+						}
+
 
 						$sub_nav[] = array(
 							'name' => sprintf(__(' My %s', 'buddyforms'), $name),
-							'slug' => 'my-posts',
-							'parent_slug' => $slug,
-							'parent_url' => trailingslashit(bp_loggedin_user_domain() . $slug),
+							'slug' => $key  . '-my-posts',
+							'parent_slug' => $parent_tab,
+							'parent_url' => trailingslashit(bp_loggedin_user_domain() . $parent_tab),
 							'item_css_id' => 'my-posts',
 							'screen_function' => array($this, 'buddyforms_screen_settings'),
 						);
 						$sub_nav[] = array(
 							'name' => sprintf(__(' Add %s', 'buddyforms'), $member_form['singular_name']),
-							'slug' => 'create',
-							'parent_slug' => $slug,
-							'parent_url' => trailingslashit(bp_loggedin_user_domain() . $slug),
+							'slug' => $key . '-create',
+							'parent_slug' => $parent_tab,
+							'parent_url' => trailingslashit(bp_loggedin_user_domain() . $parent_tab),
 							'item_css_id' => 'apps_sub_nav',
 							'screen_function' => array($this, 'load_members_post_create'),
 							'user_has_access' => bp_is_my_profile()
 						);
 						$sub_nav[] = array(
 							'name' => sprintf(__(' Edit %s', 'buddyforms'), $member_form['singular_name']),
-							'slug' => 'edit',
-							'parent_slug' => $slug,
-							'parent_url' => trailingslashit(bp_loggedin_user_domain() . $slug),
+							'slug' =>  $key . '-edit',
+							'parent_slug' => $parent_tab,
+							'parent_url' => trailingslashit(bp_loggedin_user_domain() . $parent_tab),
 							'item_css_id' => 'sub_nav_edit',
 							'screen_function' => array($this, 'buddyforms_screen_settings'),
 							'user_has_access' => bp_is_my_profile()
 						);
 						$sub_nav[] = array(
 							'name' => sprintf(__(' Revision %s', 'buddyforms'), $member_form['singular_name']),
-							'slug' => 'revision',
-							'parent_slug' => $slug,
-							'parent_url' => trailingslashit(bp_loggedin_user_domain() . $slug),
+							'slug' =>  $key  . '-revision',
+							'parent_slug' => $parent_tab,
+							'parent_url' => trailingslashit(bp_loggedin_user_domain() . $parent_tab),
 							'item_css_id' => 'sub_nav_edit',
 							'screen_function' => array($this, 'buddyforms_screen_settings'),
 							'user_has_access' => bp_is_my_profile(),
 						);
-						$sub_nav[] = array(
-							'name' => sprintf(__(' Page %s', 'buddyforms'), $member_form['singular_name']),
-							'slug' => 'page',
-							'parent_slug' => $slug,
-							'parent_url' => trailingslashit(bp_loggedin_user_domain() . $slug),
-							'item_css_id' => 'sub_nav_edit',
-							'screen_function' => array($this, 'buddyforms_screen_settings'),
-						);
+//						$sub_nav[] = array(
+//							'name' => sprintf(__(' Page %s', 'buddyforms'), $member_form['singular_name']),
+//							'slug' =>  $key  . '-page',
+//							'parent_slug' => $parent_tab,
+//							'parent_url' => trailingslashit(bp_loggedin_user_domain() . $parent_tab),
+//							'item_css_id' => 'sub_nav_edit',
+//							'screen_function' => array($this, 'buddyforms_screen_settings'),
+//						);
 					}
-
-					if ( 'noparent' != $member_form['profiles_parent_tab'] ) {
-						$key = $member_form['profiles_parent_tab'];
-						$sub_nav[] = array(
-							'name' => sprintf(__(' My %s', 'buddyforms'), $name),
-							'slug' => $member_form['slug']  . '-my-posts',
-							'position'   => $position + 100,
-							'parent_slug' => $key,
-							'parent_url' => trailingslashit(bp_loggedin_user_domain() . $key),
-							'item_css_id' => 'my-posts',
-							'screen_function' => array($this, 'buddyforms_screen_settings'),
-						);
-						$sub_nav[] = array(
-							'name' => sprintf(__(' Add %s', 'buddyforms'), $member_form['singular_name']),
-							'slug' => $member_form['slug'] . '-create',
-							'position'   => $position + 100,
-							'parent_slug' => $key,
-							'parent_url' => trailingslashit(bp_loggedin_user_domain() . $key),
-							'item_css_id' => 'apps_sub_nav',
-							'screen_function' => array($this, 'load_members_post_create'),
-							'user_has_access' => bp_is_my_profile()
-						);
-						$sub_nav[] = array(
-							'name' => sprintf(__(' Edit %s', 'buddyforms'), $member_form['singular_name']),
-							'slug' => $member_form['slug'] . '-edit',
-							'parent_slug' => $key,
-							'parent_url' => trailingslashit(bp_loggedin_user_domain() . $key),
-							'item_css_id' => 'sub_nav_edit',
-							'screen_function' => array($this, 'buddyforms_screen_settings'),
-							'user_has_access' => bp_is_my_profile()
-						);
-
-						
-
-
-					}
+//
+//					if ( $parent_tab != $key ) {
+//
+//						$main_nav = array(
+//							'name' =>  $parent_tab,
+//							'slug' => $parent_tab,
+//							'position' => $position,
+//						//'screen_function' => array($this, 'buddyforms_screen_settings'),
+//							'default_subnav_slug' => 'my-posts'
+//					);
+//
+//
+//						$sub_nav[] = array(
+//							'name' => sprintf(__(' My %s', 'buddyforms'), $name),
+//							'slug' => $member_form['slug']  . '-my-posts',
+//							'position'   => $position + 100,
+//							'parent_slug' => $parent_tab,
+//							'parent_url' => trailingslashit(bp_loggedin_user_domain() . $parent_tab),
+//							'item_css_id' => 'my-posts',
+//							'screen_function' => array($this, 'buddyforms_screen_settings'),
+//						);
+//						$sub_nav[] = array(
+//							'name' => sprintf(__(' Add %s', 'buddyforms'), $member_form['singular_name']),
+//							'slug' => $member_form['slug'] . '-create',
+//							'position'   => $position + 100,
+//							'parent_slug' => $parent_tab,
+//							'parent_url' => trailingslashit(bp_loggedin_user_domain() . $parent_tab),
+//							'item_css_id' => 'apps_sub_nav',
+//							'screen_function' => array($this, 'load_members_post_create'),
+//							'user_has_access' => bp_is_my_profile()
+//						);
+//						$sub_nav[] = array(
+//							'name' => sprintf(__(' Edit %s', 'buddyforms'), $member_form['singular_name']),
+//							'slug' => $member_form['slug'] . '-edit',
+//							'parent_slug' => $parent_tab,
+//							'parent_url' => trailingslashit(bp_loggedin_user_domain() . $parent_tab),
+//							'item_css_id' => 'sub_nav_edit',
+//							'screen_function' => array($this, 'buddyforms_screen_settings'),
+//							'user_has_access' => bp_is_my_profile()
+//						);
+//
+//					}
+//					echo '<pre>';
+//					print_r($main_nav);
+//					echo '</pre>';
+//					echo '<pre>';
+//					print_r($sub_nav);
+//					echo '</pre>';
 
 					if ($current_user->ID != bp_displayed_user_id()) {
 						parent::setup_nav($main_nav, $sub_nav);
-					} elseif (current_user_can('buddyforms_' . $slug . '_create')) {
+					} elseif (current_user_can('buddyforms_' . $key . '_create')) {
 						parent::setup_nav($main_nav, $sub_nav);
 					}
 
@@ -212,6 +239,8 @@ public $id = 'buddyforms';
 
 		endif;
 		}
+
+
 
 	}
 
@@ -223,30 +252,20 @@ public $id = 'buddyforms';
 	*/
 	public function buddyforms_screen_settings() {
 		global $current_user, $bp, $buddyforms;
-		$current_component = $bp->current_component;
 
-		$child_form_slug = '';
-		foreach ($buddyforms as $key => $member_form) {
-		    if ( 'noparent' != $member_form['profiles_parent_tab']  ) {
-		    	if ( $bp->current_action == $member_form['slug'] . '-my-posts' 
-		    		|| $bp->current_action == $member_form['slug'] . '-create'
-		    		|| $bp->current_action == $member_form['slug'] . '-edit'  ) {
-			        $child_form_slug = $member_form['slug'];
-			    }
-		    }
-		}
+		$form_slug = explode('-',$bp->current_action);
+		$form_slug = $form_slug[0];
 
-		if($bp->current_action == 'my-posts' || $bp->current_action ==  $child_form_slug . '-my-posts' )
+		if($bp->current_action ==  $form_slug . '-my-posts' )
             bp_core_load_template('buddyforms/members/members-post-display');
 
+//        if($bp->current_action == 'page')
+//            bp_core_load_template('buddyforms/members/members-post-display');
 
-        if($bp->current_action == 'page')
-            bp_core_load_template('buddyforms/members/members-post-display');
-
-        if($bp->current_action == 'edit' || $bp->current_action == $child_form_slug . '-edit' )
+        if($bp->current_action == $form_slug . '-edit' )
 			bp_core_load_template('buddyforms/members/members-post-create');
 	
-		if($bp->current_action == 'revision')
+		if($bp->current_action == $form_slug . '-revision')
 			bp_core_load_template('buddyforms/members/members-post-create');
 
 	}
@@ -285,13 +304,14 @@ public $id = 'buddyforms';
 	function buddyforms_load_template_filter($found_template, $templates) {
 	global $bp, $wp_query, $buddyforms;
 	
-	$current_component = $bp->current_component;
-	
+		$form_slug = explode('-',$bp->current_action);
+		$form_slug = $form_slug[0];
 
-        if(!bp_current_component())
+		if(!bp_current_component())
             return apply_filters('buddyforms_members_load_template_filter', $found_template);
 
-			if (is_array($templates) && is_array($buddyforms) && empty($found_template) && isset($buddyforms) && array_key_exists(bp_current_component(),$buddyforms)) {
+			if (is_array($templates) && is_array($buddyforms) && empty($found_template) && isset($buddyforms) && array_key_exists($form_slug,$buddyforms)) {
+
 				// register our theme compat directory
 				//
 				// this tells BP to look for templates in our plugin directory last
@@ -308,41 +328,30 @@ public $id = 'buddyforms';
 				// will kick in on its own when this template isn't found
 				$found_template = locate_template('members/single/plugins.php', false, false);
 
-				$child_form_slug = '';
-				foreach ($buddyforms as $key => $member_form) {
-				    if ( 'noparent' != $member_form['profiles_parent_tab']  ) {
-				    	if ( $bp->current_action == $member_form['slug'] . '-my-posts' 
-				    		|| $bp->current_action == $member_form['slug'] . '-create'
-				    		|| $bp->current_action == $member_form['slug'] . '-edit'  ) {
-					        $child_form_slug = $member_form['slug'];
-					        //$post_type = $member_form['post_type'];
-					    }
-				    }
-				}
-	
 				// add our hook to inject content into BP
-				if ($bp->current_action == 'my-posts' || $bp->current_action == $child_form_slug . '-my-posts' ) {
+				if ($bp->current_action == $form_slug . '-my-posts' ) {
 					add_action('bp_template_content', create_function('', "
 					bp_get_template_part( 'buddyforms/members/members-post-display' );
 				"));
-				} elseif ($bp->current_action == 'create' || $bp->current_action == $child_form_slug . '-create') {
+				} elseif ($bp->current_action == $form_slug . '-create') {
 					add_action('bp_template_content', create_function('', "
 					bp_get_template_part( 'buddyforms/members/members-post-create' );
 				"));
-				} elseif ($bp->current_action == 'edit' || $bp->current_action == $child_form_slug . '-edit' ) {
+				} elseif ($bp->current_action == $form_slug . '-edit' ) {
 					add_action('bp_template_content', create_function('', "
 					bp_get_template_part( 'buddyforms/members/members-post-create' );
 				"));
-				} elseif ($bp->current_action == 'revision') {
+				} elseif ($bp->current_action == $form_slug . '-revision') {
                     add_action('bp_template_content', create_function('', "
 					bp_get_template_part( 'buddyforms/members/members-post-create' );
 				"));
-                } elseif ($bp->current_action == 'page') {
+                } elseif ($bp->current_action == $form_slug . '-page') {
                     add_action('bp_template_content', create_function('', "
 					bp_get_template_part( 'buddyforms/members/members-post-display' );
 				"));
                 }
 			}
+
 
 	
 		return apply_filters('buddyforms_members_load_template_filter', $found_template);
@@ -353,5 +362,19 @@ public $id = 'buddyforms';
 
 	}
 
+}
+
+function buddyforms_members_parent_tab($member_form){
+	$parent_tab_name = $member_form['name'];
+
+	if (isset($member_form['profiles_parent_tab']))
+		$parent_tab = $member_form['profiles_parent_tab'];
+
+	if (isset($member_form['attached_page']) && isset($parent_tab)){
+		$attached_page = $member_form['attached_page'];
+		$parent_tab_page = get_post($attached_page, 'OBJECT');
+		$parent_tab_name = $parent_tab_page->post_name;
+	}
+	return $parent_tab_name;
 }
 ?>
