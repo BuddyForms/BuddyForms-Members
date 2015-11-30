@@ -4,7 +4,7 @@ function buddyforms_members_admin_settings_sidebar_metabox(){
 }
 
 function buddyforms_members_admin_settings_sidebar_metabox_html(){
-	global $post;
+	global $post, $buddyforms;
 
 	if($post->post_type != 'buddyforms')
 		return;
@@ -13,12 +13,23 @@ function buddyforms_members_admin_settings_sidebar_metabox_html(){
 
 
 	$form_setup = array();
+	$parent_tab_array['noparent'] = '--';
+	foreach($buddyforms as $key => $field){
+		if (empty($field['profiles_integration'])) continue; // if not a profile tab, bail out
+		if ($post->post_name == $field['slug'] ) continue;  // if same tab, bail out
+		$parent_tab_array[$field['slug']] = $field['name'];
+	}
 
     $attache = '';
+    $parent_tab_attache = '';
     if(isset($buddyform['profiles_integration']))
         $attache = $buddyform['profiles_integration'];
 
+    if(isset($buddyform['profiles_parent_tab']))
+        $parent_tab_attache = $buddyform['profiles_parent_tab'];
+
 	$form_setup[] = new Element_Checkbox("<b>" . __('Add this form as Profile Tab', 'buddyforms') . "</b>", "buddyforms_options[profiles_integration]", array("integrate" => "integrate"), array('value' => $attache, 'shortDesc' => __('The attached page will be redirected to the members profile page', 'buddyforms')));
+	$form_setup[] = new Element_Select("<b>" . __('Add this form to Parent Tab', 'buddyforms') . "</b>", "buddyforms_options[profiles_parent_tab]", $parent_tab_array, array('value' => $parent_tab_attache, 'shortDesc' => __('The attached page will be redirected to the members profile page', 'buddyforms')));
 
 	foreach($form_setup as $key => $field){
 		echo '<div class="buddyforms_field_label">' . $field->getLabel() . '</div>';
@@ -187,6 +198,22 @@ function buddyforms_members_button_add_new($button,$args){
     }
 
 	return $button;
+}
+
+// for more info: http://stackoverflow.com/questions/6768793/get-the-full-url-in-php
+function url_origin( $s, $use_forwarded_host = false ) {
+    $ssl      = ( ! empty( $s['HTTPS'] ) && $s['HTTPS'] == 'on' );
+    $sp       = strtolower( $s['SERVER_PROTOCOL'] );
+    $protocol = substr( $sp, 0, strpos( $sp, '/' ) ) . ( ( $ssl ) ? 's' : '' );
+    $port     = $s['SERVER_PORT'];
+    $port     = ( ( ! $ssl && $port=='80' ) || ( $ssl && $port=='443' ) ) ? '' : ':'.$port;
+    $host     = ( $use_forwarded_host && isset( $s['HTTP_X_FORWARDED_HOST'] ) ) ? $s['HTTP_X_FORWARDED_HOST'] : ( isset( $s['HTTP_HOST'] ) ? $s['HTTP_HOST'] : null );
+    $host     = isset( $host ) ? $host : $s['SERVER_NAME'] . $port;
+    return $protocol . '://' . $host;
+}
+
+function full_url( $s, $use_forwarded_host = false ) {
+    return url_origin( $s, $use_forwarded_host ) . $s['REQUEST_URI'];
 }
 
 ?>

@@ -21,6 +21,8 @@ function bf_members_get_redirect_link( $id = false ) {
 				
 	if( ! $id )
 		return false;
+	if (! is_buddypress())
+		return false;
 
     $link = '';
 	if(isset($buddyforms) && is_array($buddyforms)){
@@ -31,7 +33,8 @@ function bf_members_get_redirect_link( $id = false ) {
 			
 			if(isset($buddyform['profiles_integration']) && isset($attached_page_id) && $attached_page_id == $id){
 
-				$link = bp_loggedin_user_domain() .$buddyform['slug'].'/';
+				// $link = bp_loggedin_user_domain() .$buddyform['slug'].'/';
+				$link = bp_loggedin_user_domain() .$bp->current_component.'/'; // fixed for child sub nav tab
 				
 				if(isset($bp->unfiltered_uri[1])){
 					if($bp->unfiltered_uri[1] == 'create')
