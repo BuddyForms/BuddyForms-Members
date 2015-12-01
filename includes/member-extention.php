@@ -110,7 +110,10 @@ public $id = 'buddyforms';
 
 					if ( $parent_tab  ) {
 
-						if (isset($member_form['attached_page']) && isset($parent_tab)){
+						$parent_tab_name = $name;
+						if (isset($member_form['profiles_parent_tab'])
+								&& isset($member_form['attached_page'])
+								&& isset($parent_tab)){
 							$attached_page = $member_form['attached_page'];
 							$parent_tab_page = get_post($attached_page, 'OBJECT');
 							$parent_tab_name = $parent_tab_page->post_title;
