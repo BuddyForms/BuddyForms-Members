@@ -5,22 +5,23 @@ global $bp, $buddyforms;
 $post_id = 0;
 $post_parent_id = 0;
 $revision_id = '';
+$current_component = $bp->current_component;
 
-if(bp_current_action() == 'create'){
-    if(isset($bp->action_variables[1]))
-        $post_parent_id = $bp->action_variables[1];
-}
-if(bp_current_action() == 'edit'){
-    if(isset($bp->action_variables[1]))
-        $post_id = $bp->action_variables[1];
-}
-if(bp_current_action() == 'revision'){
-    if(isset($bp->action_variables[2]))
-        $revision_id = $bp->action_variables[2];
-}
+$form_slug = explode('-',$bp->current_action);
+$form_slug = $form_slug[0];
 
-$form_slug = $bp->current_component;
-//echo do_shortcode('[buddyforms_form post_type="'.$post_type.'" form_slug="'.$form_slug.'" post_id="'.$post_id.'" ]');
+if(bp_current_action() == $form_slug . '-create'){
+    if(isset($bp->action_variables[0]))
+        $post_parent_id = $bp->action_variables[0];
+}
+if(bp_current_action() == $form_slug . '-edit'){
+    if(isset($bp->action_variables[0]))
+        $post_id = $bp->action_variables[0];
+}
+if(bp_current_action() == $form_slug . '-revision'){
+    if(isset($bp->action_variables[1]))
+        $revision_id = $bp->action_variables[1];
+}
 
 $args = array(
 	'form_slug'		=> $form_slug,

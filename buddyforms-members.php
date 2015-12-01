@@ -98,8 +98,9 @@ class BuddyForms_Members {
 	 * @since 0.1 beta
 	 */
 	public function includes() {
-		
+
 		require_once (BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'functions.php');
+		require_once (BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'form-elements.php');
 		require_once (BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'member-extention.php');
 		require_once (BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'redirect.php');
 		

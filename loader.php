@@ -38,7 +38,6 @@
 
 function buddyforms_members_requirements(){
 
-    // Needs to be rewritetn in Otto style ;-)
     if( ! defined( 'BP_VERSION' )){
         add_action( 'admin_notices', create_function( '', 'printf(\'<div id="message" class="error"><p><strong>\' . __(\'BuddyForms Members needs BuddyPress to be installed. <a href="%s">Download it now</a>!\', " buddypress" ) . \'</strong></p></div>\', admin_url("plugin-install.php") );' ) );
         return;

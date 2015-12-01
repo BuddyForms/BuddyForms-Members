@@ -1,32 +1,4 @@
 <?php
-function buddyforms_members_admin_settings_sidebar_metabox(){
-	add_meta_box('buddyforms_members', __("BP Member Profiles",'buddyforms'), 'buddyforms_members_admin_settings_sidebar_metabox_html', 'buddyforms', 'side', 'low');
-}
-
-function buddyforms_members_admin_settings_sidebar_metabox_html(){
-	global $post;
-
-	if($post->post_type != 'buddyforms')
-		return;
-
-	$buddyform = get_post_meta(get_the_ID(), '_buddyforms_options', true);
-
-
-	$form_setup = array();
-
-    $attache = '';
-    if(isset($buddyform['profiles_integration']))
-        $attache = $buddyform['profiles_integration'];
-
-	$form_setup[] = new Element_Checkbox("<b>" . __('Add this form as Profile Tab', 'buddyforms') . "</b>", "buddyforms_options[profiles_integration]", array("integrate" => "integrate"), array('value' => $attache, 'shortDesc' => __('The attached page will be redirected to the members profile page', 'buddyforms')));
-
-	foreach($form_setup as $key => $field){
-		echo '<div class="buddyforms_field_label">' . $field->getLabel() . '</div>';
-		echo '<div class="buddyforms_field_description">' . $field->getShortDesc() . '</div>';
-		echo '<div class="buddyforms_form_field">' . $field->render() . '</div>';
-	}
-}
-add_filter('add_meta_boxes','buddyforms_members_admin_settings_sidebar_metabox');
 
 /**
  * Add the forms to the admin bar
@@ -50,10 +22,13 @@ function buddyforms_members_wp_before_admin_bar_render(){
         }
 
 		if(isset($buddyform['profiles_integration'])) :
-			
+
+
+			$parent_tab = buddyforms_members_parent_tab($buddyform);
+
 			$slug = $key;
 			if(isset($buddyform['slug']))
-				$slug = $buddyform['slug'];
+				$slug = $parent_tab .'/';
 			
 			$post_type_object = get_post_type_object( $key );
 			
@@ -65,7 +40,7 @@ function buddyforms_members_wp_before_admin_bar_render(){
 			
 		
 			if(isset($buddyform['admin_bar'][0])){
-                if (current_user_can('buddyforms_' . $slug . '_create')) {
+                if (current_user_can('buddyforms_' . $key . '_create')) {
                     $wp_admin_bar->add_menu(array(
                         'parent' => 'my-account-buddypress',
                         'id' => 'my-account-buddypress-' . $key,
@@ -76,13 +51,13 @@ function buddyforms_members_wp_before_admin_bar_render(){
                         'parent' => 'my-account-buddypress-' . $key,
                         'id' => 'my-account-buddypress-' . $key . '-view',
                         'title' => __('View my ', 'buddyforms') . $buddyform['name'],
-                        'href' => trailingslashit(bp_loggedin_user_domain() . $slug)
+                        'href' => trailingslashit(bp_loggedin_user_domain() . $slug . $key . '-my-posts')
                     ));
                     $wp_admin_bar->add_menu(array(
                         'parent' => 'my-account-buddypress-' . $key,
                         'id' => 'my-account-buddypress-' . $key . '-new',
                         'title' => __('New ', 'buddyforms') . $buddyform['singular_name'],
-                        'href' => trailingslashit(bp_loggedin_user_domain() . $slug) . 'create'
+                        'href' => trailingslashit(bp_loggedin_user_domain() . $slug . $key . '-create')
                     ));
                 }
 			}
@@ -147,10 +122,13 @@ function buddyforms_members_locate_template($file) {
 
 add_filter('buddyforms_front_js_css_loader', 'buddyforms_front_js_loader_bp_members_support', 10, 1);
 function buddyforms_front_js_loader_bp_members_support($found){
-	global $buddyforms;
+	global $buddyforms, $bp;
+
+	$form_slug = explode('-',$bp->current_action);
+	$form_slug = $form_slug[0];
 
 	// check the post content for the short code
-	if(isset($buddyforms[bp_current_component()]))
+	if(isset($buddyforms[$form_slug]))
 		$found = true;
 
 	return $found;
@@ -188,5 +166,4 @@ function buddyforms_members_button_add_new($button,$args){
 
 	return $button;
 }
-
 ?>

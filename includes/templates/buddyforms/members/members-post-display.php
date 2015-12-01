@@ -2,11 +2,15 @@
 	<?php 
 	global $wp_query, $current_user, $the_lp_query, $bp, $buddyforms, $form_slug;
     $temp_query = $the_lp_query;
-    $post_type = $buddyforms[$bp->current_component]['post_type'];
 
-	$form_slug = $bp->current_component;
 
-	$list_posts_option = $buddyforms[$bp->current_component]['list_posts_option'];
+	$form_slug = explode('-',$bp->current_action);
+	$form_slug = $form_slug[0];
+	$post_type = $buddyforms[$form_slug]['post_type'];
+
+	$current_component = $bp->current_component;
+
+	$list_posts_option = $buddyforms[$form_slug]['list_posts_option'];
 
 	$query_args = array(
 		'post_type'			=> $post_type,

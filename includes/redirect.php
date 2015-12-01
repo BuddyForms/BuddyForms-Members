@@ -17,43 +17,39 @@ if( ! defined( 'ABSPATH' ) ) exit;
  * @since 0.3 beta
  */
 function bf_members_get_redirect_link( $id = false ) {
-	global $bp, $buddyforms;
+	global $bp, $buddyforms, $query_vars;
 				
 	if( ! $id )
 		return false;
 
-    $link = '';
-	if(isset($buddyforms) && is_array($buddyforms)){
-		foreach ($buddyforms as $key => $buddyform) {
-				
-			if(isset($buddyform['attached_page']))
-				$attached_page_id = $buddyform['attached_page'];
+	$form_slug = $bp->unfiltered_uri[2];
+
+	$parent_tab = buddyforms_members_parent_tab($buddyforms[$form_slug]);
+
+	$link = '';
+	if(isset($buddyforms) && is_array($buddyforms) && isset($bp->unfiltered_uri[2])){
+
+		if(isset($buddyforms[$form_slug]['attached_page']))
+			$attached_page_id = $buddyforms[$form_slug]['attached_page'];
 			
-			if(isset($buddyform['profiles_integration']) && isset($attached_page_id) && $attached_page_id == $id){
+		if(isset($buddyforms[$form_slug]['profiles_integration']) && isset($attached_page_id) && $attached_page_id == $id){
 
-				$link = bp_loggedin_user_domain() .$buddyform['slug'].'/';
-				
-				if(isset($bp->unfiltered_uri[1])){
-					if($bp->unfiltered_uri[1] == 'create')
-                        if($bp->unfiltered_uri[2]){
-                            $link = bp_loggedin_user_domain() .$buddyform['slug'].'/create/'.$bp->unfiltered_uri[2];
-                        } else{
-                           $link = bp_loggedin_user_domain() .$buddyform['slug'].'/create/';
-                        }
+			$link = bp_loggedin_user_domain() .$buddyforms[$parent_tab]['slug'].'/';
 
-					if($bp->unfiltered_uri[1] == 'edit')
-						$link = bp_loggedin_user_domain() .$buddyform['slug'].'/edit/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
-					if($bp->unfiltered_uri[1] == 'revision')
-                        $link = bp_loggedin_user_domain() .$buddyform['slug'].'/revision/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3].'/'.$bp->unfiltered_uri[4];
-                    if($bp->unfiltered_uri[1] == 'page')
-                        $link = bp_loggedin_user_domain() .$buddyform['slug'].'/page/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
-                }
-				
+			if(isset($bp->unfiltered_uri[1])){
+				if($bp->unfiltered_uri[1] == 'create')
+					$link = bp_loggedin_user_domain() . $parent_tab .'/' . $form_slug . '-create/';
+				if($bp->unfiltered_uri[1] == 'edit')
+					$link = bp_loggedin_user_domain() . $parent_tab .'/' . $form_slug . '-edit/'.$bp->unfiltered_uri[3];
+				if($bp->unfiltered_uri[1] == 'revision')
+					$link = bp_loggedin_user_domain() . $parent_tab .'/' . $form_slug . '-revision/'.$bp->unfiltered_uri[3].'/'.$bp->unfiltered_uri[4];
+				if($bp->unfiltered_uri[1] == 'view')
+					$link = bp_loggedin_user_domain() . '/' . $parent_tab .'/' . $form_slug . '-my-posts';
 			}
-				
-		}
-	}
 
+		}
+
+	}
 	return apply_filters( 'bf_members_get_redirect_link', $link );
 }
 
