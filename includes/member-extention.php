@@ -20,17 +20,12 @@ public $id = 'buddyforms';
 		);
 
 		$bp->active_components[$this->id] = '1';
-		
 		$this->setup_hooks();
-	
 	}
 	
 	function setup_hooks() {
-
 		add_action('bp_located_template',	array($this, 'buddyforms_load_template_filter'), 10, 2);
 		add_action('wp_enqueue_scripts',	array($this, 'wp_enqueue_style'), 10, 2);
-
-	
 	}
 	
 	/**
@@ -58,8 +53,6 @@ public $id = 'buddyforms';
 	*/
 	function get_user_posts_count($user_id, $post_type, $form_slug) {
 		global $buddyforms;
-
-
 
 		$args['author'] = $user_id;
 		$args['post_type'] = $post_type;
@@ -113,21 +106,24 @@ public $id = 'buddyforms';
 					if (isset($member_form['name']))
 						$name = $member_form['name'];
 
-
 					$parent_tab = buddyforms_members_parent_tab($member_form);
 
 					if ( $parent_tab  ) {
 
+						if (isset($member_form['attached_page']) && isset($parent_tab)){
+							$attached_page = $member_form['attached_page'];
+							$parent_tab_page = get_post($attached_page, 'OBJECT');
+							$parent_tab_name = $parent_tab_page->post_title;
+						}
 
 						if (!array_key_exists($parent_tab, (array)$bp->bp_nav)) {
 							$main_nav = array(
-									'name' => sprintf('%s <span>%d</span>', $parent_tab, $count),
+									'name' => sprintf('%s <span>%d</span>', $parent_tab_name, $count),
 									'slug' => $parent_tab,
 									'position' => $position,
 									'default_subnav_slug' => $key . '-my-posts'
 							);
 						}
-
 
 						$sub_nav[] = array(
 								'name' => sprintf(__(' My %s', 'buddyforms'), $name),
