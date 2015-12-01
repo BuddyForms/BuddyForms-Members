@@ -127,7 +127,6 @@ class BuddyForms_Members {
 		global $bp, $wp_query;
 	
 		$bp->buddyforms = new BuddyForms_Members_Extention();
-
 	
 	}
 

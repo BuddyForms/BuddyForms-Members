@@ -23,7 +23,6 @@ function buddyforms_members_wp_before_admin_bar_render(){
 
 		if(isset($buddyform['profiles_integration'])) :
 
-
 			$parent_tab = buddyforms_members_parent_tab($buddyform);
 
 			$slug = $key;
@@ -37,8 +36,7 @@ function buddyforms_members_wp_before_admin_bar_render(){
 			
 			if(isset($buddyform['name']))
 				$name = $buddyform['name'];
-			
-		
+
 			if(isset($buddyform['admin_bar'][0])){
                 if (current_user_can('buddyforms_' . $key . '_create')) {
                     $wp_admin_bar->add_menu(array(

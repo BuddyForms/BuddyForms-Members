@@ -1,8 +1,7 @@
 <div id="item-body">
 	<?php 
-	global $wp_query, $current_user, $the_lp_query, $bp, $buddyforms, $form_slug;
+	global $wp_query, $current_user, $the_lp_query, $bp, $buddyforms, $form_slug, $paged;
     $temp_query = $the_lp_query;
-
 
 	$form_slug = explode('-',$bp->current_action);
 	$form_slug = $form_slug[0];
@@ -43,6 +42,6 @@
 	if(function_exists('wp_pagenavi')){
 		wp_pagenavi( array( 'query' => $the_lp_query) );	
 	}
-    $the_lp_query = $temp_query;
+	$the_lp_query = $temp_query;
 	?>              
 </div><!-- #item-body -->
