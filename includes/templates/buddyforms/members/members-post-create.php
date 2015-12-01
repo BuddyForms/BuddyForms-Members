@@ -23,8 +23,6 @@ if(bp_current_action() == $form_slug . '-revision'){
         $revision_id = $bp->action_variables[1];
 }
 
-
-
 $args = array(
 	'form_slug'		=> $form_slug,
 	'post_id'		=> $post_id,

@@ -22,11 +22,6 @@ function bf_members_get_redirect_link( $id = false ) {
 	if( ! $id )
 		return false;
 
-
-//	echo '<pre>';
-//	print_r($bp->unfiltered_uri);
-//	echo '</pre>';
-
 	$form_slug = $bp->unfiltered_uri[2];
 
 	$parent_tab = buddyforms_members_parent_tab($buddyforms[$form_slug]);
@@ -40,17 +35,10 @@ function bf_members_get_redirect_link( $id = false ) {
 		if(isset($buddyforms[$form_slug]['profiles_integration']) && isset($attached_page_id) && $attached_page_id == $id){
 
 			$link = bp_loggedin_user_domain() .$buddyforms[$parent_tab]['slug'].'/';
-			//$link = bp_loggedin_user_domain() .$bp->current_component.'/'; // fixed for child sub nav tab
-
 
 			if(isset($bp->unfiltered_uri[1])){
-				if($bp->unfiltered_uri[1] == 'create'){
-					//if($bp->unfiltered_uri[2]){
-					//	$link = bp_loggedin_user_domain() . $parent_tab .'/' . $form_slug . '-create/';
-					//} else{
-						$link = bp_loggedin_user_domain() . $parent_tab .'/' . $form_slug . '-create/';
-					//}
-				}
+				if($bp->unfiltered_uri[1] == 'create')
+					$link = bp_loggedin_user_domain() . $parent_tab .'/' . $form_slug . '-create/';
 				if($bp->unfiltered_uri[1] == 'edit')
 					$link = bp_loggedin_user_domain() . $parent_tab .'/' . $form_slug . '-edit/'.$bp->unfiltered_uri[3];
 				if($bp->unfiltered_uri[1] == 'revision')
