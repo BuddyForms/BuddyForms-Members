@@ -98,7 +98,7 @@ Make it work with the latest version of buddyforms. The buddyforms array has cha
 Changed default buddyforms to BUDDYFORMS_VERSION
 Fixe no post got displayed in the profile tab...
 Added post meta for selecting parent tab
-Added child tab
+Added child tab   
 Added new option to select the parent
 Add child parent form relationship. I use the attached page to group forms.
 Clean up code after rewrite
