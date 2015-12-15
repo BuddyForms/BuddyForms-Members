@@ -2,8 +2,8 @@
 Contributors: svenl77, themekraft, buddyforms
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: WordPress 3.9, BuddyPress 1.7.x
-Tested up to: WordPress 4.3, BuddyPress 2.3.2.1
-Stable tag: 1.0.11
+Tested up to: WordPress 4.4, BuddyPress 2.4.3
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -89,9 +89,21 @@ BuddyForms gives you these possibilities for a wide variety of uses.
 
 4. **Form Builder** - Enjoy the easy drag-and-drop form builder of BuddyForms.
 
-5. **Backend Overview** - The backend overview of your existing forms. 
+5. **Backend Overview** - The backend overview of your existing forms.
 
 == Changelog ==
+
+= 1.1 =
+Make it work with the latest version of buddyforms. The buddyforms array has changed so I adjust the code too the new structure
+Changed default buddyforms to BUDDYFORMS_VERSION
+Fixe no post got displayed in the profile tab...
+Added post meta for selecting parent tab
+Added child tab
+Added new option to select the parent
+Add child parent form relationship. I use the attached page to group forms.
+Clean up code after rewrite
+Fix the pagination. The parent my posts pagination was broken. I have fixed this with a redirect to have always the same url structure in the profile.
+Add css for hide the home tab. Its not used and gets redirected.
 
 = 1.0.11 =
 Fixed a small bug with BP_MEMBERS_SLUG. The constant does not work if the slug got changed
