@@ -2,8 +2,8 @@
 Contributors: svenl77, themekraft, buddyforms
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: WordPress 3.9, BuddyPress 1.7.x
-Tested up to: WordPress 4.4, BuddyPress 2.4.3
-Stable tag: 1.1
+Tested up to: WordPress 4.4.1, BuddyPress 2.4.3
+Stable tag: 1.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,12 +93,19 @@ BuddyForms gives you these possibilities for a wide variety of uses.
 
 == Changelog ==
 
+= 1.1.2 =
+There was an issue cursed by the last update.I have added [$bp->current_component][$bp->current_action] as array to the new global to support many sub pages
+
+= 1.1.1 =
+Create a new global buddyforms_member_tabs to find the needed form slug
+Fixed a redirect issue some users expected wired redirects in the profile. This was happen because of the missing form slug in some setups. Should be fixed now with the now global.
+
 = 1.1 =
-Make it work with the latest version of buddyforms. The buddyforms array has changed so I adjust the code too the new structure
-Changed default buddyforms to BUDDYFORMS_VERSION
+Make it work with the latest version of BuddyForms. The BuddyForms array has changed so I adjust the code too the new structure
+Changed default BuddyForms to BUDDYFORMS_VERSION
 Fixe no post got displayed in the profile tab...
 Added post meta for selecting parent tab
-Added child tab   
+Added child tab
 Added new option to select the parent
 Add child parent form relationship. I use the attached page to group forms.
 Clean up code after rewrite
@@ -129,7 +136,7 @@ changed plugin uri
 = 1.0.5 =
  *display the form tab only if the user has the needed role
  *check if the buddy press component exists
- *load the js css if buddyforms is displayed
+ *load the js css if BuddyForms is displayed
  *add new admin notice
 
 = 1.0.4 =

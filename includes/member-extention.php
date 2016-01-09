@@ -110,9 +110,9 @@ public $id = 'buddyforms';
 
 					if ( $parent_tab  ) {
 
-						$buddyforms_member_tabs[$parent_tab] = $key;
+						$buddyforms_member_tabs[$parent_tab][$member_form['slug']] = $key;
 						$parent_tab_name = $name;
-						
+
 						if (isset($member_form['profiles_parent_tab'])
 								&& isset($member_form['attached_page'])
 								&& isset($parent_tab)){
@@ -126,8 +126,9 @@ public $id = 'buddyforms';
 									'name' => sprintf('%s <span>%d</span>', $parent_tab_name, $count),
 									'slug' => $parent_tab,
 									'position' => $position,
-									'default_subnav_slug' => $key . '-my-posts-all'
+									'default_subnav_slug' => $key . '-my-posts-all',
 							);
+							$buddyforms_member_tabs[$parent_tab][$key . '-my-posts-all'] = $key;
 						}
 
 						$sub_nav[] = array(
@@ -138,6 +139,8 @@ public $id = 'buddyforms';
 								'item_css_id' => 'sub_nav_home',
 								'screen_function' => array($this, 'buddyforms_screen_settings'),
 						);
+						$buddyforms_member_tabs[$parent_tab][$key . '-my-posts-all'] = $key;
+
 						$sub_nav[] = array(
 								'name' => sprintf(__(' My %s', 'buddyforms'), $name),
 								'slug' => $key . '-my-posts',
@@ -146,6 +149,8 @@ public $id = 'buddyforms';
 								'item_css_id' => 'my-posts',
 								'screen_function' => array($this, 'buddyforms_screen_settings'),
 						);
+						$buddyforms_member_tabs[$parent_tab][$key . '-my-posts'] = $key;
+
 						$sub_nav[] = array(
 								'name' => sprintf(__(' Add %s', 'buddyforms'), $member_form['singular_name']),
 								'slug' => $key . '-create',
@@ -155,6 +160,8 @@ public $id = 'buddyforms';
 								'screen_function' => array($this, 'load_members_post_create'),
 								'user_has_access' => bp_is_my_profile()
 						);
+						$buddyforms_member_tabs[$parent_tab][$key . '-create'] = $key;
+
 						$sub_nav[] = array(
 								'name' => sprintf(__(' Edit %s', 'buddyforms'), $member_form['singular_name']),
 								'slug' => $key . '-edit',
@@ -164,6 +171,8 @@ public $id = 'buddyforms';
 								'screen_function' => array($this, 'buddyforms_screen_settings'),
 								'user_has_access' => bp_is_my_profile()
 						);
+						$buddyforms_member_tabs[$parent_tab][$key . '-edit'] = $key;
+
 						$sub_nav[] = array(
 								'name' => sprintf(__(' Revision %s', 'buddyforms'), $member_form['singular_name']),
 								'slug' => $key . '-revision',
@@ -173,6 +182,8 @@ public $id = 'buddyforms';
 								'screen_function' => array($this, 'buddyforms_screen_settings'),
 								'user_has_access' => bp_is_my_profile(),
 						);
+						$buddyforms_member_tabs[$parent_tab][$key . '-revision'] = $key;
+
 						$sub_nav[] = array(
 								'name' => sprintf(__(' Page %s', 'buddyforms'), $member_form['singular_name']),
 								'slug' => $key . '-page',
@@ -181,6 +192,7 @@ public $id = 'buddyforms';
 								'item_css_id' => 'sub_nav_edit',
 								'screen_function' => array($this, 'buddyforms_screen_settings'),
 						);
+						$buddyforms_member_tabs[$parent_tab][$key . '-page'] = $key;
 					}
 					if ($current_user->ID != bp_displayed_user_id()) {
 						parent::setup_nav($main_nav, $sub_nav);
@@ -203,7 +215,7 @@ public $id = 'buddyforms';
 	public function buddyforms_screen_settings() {
 		global $bp, $buddyforms, $buddyforms_member_tabs;
 
-		$form_slug = $buddyforms_member_tabs[$bp->current_component];
+		$form_slug = $buddyforms_member_tabs[$bp->current_component][$bp->current_action];
 
 		if($bp->current_action == $form_slug . '-my-posts-all'){
 			if ( bp_is_my_profile() ) {
@@ -267,7 +279,7 @@ public $id = 'buddyforms';
 	function buddyforms_load_template_filter($found_template, $templates) {
 	global $bp, $buddyforms, $buddyforms_member_tabs;
 
-		$form_slug = $buddyforms_member_tabs[$bp->current_component];
+		$form_slug = $buddyforms_member_tabs[$bp->current_component][$bp->current_action];
 
 		if(!bp_current_component())
             return apply_filters('buddyforms_members_load_template_filter', $found_template);

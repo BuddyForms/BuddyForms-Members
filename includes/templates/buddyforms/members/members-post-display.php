@@ -4,7 +4,7 @@
 
 	$temp_query = $the_lp_query;
 
-	$form_slug = $buddyforms_member_tabs[$bp->current_component];
+	$form_slug = $buddyforms_member_tabs[$bp->current_component][$bp->current_action];
 	$post_type = $buddyforms[$form_slug]['post_type'];
 
 	$current_component = $bp->current_component;

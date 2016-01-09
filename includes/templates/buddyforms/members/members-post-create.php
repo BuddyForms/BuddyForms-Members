@@ -7,7 +7,7 @@ $post_parent_id = 0;
 $revision_id = '';
 $current_component = $bp->current_component;
 
-$form_slug = $buddyforms_member_tabs[$bp->current_component];
+$form_slug = $buddyforms_member_tabs[$bp->current_component][$bp->current_action];
 
 if(bp_current_action() == $form_slug . '-create'){
     if(isset($bp->action_variables[0]))
