@@ -1,10 +1,10 @@
 <div id="item-body">
-	<?php 
-	global $wp_query, $current_user, $the_lp_query, $bp, $buddyforms, $form_slug, $paged;
-    $temp_query = $the_lp_query;
+	<?php
+	global $wp_query, $current_user, $the_lp_query, $bp, $buddyforms, $buddyforms_member_tabs, $form_slug, $paged;
 
-	$form_slug = explode('-',$bp->current_action);
-	$form_slug = $form_slug[0];
+	$temp_query = $the_lp_query;
+
+	$form_slug = $buddyforms_member_tabs[$bp->current_component];
 	$post_type = $buddyforms[$form_slug]['post_type'];
 
 	$current_component = $bp->current_component;
@@ -40,8 +40,8 @@
 
 	// Support for wp_pagenavi
 	if(function_exists('wp_pagenavi')){
-		wp_pagenavi( array( 'query' => $the_lp_query) );	
+		wp_pagenavi( array( 'query' => $the_lp_query) );
 	}
 	$the_lp_query = $temp_query;
-	?>              
+	?>
 </div><!-- #item-body -->

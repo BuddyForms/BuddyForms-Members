@@ -12,13 +12,14 @@ if( ! defined( 'ABSPATH' ) ) exit;
 
 /**
  * Get the redirect link
- * 
+ *
  * @package BuddyForms
  * @since 0.3 beta
  */
 function bf_members_get_redirect_link( $id = false ) {
 	global $bp, $buddyforms, $query_vars;
-				
+
+
 	if( ! $id )
 		return false;
 

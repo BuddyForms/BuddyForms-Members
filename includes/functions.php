@@ -28,12 +28,12 @@ function buddyforms_members_wp_before_admin_bar_render(){
 			$slug = $key;
 			if(isset($buddyform['slug']))
 				$slug = $parent_tab .'/';
-			
+
 			$post_type_object = get_post_type_object( $key );
-			
+
 			if(isset($post_type_object->labels->name))
 				$name = $post_type_object->labels->name;
-			
+
 			if(isset($buddyform['name']))
 				$name = $buddyform['name'];
 
@@ -77,7 +77,7 @@ function buddyforms_admin_bar_members() {
 
     if(!isset($buddyforms))
         return;
-        
+
 	if(!is_array($buddyforms))
         return;
 
@@ -120,10 +120,9 @@ function buddyforms_members_locate_template($file) {
 
 add_filter('buddyforms_front_js_css_loader', 'buddyforms_front_js_loader_bp_members_support', 10, 1);
 function buddyforms_front_js_loader_bp_members_support($found){
-	global $buddyforms, $bp;
+	global $bp, $buddyforms, $buddyforms_member_tabs;
 
-	$form_slug = explode('-',$bp->current_action);
-	$form_slug = $form_slug[0];
+	$form_slug = $buddyforms_member_tabs[$bp->current_component];
 
 	// check the post content for the short code
 	if(isset($buddyforms[$form_slug]))

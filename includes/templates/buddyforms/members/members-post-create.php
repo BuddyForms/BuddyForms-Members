@@ -1,14 +1,13 @@
 <div id="item-body">
-<?php 
-global $bp, $buddyforms;
+<?php
+global $bp, $buddyforms, $buddyforms_member_tabs;
 
 $post_id = 0;
 $post_parent_id = 0;
 $revision_id = '';
 $current_component = $bp->current_component;
 
-$form_slug = explode('-',$bp->current_action);
-$form_slug = $form_slug[0];
+$form_slug = $buddyforms_member_tabs[$bp->current_component];
 
 if(bp_current_action() == $form_slug . '-create'){
     if(isset($bp->action_variables[0]))
@@ -33,5 +32,5 @@ $args = array(
 
 buddyforms_create_edit_form($args);
 
-?>   
+?>
 </div><!-- #item-body -->

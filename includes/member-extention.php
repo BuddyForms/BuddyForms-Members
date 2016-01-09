@@ -22,12 +22,12 @@ public $id = 'buddyforms';
 		$bp->active_components[$this->id] = '1';
 		$this->setup_hooks();
 	}
-	
+
 	function setup_hooks() {
 		add_action('bp_located_template',	array($this, 'buddyforms_load_template_filter'), 10, 2);
 		add_action('wp_enqueue_scripts',	array($this, 'wp_enqueue_style'), 10, 2);
 	}
-	
+
 	/**
      * Setup globals
      *
@@ -44,7 +44,7 @@ public $id = 'buddyforms';
 
         parent::setup_globals( $globals );
     }
-	
+
 	/**
 	 * Get the user posts count
 	 *
@@ -78,7 +78,7 @@ public $id = 'buddyforms';
 	 * @since 0.1 beta
 	*/
 	public function setup_nav( $main_nav = Array(), $sub_nav = Array() ) {
-		global $buddyforms, $bp, $wp_admin_bar, $current_user;
+		global $buddyforms, $buddyforms_member_tabs, $bp, $wp_admin_bar, $current_user;
 
 		if(!bp_is_user())
 			return;
@@ -110,7 +110,9 @@ public $id = 'buddyforms';
 
 					if ( $parent_tab  ) {
 
+						$buddyforms_member_tabs[$parent_tab] = $key;
 						$parent_tab_name = $name;
+						
 						if (isset($member_form['profiles_parent_tab'])
 								&& isset($member_form['attached_page'])
 								&& isset($parent_tab)){
@@ -199,13 +201,17 @@ public $id = 'buddyforms';
 	 * @since 0.2 beta
 	*/
 	public function buddyforms_screen_settings() {
-		global $bp;
+		global $bp, $buddyforms, $buddyforms_member_tabs;
 
-		$form_slug = explode('-',$bp->current_action);
-		$form_slug = $form_slug[0];
+		$form_slug = $buddyforms_member_tabs[$bp->current_component];
 
 		if($bp->current_action == $form_slug . '-my-posts-all'){
-			wp_redirect(trailingslashit(bp_loggedin_user_domain() . $bp->current_component .'/'. $form_slug . '-my-posts'));
+			if ( bp_is_my_profile() ) {
+				$url = bp_loggedin_user_domain();
+			} else {
+				$url = bp_displayed_user_domain();
+			}
+			wp_redirect(trailingslashit($url . $bp->current_component .'/'. $form_slug . '-my-posts'));
 			exit;
 		}
 
@@ -236,11 +242,11 @@ public $id = 'buddyforms';
 	public function load_members_post_create() {
 		bp_core_load_template('buddyforms/members/members-post-create');
 	}
-	
+
 	/**
 	 * BuddyForms template loader.
-	 * 
-	 * I copied this function from the buddypress.org website and modified it for my needs. 
+	 *
+	 * I copied this function from the buddypress.org website and modified it for my needs.
 	 *
 	 * This function sets up BuddyForms to use custom templates.
 	 *
@@ -259,10 +265,9 @@ public $id = 'buddyforms';
 	 * @since 1.0
 	 */
 	function buddyforms_load_template_filter($found_template, $templates) {
-	global $bp, $buddyforms;
-	
-		$form_slug = explode('-',$bp->current_action);
-		$form_slug = $form_slug[0];
+	global $bp, $buddyforms, $buddyforms_member_tabs;
+
+		$form_slug = $buddyforms_member_tabs[$bp->current_component];
 
 		if(!bp_current_component())
             return apply_filters('buddyforms_members_load_template_filter', $found_template);
@@ -274,7 +279,7 @@ public $id = 'buddyforms';
 				// this tells BP to look for templates in our plugin directory last
 				// when the template isn't found in the parent / child theme
 				bp_register_template_stack('buddyforms_members_get_template_directory', 14);
-	
+
 				// locate_template() will attempt to find the plugins.php template in the
 				// child and parent theme and return the located template when found
 				//
@@ -310,7 +315,7 @@ public $id = 'buddyforms';
 			}
 
 
-	
+
 		return apply_filters('buddyforms_members_load_template_filter', $found_template);
 	}
 
@@ -322,6 +327,7 @@ public $id = 'buddyforms';
 }
 
 function buddyforms_members_parent_tab($member_form){
+
 	$parent_tab_name = $member_form['slug'];
 
 	if (isset($member_form['profiles_parent_tab']))
