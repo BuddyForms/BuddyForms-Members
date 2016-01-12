@@ -99,3 +99,20 @@ function bf_members_page_link_router( $link, $id )	{
 	return apply_filters( 'bf_members_router_link', $link );
 }
 add_filter( 'page_link', 'bf_members_page_link_router', 10, 2 );
+
+function bf_members_page_link_router_edit($link, $id){
+	global $buddyforms;
+
+	$form_slug = get_post_meta($id, '_bf_form_slug', true);
+
+	if(!$form_slug)
+		return $link;
+
+	if(!$buddyforms[$form_slug]['profiles_integration'])
+		return $link;
+
+	$parent_tab = buddyforms_members_parent_tab($buddyforms[$form_slug]);
+
+	return '<a title="Edit" id="' . $id . '" class="bf_edit_post" href="' . bp_loggedin_user_domain()  . $parent_tab. '/'. $form_slug .'-edit/' . $id . '">' . __( 'Edit', 'buddyforms' ) .'</a>';
+}
+add_filter( 'bf_loop_edit_post_link', 'bf_members_page_link_router_edit', 10, 2 );
