@@ -23,6 +23,9 @@ function bf_members_get_redirect_link( $id = false ) {
 	if( ! $id )
 		return false;
 
+	if(!isset($bp->unfiltered_uri[2]))
+		return false;
+
 	$form_slug = $bp->unfiltered_uri[2];
 
 	$parent_tab = buddyforms_members_parent_tab($buddyforms[$form_slug]);
