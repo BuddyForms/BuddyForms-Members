@@ -2,8 +2,8 @@
 Contributors: svenl77, themekraft, buddyforms
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: WordPress 3.9, BuddyPress 1.7.x
-Tested up to: WordPress 4.4.1, BuddyPress 2.4.3
-Stable tag: 1.1.3
+Tested up to: WordPress 4.4.2
+Stable tag: 1.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,9 @@ BuddyForms gives you these possibilities for a wide variety of uses.
 5. **Backend Overview** - The backend overview of your existing forms.
 
 == Changelog ==
+
+= 1.1.4 =
+Fixed one small issue. In some situation the $bp->unfiltered_uri[2] could be empty. I added a if statement to avoid undefined index notice.
 
 = 1.1.3 =
 Add a new function to rewrite the edit link for grouped forms. There have been some rewrite issues left from the 1.1 update.
