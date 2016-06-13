@@ -9,7 +9,8 @@
 
 	$current_component = $bp->current_component;
 
-	$list_posts_option = $buddyforms[$form_slug]['list_posts_option'];
+	$list_posts_option = $buddyforms[ $form_slug ][ 'list_posts_option' ];
+	$list_posts_style  = $buddyforms[ $form_slug ][ 'list_posts_style' ];
 
 	$query_args = array(
 		'post_type'			=> $post_type,
@@ -36,7 +37,11 @@
 
 	$the_lp_query = new WP_Query( $query_args );
 
-    buddyforms_locate_template('buddyforms/the-loop.php');
+	if ( $list_posts_style == 'table' ) {
+		buddyforms_locate_template( 'buddyforms/the-table.php' );
+	} else {
+		buddyforms_locate_template( 'buddyforms/the-loop.php' );
+	}
 
 	// Support for wp_pagenavi
 	if(function_exists('wp_pagenavi')){
