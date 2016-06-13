@@ -1,11 +1,9 @@
 /**
 *
-* BuddyPress Specific CSS for BuddyForms
+* BuddyPress Specific CSS for Front End Form on Profiles
 *
-*/
+**/
 
-
-/** Front End Form on Profiles **/
 #buddypress table tr td, #buddypress table tr th {
     padding: 0px;
     vertical-align: middle;
