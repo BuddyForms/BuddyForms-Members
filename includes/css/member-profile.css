@@ -20,23 +20,17 @@ ul.product_images.ui-sortable li img {
     width: 100%;
     background: #fff;
 }
+
 /* BuddyPress Select2 Fix */
 #buddypress #buddyforms-form .select2-container-multi .select2-choices .select2-search-field input {
     border: 0;
 }
 
 
-/* Loop Table View in BuddyPress Profiles  */
-#buddyforms-table-view .table tbody td {
-    padding: 25px 9px;
-    vertical-align: top;
-}
 
 
 
-
-
-/** Other **/
+/* Other */
 #sub_nav_edit{
 	display:none !important;
 }
