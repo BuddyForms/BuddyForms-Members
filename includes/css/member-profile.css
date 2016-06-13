@@ -1,3 +1,36 @@
+/**
+*
+* BuddyPress Specific CSS for Front End Form on Profiles
+*
+**/
+
+#buddypress table tr td, #buddypress table tr th {
+    padding: 0px;
+    vertical-align: middle;
+}
+ul.product_images.ui-sortable li img {
+    width: 100px;
+    height: 100px;
+}
+.bf-hidden {
+    display: none;
+}
+#buddypress #buddyforms-form textarea,
+#buddypress #buddyforms-form .form-control {
+    width: 100%;
+    background: #fff;
+}
+
+/* BuddyPress Select2 Fix */
+#buddypress #buddyforms-form .select2-container-multi .select2-choices .select2-search-field input {
+    border: 0;
+}
+
+
+
+
+
+/* Other */
 #sub_nav_edit{
 	display:none !important;
 }
