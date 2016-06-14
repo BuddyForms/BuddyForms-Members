@@ -30,7 +30,7 @@ ul.product_images.ui-sortable li img {
       padding: 25px 9px;
       vertical-align: top;
   }
-  #buddyforms-table-view .table.table-inner td {
+  #buddyforms-table-view .table.table-inner .tr-sub td {
     padding: 10px 9px;
   }
 }
