@@ -120,36 +120,36 @@ public $id = 'buddyforms';
 							$parent_tab_page = get_post($attached_page, 'OBJECT');
 							$parent_tab_name = $parent_tab_page->post_title;
 						}
-
 						if (!array_key_exists($parent_tab, (array)$bp->bp_nav)) {
 							$main_nav = array(
 									'name' => sprintf('%s <span>%d</span>', $parent_tab_name, $count),
 									'slug' => $parent_tab,
 									'position' => $position,
-									'default_subnav_slug' => $key . '-my-posts-all',
+									'default_subnav_slug' => $key . '-posts-all',
 							);
-							$buddyforms_member_tabs[$parent_tab][$key . '-my-posts-all'] = $key;
+							$buddyforms_member_tabs[$parent_tab][$key . '-posts-all'] = $key;
 						}
 
 						$sub_nav[] = array(
-								'name' => sprintf(__(' All %s', 'buddyforms'), $parent_tab_name),
-								'slug' => $key . '-my-posts-all',
+								'name' => sprintf(__('%s', 'buddyforms'), $parent_tab_name),
+								'slug' => $key . '-posts-all',
 								'parent_slug' => $parent_tab,
 								'parent_url' => trailingslashit(bp_loggedin_user_domain() . $parent_tab),
 								'item_css_id' => 'sub_nav_home',
 								'screen_function' => array($this, 'buddyforms_screen_settings'),
 						);
-						$buddyforms_member_tabs[$parent_tab][$key . '-my-posts-all'] = $key;
+						$buddyforms_member_tabs[$parent_tab][$key . '-posts-all'] = $key;
 
 						$sub_nav[] = array(
-								'name' => sprintf(__(' My %s', 'buddyforms'), $name),
-								'slug' => $key . '-my-posts',
+								'name' => sprintf(__('%s', 'buddyforms'), $name),
+								'slug' => $key . '-posts',
 								'parent_slug' => $parent_tab,
 								'parent_url' => trailingslashit(bp_loggedin_user_domain() . $parent_tab),
-								'item_css_id' => 'my-posts',
+								'item_css_id' => 'posts',
 								'screen_function' => array($this, 'buddyforms_screen_settings'),
+								'user_has_access' => bp_is_my_profile()
 						);
-						$buddyforms_member_tabs[$parent_tab][$key . '-my-posts'] = $key;
+						$buddyforms_member_tabs[$parent_tab][$key . '-posts'] = $key;
 
 						$sub_nav[] = array(
 								'name' => sprintf(__(' Add %s', 'buddyforms'), $member_form['singular_name']),
@@ -217,17 +217,17 @@ public $id = 'buddyforms';
 
 		$form_slug = $buddyforms_member_tabs[$bp->current_component][$bp->current_action];
 
-		if($bp->current_action == $form_slug . '-my-posts-all'){
+		if($bp->current_action == $form_slug . '-posts-all'){
 			if ( bp_is_my_profile() ) {
 				$url = bp_loggedin_user_domain();
 			} else {
 				$url = bp_displayed_user_domain();
 			}
-			wp_redirect(trailingslashit($url . $bp->current_component .'/'. $form_slug . '-my-posts'));
+			wp_redirect(trailingslashit($url . $bp->current_component .'/'. $form_slug . '-posts'));
 			exit;
 		}
 
-		if($bp->current_action ==  $form_slug . '-my-posts' )
+		if($bp->current_action ==  $form_slug . '-posts' )
 			bp_core_load_template('buddyforms/members/members-post-display');
 
 		if($bp->current_action ==  $form_slug . '-page' )
@@ -303,7 +303,7 @@ public $id = 'buddyforms';
 				$found_template = locate_template('members/single/plugins.php', false, false);
 
 				// add our hook to inject content into BP
-				if ($bp->current_action == $form_slug . '-my-posts' ) {
+				if ($bp->current_action == $form_slug . '-posts' ) {
 					add_action('bp_template_content', create_function('', "
 					bp_get_template_part( 'buddyforms/members/members-post-display' );
 				"));

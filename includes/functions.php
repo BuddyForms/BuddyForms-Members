@@ -131,7 +131,7 @@ function buddyforms_front_js_loader_bp_members_support($found){
 	return $found;
 }
 
-add_filter('buddyforms_button_view_posts', 'buddyforms_members_button_view_posts', 10, 2);
+//add_filter('buddyforms_button_view_posts', 'buddyforms_members_button_view_posts', 10, 2);
 function buddyforms_members_button_view_posts($button,$args){
 	global $buddyforms;
 
@@ -147,7 +147,7 @@ function buddyforms_members_button_view_posts($button,$args){
 
 	return $button;
 }
-add_filter('buddyforms_button_add_new', 'buddyforms_members_button_add_new', 10, 2);
+//add_filter('buddyforms_button_add_new', 'buddyforms_members_button_add_new', 10, 2);
 function buddyforms_members_button_add_new($button,$args){
 	global $buddyforms;
 
