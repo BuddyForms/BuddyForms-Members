@@ -217,17 +217,10 @@ public $id = 'buddyforms';
 
 		$form_slug = $buddyforms_member_tabs[$bp->current_component][$bp->current_action];
 
-		if($bp->current_action == $form_slug . '-posts-all'){
-			if ( bp_is_my_profile() ) {
-				$url = bp_loggedin_user_domain();
-			} else {
-				$url = bp_displayed_user_domain();
-			}
-			wp_redirect(trailingslashit($url . $bp->current_component .'/'. $form_slug . '-posts'));
-			exit;
-		}
-
 		if($bp->current_action ==  $form_slug . '-posts' )
+			bp_core_load_template('buddyforms/members/members-post-display');
+
+		if($bp->current_action ==  $form_slug . '-posts-all' )
 			bp_core_load_template('buddyforms/members/members-post-display');
 
 		if($bp->current_action ==  $form_slug . '-page' )
@@ -323,7 +316,11 @@ public $id = 'buddyforms';
                     add_action('bp_template_content', create_function('', "
 					bp_get_template_part( 'buddyforms/members/members-post-display' );
 				"));
-                }
+				} elseif ($bp->current_action == $form_slug . '-posts-all') {
+					add_action('bp_template_content', create_function('', "
+					bp_get_template_part( 'buddyforms/members/members-post-display' );
+				"));
+				}
 			}
 
 

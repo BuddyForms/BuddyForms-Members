@@ -48,9 +48,9 @@ function bf_members_get_redirect_link( $id = false ) {
 				if($bp->unfiltered_uri[1] == 'revision')
 					$link = bp_loggedin_user_domain() . $parent_tab .'/' . $form_slug . '-revision/'.$bp->unfiltered_uri[3].'/'.$bp->unfiltered_uri[4];
 				if($bp->unfiltered_uri[1] == 'view')
-					$link = bp_loggedin_user_domain() . '/' . $parent_tab .'/' . $form_slug . '-my-posts';
+					$link = bp_loggedin_user_domain() . '/' . $parent_tab .'/' . $form_slug . '-posts';
 				if($bp->unfiltered_uri[1] == 'page')
-					$link = bp_loggedin_user_domain() . '/' . $parent_tab .'/' . $form_slug . '-my-posts/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
+					$link = bp_loggedin_user_domain() . '/' . $parent_tab .'/' . $form_slug . '-posts/'.$bp->unfiltered_uri[2].'/'.$bp->unfiltered_uri[3];
 
 			}
 
