@@ -178,7 +178,7 @@ public $id = 'buddyforms';
 								'slug' => $key . '-revision',
 								'parent_slug' => $parent_tab,
 								'parent_url' => trailingslashit(bp_loggedin_user_domain() . $parent_tab),
-								'item_css_id' => 'sub_nav_edit',
+								'item_css_id' => 'sub_nav_revison',
 								'screen_function' => array($this, 'buddyforms_screen_settings'),
 								'user_has_access' => bp_is_my_profile(),
 						);
@@ -189,7 +189,7 @@ public $id = 'buddyforms';
 								'slug' => $key . '-page',
 								'parent_slug' => $parent_tab,
 								'parent_url' => trailingslashit(bp_loggedin_user_domain() . $parent_tab),
-								'item_css_id' => 'sub_nav_edit',
+								'item_css_id' => 'sub_nav_page',
 								'screen_function' => array($this, 'buddyforms_screen_settings'),
 						);
 						$buddyforms_member_tabs[$parent_tab][$key . '-page'] = $key;
