@@ -25,7 +25,7 @@ public $id = 'buddyforms';
 
 	function setup_hooks() {
 		add_action('bp_located_template',	array($this, 'buddyforms_load_template_filter'), 10, 2);
-		add_action('wp_enqueue_scripts',	array($this, 'wp_enqueue_style'), 10, 2);
+		add_action('wp_enqueue_scripts',	array($this, 'buddyforms_members_enqueue_scripts'), 10, 2);
 	}
 
 	/**
@@ -125,31 +125,31 @@ public $id = 'buddyforms';
 									'name' => sprintf('%s <span>%d</span>', $parent_tab_name, $count),
 									'slug' => $parent_tab,
 									'position' => $position,
-									'default_subnav_slug' => $key . '-posts-all',
+									'default_subnav_slug' => $key . '-posts',
 							);
-							$buddyforms_member_tabs[$parent_tab][$key . '-posts-all'] = $key;
+							$buddyforms_member_tabs[$parent_tab][$key . '-posts'] = $key;
 						}
-
-						$sub_nav[] = array(
-								'name' => sprintf(__('%s', 'buddyforms'), $parent_tab_name),
-								'slug' => $key . '-posts-all',
-								'parent_slug' => $parent_tab,
-								'parent_url' => trailingslashit(bp_loggedin_user_domain() . $parent_tab),
-								'item_css_id' => 'sub_nav_home',
-								'screen_function' => array($this, 'buddyforms_screen_settings'),
-						);
-						$buddyforms_member_tabs[$parent_tab][$key . '-posts-all'] = $key;
 
 						$sub_nav[] = array(
 								'name' => sprintf(__('%s', 'buddyforms'), $name),
 								'slug' => $key . '-posts',
 								'parent_slug' => $parent_tab,
 								'parent_url' => trailingslashit(bp_loggedin_user_domain() . $parent_tab),
-								'item_css_id' => 'posts',
+								'item_css_id' => 'sub_nav_home',
 								'screen_function' => array($this, 'buddyforms_screen_settings'),
-								'user_has_access' => bp_is_my_profile()
 						);
 						$buddyforms_member_tabs[$parent_tab][$key . '-posts'] = $key;
+
+//						$sub_nav[] = array(
+//								'name' => sprintf(__('%s', 'buddyforms'), $name),
+//								'slug' => $key . '-posts',
+//								'parent_slug' => $parent_tab,
+//								'parent_url' => trailingslashit(bp_loggedin_user_domain() . $parent_tab),
+//								'item_css_id' => 'posts',
+//								'screen_function' => array($this, 'buddyforms_screen_settings'),
+//								'user_has_access' => bp_is_my_profile()
+//						);
+//						$buddyforms_member_tabs[$parent_tab][$key . '-posts'] = $key;
 
 						$sub_nav[] = array(
 								'name' => sprintf(__(' Add %s', 'buddyforms'), $member_form['singular_name']),
@@ -328,7 +328,8 @@ public $id = 'buddyforms';
 		return apply_filters('buddyforms_members_load_template_filter', $found_template);
 	}
 
-	function wp_enqueue_style(){
+	function buddyforms_members_enqueue_scripts(){
+		wp_enqueue_script('member-profile-js', plugins_url('js/member-profile.js', __FILE__));
     	wp_enqueue_style('member-profile-css', plugins_url('css/member-profile.css', __FILE__));
 
 	}
