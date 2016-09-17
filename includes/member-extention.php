@@ -83,7 +83,7 @@ public $id = 'buddyforms';
 		if(!bp_is_user())
 			return;
 
-		get_currentuserinfo();
+		wp_get_current_user();
 
 		$position = 20;
 

@@ -111,7 +111,7 @@ function bf_members_page_link_router_edit($link, $id){
 	if(!$form_slug)
 		return $link;
 
-	if(!$buddyforms[$form_slug]['profiles_integration'])
+	if(!isset($buddyforms[$form_slug]['profiles_integration']))
 		return $link;
 
 	$parent_tab = buddyforms_members_parent_tab($buddyforms[$form_slug]);
