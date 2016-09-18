@@ -2,6 +2,7 @@
 function buddyforms_members_admin_settings_sidebar_metabox(){
     add_meta_box('buddyforms_members', __("BP Member Profiles",'buddyforms'), 'buddyforms_members_admin_settings_sidebar_metabox_html', 'buddyforms', 'normal', 'low');
     add_filter('postbox_classes_buddyforms_buddyforms_members','buddyforms_metabox_class');
+    add_filter('postbox_classes_buddyforms_buddyforms_members','buddyforms_metabox_hide_if_form_type_register');
 }
 
 
