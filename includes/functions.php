@@ -122,7 +122,7 @@ add_filter('buddyforms_front_js_css_loader', 'buddyforms_front_js_loader_bp_memb
 function buddyforms_front_js_loader_bp_members_support($found){
 	global $bp, $buddyforms, $buddyforms_member_tabs;
 
-	$form_slug = $buddyforms_member_tabs[$bp->current_component][$bp->current_action];
+	$form_slug = isset( $buddyforms_member_tabs[$bp->current_component][$bp->current_action] ) ? $buddyforms_member_tabs[$bp->current_component][$bp->current_action] : '' ;
 
 	// check the post content for the short code
 	if(isset($buddyforms[$form_slug]))

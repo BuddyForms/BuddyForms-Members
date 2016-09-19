@@ -28,6 +28,9 @@ function bf_members_get_redirect_link( $id = false ) {
 
 	$form_slug = $bp->unfiltered_uri[2];
 
+	if( !isset( $buddyforms[$form_slug] ) )
+		return false;
+
 	$parent_tab = buddyforms_members_parent_tab($buddyforms[$form_slug]);
 
 	$link = '';
@@ -38,7 +41,7 @@ function bf_members_get_redirect_link( $id = false ) {
 
 		if(isset($buddyforms[$form_slug]['profiles_integration']) && isset($attached_page_id) && $attached_page_id == $id){
 
-			$link = bp_loggedin_user_domain() .$buddyforms[$parent_tab]['slug'].'/';
+			$link = bp_loggedin_user_domain() .$buddyforms[$form_slug]['slug'].'/';
 
 			if(isset($bp->unfiltered_uri[1])){
 				if($bp->unfiltered_uri[1] == 'create')
