@@ -121,4 +121,4 @@ function bf_members_page_link_router_edit($link, $id){
 
 	return '<a title="'. __( 'Edit', 'buddyforms' ) .'" id="' . $id . '" class="bf_edit_post" href="' . bp_loggedin_user_domain()  . $parent_tab. '/'. $form_slug .'-edit/' . $id . '"><span aria-label="'. __( 'Edit', 'buddyforms' ) .'" class="dashicons dashicons-edit"></span></a>';
 }
-add_filter( 'bf_loop_edit_post_link', 'bf_members_page_link_router_edit', 10, 2 );
+add_filter( 'buddyforms_loop_edit_post_link', 'bf_members_page_link_router_edit', 10, 2 );

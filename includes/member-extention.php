@@ -64,7 +64,7 @@ public $id = 'buddyforms';
 			$args['meta_value'] = $form_slug;
 		}
 
-		$post_status_array = bf_get_post_status_array();
+		$post_status_array = buddyforms_get_post_status_array();
 		$args['post_status'] = array_keys($post_status_array);
 
         return count(get_posts($args));
