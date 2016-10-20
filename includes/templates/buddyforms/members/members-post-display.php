@@ -35,6 +35,10 @@
 
 	$query_args =  apply_filters('buddyforms_post_to_display_args',$query_args);
 
+	if( is_multisite() && isset( $buddyforms[$form_slug]['blog_id'] ) ){
+		switch_to_blog( $buddyforms[$form_slug]['blog_id'] );
+	}
+
 	$the_lp_query = new WP_Query( $query_args );
 
 	if ( $list_posts_style == 'table' ) {
@@ -47,6 +51,13 @@
 	if(function_exists('wp_pagenavi')){
 		wp_pagenavi( array( 'query' => $the_lp_query) );
 	}
+
+	if( is_multisite() && isset( $buddyforms[$form_slug]['blog_id'] ) ){
+		restore_current_blog();
+	}
+
 	$the_lp_query = $temp_query;
+
+
 	?>
 </div><!-- #item-body -->
