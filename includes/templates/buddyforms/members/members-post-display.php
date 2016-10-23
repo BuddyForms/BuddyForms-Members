@@ -33,7 +33,7 @@
 		$query_args['post_status'] = array('publish', 'pending', 'draft');
 	}
 
-	$query_args =  apply_filters('buddyforms_post_to_display_args',$query_args);
+	$query_args =  apply_filters( 'buddyforms_post_to_display_args', $query_args );
 
 	if( is_multisite() && isset( $buddyforms[$form_slug]['blog_id'] ) ){
 		switch_to_blog( $buddyforms[$form_slug]['blog_id'] );
