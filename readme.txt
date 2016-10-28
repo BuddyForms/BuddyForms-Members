@@ -1,9 +1,9 @@
 === BuddyForms Members ===
 Contributors: svenl77, themekraft, buddyforms
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
-Requires at least: WordPress 3.9, BuddyPress 1.7.x
-Tested up to: WordPress 4.4.2
-Stable tag: 1.1.4
+Requires at least: 3.9
+Tested up to: 4.6.1
+Stable tag: 1.1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,25 @@ BuddyForms gives you these possibilities for a wide variety of uses.
 5. **Backend Overview** - The backend overview of your existing forms.
 
 == Changelog ==
+
+= 1.1.5 =
+Add multisite support
+Work on the form builder ui conditionals
+Loop Table View in BuddyPress Profiles
+Create new functions to show hide metaboxes
+Work on the conditionals admin ui
+Add postbox_classes to make the postbox visible.
+get_currentuserinfo change to wp_get_current_user
+Remove unneeded subnav tabs. Its not possible to register a buddy press endpoint without create the nav. To keep it constancy we do it like this and hide the subs with css and remove them with jQuery for mobil usage
+Add form elements select box support
+Fixed the my post tap issue
+Make sure hidden sub tabs in profile the li is hidden too
+Use buddyforms_display_field_group_table to display options
+No more sidebar
+Added CSS fixes for Loop Table View in BuddyPress Profiles
+Loop Table View in BuddyPress Profiles
+Added all BuddyPress related CSS of BuddyForms to this CSS file
+Add edit icon and aria label
 
 = 1.1.4 =
 Fixed one small issue. In some situation the $bp->unfiltered_uri[2] could be empty. I added a if statement to avoid undefined index notice.
