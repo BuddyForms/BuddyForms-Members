@@ -1,5 +1,5 @@
 === BuddyForms Members ===
-Contributors: svenl77, themekraft, buddyforms
+Contributors: svenl77, konradS, themekraft, buddyforms
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: 3.9
 Tested up to: 4.6.1

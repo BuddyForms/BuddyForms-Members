@@ -26,6 +26,7 @@ public $id = 'buddyforms';
 	function setup_hooks() {
 		add_action('bp_located_template',	array($this, 'buddyforms_load_template_filter'), 10, 2);
 		add_action('wp_enqueue_scripts',	array($this, 'buddyforms_members_enqueue_scripts'), 10, 2);
+		//buddyforms_dequeue_select2_version3();
 	}
 
 	/**
