@@ -22,8 +22,11 @@ class BuddyForms_Members {
 		add_action( 'buddyforms_members_load', 	array( $this, 'buddyforms_setup_component' ), 6 );
 		
 		// Load textdomain
-		add_action( 'buddyforms_members_load',     array( $this, 'load_plugin_textdomain' ) );
-		
+		add_action( 'buddyforms_members_load',  array( $this, 'load_plugin_textdomain' ) );
+
+
+
+
 		// Let other plugins know that BuddyForms has finished initializing
 		add_action( 'bp_init',  array( $this, 'init_hook' ) );
 
@@ -103,6 +106,7 @@ class BuddyForms_Members {
 		require_once (BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'form-elements.php');
 		require_once (BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'member-extention.php');
 		require_once (BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'redirect.php');
+		require_once (BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'resources/tgm/class-tgm-plugin-activation.php');
 		
 		if (!class_exists('BP_Theme_Compat'))
 			require_once (BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'bp-backwards-compatibililty-functions.php');
@@ -128,6 +132,26 @@ class BuddyForms_Members {
 	
 		$bp->buddyforms = new BuddyForms_Members_Extention();
 	
+	}
+
+	function buddyforms_members_register_required_plugins() {
+		$plugins = array(
+
+			array(
+				'name'              => 'BuddyPress',
+				'slug'              => 'buddypress',
+				'required'          => true,
+				'is_automatic'      => true
+			),
+			array(
+				'name'              => 'BuddyForms',
+				'slug'              => 'buddyforms',
+				'required'          => true,
+				'is_automatic'      => true
+			),
+
+		);
+		tgmpa( $plugins );
 	}
 
 }
