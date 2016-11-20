@@ -129,13 +129,14 @@ public $id = 'buddyforms';
 							$parent_tab_page = get_post($attached_page, 'OBJECT');
 							$parent_tab_name = $parent_tab_page->post_title;
 						}
-						if (!array_key_exists($parent_tab, (array)$bp->bp_nav)
-							&& !isset($done)
-							   || !array_key_exists($parent_tab, (array)$bp->bp_nav)
-							      && isset($done)
-							      && $done != $attached_page
-						            || !array_key_exists($parent_tab, (array)$bp->bp_nav) && !isset($member_form['profiles_parent_tab'])
-
+						if (
+							!array_key_exists( $parent_tab, (array)$bp->bp_nav )
+						    && !isset($done)
+						    || !array_key_exists( $parent_tab, (array)$bp->bp_nav )
+						       && isset( $done )
+						       && $done != $attached_page
+						    || !array_key_exists( $parent_tab, (array)$bp->bp_nav )
+						       && !isset( $member_form['profiles_parent_tab'] )
 						) {
 								$done = $attached_page;
 								$main_nav = array(
