@@ -111,6 +111,13 @@ function bf_members_page_link_router_edit($link, $id){
 
 	$form_slug = get_post_meta($id, '_bf_form_slug', true);
 
+	$buddyforms_posttypes_default = get_option( 'buddyforms_posttypes_default' );
+	$post_type = get_post_type($id);
+
+	if( isset( $buddyforms_posttypes_default[ $post_type ] ) ){
+		$form_slug = $buddyforms_posttypes_default[ $post_type ];
+	}
+
 	if(!$form_slug)
 		return $link;
 

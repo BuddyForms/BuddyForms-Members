@@ -104,7 +104,7 @@ class BuddyForms_Members {
 
 		require_once (BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'functions.php');
 		require_once (BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'form-elements.php');
-		require_once (BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'member-extention.php');
+		require_once( BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'member-extension.php' );
 		require_once (BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'redirect.php');
 		require_once (BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'resources/tgm/class-tgm-plugin-activation.php');
 		
