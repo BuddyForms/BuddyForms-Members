@@ -2,8 +2,8 @@
 Contributors: svenl77, konradS, themekraft, buddyforms
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: 3.9
-Tested up to: 4.7
-Stable tag: 1.1.7
+Tested up to: 4.7.1
+Stable tag: 1.1.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,101 +93,106 @@ BuddyForms gives you these possibilities for a wide variety of uses.
 
 == Changelog ==
 
+= 1.1.8 =
+* Fixed an issue with the edit link. There was a conflict if the post was actually not created with BuddyForms and if you select display all posts of this post type in the form settings.
+* By default it is set to display only posts from the post type created by this form. I have added a extra check so if the post type default setting is available this form ist used
+* Rename extention.php to extension.php
+
 = 1.1.7 =
-Fixed an issue with the dependencies management. If pro was activated it still ask for the free version. Fixed now with a new default BUDDYFORMS_PRO_VERSION in the core to check if the pro is active.
+* Fixed an issue with the dependencies management. If pro was activated it still ask for the free version. Fixed now with a new default BUDDYFORMS_PRO_VERSION in the core to check if the pro is active.
 
 = 1.1.6 =
-Remove profiles_visible settings.
-Fixed an issue with the admin bar links creating a 404
-Add dependencies management with tgm
-Fixed an issue if parent sub nav tabs and parent tabs with same attached page but not as parent tab. Should work now in all combinations
-Change buddyforms_locate_template to use only the file slug
+* Remove profiles_visible settings.
+* Fixed an issue with the admin bar links creating a 404
+* Add dependencies management with tgm
+* Fixed an issue if parent sub nav tabs and parent tabs with same attached page but not as parent tab. Should work now in all combinations
+* Change buddyforms_locate_template to use only the file slug
 
 = 1.1.5 =
-Add multisite support
-Work on the form builder ui conditionals
-Loop Table View in BuddyPress Profiles
-Create new functions to show hide metaboxes
-Work on the conditionals admin ui
-Add postbox_classes to make the postbox visible.
-get_currentuserinfo change to wp_get_current_user
-Remove unneeded subnav tabs. Its not possible to register a buddy press endpoint without create the nav. To keep it constancy we do it like this and hide the subs with css and remove them with jQuery for mobil usage
-Add form elements select box support
-Fixed the my post tap issue
-Make sure hidden sub tabs in profile the li is hidden too
-Use buddyforms_display_field_group_table to display options
-No more sidebar
-Added CSS fixes for Loop Table View in BuddyPress Profiles
-Loop Table View in BuddyPress Profiles
-Added all BuddyPress related CSS of BuddyForms to this CSS file
-Add edit icon and aria label
+* Add multisite support
+* Work on the form builder ui conditionals
+* Loop Table View in BuddyPress Profiles
+* Create new functions to show hide metaboxes
+* Work on the conditionals admin ui
+* Add postbox_classes to make the postbox visible.
+* get_currentuserinfo change to wp_get_current_user
+* Remove unneeded subnav tabs. Its not possible to register a buddy press endpoint without create the nav. To keep it constancy we do it like this and hide the subs with css and remove them with jQuery for mobil usage
+* Add form elements select box support
+* Fixed the my post tap issue
+* Make sure hidden sub tabs in profile the li is hidden too
+* Use buddyforms_display_field_group_table to display options
+* No more sidebar
+* Added CSS fixes for Loop Table View in BuddyPress Profiles
+* Loop Table View in BuddyPress Profiles
+* Added all BuddyPress related CSS of BuddyForms to this CSS file
+* Add edit icon and aria label
 
 = 1.1.4 =
-Fixed one small issue. In some situation the $bp->unfiltered_uri[2] could be empty. I added a if statement to avoid undefined index notice.
+* Fixed one small issue. In some situation the $bp->unfiltered_uri[2] could be empty. I added a if statement to avoid undefined index notice.
 
 = 1.1.3 =
-Add a new function to rewrite the edit link for grouped forms. There have been some rewrite issues left from the 1.1 update.
+* Add a new function to rewrite the edit link for grouped forms. There have been some rewrite issues left from the 1.1 update.
 
 = 1.1.2 =
-There was an issue cursed by the last update.I have added [$bp->current_component][$bp->current_action] as array to the new global to support many sub pages
+* There was an issue cursed by the last update.I have added [$bp->current_component][$bp->current_action] as array to the new global to support many sub pages
 
 = 1.1.1 =
-Create a new global buddyforms_member_tabs to find the needed form slug
-Fixed a redirect issue some users expected wired redirects in the profile. This was happen because of the missing form slug in some setups. Should be fixed now with the now global.
+* Create a new global buddyforms_member_tabs to find the needed form slug
+* Fixed a redirect issue some users expected wired redirects in the profile. This was happen because of the missing form slug in some setups. Should be fixed now with the now global.
 
 = 1.1 =
-Make it work with the latest version of BuddyForms. The BuddyForms array has changed so I adjust the code too the new structure
-Changed default BuddyForms to BUDDYFORMS_VERSION
-Fixe no post got displayed in the profile tab...
-Added post meta for selecting parent tab
-Added child tab
-Added new option to select the parent
-Add child parent form relationship. I use the attached page to group forms.
-Clean up code after rewrite
-Fix the pagination. The parent my posts pagination was broken. I have fixed this with a redirect to have always the same url structure in the profile.
-Add css for hide the home tab. Its not used and gets redirected.
+* Make it work with the latest version of BuddyForms. The BuddyForms array has changed so I adjust the code too the new structure
+* Changed default BuddyForms to BUDDYFORMS_VERSION
+* Fixe no post got displayed in the profile tab...
+* Added post meta for selecting parent tab
+* Added child tab
+* Added new option to select the parent
+* Add child parent form relationship. I use the attached page to group forms.
+* Clean up code after rewrite
+* Fix the pagination. The parent my posts pagination was broken. I have fixed this with a redirect to have always the same url structure in the profile.
+* Add css for hide the home tab. Its not used and gets redirected.
 
 = 1.0.11 =
-Fixed a small bug with BP_MEMBERS_SLUG. The constant does not work if the slug got changed
+* Fixed a small bug with BP_MEMBERS_SLUG. The constant does not work if the slug got changed
 
 = 1.0.10 =
-only display posts created by the form
-remove the old delete post structure
-fixed the dependencies message
-rename session
+* only display posts created by the form
+* remove the old delete post structure
+* fixed the dependencies message
+* rename session
 
 = 1.0.9 =
-Fixed a conflict with the BP Group Hierarchy Plugin. Props to Mitch for reporting and helping me fix this issue.
+* Fixed a conflict with the BP Group Hierarchy Plugin. Props to Mitch for reporting and helping me fix this issue.
 
 = 1.0.8 =
-add a isset check to prevent a array_key_exists error if no form is created.
+* add a isset check to prevent a array_key_exists error if no form is created.
 
 = 1.0.7 =
-new language files for hebrew thanks to Milena
-add support for the shortcodes button
-changed the query to only show post parents
-changed plugin uri
+* new language files for hebrew thanks to Milena
+* add support for the shortcodes button
+* changed the query to only show post parents
+* changed plugin uri
 
 = 1.0.5 =
- *display the form tab only if the user has the needed role
- *check if the buddy press component exists
- *load the js css if BuddyForms is displayed
- *add new admin notice
+* display the form tab only if the user has the needed role
+* check if the buddy press component exists
+* load the js css if BuddyForms is displayed
+* add new admin notice
 
 = 1.0.4 =
-rewrite the integration and data object
-its now translation ready
-Small bug fixes
+* rewrite the integration and data object
+* its now translation ready
+* Small bug fixes
 
 = 1.0.3 =
-Small bug fixes
-Spelling correction
+* Small bug fixes
+* Spelling correction
 
 = 1.0.2 =
-add wp 3.9 support and added a more detailed readme description
+* add wp 3.9 support and added a more detailed readme description
 
 = 1.0.1 =
-add buddyforms_members_requirements check
+* add buddyforms_members_requirements check
 
 = 1.0 =
-final 1.0 version
+* final 1.0 version
