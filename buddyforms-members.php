@@ -24,9 +24,6 @@ class BuddyForms_Members {
 		// Load textdomain
 		add_action( 'buddyforms_members_load',  array( $this, 'load_plugin_textdomain' ) );
 
-
-
-
 		// Let other plugins know that BuddyForms has finished initializing
 		add_action( 'bp_init',  array( $this, 'init_hook' ) );
 

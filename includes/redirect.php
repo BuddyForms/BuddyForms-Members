@@ -129,3 +129,26 @@ function bf_members_page_link_router_edit($link, $id){
 	return '<a title="'. __( 'Edit', 'buddyforms' ) .'" id="' . $id . '" class="bf_edit_post" href="' . bp_loggedin_user_domain()  . $parent_tab. '/'. $form_slug .'-edit/' . $id . '"><span aria-label="'. __( 'Edit', 'buddyforms' ) .'" class="dashicons dashicons-edit"></span></a>';
 }
 add_filter( 'buddyforms_loop_edit_post_link', 'bf_members_page_link_router_edit', 10, 2 );
+
+
+function bf_members_page_link_router_pagination($result){
+	global $bp, $buddyforms_member_tabs;
+
+	if( is_admin() ){
+		return $result;
+	}
+
+	if(isset($bp->current_component) && isset( $buddyforms_member_tabs[$bp->current_component] ) ){
+		$current_user = wp_get_current_user();
+		$userdata = get_userdata( $current_user->ID );
+
+		$result = rtrim( $result, "/" );
+		$this_page = end( explode( '/', $result ) );
+
+		$result = get_bloginfo( 'url' ) . '/' . $bp->pages->members->slug . '/' . $userdata->user_nicename . '/' . $bp->current_component . '/' . $bp->current_action . '/page/' . $this_page ;
+	}
+
+	return $result;
+
+}
+add_filter( 'get_pagenum_link', 'bf_members_page_link_router_pagination', 10, 2 );

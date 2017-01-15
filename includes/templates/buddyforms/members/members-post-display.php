@@ -46,11 +46,7 @@
 	} else {
 		buddyforms_locate_template( 'the-loop' );
 	}
-
-	// Support for wp_pagenavi
-	if(function_exists('wp_pagenavi')){
-		wp_pagenavi( array( 'query' => $the_lp_query) );
-	}
+	
 
 	if( is_multisite() && isset( $buddyforms[$form_slug]['blog_id'] ) ){
 		restore_current_blog();
