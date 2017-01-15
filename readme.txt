@@ -3,7 +3,7 @@ Contributors: svenl77, konradS, themekraft, buddyforms
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
 Requires at least: 3.9
 Tested up to: 4.7.1
-Stable tag: 1.1.9
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -92,6 +92,13 @@ BuddyForms gives you these possibilities for a wide variety of uses.
 5. **Backend Overview** - The backend overview of your existing forms.
 
 == Changelog ==
+
+= 1.2 =
+* Add a new option to define the profile visibility
+* Private - Only the logged in member in his profile.
+* Community - Logged in user can see other users profile posts
+* Public Visible - Unregistered users can see user profile posts
+* Code cleanup to meet the WordPress coding standards
 
 = 1.1.9 =
 * Remove the old wp_pagenavi dependencies.
