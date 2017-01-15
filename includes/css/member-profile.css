@@ -8,9 +8,11 @@ ul.product_images.ui-sortable li img {
     width: 100px;
     height: 100px;
 }
+
 .bf-hidden, #sub_nav_hidden {
     display: none;
 }
+
 #buddypress #buddyforms-form textarea,
 #buddypress #buddyforms-form .form-control {
     width: 100%;
@@ -24,28 +26,32 @@ ul.product_images.ui-sortable li img {
 
 /** Loop Table View in BuddyPress Profiles  **/
 @media (min-width: 768px) {
-  #buddyforms-table-view .table tbody td {
-      padding: 25px 9px;
-      vertical-align: top;
-  }
-  #buddyforms-table-view .table.table-inner .tr-sub td {
-    padding: 10px 9px;
-  }
+    #buddyforms-table-view .table tbody td {
+        padding: 25px 9px;
+        vertical-align: top;
+    }
+
+    #buddyforms-table-view .table.table-inner .tr-sub td {
+        padding: 10px 9px;
+    }
 }
 
 /** Other **/
 /*#sub_nav_home, #sub_nav_home-personal-li{*/
-    /*display:none !important;*/
+/*display:none !important;*/
 /*}*/
-#sub_nav_edit, #sub_nav_edit-personal-li{
-	display:none !important;
+#sub_nav_edit, #sub_nav_edit-personal-li {
+    display: none !important;
 }
-#sub_nav_delete, #sub_nav_delete-personal-li{
-	display:none !important;
+
+#sub_nav_delete, #sub_nav_delete-personal-li {
+    display: none !important;
 }
-#sub_nav_revison, #sub_nav_revison-personal-li{
-	display:none !important;
+
+#sub_nav_revison, #sub_nav_revison-personal-li {
+    display: none !important;
 }
-#sub_nav_page, #sub_nav_page-personal-li{
-    display:none !important;
+
+#sub_nav_page, #sub_nav_page-personal-li {
+    display: none !important;
 }
