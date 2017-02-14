@@ -1,97 +1,112 @@
 === BuddyForms Members ===
 Contributors: svenl77, konradS, themekraft, buddyforms
-Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing,
+Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing, form, forms, form builder, forms builder, post forms, user generated content, form, forms, frontend forms, contact form, contact forms, content form, post form, post forms, content forms, registration form, registration forms, custom form, custom forms, form, form administration, form builder, form creation, form creator, form manager, forms, forms builder, forms creation, forms creator, forms manager, community, content, content generation, crowdsourced content, frontend generated content, images, post, posts, public, publish, share, submission, submissions, submit, submitted, upload, user submitted, user-generated, user-submit, user-generated content
 Requires at least: 3.9
 Tested up to: 4.7.1
-Stable tag: 1.2
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-WordPress Front End Editor And Form Builder For Your User Generated Content
+BuddyPress User Generated Content made easy. Let your Members submit, create, edit, delete posts from there profile. Easy Form builder - Full control!
 
 == Description ==
 
-This is the BuddyForms Members Extension. Integrate your BuddyForms Forms into your BuddyPress Members Profile. You need the BuddyForms plugin installed for the plugin to work. <a href="http://buddyforms.com" target="_blank">Get BuddyForms now!</a>
+This is a free extension for the form builder plugin BuddyForms which makes user generated content easy using BuddyPress.
 
-Do you really have the time to be posting and updating your blog everyday? Didn’t think so… <b>BuddyForms Members is a premium plugin for BuddyPress</b> that allows your users to write, edit and upload posts, images, video, & just about any other content to your site, right from their BuddyPress Member Profile!
+### The extension allows you to:
+> * Integrate Forms into your BuddyPress members profile. Allow your users to write - edit - upload posts, images, video, & just about any other content to your community, right from their BuddyPress Member Profile!
+> * Create group forms: Many forms can share the same Profile Tab . All Forms with the same attached page can be grouped together. They will be listed as sub-navigation tabs in the main menu of the profile tab.
+> * Manage the visibility of who can see your submissions in your profile
+> * > Private - Only the logged in member in his profile.
+> * > Community - Logged in user can see other users profile posts
+> * > Public Visible - Unregistered users can see user profile posts
 
-Once you download the plugin, it’s super simple to setup:
-All you have to do is drag-and-drop to build the form your users will be submitting on the front-end.
+### About the core form builder plugin BuddyForms:
+> * From simple to advanced forms you can build forms in minutes.
+> * Manage permissions: define, create, edit and delete rights for each role and form.
+> * Get all the necessary form elements like text fields, email input, checkboxes, dropdowns and more.
+> * Choose how your members create, manage and edit their posts. With moderation and permission control you can automate your publishing process and save a lot of time.
 
-<h4>...with full moderation and revision control feature.</h4>
-It doesn’t matter how complex or big your site is, BuddyForms can handle ALL of your user-generated content.
 
-Build forms with an easy Form Builder. The easy way to bring your existing plugins into the BuddyPress ecosystem and make it accessible for your users right from their profile.
+→ Check out the [BuddyForms](https://wordpress.org/plugins/buddyforms/) plugin for more information and other free extensions that come with it
 
-<h4>For Any Post Type </h4>
-Choose which post type should be created when users submit your form.
-Turn any custom-post-type based WordPress plugin into a collaborative publishing tool and let your users do the dirty work of adding content for you! Perfect for online magazines, blogs, directories, stores, FAQ’s… you name it.
-Easy Form Builder
-Create and customize forms on the fly with easy drag and drop editing. No coding necessary.
+See the plugin in action:
 
-You get all the necessary elements like Text Fields, Email Input, Checkboxes, Dropdowns and more.
-<h4>Form Elements</h4>
-The custom form builder provides the following elements to create your custom post forms:
+[youtube https://www.youtube.com/watch?v=Gt8dcLZPR9A&t=60s]
 
-<b>Classic Fields = Custom Fields</b><br>
-Text Field<br>
-Email Field<br>
-Link Field<br>
-Text Area<br>
-Radio Button<br>
-Checkbox<br>
-Dropdown<br>
-Multi Dropdown<br>
-<br>
-<b>Post Fields</b><br>
-Taxonomy Dropdown<br>
-Hidden<br>
-Turn comments on/off<br>
-Moderation and Revisions<br>
-<br>
-You can choose how your members create, manage and edit their posts. Full control of the publishing process with reviews and revisions.
 
-== Documentation & Support ==
+### Perfect for online magazines, blogs, directories, stores, FAQ’s… you name it.
+> * Bring your existing plugins or theme post types into the BuddyPress ecosystem and make it accessible for your users right from their profile.
 
-<h4>Extensive Documentation and Support</h4>
+---
 
-All code is neat, clean and well documented (inline as well as in the documentation).
+> #### Docs & Support
+> * Find our Getting Started, How-to and Developer Docs on [docs.buddyforms.com](http://docs.buddyforms.com/)
+> * or watch one of our Video Tutorials [Videos](https://themekraft.com/buddyforms-videos/)
 
-The BuddyForms Documentation with many how-to’s is following now!
+---
 
-If you still get stuck somewhere, our support gets you back on the right track.
-You can find all help buttons in your BuddyForms Settings Panel in your WP Dashboard!
+> #### Submit Issues - Contribute
+> * Pull request are welcome. BuddyForms is community driven and developed on [Github](https://buddyforms.github.io/BuddyForms/)
+
+
+---
+
+> #### Follow Us
+> [Blog](https://themekraft.com/blog/) | [Twitter](https://twitter.com/buddyforms) | [Facebook](https://www.facebook.com/buddyforms/) | [Google+](https://plus.google.com/u/0/b/100975390423636463712/?pageId=100975390423636463712) | [YouTube](https://www.youtube.com/playlist?list=PLYPguOC5yk7_aB2Q2FTaktqHCXDc_mzqb)
+
+---
+
+> **Powered with ❤ by [ThemeKraft](https://themekraft.com)**
+
+---
+
+#### Tags
+buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing, form, forms, form builder, forms builder, post forms, user generated content, form, forms, frontend forms, contact form, contact forms, content form, post form, post forms, content forms, registration form, registration forms, custom form, custom forms, form, form administration, form builder, form creation, form creator, form manager, forms, forms builder, forms creation, forms creator, forms manager, community, content, content generation, crowdsourced content, frontend generated content, images, post, posts, public, publish, share, submission, submissions, submit, submitted, upload, user submitted, user-generated, user-submit, user-generated content
+
+---
 
 == Installation ==
 
-You can download and install BuddyForms Members using the built in WordPress plugin installer. If you download BuddyForms manually,
-make sure it is uploaded to "/wp-content/plugins/buddyforms/".
-
-Activate BuddyPress in the "Plugins" admin panel using the "Activate" link. If you're using WordPress Multisite, you can optionally activate BuddyForms Network Wide.
+Upload the entire BuddyForms folder to the /wp-content/plugins/ directory or install the plugin through the WordPress plugins screen directly.
+Activate the plugin through the 'Plugins' menu in WordPress.
+Head to the 'BuddyForms' menu item in your admin sidebar
 
 == Frequently Asked Questions ==
 
-You need the BuddyForms plugin installed for the plugin to work.
-<a href="http://buddyforms.com" target="_blank">Get BuddyForms now!</a>
+= Can I create a normal Contact Forms =
+Yes, you can create Simple Contact Forms or Complex Contact Forms with many different actions to create your submission logic.
 
-When is it the right choice for you?
+= Can I create a Registration Forms =
+Yes, you can Create Registration Forms
 
-As soon as you plan a WordPress and BuddyPress powered site where users should be able to submit content from the front-end.
-BuddyForms gives you these possibilities for a wide variety of uses.
+= Can I create a Content Forms =
+Yes, you can create Content forms for any post type.
+
+= Can I Combine Registration Forms and Content Forms =
+Yes, you can add login and registration Form Elements to any form and ask your user to Login or Register during form submission.
+
+== Documentation & Support ==
+
+> #### Extensive Documentation and Support
+> * All code is neat, clean and well documented (inline as well as in the documentation).
+> * The BuddyForms Documentation with many how-to’s will help you on your way.
+> * Find our Getting Started, How-to and Developer Docs on [docs.buddyforms.com](http://docs.buddyforms.com/)
+> * or watch one of our [Video Tutorials](https://themekraft.com/buddyforms-videos/)
+> * If you still get stuck somewhere, our support gets you back on the right track. You can find all help buttons in your BuddyForms Settings Panel in your WP Dashboard and the Help Center!
 
 == Screenshots ==
 
 1. **Overview in Member Profile** - The overview of each author's posts to be seen in the related member profile.
-
 2. **Create/Edit Post in Member Profile** - When creating a new post or editing an existing one, right from the member profile.
-
 3. **Add New Form** - This is how it looks when you add a new form with BuddyForms.
-
 4. **Form Builder** - Enjoy the easy drag-and-drop form builder of BuddyForms.
-
 5. **Backend Overview** - The backend overview of your existing forms.
 
 == Changelog ==
+
+= 1.2.1 =
+* Fixed a strange issue. The plugin does not have a valid header. I fixed it by add more * to the header.
 
 = 1.2 =
 * Add a new option to define the profile visibility
