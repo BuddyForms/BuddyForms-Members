@@ -94,6 +94,7 @@ class BuddyForms_Members_Extention extends BP_Component {
 						$buddyforms_member_tabs[ $parent_tab ][ $member_form['slug'] ] = $key;
 						$parent_tab_name                                               = $name;
 
+						$attached_page = false;
 						if ( isset( $member_form['profiles_parent_tab'] )
 						     && isset( $member_form['attached_page'] )
 						     && isset( $parent_tab )

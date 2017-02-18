@@ -150,7 +150,6 @@ function bf_members_page_link_router_edit( $link, $id ) {
 
 add_filter( 'buddyforms_loop_edit_post_link', 'bf_members_page_link_router_edit', 10, 2 );
 
-
 function bf_members_page_link_router_pagination( $result ) {
 	global $bp, $buddyforms_member_tabs;
 
@@ -173,3 +172,51 @@ function bf_members_page_link_router_pagination( $result ) {
 }
 
 add_filter( 'get_pagenum_link', 'bf_members_page_link_router_pagination', 10, 2 );
+
+
+add_filter( 'buddyforms_after_save_post_redirect', 'buddyforms_members_after_save_post_redirect', 10, 1 );
+function buddyforms_members_after_save_post_redirect($post_list_link){
+	global $buddyforms;
+
+
+	if ( ! isset( $_POST['form_slug'] ) ) {
+		return $post_list_link;
+	}
+
+	$form_slug = $_POST['form_slug'];
+
+	if ( ! isset( $buddyforms[ $form_slug ] ) ) {
+		return $post_list_link;
+	}
+	if ( ! isset( $buddyforms[ $form_slug ]['profiles_integration'] ) ) {
+		return $post_list_link;
+	}
+
+	$parent_tab = buddyforms_members_parent_tab( $buddyforms[ $form_slug ] );
+
+	$link_array = parse_url( $post_list_link );
+	$path = trim( $link_array['path'], '/' );
+	$action = explode( '/', $path );
+
+	if ( in_array( 'create', $action ) ) {
+		return bp_loggedin_user_domain() . $parent_tab . '/' . $form_slug . '-create/';
+	}
+	if ( in_array( 'edit', $action ) ) {
+		return bp_loggedin_user_domain() . $parent_tab . '/' . $form_slug . '-edit/' . $bp->unfiltered_uri[3];
+	}
+	if ( in_array( 'revision', $action ) ) {
+		return bp_loggedin_user_domain() . $parent_tab . '/' . $form_slug . '-revision/' . $bp->unfiltered_uri[3] . '/' . $bp->unfiltered_uri[4];
+	}
+	if ( in_array( 'view', $action ) ) {
+		return bp_loggedin_user_domain() . '/' . $parent_tab . '/' . $form_slug . '-posts';
+	}
+	if ( in_array( 'page', $action ) ) {
+		return bp_loggedin_user_domain() . '/' . $parent_tab . '/' . $form_slug . '-posts/' . $bp->unfiltered_uri[2] . '/' . $bp->unfiltered_uri[3];
+	}
+	if( in_array( $form_slug, $action ) ){
+		return bp_loggedin_user_domain() . $parent_tab . '/' . $form_slug . '-posts';
+	}
+
+
+	return $post_list_link;
+}
