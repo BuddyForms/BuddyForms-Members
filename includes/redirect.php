@@ -51,7 +51,7 @@ function bf_members_get_redirect_link( $id = false ) {
 
 			if ( isset( $bp->unfiltered_uri[1] ) ) {
 				if ( $bp->unfiltered_uri[1] == 'create' ) {
-					$link = bp_loggedin_user_domain() . $parent_tab . '/' . $form_slug . '-create/';
+					$link = bp_loggedin_user_domain() . $parent_tab . '/' . $form_slug . '-create/' . $bp->unfiltered_uri[3];
 				}
 				if ( $bp->unfiltered_uri[1] == 'edit' ) {
 					$link = bp_loggedin_user_domain() . $parent_tab . '/' . $form_slug . '-edit/' . $bp->unfiltered_uri[3];
