@@ -112,7 +112,14 @@ function bf_members_page_link_router( $link, $id ) {
 		return $link;
 	}
 
-	$new_link = bf_members_get_redirect_link( $id );
+	global $buddyforms;
+
+
+	$form_slug = get_post_meta( $id, '_bf_form_slug', true );
+
+	if ( isset( $buddyforms[ $form_slug ]['profiles_integration'] ) ) {
+		$new_link = bf_members_get_redirect_link( $id );
+	}
 
 	if ( ! empty( $new_link ) ) {
 		$link = $new_link;
