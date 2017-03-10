@@ -2,8 +2,8 @@
 Contributors: svenl77, konradS, themekraft, buddyforms
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing, form, forms, form builder, forms builder, post forms, user generated content, form, forms, frontend forms, contact form, contact forms, content form, post form, post forms, content forms, registration form, registration forms, custom form, custom forms, form, form administration, form builder, form creation, form creator, form manager, forms, forms builder, forms creation, forms creator, forms manager, community, content, content generation, crowdsourced content, frontend generated content, images, post, posts, public, publish, share, submission, submissions, submit, submitted, upload, user submitted, user-generated, user-submit, user-generated content
 Requires at least: 3.9
-Tested up to: 4.7.1
-Stable tag: 1.2.1
+Tested up to: 4.7.3
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -104,6 +104,11 @@ Yes, you can add login and registration Form Elements to any form and ask your u
 5. **Backend Overview** - The backend overview of your existing forms.
 
 == Changelog ==
+
+= 1.2.2 =
+* Make sure multiple child forms does work with BuddyPress enabled even if one for is embedded and one is separated but both use the same parent.
+* Added the bp->unfiltered_uri[3] to the create url to support child parent basic functionality so plugins not need to reinvent the wheel.
+* Create a new function to make the rewrite working if ajax is disabled
 
 = 1.2.1 =
 * Fixed a strange issue. The plugin does not have a valid header. I fixed it by add more * to the header.

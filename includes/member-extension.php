@@ -132,9 +132,11 @@ class BuddyForms_Members_Extention extends BP_Component {
 								'slug'                => $parent_tab,
 								'position'            => $position,
 								'default_subnav_slug' => $key . '-posts',
-								'user_has_access'     => $profile_visibility
+								'user_has_access'     => $profile_visibility,
+								'position' => $position,
 							);
 							$buddyforms_member_tabs[ $parent_tab ][ $key . '-posts' ] = $key;
+							$position ++;
 						}
 
 						$sub_nav[]                                                = array(
@@ -144,20 +146,24 @@ class BuddyForms_Members_Extention extends BP_Component {
 							'parent_url'      => trailingslashit( bp_displayed_user_domain() . $parent_tab ),
 							'item_css_id'     => 'sub_nav_home',
 							'screen_function' => array( $this, 'buddyforms_screen_settings' ),
-							'user_has_access' => $profile_visibility
+							'user_has_access' => $profile_visibility,
+							'position' => $position,
 						);
 						$buddyforms_member_tabs[ $parent_tab ][ $key . '-posts' ] = $key;
+						$position ++;
 
 						$sub_nav[]                                                 = array(
 							'name'            => sprintf( __( ' Add %s', 'buddyforms' ), $member_form['singular_name'] ),
 							'slug'            => $key . '-create',
 							'parent_slug'     => $parent_tab,
 							'parent_url'      => trailingslashit( bp_displayed_user_domain() . $parent_tab ),
-							'item_css_id'     => 'apps_sub_nav',
+							'item_css_id'     => 'add_sub_nav_' . $key,
 							'screen_function' => array( $this, 'load_members_post_create' ),
-							'user_has_access' => bp_is_my_profile()
+							'user_has_access' => bp_is_my_profile(),
+							'position' => $position,
 						);
 						$buddyforms_member_tabs[ $parent_tab ][ $key . '-create' ] = $key;
+						$position ++;
 
 						$sub_nav[]                                               = array(
 							'name'            => sprintf( __( ' Edit %s', 'buddyforms' ), $member_form['singular_name'] ),
@@ -166,9 +172,11 @@ class BuddyForms_Members_Extention extends BP_Component {
 							'parent_url'      => trailingslashit( bp_displayed_user_domain() . $parent_tab ),
 							'item_css_id'     => 'sub_nav_edit',
 							'screen_function' => array( $this, 'buddyforms_screen_settings' ),
-							'user_has_access' => bp_is_my_profile()
+							'user_has_access' => bp_is_my_profile(),
+							'position' => $position,
 						);
 						$buddyforms_member_tabs[ $parent_tab ][ $key . '-edit' ] = $key;
+						$position ++;
 
 						$sub_nav[]                                                   = array(
 							'name'            => sprintf( __( ' Revision %s', 'buddyforms' ), $member_form['singular_name'] ),
@@ -178,8 +186,10 @@ class BuddyForms_Members_Extention extends BP_Component {
 							'item_css_id'     => 'sub_nav_revison',
 							'screen_function' => array( $this, 'buddyforms_screen_settings' ),
 							'user_has_access' => bp_is_my_profile(),
+							'position' => $position,
 						);
 						$buddyforms_member_tabs[ $parent_tab ][ $key . '-revision' ] = $key;
+						$position ++;
 
 						$sub_nav[]                                               = array(
 							'name'            => sprintf( __( ' Page %s', 'buddyforms' ), $member_form['singular_name'] ),
@@ -188,8 +198,10 @@ class BuddyForms_Members_Extention extends BP_Component {
 							'parent_url'      => trailingslashit( bp_loggedin_user_domain() . $parent_tab ),
 							'item_css_id'     => 'sub_nav_page',
 							'screen_function' => array( $this, 'buddyforms_screen_settings' ),
+							'position' => $position,
 						);
 						$buddyforms_member_tabs[ $parent_tab ][ $key . '-page' ] = $key;
+						$position ++;
 					}
 					parent::setup_nav( $main_nav, $sub_nav );
 
