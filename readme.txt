@@ -106,8 +106,8 @@ Yes, you can add login and registration Form Elements to any form and ask your u
 == Changelog ==
 
 = 1.2.2 =
-* Make sure multiple child forms does work with BuddyPress enabled even if one for is embedded and one is separated but both use the same parent.
-* Added the bp->unfiltered_uri[3] to the create url to support child parent basic functionality so plugins not need to reinvent the wheel.
+* Make sure multiple child forms does work with BuddyPress enabled even if one the forms is embedded and one is separated but both use the same parent.
+* Added the bp->unfiltered_uri[3] to the create url to support child/ parent functionality so plugins not need to reinvent the wheel.
 * Create a new function to make the rewrite working if ajax is disabled
 
 = 1.2.1 =

@@ -47,23 +47,25 @@ function bf_members_get_redirect_link( $id = false ) {
 
 		if ( isset( $buddyforms[ $form_slug ]['profiles_integration'] ) && isset( $attached_page_id ) && $attached_page_id == $id ) {
 
-			$link = bp_loggedin_user_domain() . $buddyforms[ $form_slug ]['slug'] . '/';
+			$domain = is_user_logged_in() ? bp_loggedin_user_domain() : bp_displayed_user_domain();
+
+			$link = $domain . $buddyforms[ $form_slug ]['slug'] . '/';
 
 			if ( isset( $bp->unfiltered_uri[1] ) ) {
 				if ( $bp->unfiltered_uri[1] == 'create' ) {
-					$link = bp_loggedin_user_domain() . $parent_tab . '/' . $form_slug . '-create/' . $bp->unfiltered_uri[3];
+					$link = $domain . $parent_tab . '/' . $form_slug . '-create/' . $bp->unfiltered_uri[3];
 				}
 				if ( $bp->unfiltered_uri[1] == 'edit' ) {
-					$link = bp_loggedin_user_domain() . $parent_tab . '/' . $form_slug . '-edit/' . $bp->unfiltered_uri[3];
+					$link = $domain . $parent_tab . '/' . $form_slug . '-edit/' . $bp->unfiltered_uri[3];
 				}
 				if ( $bp->unfiltered_uri[1] == 'revision' ) {
-					$link = bp_loggedin_user_domain() . $parent_tab . '/' . $form_slug . '-revision/' . $bp->unfiltered_uri[3] . '/' . $bp->unfiltered_uri[4];
+					$link = $domain . $parent_tab . '/' . $form_slug . '-revision/' . $bp->unfiltered_uri[3] . '/' . $bp->unfiltered_uri[4];
 				}
 				if ( $bp->unfiltered_uri[1] == 'view' ) {
-					$link = bp_loggedin_user_domain() . '/' . $parent_tab . '/' . $form_slug . '-posts';
+					$link = $domain . '/' . $parent_tab . '/' . $form_slug . '-posts';
 				}
 				if ( $bp->unfiltered_uri[1] == 'page' ) {
-					$link = bp_loggedin_user_domain() . '/' . $parent_tab . '/' . $form_slug . '-posts/' . $bp->unfiltered_uri[2] . '/' . $bp->unfiltered_uri[3];
+					$link = $domain . '/' . $parent_tab . '/' . $form_slug . '-posts/' . $bp->unfiltered_uri[2] . '/' . $bp->unfiltered_uri[3];
 				}
 
 			}
@@ -152,7 +154,9 @@ function bf_members_page_link_router_edit( $link, $id ) {
 
 	$parent_tab = buddyforms_members_parent_tab( $buddyforms[ $form_slug ] );
 
-	return '<a title="' . __( 'Edit', 'buddyforms' ) . '" id="' . $id . '" class="bf_edit_post" href="' . bp_loggedin_user_domain() . $parent_tab . '/' . $form_slug . '-edit/' . $id . '"><span aria-label="' . __( 'Edit', 'buddyforms' ) . '" class="dashicons dashicons-edit"></span></a>';
+	$domain = is_user_logged_in() ? bp_loggedin_user_domain() : bp_displayed_user_domain();
+
+	return '<a title="' . __( 'Edit', 'buddyforms' ) . '" id="' . $id . '" class="bf_edit_post" href="' . $domain . $parent_tab . '/' . $form_slug . '-edit/' . $id . '"><span aria-label="' . __( 'Edit', 'buddyforms' ) . '" class="dashicons dashicons-edit"></span></a>';
 }
 
 add_filter( 'buddyforms_loop_edit_post_link', 'bf_members_page_link_router_edit', 10, 2 );
@@ -183,7 +187,7 @@ add_filter( 'get_pagenum_link', 'bf_members_page_link_router_pagination', 10, 2 
 
 add_filter( 'buddyforms_after_save_post_redirect', 'buddyforms_members_after_save_post_redirect', 10, 1 );
 function buddyforms_members_after_save_post_redirect($post_list_link){
-	global $buddyforms;
+	global $buddyforms, $bp;
 
 
 	if ( ! isset( $_POST['form_slug'] ) ) {
@@ -205,23 +209,25 @@ function buddyforms_members_after_save_post_redirect($post_list_link){
 	$path = trim( $link_array['path'], '/' );
 	$action = explode( '/', $path );
 
+	$domain = is_user_logged_in() ? bp_loggedin_user_domain() : bp_displayed_user_domain();
+
 	if ( in_array( 'create', $action ) ) {
-		return bp_loggedin_user_domain() . $parent_tab . '/' . $form_slug . '-create/';
+		return $domain . $parent_tab . '/' . $form_slug . '-create/';
 	}
 	if ( in_array( 'edit', $action ) ) {
-		return bp_loggedin_user_domain() . $parent_tab . '/' . $form_slug . '-edit/' . $bp->unfiltered_uri[3];
+		return $domain . $parent_tab . '/' . $form_slug . '-edit/' . $bp->unfiltered_uri[3];
 	}
 	if ( in_array( 'revision', $action ) ) {
-		return bp_loggedin_user_domain() . $parent_tab . '/' . $form_slug . '-revision/' . $bp->unfiltered_uri[3] . '/' . $bp->unfiltered_uri[4];
+		return $domain . $parent_tab . '/' . $form_slug . '-revision/' . $bp->unfiltered_uri[3] . '/' . $bp->unfiltered_uri[4];
 	}
 	if ( in_array( 'view', $action ) ) {
-		return bp_loggedin_user_domain() . '/' . $parent_tab . '/' . $form_slug . '-posts';
+		return $domain . '/' . $parent_tab . '/' . $form_slug . '-posts';
 	}
 	if ( in_array( 'page', $action ) ) {
-		return bp_loggedin_user_domain() . '/' . $parent_tab . '/' . $form_slug . '-posts/' . $bp->unfiltered_uri[2] . '/' . $bp->unfiltered_uri[3];
+		return $domain . '/' . $parent_tab . '/' . $form_slug . '-posts/' . $bp->unfiltered_uri[2] . '/' . $bp->unfiltered_uri[3];
 	}
 	if( in_array( $form_slug, $action ) ){
-		return bp_loggedin_user_domain() . $parent_tab . '/' . $form_slug . '-posts';
+		return $domain . $parent_tab . '/' . $form_slug . '-posts';
 	}
 
 

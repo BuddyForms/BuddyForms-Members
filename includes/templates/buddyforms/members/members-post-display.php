@@ -33,6 +33,9 @@
 		$query_args['post_status'] = array( 'publish', 'pending', 'draft' );
 	}
 
+	// New
+	$query_args = apply_filters( 'buddyforms_user_posts_query_args', $query_args );
+	// Deprecated
 	$query_args = apply_filters( 'buddyforms_post_to_display_args', $query_args );
 
 	if ( is_multisite() && isset( $buddyforms[ $form_slug ]['blog_id'] ) ) {
