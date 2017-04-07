@@ -175,7 +175,7 @@ function bf_members_page_link_router_pagination( $result ) {
 		$result    = rtrim( $result, "/" );
 		$this_page = end( explode( '/', $result ) );
 
-		$result = get_bloginfo( 'url' ) . '/' . $bp->pages->members->slug . '/' . $userdata->user_nicename . '/' . $bp->current_component . '/' . $bp->current_action . '/page/' . $this_page;
+		$result = $bp->displayed_user->domain . $bp->current_component . '/' . $bp->current_action . '/page/' . $this_page;
 	}
 
 	return $result;
