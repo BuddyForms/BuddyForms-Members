@@ -3,7 +3,7 @@ Contributors: svenl77, konradS, themekraft, buddyforms
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing, form, forms, form builder, forms builder, post forms, user generated content, form, forms, frontend forms, contact form, contact forms, content form, post form, post forms, content forms, registration form, registration forms, custom form, custom forms, form, form administration, form builder, form creation, form creator, form manager, forms, forms builder, forms creation, forms creator, forms manager, community, content, content generation, crowdsourced content, frontend generated content, images, post, posts, public, publish, share, submission, submissions, submit, submitted, upload, user submitted, user-generated, user-submit, user-generated content
 Requires at least: 3.9
 Tested up to: 4.7.3
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -105,8 +105,12 @@ Yes, you can add login and registration Form Elements to any form and ask your u
 
 == Changelog ==
 
+= 1.2.3 =
+* Fixed an issue with the pagination probs go to @mfalk75 to find and fix the issue
+* New freemius integration
+
 = 1.2.2 =
-* Make sure multiple child forms does work with BuddyPress enabled even if one the forms is embedded and one is separated but both use the same parent.
+* Make sure multiple child forms work with BuddyPress enabled even if one the forms is embedded and one is separated but both use the same parent.
 * Added the bp->unfiltered_uri[3] to the create url to support child/ parent functionality so plugins not need to reinvent the wheel.
 * Create a new function to make the rewrite working if ajax is disabled
 
