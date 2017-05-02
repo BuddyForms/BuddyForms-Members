@@ -43,6 +43,7 @@
 	}
 
 	$the_lp_query = new WP_Query( $query_args );
+	$the_lp_query = apply_filters('buddyforms_the_lp_query', $the_lp_query );
 
 	if ( $list_posts_style == 'table' ) {
 		buddyforms_locate_template( 'the-table' );
