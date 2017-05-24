@@ -169,13 +169,13 @@ function bf_members_page_link_router_pagination( $result ) {
 	}
 
 	if ( isset( $bp->current_component ) && isset( $buddyforms_member_tabs[ $bp->current_component ] ) ) {
-		$current_user = wp_get_current_user();
-		$userdata     = get_userdata( $current_user->ID );
 
 		$result    = rtrim( $result, "/" );
 		$this_page = end( explode( '/', $result ) );
 
-		$result = $bp->displayed_user->domain . $bp->current_component . '/' . $bp->current_action . '/page/' . $this_page;
+		$domain = is_user_logged_in() ? bp_loggedin_user_domain() : bp_displayed_user_domain();
+
+		$result = $domain . $bp->current_component . '/' . $bp->current_action . '/page/' . $this_page;
 	}
 
 	return $result;

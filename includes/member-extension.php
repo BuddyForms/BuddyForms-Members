@@ -203,7 +203,18 @@ class BuddyForms_Members_Extention extends BP_Component {
 						$buddyforms_member_tabs[ $parent_tab ][ $key . '-page' ] = $key;
 						$position ++;
 					}
-					parent::setup_nav( $main_nav, $sub_nav );
+
+
+
+					$buddyforms_members_parent_setup_nav  = apply_filters( 'buddyforms_members_parent_setup_nav', true, $key  );
+
+					if($buddyforms_members_parent_setup_nav){
+						parent::setup_nav( $main_nav, $sub_nav );
+					} else {
+						foreach ( $sub_nav as $nav ){
+							bp_core_new_subnav_item($nav);
+						}
+					}
 
 				}
 
@@ -385,6 +396,6 @@ function buddyforms_members_parent_tab( $member_form ) {
 		$parent_tab_name = $parent_tab_page->post_name;
 	}
 
-	return $parent_tab_name;
+	return apply_filters('buddyforms_members_parent_tab', $parent_tab_name, $member_form['slug']);
 
 }
