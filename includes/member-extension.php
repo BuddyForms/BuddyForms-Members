@@ -128,7 +128,7 @@ class BuddyForms_Members_Extention extends BP_Component {
 						) {
 							$done                                                     = $attached_page;
 							$main_nav                                                 = array(
-								'name'                => sprintf( '%s <span>%d</span>', $parent_tab_name, $count ),
+								'name'                => $parent_tab_name,
 								'slug'                => $parent_tab,
 								'position'            => $position,
 								'default_subnav_slug' => $key . '-posts',
@@ -140,7 +140,7 @@ class BuddyForms_Members_Extention extends BP_Component {
 						}
 
 						$sub_nav[]                                                = array(
-							'name'            => sprintf( __( '%s', 'buddyforms' ), $name ),
+							'name'            => sprintf( '%s <span>%d</span>', $name, $count ),
 							'slug'            => $key . '-posts',
 							'parent_slug'     => $parent_tab,
 							'parent_url'      => trailingslashit( bp_displayed_user_domain() . $parent_tab ),
@@ -242,6 +242,9 @@ class BuddyForms_Members_Extention extends BP_Component {
 		}
 
 		$post_status_array   = buddyforms_get_post_status_array();
+
+		unset( $post_status_array['trash'] );
+
 		$args['post_status'] = array_keys( $post_status_array );
 
 		return count( get_posts( $args ) );
