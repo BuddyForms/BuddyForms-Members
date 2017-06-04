@@ -53,13 +53,25 @@ function bf_members_get_redirect_link( $id = false ) {
 
 			if ( isset( $bp->unfiltered_uri[1] ) ) {
 				if ( $bp->unfiltered_uri[1] == 'create' ) {
-					$link = $domain . $parent_tab . '/' . $form_slug . '-create/' . $bp->unfiltered_uri[3];
+					if ( current_user_can( 'buddyforms_' . $form_slug . '_create' ) ) {
+						$link = $domain . $parent_tab . '/' . $form_slug . '-create/' . $bp->unfiltered_uri[3];
+					} else {
+						$link = '';
+					}
 				}
 				if ( $bp->unfiltered_uri[1] == 'edit' ) {
-					$link = $domain . $parent_tab . '/' . $form_slug . '-edit/' . $bp->unfiltered_uri[3];
+					if ( current_user_can( 'buddyforms_' . $form_slug . '_edit' ) ) {
+						$link = $domain . $parent_tab . '/' . $form_slug . '-edit/' . $bp->unfiltered_uri[3];
+					} else {
+						$link = '';
+					}
 				}
 				if ( $bp->unfiltered_uri[1] == 'revision' ) {
-					$link = $domain . $parent_tab . '/' . $form_slug . '-revision/' . $bp->unfiltered_uri[3] . '/' . $bp->unfiltered_uri[4];
+					if ( current_user_can( 'buddyforms_' . $form_slug . '_edit' ) ) {
+						$link = $domain . $parent_tab . '/' . $form_slug . '-revision/' . $bp->unfiltered_uri[3] . '/' . $bp->unfiltered_uri[4];
+					} else {
+						$link = '';
+					}
 				}
 				if ( $bp->unfiltered_uri[1] == 'view' ) {
 					$link = $domain . '/' . $parent_tab . '/' . $form_slug . '-posts';
