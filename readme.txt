@@ -3,7 +3,7 @@ Contributors: svenl77, konradS, themekraft, buddyforms
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing, form, forms, form builder, forms builder, post forms, user generated content, form, forms, frontend forms, contact form, contact forms, content form, post form, post forms, content forms, registration form, registration forms, custom form, custom forms, form, form administration, form builder, form creation, form creator, form manager, forms, forms builder, forms creation, forms creator, forms manager, community, content, content generation, crowdsourced content, frontend generated content, images, post, posts, public, publish, share, submission, submissions, submit, submitted, upload, user submitted, user-generated, user-submit, user-generated content
 Requires at least: 3.9
 Tested up to: 4.7.3
-Stable tag: 1.2.3
+Stable tag: 1.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -104,6 +104,14 @@ Yes, you can add login and registration Form Elements to any form and ask your u
 5. **Backend Overview** - The backend overview of your existing forms.
 
 == Changelog ==
+
+= 1.2.3 07.06.2017 =
+* Added a new filter into the core buddyforms_loop_template_name to register new loop templates.
+* Make sure the new templates do work in the member profile
+* Added new filter buddyforms_the_lp_query to adjust the query result
+* Added a new filter buddyforms_members_parent_tab to allow other plugins to move forms from parent to sub tabs
+* Fixed the post count issue in Profile Tabs
+* Added an extra check for capabilities during redirect and display an error message instead of a 404 if the role does not have the required capability
 
 = 1.2.3 =
 * Fixed an issue with the pagination probs go to @mfalk75 to find and fix the issue
