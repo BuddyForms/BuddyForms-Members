@@ -51,3 +51,233 @@ function buddyforms_members_admin_settings_sidebar_metabox_html() {
 }
 
 add_filter( 'add_meta_boxes', 'buddyforms_members_admin_settings_sidebar_metabox' );
+
+/*
+ * Add the xprofile Form ELement to the Form Element Select
+ */
+add_filter( 'buddyforms_add_form_element_select_option', 'buddyforms_members_add_form_element_to_select', 1, 2 );
+function buddyforms_members_add_form_element_to_select( $elements_select_options ) {
+	global $post;
+
+	if ( $post->post_type != 'buddyforms' ) {
+		return;
+	}
+
+	$elements_select_options['buddyforms']['label']                  = 'Buddyforms';
+	$elements_select_options['buddyforms']['class']                = 'bf_show_if_f_type_all';
+	$elements_select_options['buddyforms']['fields']['xprofile_field'] = array(
+		'label'  => __( 'xProfile Field', 'buddyforms' ),
+	);
+	$elements_select_options['buddyforms']['fields']['xprofile_group'] = array(
+		'label'  => __( 'xProfile Field Group', 'buddyforms' ),
+	);
+
+	return $elements_select_options;
+}
+
+/*
+ * Create the new Form Builder Form Element
+ */
+add_filter( 'buddyforms_form_element_add_field', 'buddyforms_members_create_new_form_builder_form_element', 1, 5 );
+function buddyforms_members_create_new_form_builder_form_element( $form_fields, $form_slug, $field_type, $field_id ) {
+	global $buddyforms;
+	$buddyforms_options = $buddyforms;
+
+	switch ( $field_type ) {
+
+		case 'xprofile_group':
+			unset( $form_fields );
+			$name = isset( $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['name']) ? $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['name'] : '';
+			$form_fields['general']['name'] = new Element_Textbox( '<b>' . __( 'Name', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][name]", array( 'value' => $name ) );
+
+
+			if( class_exists('BP_XProfile_Group')){
+
+				$groups = BP_XProfile_Group::get( array(
+					'fetch_fields' => true
+				) );
+
+				$groups_select['none'] = 'Select the xProfile Group';
+				if ( ! empty( $groups ) ) : foreach ( $groups as $group ) :
+					$groups_select[$group->id] = $group->name;
+				endforeach; endif;
+
+				$xprofile_group = isset( $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['xprofile_group']) ? $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['xprofile_group'] : '';
+				$form_fields['general']['xprofile_group'] = new Element_Select('xProfile Group', "buddyforms_options[form_fields][" . $field_id . "][xprofile_group]", $groups_select, array( 'value' => $xprofile_group ) );
+
+			} else{
+				$form_fields['general']['notice'] = new Element_HTML(__( 'You need to enable BuddyPress Groups to use this form element', 'buddyforms'));
+			}
+
+			$form_fields['advanced']['slug'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][slug]", 'xprofile' );
+
+			$form_fields['general']['type'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][type]", $field_type );
+			break;
+		case 'xprofile_field':
+			unset( $form_fields );
+			$name = isset( $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['name']) ? $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['name'] : '';
+			$form_fields['general']['name'] = new Element_Textbox( '<b>' . __( 'Name', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][name]", array( 'value' => $name ) );
+
+
+			if( class_exists('BP_XProfile_Group')){
+
+				$groups = BP_XProfile_Group::get( array(
+					'fetch_fields' => true
+				) );
+
+				$groups_select['none'] = 'Select the xProfile Group';
+				if ( ! empty( $groups ) ) : foreach ( $groups as $group ) :
+					$groups_select[$group->id] = $group->name;
+				endforeach; endif;
+
+				$xprofile_group = isset( $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['xprofile_group']) ? $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['xprofile_group'] : '';
+				$form_fields['general']['xprofile_group'] = new Element_Select('xProfile Group', "buddyforms_options[form_fields][" . $field_id . "][xprofile_group]", $groups_select, array( 'value' => $xprofile_group ) );
+
+
+				$group_fields_select['none'] = 'Select the xProfile Field';
+				if ( ! empty( $groups ) ) : foreach ( $groups as $group ) :
+
+					if( $group->id == $xprofile_group ) {
+
+						if ( ! empty( $group->fields ) ) :
+							foreach ( $group->fields as $field ) {
+								$group_fields_select[$field->id] = $field->name;
+							}
+						endif;
+
+					}
+				endforeach; endif;
+
+				$xprofile_field = isset( $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['xprofile_field']) ? $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['xprofile_field'] : '';
+				$form_fields['general']['xprofile_field'] = new Element_Select('xProfile Group', "buddyforms_options[form_fields][" . $field_id . "][xprofile_field]", $group_fields_select, array( 'value' => $xprofile_field ) );
+
+
+			} else{
+				$form_fields['general']['notice'] = new Element_HTML(__( 'You need to enable BuddyPress Groups to use this form element', 'buddyforms'));
+			}
+
+			$form_fields['advanced']['slug'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][slug]", 'xprofile' );
+
+			$form_fields['general']['type'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][type]", $field_type );
+			break;
+
+	}
+
+	return $form_fields;
+}
+
+/*
+ * Display the new Form Element in the Frontend Form
+ *
+ */
+add_filter( 'buddyforms_create_edit_form_display_element', 'buddyforms_members_create_frontend_form_element', 1, 2 );
+function buddyforms_members_create_frontend_form_element( $form, $form_args ) {
+	global $buddyforms;
+
+	extract( $form_args );
+
+	$post_type = $buddyforms[ $form_slug ]['post_type'];
+
+	if ( ! $post_type ) {
+		return $form;
+	}
+
+	if ( ! isset( $customfield['type'] ) ) {
+		return $form;
+	}
+
+	switch ( $customfield['type'] ) {
+		case 'xprofile_group':
+
+			if( class_exists('BP_XProfile_Group')) {
+
+				$groups = BP_XProfile_Group::get( array(
+					'fetch_fields' => true
+				) );
+
+				if ( ! empty( $groups ) ) : foreach ( $groups as $group ) :
+					if( $group->id == $customfield['xprofile_group'] ) {
+						if ( bp_has_profile( 'profile_group_id=' . $group->id ) ) :
+							while ( bp_profile_groups() ) : bp_the_profile_group();
+								while ( bp_profile_fields() ) : bp_the_profile_field();
+									$form->addElement( new Element_HTML( '<div class="bf_field_group bf-input">' . buddyforms_members_edit_field_html($form_slug)  . '</div>') );
+								endwhile;
+						endwhile; endif;
+					}
+				endforeach;endif;
+			}
+
+			break;
+		case 'xprofile_field':
+
+			if( class_exists('BP_XProfile_Group')) {
+				$groups = BP_XProfile_Group::get( array(
+					'fetch_fields' => true
+				) );
+				if ( ! empty( $groups ) ) : foreach ( $groups as $group ) :
+					if( isset( $customfield['xprofile_group'] ) && $group->id == $customfield['xprofile_group'] ) {
+
+						if ( bp_has_profile( 'profile_group_id=' . $group->id ) ) :
+							while ( bp_profile_groups() ) : bp_the_profile_group();
+								while ( bp_profile_fields() ) : bp_the_profile_field();
+									if( isset( $customfield['xprofile_field'] ) && bp_get_the_profile_field_id() == $customfield['xprofile_field'] ) {
+										$form->addElement( new Element_HTML( '<div class="bf_field_group bf-input">' . buddyforms_members_edit_field_html($form_slug) . '</div>') );
+									}
+								endwhile;
+						endwhile; endif;
+					}
+				endforeach;endif;
+			}
+
+			break;
+	}
+
+	return $form;
+}
+function buddyforms_everything_in_tags($string, $tagname)
+{
+	$pattern = "#<\s*?$tagname\b[^>]*>(.*?)</$tagname\b[^>]*>#s";
+	preg_match($pattern, $string, $matches);
+	return $matches[1];
+}
+
+function buddyforms_members_edit_field_html($form_slug){
+	global $buddyforms;
+
+	$field_type = bp_xprofile_create_field_type( bp_get_the_profile_field_type() );
+	ob_start();
+	if ( isset( $buddyforms[ $form_slug ]['layout']['desc_position'] ) && $buddyforms[ $form_slug ]['layout']['desc_position'] == 'above_field' ) {
+		echo '<span class="help-inline">' . bp_the_profile_field_description() . '</span>';
+		$field_type->edit_field_html();
+	} else {
+		$field_type->edit_field_html();
+		echo '<span class="help-inline">' . bp_the_profile_field_description() . '</span>';
+	}
+	$tmp = ob_get_clean();
+
+	$tmp = str_replace( '<input', '<input class="form-control"', $tmp );
+
+	if ( isset( $buddyforms[ $form_slug ]['layout']['labels_layout'] ) && $buddyforms[ $form_slug ]['layout']['labels_layout'] == 'inline' ) {
+
+		$label = buddyforms_everything_in_tags( $tmp, 'label' );
+
+		$tmp = str_replace( $label, '', $tmp );
+
+		$label = preg_replace( '/\s+/', '', strip_tags( $label ) );
+
+		if ( strpos( $label, '(required)' ) !== false ) {
+			$tmp = str_replace( '<input', '<input required "', $tmp );
+			$label = str_replace( '(required)', '', strip_tags( $label ) );
+			$label = '* ' . $label;
+		}
+		$tmp = str_replace( '<input', '<input placeholder="' . $label . '"', $tmp );
+	} else {
+		if ( strpos( $tmp, '(required)' ) !== false ) {
+			$tmp = str_replace( '<input', '<input required "', $tmp );
+			$tmp = str_replace( '(required)', '<span class="required"> *</span>', $tmp );
+		}
+
+	}
+
+	return $tmp;
+}

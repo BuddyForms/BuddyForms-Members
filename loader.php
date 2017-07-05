@@ -177,3 +177,32 @@ if ( buddyforms_members_fs_is_parent_active_and_loaded() ) {
 	// Even though the parent is not activated, execute add-on for activation / uninstall hooks.
 	buddyforms_members_fs_init();
 }
+
+// register the location of the plugin templates
+function buddyforms_members_register_template_location() {
+	return BUDDYFORMS_TEMPLATE_PATH;
+}
+
+// replace member-header.php with the template overload from the plugin
+function buddyforms_members_maybe_replace_template( $templates, $slug, $name ) {
+
+	if( in_array('registration/register.php', $templates) ||  in_array('members/register.php', $templates) ||  in_array('register.php', $templates) ) {
+		return array( 'buddyforms/the-form.php' );
+	}
+
+	return $templates;
+}
+
+function buddyforms_members_start() {
+
+	if( function_exists( 'bp_register_template_stack' ) )
+		bp_register_template_stack( 'buddyforms_members_register_template_location' );
+
+	// if viewing a member page, overload the template
+	if ( bp_is_register_page()  )
+		add_filter( 'bp_get_template_part', 'buddyforms_members_maybe_replace_template', 10, 3 );
+
+}
+add_action( 'bp_init', 'buddyforms_members_start' );
+
+

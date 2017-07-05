@@ -105,7 +105,7 @@ Yes, you can add login and registration Form Elements to any form and ask your u
 
 == Changelog ==
 
-= 1.2.3 07.06.2017 =
+= 1.2.4 07.06.2017 =
 * Added a new filter into the core buddyforms_loop_template_name to register new loop templates.
 * Make sure the new templates do work in the member profile
 * Added new filter buddyforms_the_lp_query to adjust the query result
