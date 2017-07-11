@@ -180,17 +180,24 @@ if ( buddyforms_members_fs_is_parent_active_and_loaded() ) {
 
 // register the location of the plugin templates
 function buddyforms_members_register_template_location() {
-	return BUDDYFORMS_TEMPLATE_PATH;
+	return dirname( __FILE__ ) . '/includes/templates/';
 }
 
 // replace member-header.php with the template overload from the plugin
 function buddyforms_members_maybe_replace_template( $templates, $slug, $name ) {
+	global $post;
 
-	if( in_array('registration/register.php', $templates) ||  in_array('members/register.php', $templates) ||  in_array('register.php', $templates) ) {
-		return array( 'buddyforms/the-form.php' );
+	$buddyforms_registration_page = get_option( 'buddyforms_registration_page' );
+	$buddyforms_registration_form = get_option( 'buddyforms_registration_form' );
+
+	if( $post->ID == $buddyforms_registration_page && $buddyforms_registration_form != 'none' ) {
+		if ( in_array( 'registration/register.php', $templates ) || in_array( 'members/register.php', $templates ) || in_array( 'register.php', $templates ) ) {
+			return array( 'buddyforms/registration-form.php' );
+		}
 	}
 
 	return $templates;
+
 }
 
 function buddyforms_members_start() {
@@ -199,7 +206,7 @@ function buddyforms_members_start() {
 		bp_register_template_stack( 'buddyforms_members_register_template_location' );
 
 	// if viewing a member page, overload the template
-	if ( bp_is_register_page()  )
+	if ( bp_is_register_page() )
 		add_filter( 'bp_get_template_part', 'buddyforms_members_maybe_replace_template', 10, 3 );
 
 }

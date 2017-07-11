@@ -81,15 +81,19 @@ function buddyforms_members_add_form_element_to_select( $elements_select_options
 add_filter( 'buddyforms_form_element_add_field', 'buddyforms_members_create_new_form_builder_form_element', 1, 5 );
 function buddyforms_members_create_new_form_builder_form_element( $form_fields, $form_slug, $field_type, $field_id ) {
 	global $buddyforms;
-	$buddyforms_options = $buddyforms;
 
 	switch ( $field_type ) {
 
 		case 'xprofile_group':
 			unset( $form_fields );
-			$name = isset( $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['name']) ? $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['name'] : '';
-			$form_fields['general']['name'] = new Element_Textbox( '<b>' . __( 'Name', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][name]", array( 'value' => $name ) );
 
+			$name = 'xProfile Group';
+			if ( isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_group'] ) && $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_group'] != 'none' ) {
+				$name .= ' ' . $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_group'];
+			}
+			$form_fields['general']['name'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][name]", $name );
+			$form_fields['general']['slug'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][slug]", 'xprofile_group' );
+			$form_fields['general']['type'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][type]", $field_type );
 
 			if( class_exists('BP_XProfile_Group')){
 
@@ -102,21 +106,27 @@ function buddyforms_members_create_new_form_builder_form_element( $form_fields, 
 					$groups_select[$group->id] = $group->name;
 				endforeach; endif;
 
-				$xprofile_group = isset( $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['xprofile_group']) ? $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['xprofile_group'] : '';
+				$xprofile_group = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_group']) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_group'] : '';
 				$form_fields['general']['xprofile_group'] = new Element_Select('xProfile Group', "buddyforms_options[form_fields][" . $field_id . "][xprofile_group]", $groups_select, array( 'value' => $xprofile_group ) );
+
+
 
 			} else{
 				$form_fields['general']['notice'] = new Element_HTML(__( 'You need to enable BuddyPress Groups to use this form element', 'buddyforms'));
 			}
-
-			$form_fields['advanced']['slug'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][slug]", 'xprofile' );
-
-			$form_fields['general']['type'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][type]", $field_type );
 			break;
 		case 'xprofile_field':
+
+
 			unset( $form_fields );
-			$name = isset( $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['name']) ? $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['name'] : '';
-			$form_fields['general']['name'] = new Element_Textbox( '<b>' . __( 'Name', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][name]", array( 'value' => $name ) );
+
+			$name = 'xProfile Field';
+			if ( isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_field'] ) && $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_field'] != 'none' ) {
+				$name .= ' ' . $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_field'];
+			}
+			$form_fields['general']['name'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][name]", $name );
+			$form_fields['general']['slug'] = new Element_Hidden("buddyforms_options[form_fields][" . $field_id . "][slug]", 'xprofile_field' );
+			$form_fields['general']['type'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][type]", $field_type );
 
 
 			if( class_exists('BP_XProfile_Group')){
@@ -130,7 +140,7 @@ function buddyforms_members_create_new_form_builder_form_element( $form_fields, 
 					$groups_select[$group->id] = $group->name;
 				endforeach; endif;
 
-				$xprofile_group = isset( $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['xprofile_group']) ? $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['xprofile_group'] : '';
+				$xprofile_group = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_group']) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_group'] : '';
 				$form_fields['general']['xprofile_group'] = new Element_Select('xProfile Group', "buddyforms_options[form_fields][" . $field_id . "][xprofile_group]", $groups_select, array( 'value' => $xprofile_group ) );
 
 
@@ -148,17 +158,14 @@ function buddyforms_members_create_new_form_builder_form_element( $form_fields, 
 					}
 				endforeach; endif;
 
-				$xprofile_field = isset( $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['xprofile_field']) ? $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['xprofile_field'] : '';
-				$form_fields['general']['xprofile_field'] = new Element_Select('xProfile Group', "buddyforms_options[form_fields][" . $field_id . "][xprofile_field]", $group_fields_select, array( 'value' => $xprofile_field ) );
+				$xprofile_field = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_field']) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_field'] : '';
+				$form_fields['general']['xprofile_field'] = new Element_Select('xProfile Field', "buddyforms_options[form_fields][" . $field_id . "][xprofile_field]", $group_fields_select, array( 'value' => $xprofile_field ) );
 
 
 			} else{
 				$form_fields['general']['notice'] = new Element_HTML(__( 'You need to enable BuddyPress Groups to use this form element', 'buddyforms'));
 			}
 
-			$form_fields['advanced']['slug'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][slug]", 'xprofile' );
-
-			$form_fields['general']['type'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][type]", $field_type );
 			break;
 
 	}
@@ -172,7 +179,7 @@ function buddyforms_members_create_new_form_builder_form_element( $form_fields, 
  */
 add_filter( 'buddyforms_create_edit_form_display_element', 'buddyforms_members_create_frontend_form_element', 1, 2 );
 function buddyforms_members_create_frontend_form_element( $form, $form_args ) {
-	global $buddyforms;
+	global $buddyforms, $field;
 
 	extract( $form_args );
 
@@ -200,6 +207,7 @@ function buddyforms_members_create_frontend_form_element( $form, $form_args ) {
 						if ( bp_has_profile( 'profile_group_id=' . $group->id ) ) :
 							while ( bp_profile_groups() ) : bp_the_profile_group();
 								while ( bp_profile_fields() ) : bp_the_profile_field();
+									$field = new BP_XProfile_Field( bp_get_the_profile_field_id() );
 									$form->addElement( new Element_HTML( '<div class="bf_field_group bf-input">' . buddyforms_members_edit_field_html($form_slug)  . '</div>') );
 								endwhile;
 						endwhile; endif;
@@ -210,23 +218,9 @@ function buddyforms_members_create_frontend_form_element( $form, $form_args ) {
 			break;
 		case 'xprofile_field':
 
-			if( class_exists('BP_XProfile_Group')) {
-				$groups = BP_XProfile_Group::get( array(
-					'fetch_fields' => true
-				) );
-				if ( ! empty( $groups ) ) : foreach ( $groups as $group ) :
-					if( isset( $customfield['xprofile_group'] ) && $group->id == $customfield['xprofile_group'] ) {
-
-						if ( bp_has_profile( 'profile_group_id=' . $group->id ) ) :
-							while ( bp_profile_groups() ) : bp_the_profile_group();
-								while ( bp_profile_fields() ) : bp_the_profile_field();
-									if( isset( $customfield['xprofile_field'] ) && bp_get_the_profile_field_id() == $customfield['xprofile_field'] ) {
-										$form->addElement( new Element_HTML( '<div class="bf_field_group bf-input">' . buddyforms_members_edit_field_html($form_slug) . '</div>') );
-									}
-								endwhile;
-						endwhile; endif;
-					}
-				endforeach;endif;
+			if( class_exists('BP_XProfile_Field')) {
+				$field = new BP_XProfile_Field($customfield['xprofile_field']);
+				$form->addElement( new Element_HTML( '<div class="bf_field_group bf-input">' . buddyforms_members_edit_field_html($form_slug) . '</div>') );
 			}
 
 			break;
@@ -242,9 +236,10 @@ function buddyforms_everything_in_tags($string, $tagname)
 }
 
 function buddyforms_members_edit_field_html($form_slug){
-	global $buddyforms;
+	global $buddyforms, $field;
 
 	$field_type = bp_xprofile_create_field_type( bp_get_the_profile_field_type() );
+
 	ob_start();
 	if ( isset( $buddyforms[ $form_slug ]['layout']['desc_position'] ) && $buddyforms[ $form_slug ]['layout']['desc_position'] == 'above_field' ) {
 		echo '<span class="help-inline">' . bp_the_profile_field_description() . '</span>';
@@ -280,4 +275,43 @@ function buddyforms_members_edit_field_html($form_slug){
 	}
 
 	return $tmp;
+}
+
+add_action( 'buddyforms_process_submission_end', 'buddyforms_members_process_submission_end', 10, 1 );
+function buddyforms_members_process_submission_end( $args ) {
+	global $buddyforms;
+
+	extract( $args );
+
+	if( isset( $buddyforms[$form_slug] ) ){
+		if( isset( $buddyforms[$form_slug]['form_fields'] ) ){
+
+			foreach ($buddyforms[$form_slug]['form_fields'] as $field_key => $field ){
+				if( $field['type'] == 'xprofile_group' ){
+					if( isset( $field['xprofile_group'] ) ){
+						if ( bp_has_profile( 'profile_group_id=' . $field['xprofile_group'] ) ) :
+							while ( bp_profile_groups() ) : bp_the_profile_group();
+								while ( bp_profile_fields() ) : bp_the_profile_field();
+									if( isset( $_POST['field_' . bp_get_the_profile_field_id()] ) ){
+										$xprofile_value = $_POST['field_' . bp_get_the_profile_field_id()];
+										xprofile_set_field_data( bp_get_the_profile_field_id(), bp_loggedin_user_id(),  $xprofile_value );
+									}
+								endwhile;
+							endwhile;
+						endif;
+					}
+
+				}
+				if( $field['type'] == 'xprofile_field' && isset($field['xprofile_field'])){
+					$field_id = $field['xprofile_field'];
+					if( isset( $_POST['field_' . $field_id ] ) ){
+						$xprofile_value = $_POST[ 'field_' . $field_id ];
+						xprofile_set_field_data( $field_id, bp_loggedin_user_id(),  $xprofile_value );
+					}
+				}
+			}
+
+		}
+	}
+
 }
