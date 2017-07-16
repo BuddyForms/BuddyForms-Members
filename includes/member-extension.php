@@ -402,3 +402,41 @@ function buddyforms_members_parent_tab( $member_form ) {
 	return apply_filters('buddyforms_members_parent_tab', $parent_tab_name, $member_form['slug']);
 
 }
+
+function buddyforms_members_activity_stream_support() {
+	global $buddyforms;
+
+	// Check if the Activity component is active before using it.
+	if ( ! bp_is_active( 'activity' ) ) {
+		return;
+	}
+
+	if( isset($buddyforms) && is_array($buddyforms) ){
+		foreach ( $buddyforms as $form_slug => $buddyform ){
+			if( isset( $buddyform['bp_activity_stream'] )  && isset( $buddyform['post_type'] ) ){
+
+				$name          = isset( $buddyform['name'] ) && ! empty( $buddyform['name'] ) ? $buddyform['name'] : $buddyform['post_type'];
+				$name_singular = isset( $buddyform['singular_name'] ) && ! empty( $buddyform['singular_name'] ) ? $buddyform['singular_name'] : $name;
+
+				// Set the activity tracking args
+				bp_activity_set_post_type_tracking_args( $buddyform['post_type'] , array(
+					'component_id'             => 'activity',
+					'action_id'                => 'new_post_' . $buddyform['post_type'] ,
+					'bp_activity_admin_filter' => __( 'Published a new ' . $name_singular , 'buddyforms' ),
+					'bp_activity_front_filter' => __( $name_singular , 'buddyforms' ),
+					'contexts'                 => array( 'activity', 'member' ),
+					'activity_comment'         => true,
+					'bp_activity_new_post'     => __( '%1$s posted a new <a href="%2$s">' . $name_singular . '</a>', 'buddyforms' ),
+					'bp_activity_new_post_ms'  => __( '%1$s posted a new <a href="%2$s">' . $name_singular . '</a>, on the site %3$s', 'buddyforms' ),
+					'position'                 => 100,
+				) );
+
+				// Don't forget to add the 'buddypress-activity' support to the filter select box!
+				add_post_type_support( $buddyform['post_type'], 'buddypress-activity' );
+
+			}
+		}
+	}
+
+}
+add_action( 'init', 'buddyforms_members_activity_stream_support', 999 );
