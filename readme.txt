@@ -106,7 +106,15 @@ Yes, you can add login and registration Form Elements to any form and ask your u
 == Changelog ==
 
 = 1.3 16 July 2017 =
+* New Professional Version available now with great new Features
 
+* Added support for BuddyPress Registration page overwrite with the settings form BuddyForms
+* Created tow new form elements xProfile Field and xProfile Group. Its now possible to add xprofile field as normal form elements.
+* Created a new form elements Member Types to select the member types you want to make available in the Registration
+* Add a new template to overwrite the BuddyPress default registration form
+* Make sure registration options are used from BuddyForms general settings
+* Added new option for Activity Support
+* Added freemius free pro code
 
 = 1.2.4 07.06.2017 =
 * Added a new filter into the core buddyforms_loop_template_name to register new loop templates.
