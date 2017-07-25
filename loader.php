@@ -4,7 +4,7 @@
  * Plugin Name: BuddyForms Members
  * Plugin URI: http://buddyforms.com/downloads/buddyforms-members/
  * Description: The BuddyForms Members Component. Let your members write right out of their profiles.
- * Version: 1.3
+ * Version: 1.3.0.1
  * Author: ThemeKraft
  * Author URI: https://themekraft.com/buddyforms/
  * License: GPLv2 or later
@@ -34,7 +34,7 @@ add_action( 'bp_loaded', 'buddyforms_members_init' );
 function buddyforms_members_init() {
 	global $wpdb, $buddyforms_members;
 
-	define( 'buddyforms_members', '1.3' );
+	define( 'buddyforms_members', '1.3.0.1' );
 
 	if ( is_multisite() && BP_ROOT_BLOG != $wpdb->blogid ) {
 		return;
@@ -119,8 +119,6 @@ function buddyforms_members_fs() {
 			'type'                => 'plugin',
 			'public_key'          => 'pk_0dc82cbd48e6935bba8e2ff431777',
 			'is_premium'          => true,
-			// If your addon is a serviceware, set this option to false.
-			'has_premium_version' => true,
 			'has_paid_plans'      => true,
 			'parent'              => array(
 				'id'         => '391',
@@ -179,43 +177,45 @@ if ( buddyforms_members_fs_is_parent_active_and_loaded() ) {
 	buddyforms_members_fs_init();
 }
 
+// This IF block will be auto removed from the Free version.
+if ( buddyforms_members_fs()->is__premium_only() ) {
+	if ( buddyforms_members_fs()->is_plan( 'professional' ) ) {
+		// register the location of the plugin templates
+		function buddyforms_members_register_template_location() {
+			return dirname( __FILE__ ) . '/includes/templates/';
+		}
 
-if ( buddyforms_members_fs()->is_plan('professional') ) {
-	// register the location of the plugin templates
-	function buddyforms_members_register_template_location() {
-		return dirname( __FILE__ ) . '/includes/templates/';
-	}
+		// replace member-header.php with the template overload from the plugin
+		function buddyforms_members_maybe_replace_template( $templates, $slug, $name ) {
+			global $post;
 
-	// replace member-header.php with the template overload from the plugin
-	function buddyforms_members_maybe_replace_template( $templates, $slug, $name ) {
-		global $post;
+			$buddyforms_registration_page = get_option( 'buddyforms_registration_page' );
+			$buddyforms_registration_form = get_option( 'buddyforms_registration_form' );
 
-		$buddyforms_registration_page = get_option( 'buddyforms_registration_page' );
-		$buddyforms_registration_form = get_option( 'buddyforms_registration_form' );
-
-		if ( $post->ID == $buddyforms_registration_page && $buddyforms_registration_form != 'none' ) {
-			if ( in_array( 'registration/register.php', $templates ) || in_array( 'members/register.php', $templates ) || in_array( 'register.php', $templates ) ) {
-				return array( 'buddyforms/registration-form.php' );
+			if ( $post->ID == $buddyforms_registration_page && $buddyforms_registration_form != 'none' ) {
+				if ( in_array( 'registration/register.php', $templates ) || in_array( 'members/register.php', $templates ) || in_array( 'register.php', $templates ) ) {
+					return array( 'buddyforms/registration-form.php' );
+				}
 			}
+
+			return $templates;
+
 		}
 
-		return $templates;
+		function buddyforms_members_start() {
+
+			if ( function_exists( 'bp_register_template_stack' ) ) {
+				bp_register_template_stack( 'buddyforms_members_register_template_location' );
+			}
+
+			// if viewing a member page, overload the template
+			if ( bp_is_register_page() ) {
+				add_filter( 'bp_get_template_part', 'buddyforms_members_maybe_replace_template', 10, 3 );
+			}
+
+		}
+
+		add_action( 'bp_init', 'buddyforms_members_start' );
 
 	}
-
-	function buddyforms_members_start() {
-
-		if ( function_exists( 'bp_register_template_stack' ) ) {
-			bp_register_template_stack( 'buddyforms_members_register_template_location' );
-		}
-
-		// if viewing a member page, overload the template
-		if ( bp_is_register_page() ) {
-			add_filter( 'bp_get_template_part', 'buddyforms_members_maybe_replace_template', 10, 3 );
-		}
-
-	}
-
-	add_action( 'bp_init', 'buddyforms_members_start' );
-
 }
