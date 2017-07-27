@@ -105,6 +105,9 @@ Yes, you can add login and registration Form Elements to any form and ask your u
 
 == Changelog ==
 
+= 1.3.0.2 27 July 2017 =
+* Added freemius trial code
+
 = 1.3.0.1 25 July 2017 =
 * Fixed a freemius issue cursing fatal error in some instances during activation if BuddyForms is deactivated
 
