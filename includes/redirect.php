@@ -54,7 +54,7 @@ function bf_members_get_redirect_link( $id = false ) {
 			if ( isset( $bp->unfiltered_uri[1] ) ) {
 				if ( $bp->unfiltered_uri[1] == 'create' ) {
 					if ( current_user_can( 'buddyforms_' . $form_slug . '_create' ) ) {
-						$link = $domain . $parent_tab . '/' . $form_slug . '-create/' . $bp->unfiltered_uri[3];
+						$link = $domain . $parent_tab . '/' . $form_slug . '-create/';
 					} else {
 						$link = '';
 					}

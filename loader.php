@@ -81,146 +81,145 @@ add_action( 'init', function () {
 	} );
 }, 1, 1 );
 
+// BuddyForms Members init
+add_action( 'bp_loaded', 'buddyforms_members_init' );
+function buddyforms_members_init() {
+	global $wpdb, $buddyforms_members;
+
+	define( 'buddyforms_members', '1.3.0.3' );
+
+	if ( is_multisite() && BP_ROOT_BLOG != $wpdb->blogid ) {
+		return;
+	}
+
+	require( dirname( __FILE__ ) . '/buddyforms-members.php' );
+	$buddyforms_members = new BuddyForms_Members();
+
+}
+
+
+
+
+
+
+
+// Create a helper function for easy SDK access.
+function buddyforms_members_fs() {
+	global $buddyforms_members_fs;
+
+	if ( ! isset( $buddyforms_members_fs ) ) {
+		// Include Freemius SDK.
+		if ( file_exists( dirname( dirname( __FILE__ ) ) . '/buddyforms/includes/resources/freemius/start.php' ) ) {
+			// Try to load SDK from parent plugin folder.
+			require_once dirname( dirname( __FILE__ ) ) . '/buddyforms/includes/resources/freemius/start.php';
+		} else if ( file_exists( dirname( dirname( __FILE__ ) ) . '/buddyforms-premium/includes/resources/freemius/start.php' ) ) {
+			// Try to load SDK from premium parent plugin folder.
+			require_once dirname( dirname( __FILE__ ) ) . '/buddyforms-premium/includes/resources/freemius/start.php';
+		}
+
+		$buddyforms_members_fs = fs_dynamic_init( array(
+			'id'                  => '408',
+			'slug'                => 'buddyforms-members',
+			'type'                => 'plugin',
+			'public_key'          => 'pk_0dc82cbd48e6935bba8e2ff431777',
+			'is_premium'          => true,
+			'has_paid_plans'      => true,
+			'trial'               => array(
+				'days'               => 7,
+				'is_require_payment' => false,
+			),
+			'parent'              => array(
+				'id'         => '391',
+				'slug'       => 'buddyforms',
+				'public_key' => 'pk_dea3d8c1c831caf06cfea10c7114c',
+				'name'       => 'BuddyForms',
+			),
+			'menu'                => array(
+				'first-path'     => 'plugins.php',
+				'support'        => false,
+			)
+		) );
+	}
+
+	return $buddyforms_members_fs;
+}
+
 function buddyforms_members_fs_is_parent_active_and_loaded() {
 	// Check if the parent's init SDK method exists.
 	return function_exists( 'buddyforms_core_fs' );
 }
 
-if ( buddyforms_members_fs_is_parent_active_and_loaded() ) {
+function buddyforms_members_fs_is_parent_active() {
+	$active_plugins_basenames = get_option( 'active_plugins' );
 
-	// BuddyForms Members init
-	add_action( 'bp_loaded', 'buddyforms_members_init' );
-	function buddyforms_members_init() {
-		global $wpdb, $buddyforms_members;
-
-		define( 'buddyforms_members', '1.3.0.3' );
-
-		if ( is_multisite() && BP_ROOT_BLOG != $wpdb->blogid ) {
-			return;
-		}
-
-		require( dirname( __FILE__ ) . '/buddyforms-members.php' );
-		$buddyforms_members = new BuddyForms_Members();
-
-	}
-
-// Create a helper function for easy SDK access.
-	function buddyforms_members_fs() {
-		global $buddyforms_members_fs;
-
-		if ( ! isset( $buddyforms_members_fs ) ) {
-			// Include Freemius SDK.
-			if ( file_exists( dirname( dirname( __FILE__ ) ) . '/buddyforms/includes/resources/freemius/start.php' ) ) {
-				// Try to load SDK from parent plugin folder.
-				require_once dirname( dirname( __FILE__ ) ) . '/buddyforms/includes/resources/freemius/start.php';
-			} else if ( file_exists( dirname( dirname( __FILE__ ) ) . '/buddyforms-premium/includes/resources/freemius/start.php' ) ) {
-				// Try to load SDK from premium parent plugin folder.
-				require_once dirname( dirname( __FILE__ ) ) . '/buddyforms-premium/includes/resources/freemius/start.php';
-			}
-
-			$buddyforms_members_fs = fs_dynamic_init( array(
-				'id'             => '408',
-				'slug'           => 'buddyforms-members',
-				'type'           => 'plugin',
-				'public_key'     => 'pk_0dc82cbd48e6935bba8e2ff431777',
-				'is_premium'     => true,
-				'has_paid_plans' => true,
-				'trial'          => array(
-					'days'               => 7,
-					'is_require_payment' => false,
-				),
-				'parent'         => array(
-					'id'         => '391',
-					'slug'       => 'buddyforms',
-					'public_key' => 'pk_dea3d8c1c831caf06cfea10c7114c',
-					'name'       => 'BuddyForms',
-				),
-				'menu'           => array(
-					'first-path' => 'plugins.php',
-					'support'    => false,
-				),
-			) );
-		}
-
-		return $buddyforms_members_fs;
-	}
-
-	function buddyforms_members_fs_is_parent_active() {
-		$active_plugins_basenames = get_option( 'active_plugins' );
-
-		foreach ( $active_plugins_basenames as $plugin_basename ) {
-			if ( 0 === strpos( $plugin_basename, 'buddyforms/' ) ||
-			     0 === strpos( $plugin_basename, 'buddyforms-premium/' )
-			) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	function buddyforms_members_fs_init() {
-		if ( buddyforms_members_fs_is_parent_active_and_loaded() ) {
-			// Init Freemius.
-			buddyforms_members_fs();
-
-			// Parent is active, add your init code here.
-		} else {
-			// Parent is inactive, add your error handling here.
+	foreach ( $active_plugins_basenames as $plugin_basename ) {
+		if ( 0 === strpos( $plugin_basename, 'buddyforms/' ) ||
+		     0 === strpos( $plugin_basename, 'buddyforms-premium/' )
+		) {
+			return true;
 		}
 	}
 
+	return false;
+}
+
+function buddyforms_members_fs_init() {
 	if ( buddyforms_members_fs_is_parent_active_and_loaded() ) {
-		// If parent already included, init add-on.
-		buddyforms_members_fs_init();
-	} else if ( buddyforms_members_fs_is_parent_active() ) {
-		// Init add-on only after the parent is loaded.
-		add_action( 'buddyforms_core_fs_loaded', 'buddyforms_members_fs_init' );
+		// Init Freemius.
+		buddyforms_members_fs();
+
+		// Parent is active, add your init code here.
 	} else {
-		// Even though the parent is not activated, execute add-on for activation / uninstall hooks.
-		buddyforms_members_fs_init();
-	}
-
-// This IF block will be auto removed from the Free version.
-	if ( buddyforms_members_fs()->is__premium_only() ) {
-		if ( buddyforms_members_fs()->is_plan( 'professional' ) ) {
-			// register the location of the plugin templates
-			function buddyforms_members_register_template_location() {
-				return dirname( __FILE__ ) . '/includes/templates/';
-			}
-
-			// replace member-header.php with the template overload from the plugin
-			function buddyforms_members_maybe_replace_template( $templates, $slug, $name ) {
-				global $post;
-
-				$buddyforms_registration_page = get_option( 'buddyforms_registration_page' );
-				$buddyforms_registration_form = get_option( 'buddyforms_registration_form' );
-
-				if ( $post->ID == $buddyforms_registration_page && $buddyforms_registration_form != 'none' ) {
-					if ( in_array( 'registration/register.php', $templates ) || in_array( 'members/register.php', $templates ) || in_array( 'register.php', $templates ) ) {
-						return array( 'buddyforms/registration-form.php' );
-					}
-				}
-
-				return $templates;
-
-			}
-
-			function buddyforms_members_start() {
-
-				if ( function_exists( 'bp_register_template_stack' ) ) {
-					bp_register_template_stack( 'buddyforms_members_register_template_location' );
-				}
-
-				// if viewing a member page, overload the template
-				if ( bp_is_register_page() ) {
-					add_filter( 'bp_get_template_part', 'buddyforms_members_maybe_replace_template', 10, 3 );
-				}
-
-			}
-
-			add_action( 'bp_init', 'buddyforms_members_start' );
-
-		}
+		// Parent is inactive, add your error handling here.
 	}
 }
+
+if ( buddyforms_members_fs_is_parent_active_and_loaded() ) {
+	// If parent already included, init add-on.
+	buddyforms_members_fs_init();
+} else if ( buddyforms_members_fs_is_parent_active() ) {
+	// Init add-on only after the parent is loaded.
+	add_action( 'buddyforms_core_fs_loaded', 'buddyforms_members_fs_init' );
+} else {
+	// Even though the parent is not activated, execute add-on for activation / uninstall hooks.
+	buddyforms_members_fs_init();
+}
+
+
+// register the location of the plugin templates
+function buddyforms_members_register_template_location() {
+	return dirname( __FILE__ ) . '/includes/templates/';
+}
+
+// replace member-header.php with the template overload from the plugin
+function buddyforms_members_maybe_replace_template( $templates, $slug, $name ) {
+	global $post;
+
+	$buddyforms_registration_page = get_option( 'buddyforms_registration_page' );
+	$buddyforms_registration_form = get_option( 'buddyforms_registration_form' );
+
+	if ( $post->ID != $buddyforms_registration_page && $buddyforms_registration_form != 'none' ) {
+		if ( in_array( 'registration/register.php', $templates ) || in_array( 'members/register.php', $templates ) || in_array( 'register.php', $templates ) ) {
+			return array( 'buddyforms/registration-form.php' );
+		}
+	}
+
+	return $templates;
+
+}
+
+function buddyforms_members_start() {
+
+	if ( function_exists( 'bp_register_template_stack' ) ) {
+		bp_register_template_stack( 'buddyforms_members_register_template_location' );
+	}
+
+	// if viewing a member page, overload the template
+	if ( bp_is_register_page() ) {
+		add_filter( 'bp_get_template_part', 'buddyforms_members_maybe_replace_template', 10, 3 );
+	}
+
+}
+
+add_action( 'bp_init', 'buddyforms_members_start' );
+
