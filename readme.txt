@@ -3,7 +3,7 @@ Contributors: svenl77, konradS, themekraft, buddyforms
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing, form, forms, form builder, forms builder, post forms, user generated content, form, forms, frontend forms, contact form, contact forms, content form, post form, post forms, content forms, registration form, registration forms, custom form, custom forms, form, form administration, form builder, form creation, form creator, form manager, forms, forms builder, forms creation, forms creator, forms manager, community, content, content generation, crowdsourced content, frontend generated content, images, post, posts, public, publish, share, submission, submissions, submit, submitted, upload, user submitted, user-generated, user-submit, user-generated content
 Requires at least: 3.9
 Tested up to: 4.8
-Stable tag: 1.3.0.3
+Stable tag: 1.3.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -104,6 +104,11 @@ Yes, you can add login and registration Form Elements to any form and ask your u
 5. **Backend Overview** - The backend overview of your existing forms.
 
 == Changelog ==
+
+= 1.3.0.4 12 August 2017 =
+* Fixed some issues in the freemius integration
+* Fixed a redirect issue popped up in the latest version
+* Make the registration redirect free available. Its was a pro feature but we decide to make it free its to general feature for pro
 
 = 1.3.0.3 1 August 2017 =
 * Freemius update to allow free pro add ons
