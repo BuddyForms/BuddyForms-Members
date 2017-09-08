@@ -16,7 +16,7 @@
 		'post_type'      => $post_type,
 		'form_slug'      => $form_slug,
 		'post_status'    => array( 'publish' ),
-		'posts_per_page' => 5,
+		'posts_per_page' => apply_filters( 'buddyforms_user_posts_query_args_posts_per_page', 10 ),
 		'post_parent'    => 0,
 		'paged'          => $paged,
 		'author'         => $bp->displayed_user->id,
