@@ -161,7 +161,9 @@ function buddyforms_members_create_new_form_builder_form_element( $form_fields, 
 
 			$name = 'xProfile Field';
 			if ( isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_field'] ) && $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_field'] != 'none' ) {
-				$name .= ' ' . $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_field'];
+				$xfield = $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_field'];
+				$field = new BP_XProfile_Field( $xfield );
+				$name = $field->name;;
 			}
 			$form_fields['general']['name'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][name]", $name );
 			$form_fields['general']['slug'] = new Element_Hidden("buddyforms_options[form_fields][" . $field_id . "][slug]", 'xprofile_field' );
@@ -322,10 +324,14 @@ function buddyforms_members_edit_field_html($form_slug){
 		$tmp = str_replace( '<input', '<input placeholder="' . $label . '"', $tmp );
 	} else {
 		if ( strpos( $tmp, '(required)' ) !== false ) {
-			$tmp = str_replace( '<input', '<input required "', $tmp );
+			$tmp = str_replace( '<input', '<input required ', $tmp );
 			$tmp = str_replace( '(required)', '<span class="required"> *</span>', $tmp );
 		}
 
+	}
+
+	if($field->type == 'multiselect_custom_taxonomy' || $field->type == 'multiselect' || $field->type == 'select'){
+		$tmp = str_replace( '<select', '<select class="bf-select2"', $tmp );
 	}
 
 	return $tmp;
