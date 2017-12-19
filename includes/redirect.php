@@ -152,7 +152,7 @@ function bf_members_page_link_router_edit( $link, $id ) {
 	$buddyforms_posttypes_default = get_option( 'buddyforms_posttypes_default' );
 	$post_type                    = get_post_type( $id );
 
-	if ( isset( $buddyforms_posttypes_default[ $post_type ] ) ) {
+	if ( isset( $buddyforms_posttypes_default[ $post_type ] ) && $buddyforms_posttypes_default[ $post_type ] != 'none' ) {
 		$form_slug = $buddyforms_posttypes_default[ $post_type ];
 	}
 
