@@ -242,14 +242,14 @@ function buddyforms_members_after_save_post_redirect($post_list_link){
 		return $domain . $parent_tab . '/' . $form_slug . '-posts';
 	}
 
-
 	return $post_list_link;
 }
+
 add_filter('buddyforms_login_form_redirect_url', 'buddyforms_members_login_form_redirect_url', 10, 1 );
 function buddyforms_members_login_form_redirect_url( $redirect_url ){
 	$redirect = explode('//', $redirect_url);
 
-	if( $redirect[1]  == 'profile'){
+	if( isset($redirect[1]) && $redirect[1] == 'profile' ){
 
 		global $user;
 		$redirect_url = bp_core_get_user_domain( $user->ID );
