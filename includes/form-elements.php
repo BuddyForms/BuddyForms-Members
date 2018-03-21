@@ -108,13 +108,20 @@ function buddyforms_members_create_new_form_builder_form_element( $form_fields, 
 			$name = isset( $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['name'] ) ? $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['name'] : 'Member Type';
 			$form_fields['general']['name'] = new Element_Textbox( '<b>' . __( 'Name', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][name]", array( 'value' => $name ) );
 
+
 			$member_types_select = bp_get_member_types();
 			$member_types = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['member_types']) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['member_types'] : '';
-			$element = new Element_Checkbox('Member Types', "buddyforms_options[form_fields][" . $field_id . "][member_types]", $member_types_select, array( 'value' => $member_types ) );
+			$element = new Element_Checkbox('Allow the User to select Member Types', "buddyforms_options[form_fields][" . $field_id . "][member_types]", $member_types_select, array( 'value' => $member_types ) );
 			if ( buddyforms_members_fs()->is_not_paying() ) {
 				$element->setAttribute( 'disabled', 'disabled' );
 			}
 			$form_fields['general']['member_types'] = $element;
+
+			$member_type_hidden = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['member_type_hidden']) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['member_type_hidden'] : '';
+			$form_fields['general']['member_type_hidden'] = new Element_Checkbox('Hide this form element', "buddyforms_options[form_fields][" . $field_id . "][member_type_hidden]", array( 'hide' => 'Hidden'), array( 'value' => $member_type_hidden, 'shortDesc' => 'Hide this form element to auto assign the default member type', ) );
+
+			$member_types = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['member_type_default']) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['member_type_default'] : '';
+			$form_fields['general']['hidden'] = new Element_Select('Default Member Type For this Form', "buddyforms_options[form_fields][" . $field_id . "][member_type_default]", $member_types_select, array( 'value' => $member_types, 'shortDesc' => 'Only works in combination with the Hidden option', ) );
 
 
 			$form_fields['general']['slug'] = new Element_Hidden( "buddyforms_options[form_fields][" . $field_id . "][slug]", 'bp_member_type' );
@@ -248,7 +255,12 @@ function buddyforms_members_create_frontend_form_element( $form, $form_args ) {
 				'class'     => 'settings-input',
 				'shortDesc' => empty($customfield['description']) ? '' : $customfield['description'],
 			);
-			$form->addElement( new Element_Select( $customfield['name'], $customfield['slug'], $customfield['member_types'], $element_attr ) );
+			if( ! empty($customfield['member_type_hidden']) && $customfield['member_type_hidden'] == 'hidden'){
+				$form->addElement( new Element_Hidden( $customfield['name'], $customfield['slug'], $customfield['member_types'], $element_attr ) );
+			} else {
+				$form->addElement( new Element_Select( $customfield['name'], $customfield['slug'], $customfield['member_types'], $element_attr ) );
+			}
+
 			break;
 		case 'xprofile_group':
 
