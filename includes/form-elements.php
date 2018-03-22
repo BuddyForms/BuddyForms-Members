@@ -255,10 +255,12 @@ function buddyforms_members_create_frontend_form_element( $form, $form_args ) {
 				'class'     => 'settings-input',
 				'shortDesc' => empty($customfield['description']) ? '' : $customfield['description'],
 			);
-			if( ! empty($customfield['member_type_hidden']) && $customfield['member_type_hidden'] == 'hidden'){
-				$form->addElement( new Element_Hidden( $customfield['name'], $customfield['slug'], $customfield['member_types'], $element_attr ) );
+			if( isset( $customfield['member_type_hidden'] ) ){
+				$form->addElement( new Element_Hidden( $customfield['slug'], $customfield['member_type_default'] ) );
 			} else {
-				$form->addElement( new Element_Select( $customfield['name'], $customfield['slug'], $customfield['member_types'], $element_attr ) );
+				if( isset($customfield['member_types']) ){
+					$form->addElement( new Element_Select( $customfield['name'], $customfield['slug'], $customfield['member_types'], $element_attr ) );
+				}
 			}
 
 			break;
@@ -379,7 +381,6 @@ function buddyforms_members_process_submission_end( $args ) {
 							endwhile;
 						endif;
 					}
-
 				}
 				if( $field['type'] == 'xprofile_field' && isset($field['xprofile_field'])){
 					$field_id = $field['xprofile_field'];
