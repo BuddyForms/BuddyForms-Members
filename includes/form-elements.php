@@ -302,7 +302,12 @@ function buddyforms_everything_in_tags($string, $tagname)
 {
 	$pattern = "#<\s*?$tagname\b[^>]*>(.*?)</$tagname\b[^>]*>#s";
 	preg_match($pattern, $string, $matches);
-	return $matches[1];
+
+	if(isset($matches[1])){
+		return $matches[1];
+	}
+
+	return false;
 }
 
 function buddyforms_members_edit_field_html($form_slug){
@@ -348,6 +353,12 @@ function buddyforms_members_edit_field_html($form_slug){
 		$tmp = str_replace( '<select', '<select class="bf-select2"', $tmp );
 	}
 
+	if($field->type == 'url'){
+		$tmp = str_replace( 'type="text"', 'type="url"', $tmp );
+	}
+	if($field->type == 'number'){
+		$tmp = str_replace( 'type="text"', 'type="number"', $tmp );
+	}
 	return $tmp;
 }
 
@@ -374,8 +385,9 @@ function buddyforms_members_process_submission_end( $args ) {
 							while ( bp_profile_groups() ) : bp_the_profile_group();
 								while ( bp_profile_fields() ) : bp_the_profile_field();
 									if( isset( $_POST['field_' . bp_get_the_profile_field_id()] ) ){
+										$pid = bp_get_the_profile_field_id();
 										$xprofile_value = $_POST['field_' . bp_get_the_profile_field_id()];
-										xprofile_set_field_data( bp_get_the_profile_field_id(), bp_loggedin_user_id(),  $xprofile_value );
+										$wassdenn = xprofile_set_field_data( bp_get_the_profile_field_id(), bp_loggedin_user_id(),  $xprofile_value );
 									}
 								endwhile;
 							endwhile;
