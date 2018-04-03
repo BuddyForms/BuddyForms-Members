@@ -385,9 +385,8 @@ function buddyforms_members_process_submission_end( $args ) {
 							while ( bp_profile_groups() ) : bp_the_profile_group();
 								while ( bp_profile_fields() ) : bp_the_profile_field();
 									if( isset( $_POST['field_' . bp_get_the_profile_field_id()] ) ){
-										$pid = bp_get_the_profile_field_id();
 										$xprofile_value = $_POST['field_' . bp_get_the_profile_field_id()];
-										$wassdenn = xprofile_set_field_data( bp_get_the_profile_field_id(), bp_loggedin_user_id(),  $xprofile_value );
+										xprofile_set_field_data( bp_get_the_profile_field_id(), $user_id,  $xprofile_value );
 									}
 								endwhile;
 							endwhile;
@@ -398,7 +397,7 @@ function buddyforms_members_process_submission_end( $args ) {
 					$field_id = $field['xprofile_field'];
 					if( isset( $_POST['field_' . $field_id ] ) ){
 						$xprofile_value = $_POST[ 'field_' . $field_id ];
-						xprofile_set_field_data( $field_id, bp_loggedin_user_id(),  $xprofile_value );
+						xprofile_set_field_data( $field_id, $user_id,  $xprofile_value );
 					}
 				}
 			}
