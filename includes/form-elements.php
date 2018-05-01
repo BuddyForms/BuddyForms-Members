@@ -83,6 +83,10 @@ function buddyforms_members_add_form_element_to_select( $elements_select_options
 		'label'  => __( 'Member Types', 'buddyforms' ),
 		'unique'    => 'unique'
 	);
+	$elements_select_options['buddyforms']['fields']['member_taxonomy']       =
+		array(
+			'label' => __( 'Member Taxonomy', 'buddyforms' ),
+		);
 	$elements_select_options['buddyforms']['fields']['xprofile_field'] = array(
 		'label'  => __( 'xProfile Field', 'buddyforms' ),
 	);
@@ -221,6 +225,26 @@ function buddyforms_members_create_new_form_builder_form_element( $form_fields, 
 			}
 
 			break;
+		case 'member_taxonomy':
+
+			unset( $form_fields['advanced']['metabox_enabled'] );
+
+
+			$taxonomy_objects = get_taxonomies();
+
+
+
+			$member_taxonomy = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['member_taxonomy'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['member_taxonomy'] : '';
+
+			$form_fields['general']['member_taxonomy'] = new Element_Select( '<b>' . __( 'Member Taxonomy', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][member_taxonomy]", $taxonomy_objects, array(
+				'value'    => $member_taxonomy,
+				'class'    => 'bf_tax_select',
+				'field_id' => $field_id,
+				'id'       => 'taxonomy_field_id_' . $field_id,
+			) );
+
+
+			break;
 
 	}
 
@@ -291,6 +315,112 @@ function buddyforms_members_create_frontend_form_element( $form, $form_args ) {
 			if( class_exists('BP_XProfile_Field')) {
 				$field = new BP_XProfile_Field($customfield['xprofile_field']);
 				$form->addElement( new Element_HTML( '<div class="bf_field_group bf-input">' . buddyforms_members_edit_field_html($form_slug) . '</div>') );
+			}
+
+			break;
+		case 'member_taxonomy' :
+
+			if ( ! isset( $customfield['member_taxonomy'] ) ) {
+				break;
+			}
+
+			$args = array(
+				'hide_empty'    => 0,
+				'id'            => $field_id,
+				'child_of'      => 0,
+				'echo'          => false,
+				'selected'      => false,
+				'hierarchical'  => 1,
+				'name'          => $slug . '[]',
+				'class'         => 'postform bf-select2-' . $field_id,
+				'depth'         => 0,
+				'tab_index'     => 0,
+				'hide_if_empty' => false,
+				'orderby'       => 'SLUG',
+				'taxonomy'      => isset( $customfield['member_taxonomy'] ) && $customfield['member_taxonomy'] != 'none' ? $customfield['member_taxonomy'] : '',
+				'order'         => isset( $customfield['taxonomy_order'] ) ? $customfield['taxonomy_order'] : 'DESC',
+				'exclude'       => isset( $customfield['taxonomy_exclude'] ) ? $customfield['taxonomy_exclude'] : '',
+				'include'       => isset( $customfield['taxonomy_include'] ) ? $customfield['taxonomy_include'] : '',
+			);
+
+			$placeholder = isset( $customfield['taxonomy_placeholder'] ) ? $customfield['taxonomy_placeholder'] : 'Select an option';
+			if ( ! isset( $customfield['multiple'] ) ) {
+				$args = array_merge( $args, Array( 'show_option_none' => $placeholder ) );
+			}
+
+			if ( isset( $customfield['multiple'] ) ) {
+				$args = array_merge( $args, Array( 'multiple' => $customfield['multiple'] ) );
+			}
+
+			$args     = apply_filters( 'buddyforms_wp_dropdown_categories_args', $args, $post_id );
+			$dropdown = wp_dropdown_categories( $args );
+
+			if ( isset( $customfield['multiple'] ) && is_array( $customfield['multiple'] ) ) {
+				$dropdown = str_replace( 'id=', 'multiple="multiple" id=', $dropdown );
+			}
+
+			if ( isset( $customfield['required'] ) && is_array( $customfield['required'] ) ) {
+				$dropdown = str_replace( 'id=', 'required id=', $dropdown );
+			}
+
+			$dropdown = str_replace( 'id=', 'data-placeholder="' . $placeholder . '" id=', $dropdown );
+			$dropdown = str_replace( 'id=', 'style="width:100%;" id=', $dropdown );
+
+			if ( isset( $customfield['taxonomy'] ) ) {
+				$the_post_terms = get_the_terms( $post_id, $customfield['taxonomy'] );
+			}
+
+			if ( isset( $the_post_terms ) && is_array( $the_post_terms ) ) {
+				foreach ( $the_post_terms as $key => $post_term ) {
+					$dropdown = str_replace( ' value="' . $post_term->term_id . '"', ' value="' . $post_term->term_id . '" selected="selected"', $dropdown );
+				}
+			} else {
+				if ( isset( $customfield['taxonomy_default'] ) ) {
+					foreach ( $customfield['taxonomy_default'] as $key => $tax ) {
+						$dropdown = str_replace( ' value="' . $customfield['taxonomy_default'][ $key ] . '"', ' value="' . $tax . '" selected="selected"', $dropdown );
+					}
+				}
+			}
+
+			$required = '';
+			if ( isset( $customfield['required'] ) && is_array( $customfield['required'] ) ) {
+				$required = '<span class="required">* </span>';
+			}
+
+			$tags                   = isset( $customfield['create_new_tax'] ) ? 'tags: true,' : '';
+			$maximumSelectionLength = isset( $customfield['maximumSelectionLength'] ) ? 'maximumSelectionLength: ' . $customfield['maximumSelectionLength'] . ',' : '';
+
+			$dropdown = '
+						<script>
+							jQuery(document).ready(function () {
+							    jQuery(".bf-select2-' . $field_id . '").select2({
+//							            minimumResultsForSearch: -1,
+										' . $maximumSelectionLength . '
+										    placeholder: function(){
+										        jQuery(this).data("placeholder");
+										    },
+                                     allowClear: true,
+							        ' . $tags . '
+							        tokenSeparators: [\',\']
+							    });
+						    });
+						</script>
+						<div class="bf_field_group">
+	                        <label for="editpost-element-' . $field_id . '">
+	                            ' . $required . $name . '
+	                        </label>
+	                        <div class="bf_inputs bf-input">' . $dropdown . '</div>
+		                	<span class="help-inline">' . $description . '</span>
+		                </div>';
+
+			if ( isset( $customfield['hidden'] ) ) {
+				if ( isset( $customfield['taxonomy_default'] ) ) {
+					foreach ( $customfield['taxonomy_default'] as $key => $tax ) {
+						$form->addElement( new Element_Hidden( $slug . '[' . $key . ']', $tax ) );
+					}
+				}
+			} else {
+				$form->addElement( new Element_HTML( $dropdown ) );
 			}
 
 			break;
@@ -372,6 +502,12 @@ function buddyforms_members_process_submission_end( $args ) {
 		if( isset( $buddyforms[$form_slug]['form_fields'] ) ){
 
 			foreach ($buddyforms[$form_slug]['form_fields'] as $field_key => $field ){
+
+				if( $field['type'] == 'member_taxonomy' ){
+					if( isset( $user_id ) ) {
+						xprofile_set_field_data( $field_id, $user_id, $_POST[$field['name']] );
+					}
+				}
 
 				if( $field['type'] == 'bp_member_type' ){
 					if( isset( $user_id ) ){
