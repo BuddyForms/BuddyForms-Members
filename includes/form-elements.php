@@ -232,15 +232,67 @@ function buddyforms_members_create_new_form_builder_form_element( $form_fields, 
 
 			$taxonomy_objects = get_taxonomies();
 
-
-
 			$member_taxonomy = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['member_taxonomy'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['member_taxonomy'] : '';
-
 			$form_fields['general']['member_taxonomy'] = new Element_Select( '<b>' . __( 'Member Taxonomy', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][member_taxonomy]", $taxonomy_objects, array(
 				'value'    => $member_taxonomy,
 				'class'    => 'bf_tax_select',
 				'field_id' => $field_id,
-				'id'       => 'taxonomy_field_id_' . $field_id,
+				'id'       => 'member_taxonomy_field_id_' . $field_id,
+			) );
+
+			$taxonomy_placeholder                           = isset( $customfield['taxonomy_placeholder'] ) ? stripcslashes( $customfield['taxonomy_placeholder'] ) : 'Select an Option';
+			$form_fields['general']['taxonomy_placeholder'] = new Element_Textbox( '<b>' . __( 'Taxonomy Placeholder', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][taxonomy_placeholder]", array(
+				'data'      => $field_id,
+				'value'     => $taxonomy_placeholder,
+				'shortDesc' => __( 'You can change the placeholder to something meaningful like Select a Category or what make sense for your taxonomy.' )
+			) );
+
+			$multiple                           = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['multiple'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['multiple'] : 'false';
+			$form_fields['general']['multiple'] = new Element_Checkbox( '<b>' . __( 'Multiple Selection', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][multiple]", array( 'multiple' => '<b>' . __( 'Multiple', 'buddyforms' ) . '</b>' ), array(
+				'value' => $multiple,
+				'class' => ''
+			) );
+
+			$tmaximumSelectionLength                          = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['maximumSelectionLength'] ) ? stripcslashes( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['maximumSelectionLength'] ) : 0;
+			$form_fields['general']['maximumSelectionLength'] = new Element_Number( '<b>' . __( 'Limit Selections', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][maximumSelectionLength]", array(
+				'data'      => $field_id,
+				'value'     => $tmaximumSelectionLength,
+				'shortDesc' => __( 'Add a number to limit the Selection amount' )
+			) );
+
+			$create_new_tax                           = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['create_new_tax'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['create_new_tax'] : 'false';
+			$form_fields['general']['create_new_tax'] = new Element_Checkbox( '<b>' . __( 'New Taxonomy Item', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][create_new_tax]", array( 'user_can_create_new' => '<b>' . __( 'User can create new', 'buddyforms' ) . '</b>' ), array(
+				'value' => $create_new_tax,
+				'class' => ''
+			) );
+
+			$member_taxonomy = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['data_type'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['data_type'] : '';
+			$form_fields['advanced']['data_type'] = new Element_Select( '<b>' . __( 'Store data as', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][data_type]", array('user-meta' => 'User Meta Data', 'xprofile' => 'BuddyPress xProfile Data'), array(
+				'value'    => $member_taxonomy,
+				'class'    => 'bf_tax_select',
+				'field_id' => $field_id,
+				'id'       => 'member_taxonomy_field_id_' . $field_id,
+			) );
+
+
+			$profile_groups = BP_XProfile_Group::get( array( 'fetch_fields' => true	) );
+
+			$bp_xp_fields = array();
+			if ( !empty( $profile_groups ) ) {
+				foreach ( $profile_groups as $profile_group ) {
+					if ( !empty( $profile_group->fields ) ) {
+						foreach ( $profile_group->fields as $field ) {
+							$bp_xp_fields[$field->id] = $profile_group->name . ' - ' . $field->name;
+						}
+					}
+				}
+			}
+			$member_taxonomy = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_fields'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_fields'] : '';
+			$form_fields['advanced']['xprofile_fields'] = new Element_Select( '<b>' . __( 'Store data as', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][xprofile_fields]",$bp_xp_fields, array(
+				'value'    => $member_taxonomy,
+				'class'    => 'bf_tax_select',
+				'field_id' => $field_id,
+				'id'       => 'member_taxonomy_field_id_' . $field_id,
 			) );
 
 
