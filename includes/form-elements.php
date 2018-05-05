@@ -231,20 +231,20 @@ function buddyforms_members_create_new_form_builder_form_element( $form_fields, 
 			unset( $form_fields['advanced']['metabox_enabled'] );
 
 
-			$taxonomy_objects = get_taxonomies();
+			$taxonobuddyforms_membersobjects = get_taxonomies();
 
 			$member_taxonomy = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['member_taxonomy'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['member_taxonomy'] : '';
-			$form_fields['general']['member_taxonomy'] = new Element_Select( '<b>' . __( 'Member Taxonomy', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][member_taxonomy]", $taxonomy_objects, array(
+			$form_fields['general']['member_taxonomy'] = new Element_Select( '<b>' . __( 'Member Taxonomy', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][member_taxonomy]", $taxonobuddyforms_membersobjects, array(
 				'value'    => $member_taxonomy,
 				'class'    => 'bf_tax_select',
 				'field_id' => $field_id,
-				'id'       => 'member_taxonomy_field_id_' . $field_id,
+				'id'       => 'member_taxonobuddyforms_membersfield_id_' . $field_id,
 			) );
 
-			$taxonomy_placeholder                           = isset( $customfield['taxonomy_placeholder'] ) ? stripcslashes( $customfield['taxonomy_placeholder'] ) : 'Select an Option';
-			$form_fields['general']['taxonomy_placeholder'] = new Element_Textbox( '<b>' . __( 'Taxonomy Placeholder', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][taxonomy_placeholder]", array(
+			$taxonobuddyforms_membersplaceholder                           = isset( $customfield['taxonobuddyforms_membersplaceholder'] ) ? stripcslashes( $customfield['taxonobuddyforms_membersplaceholder'] ) : 'Select an Option';
+			$form_fields['general']['taxonobuddyforms_membersplaceholder'] = new Element_Textbox( '<b>' . __( 'Taxonomy Placeholder', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][taxonobuddyforms_membersplaceholder]", array(
 				'data'      => $field_id,
-				'value'     => $taxonomy_placeholder,
+				'value'     => $taxonobuddyforms_membersplaceholder,
 				'shortDesc' => __( 'You can change the placeholder to something meaningful like Select a Category or what make sense for your taxonomy.' )
 			) );
 
@@ -347,6 +347,11 @@ function buddyforms_members_create_frontend_form_element( $form, $form_args ) {
 				break;
 			}
 
+			if( isset($customfield['xprofile_field'])){
+				$slug = $customfield['xprofile_field'];
+			}
+
+
 			$args = array(
 				'hide_empty'    => 0,
 				'id'            => $field_id,
@@ -361,12 +366,12 @@ function buddyforms_members_create_frontend_form_element( $form, $form_args ) {
 				'hide_if_empty' => false,
 				'orderby'       => 'SLUG',
 				'taxonomy'      => isset( $customfield['member_taxonomy'] ) && $customfield['member_taxonomy'] != 'none' ? $customfield['member_taxonomy'] : '',
-				'order'         => isset( $customfield['taxonomy_order'] ) ? $customfield['taxonomy_order'] : 'DESC',
-				'exclude'       => isset( $customfield['taxonomy_exclude'] ) ? $customfield['taxonomy_exclude'] : '',
-				'include'       => isset( $customfield['taxonomy_include'] ) ? $customfield['taxonomy_include'] : '',
+				'order'         => isset( $customfield['taxonobuddyforms_membersorder'] ) ? $customfield['taxonobuddyforms_membersorder'] : 'DESC',
+				'exclude'       => isset( $customfield['taxonobuddyforms_membersexclude'] ) ? $customfield['taxonobuddyforms_membersexclude'] : '',
+				'include'       => isset( $customfield['taxonobuddyforms_membersinclude'] ) ? $customfield['taxonobuddyforms_membersinclude'] : '',
 			);
 
-			$placeholder = isset( $customfield['taxonomy_placeholder'] ) ? $customfield['taxonomy_placeholder'] : 'Select an option';
+			$placeholder = isset( $customfield['taxonobuddyforms_membersplaceholder'] ) ? $customfield['taxonobuddyforms_membersplaceholder'] : 'Select an option';
 			if ( ! isset( $customfield['multiple'] ) ) {
 				$args = array_merge( $args, Array( 'show_option_none' => $placeholder ) );
 			}
@@ -398,9 +403,9 @@ function buddyforms_members_create_frontend_form_element( $form, $form_args ) {
 					$dropdown = str_replace( ' value="' . $post_term->term_id . '"', ' value="' . $post_term->term_id . '" selected="selected"', $dropdown );
 				}
 			} else {
-				if ( isset( $customfield['taxonomy_default'] ) ) {
-					foreach ( $customfield['taxonomy_default'] as $key => $tax ) {
-						$dropdown = str_replace( ' value="' . $customfield['taxonomy_default'][ $key ] . '"', ' value="' . $tax . '" selected="selected"', $dropdown );
+				if ( isset( $customfield['taxonobuddyforms_membersdefault'] ) ) {
+					foreach ( $customfield['taxonobuddyforms_membersdefault'] as $key => $tax ) {
+						$dropdown = str_replace( ' value="' . $customfield['taxonobuddyforms_membersdefault'][ $key ] . '"', ' value="' . $tax . '" selected="selected"', $dropdown );
 					}
 				}
 			}
@@ -437,8 +442,8 @@ function buddyforms_members_create_frontend_form_element( $form, $form_args ) {
 		                </div>';
 
 			if ( isset( $customfield['hidden'] ) ) {
-				if ( isset( $customfield['taxonomy_default'] ) ) {
-					foreach ( $customfield['taxonomy_default'] as $key => $tax ) {
+				if ( isset( $customfield['taxonobuddyforms_membersdefault'] ) ) {
+					foreach ( $customfield['taxonobuddyforms_membersdefault'] as $key => $tax ) {
 						$form->addElement( new Element_Hidden( $slug . '[' . $key . ']', $tax ) );
 					}
 				}
@@ -528,7 +533,40 @@ function buddyforms_members_process_submission_end( $args ) {
 
 				if( $field['type'] == 'member_taxonomy' ){
 					if( isset( $user_id ) ) {
-						xprofile_set_field_data( $field_id, $user_id, $_POST[$field['name']] );
+						$xprofile_data = xprofile_get_field_data($field['xprofile_field'], $user_id);
+						$options = isset($_POST[$field['xprofile_field']]) ? $_POST[$field['xprofile_field']] : '';
+
+						//$xfield = xprofile_get_field($field['xprofile_field']);
+
+
+						$xfield = new BP_XProfile_Field( $field['xprofile_field'] );
+						$children = $xfield->get_children();
+
+						$thenew = array();
+
+						foreach (  $options as $option ) {
+							$term = get_term( $option, $field['member_taxonomy']);
+
+							$exist = false;
+							if ( $children ) {
+								foreach ( $children as $child ) {
+									if($child->name == $term->name){
+										$exist = true;
+									}
+								}
+							}
+
+							if( ! $exist ) {
+								xprofile_insert_field( array(
+									'field_group_id'=> $xfield->group_id,
+									'parent_id'		=> $field['xprofile_field'],
+									'type'			=> $xfield->type,
+									'name'			=> $term->name,
+								));
+							}
+							$thenew[$term->term_id] = $term->name;
+						}
+						$xprofile_data = xprofile_set_field_data( $field['xprofile_field'], $user_id, $thenew );
 					}
 				}
 
@@ -566,16 +604,22 @@ function buddyforms_members_process_submission_end( $args ) {
 
 }
 
-add_filter('buddyforms_formbuilder_fields_options', 'buddyforms_members_formbuilder_fields_options', 10, 3);
+add_filter('buddyforms_formbuilder_fields_options', 'buddyforms_members_formbuilder_fields_options', 10, 4);
 
-function buddyforms_members_formbuilder_fields_options( $form_fields, $field_type, $field_id ){
+function buddyforms_members_formbuilder_fields_options( $form_fields, $field_type, $field_id, $form_slug = '' ){
+	global $buddyforms;
+
+
+	if( ! isset($buddyforms[ $form_slug ]['form_type']) || $buddyforms[ $form_slug ]['form_type'] != 'registration'){
+		return $form_fields;
+	}
 
 	$data_type = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['data_type'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['data_type'] : '';
 	$form_fields['BuddyPress']['data_type'] = new Element_Select( '<b>' . __( 'Store data as', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][data_type]", array('none' => __('Default Form Settings', 'buddyforms'), 'user-meta' => __('User Meta Data', 'buddyforms' ), 'xprofile' => __('BuddyPress xProfile Data', 'buddyforms')), array(
 		'value'    => $data_type,
 		'class'    => 'bf_tax_select',
 		'field_id' => $field_id,
-		'id'       => 'member_taxonomy_field_id_' . $field_id,
+		'id'       => 'member_taxonobuddyforms_membersfield_id_' . $field_id,
 	) );
 
 
@@ -590,85 +634,85 @@ function buddyforms_members_formbuilder_fields_options( $form_fields, $field_typ
 			}
 		}
 	}
-	$xprofile_fields = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_fields'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_fields'] : '';
-	$form_fields['BuddyPress']['xprofile_fields'] = new Element_Select( '<b>' . __( 'Map with existing xProfiele Field', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][xprofile_fields]",$bp_xp_fields, array(
-		'value'    => $xprofile_fields,
+	$xprofile_field = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_field'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_field'] : '';
+	$form_fields['BuddyPress']['xprofile_field'] = new Element_Select( '<b>' . __( 'Map with existing xProfiele Field', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][xprofile_field]",$bp_xp_fields, array(
+		'value'    => $xprofile_field,
 		'class'    => 'bf_tax_select',
 		'field_id' => $field_id,
-		'id'       => 'member_taxonomy_field_id_' . $field_id,
+		'id'       => 'member_taxonobuddyforms_membersfield_id_' . $field_id,
 	) );
 
 
-	$field_types = array();
-	foreach ( bp_xprofile_get_field_types() as $type => $class ) {
-		$field_types[$type] = $type;
-	}
-	$data_type = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['data_type'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['data_type'] : '';
-	$form_fields['BuddyPress']['create_new_xprofile_field'] = new Element_Select( '<b>' . __( 'Create a new xProfile field', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][data_type]",$field_types, array(
-		'value'     => $data_type,
-		'class'     => 'bf_tax_select',
-		'field_id'  => $field_id,
-		'id'        => 'member_taxonomy_field_id_' . $field_id,
-		'shortDesc' => 'Select the xProfile field type this form element should get mapped to.'
-	) );
+//	$field_types = array();
+//	foreach ( bp_xprofile_get_field_types() as $type => $class ) {
+//		$field_types[$type] = $type;
+//	}
+//	$data_type = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['data_type'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['data_type'] : '';
+//	$form_fields['BuddyPress']['create_new_xprofile_field'] = new Element_Select( '<b>' . __( 'Create a new xProfile field', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][data_type]",$field_types, array(
+//		'value'     => $data_type,
+//		'class'     => 'bf_tax_select',
+//		'field_id'  => $field_id,
+//		'id'        => 'member_taxonobuddyforms_membersfield_id_' . $field_id,
+//		'shortDesc' => 'Select the xProfile field type this form element should get mapped to.'
+//	) );
 
 
-    $mtypes = array();
-	if ( $member_types = bp_get_member_types( array(), 'objects' ) ) {
-
-		foreach ( $member_types as $member_type ){
-			$mtypes[$member_type->name] = $member_type->labels['name'];
-		}
-
-		$form_fields['BuddyPress']['member_types'] = new Element_Checkbox( '<b>' . __( 'Member Types', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][member_types]",$mtypes, array(
-			'value'     => '',
-			'class'     => 'bf_tax_select',
-			'field_id'  => $field_id,
-			'id'        => 'member_taxonomy_field_id_' . $field_id,
-			'shortDesc' => 'Select the Member Types this field should get displayed.'
-		) );
-	}
-
-	$visibility_levels = array();
-	foreach( bp_xprofile_get_visibility_levels() as $level ){
-		$visibility_levels[esc_attr( $level['id'] )] = esc_html( $level['label'] );
-	}
-	$form_fields['BuddyPress']['visibility_levels'] = new Element_Select( '<b>' . __( 'Visibility', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][visibility_levels]",$visibility_levels, array(
-		'value'    => '',
-		'class'    => 'bf_tax_select',
-		'field_id' => $field_id,
-		'id'       => 'member_taxonomy_field_id_' . $field_id,
-	) );
-
-	$form_fields['BuddyPress']['visibility_levels_overwrite'] = new Element_Radio( '<b>' . __( '', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][member_types]",array( 'allowed' => __('Allow members to override', 'buddyforms'), 'disabled' => __('Enforce field visibility', 'buddyforms')), array(
-		'value'     => '',
-		'class'     => '',
-		'field_id'  => $field_id,
-		'id'        => 'member_taxonomy_field_id_' . $field_id,
-		'shortDesc' => 'Select the Member Types this field should get displayed.'
-	) );
-
-
-	$form_fields['BuddyPress']['autolink'] = new Element_Select( '<b>' . __( 'Autolink', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][visibility_levels]",array('on' => 'Enabled', 'off' => 'Disabled'), array(
-		'value'    => '',
-		'class'    => 'bf_tax_select',
-		'field_id' => $field_id,
-		'id'       => 'member_taxonomy_field_id_' . $field_id,
-	) );
+//    $mtypes = array();
+//	if ( $member_types = bp_get_member_types( array(), 'objects' ) ) {
+//
+//		foreach ( $member_types as $member_type ){
+//			$mtypes[$member_type->name] = $member_type->labels['name'];
+//		}
+//
+//		$form_fields['BuddyPress']['member_types'] = new Element_Checkbox( '<b>' . __( 'Member Types', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][member_types]",$mtypes, array(
+//			'value'     => '',
+//			'class'     => 'bf_tax_select',
+//			'field_id'  => $field_id,
+//			'id'        => 'member_taxonobuddyforms_membersfield_id_' . $field_id,
+//			'shortDesc' => 'Select the Member Types this field should get displayed.'
+//		) );
+//	}
+//
+//	$visibility_levels = array();
+//	foreach( bp_xprofile_get_visibility_levels() as $level ){
+//		$visibility_levels[esc_attr( $level['id'] )] = esc_html( $level['label'] );
+//	}
+//	$form_fields['BuddyPress']['visibility_levels'] = new Element_Select( '<b>' . __( 'Visibility', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][visibility_levels]",$visibility_levels, array(
+//		'value'    => '',
+//		'class'    => 'bf_tax_select',
+//		'field_id' => $field_id,
+//		'id'       => 'member_taxonobuddyforms_membersfield_id_' . $field_id,
+//	) );
+//
+//	$form_fields['BuddyPress']['visibility_levels_overwrite'] = new Element_Radio( '<b>' . __( '', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][member_types]",array( 'allowed' => __('Allow members to override', 'buddyforms'), 'disabled' => __('Enforce field visibility', 'buddyforms')), array(
+//		'value'     => '',
+//		'class'     => '',
+//		'field_id'  => $field_id,
+//		'id'        => 'member_taxonobuddyforms_membersfield_id_' . $field_id,
+//		'shortDesc' => 'Select the Member Types this field should get displayed.'
+//	) );
+//
+//
+//	$form_fields['BuddyPress']['autolink'] = new Element_Select( '<b>' . __( 'Autolink', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][visibility_levels]",array('on' => 'Enabled', 'off' => 'Disabled'), array(
+//		'value'    => '',
+//		'class'    => 'bf_tax_select',
+//		'field_id' => $field_id,
+//		'id'       => 'member_taxonobuddyforms_membersfield_id_' . $field_id,
+//	) );
 	return $form_fields;
 }
 
 
-function my_template_filter_init() {
+function buddyforms_memberstemplate_filter_init() {
 
-	add_action( 'bp_template_title', 'my_filter_template_title' );
-	add_action( 'bp_template_content', 'my_filter_template_content' );
-	add_filter( 'bp_get_template_part', 'my_template_part_filter', 10, 3 );
+	add_action( 'bp_template_title', 'buddyforms_membersfilter_template_title' );
+	add_action( 'bp_template_content', 'buddyforms_membersfilter_template_content' );
+	add_filter( 'bp_get_template_part', 'buddyforms_memberstemplate_part_filter', 10, 3 );
 
 }
-add_action('bp_init', 'my_template_filter_init');
+add_action('bp_init', 'buddyforms_memberstemplate_filter_init');
 
-function my_template_part_filter( $templates, $slug, $name ) {
+function buddyforms_memberstemplate_part_filter( $templates, $slug, $name ) {
 
 	if ( 'members/single/profile/edit.php' != $templates[0] )
 		return $templates;
@@ -686,11 +730,10 @@ function my_template_part_filter( $templates, $slug, $name ) {
 	return bp_get_template_part( 'members/single/plugins' );
 }
 
-function my_filter_template_title() {
-	echo 'Title';
+function buddyforms_membersfilter_template_title() {
 }
 
-function my_filter_template_content() {
+function buddyforms_membersfilter_template_content() {
 	$member_type = bp_get_member_type( get_current_user_id() );
 	$buddypress_settings = get_option( 'buddyforms_buddypress_settings' );
 
