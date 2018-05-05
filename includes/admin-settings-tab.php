@@ -3,6 +3,10 @@
 add_filter( 'buddyforms_admin_tabs', 'buddyforms_buddypress_admin_tab', 1, 1 );
 function buddyforms_buddypress_admin_tab( $tabs ) {
 
+	if ( ! $member_types = bp_get_member_types( array(), 'objects' ) ) {
+	    return;
+	}
+
 	$tabs['buddypress'] = 'BuddyPress';
 	return $tabs;
 
@@ -15,6 +19,29 @@ function buddyforms_buddypress_settings_page_tab( $tab ) {
 	if ( $tab != 'buddypress' ) {
 		return $tab;
 	}
+
+
+	if ( ! $member_types = bp_get_member_types( array(), 'objects' ) ) {
+	    return;
+	}
+
+
+	$mtypes = array();
+	if ( $member_types = bp_get_member_types( array(), 'objects' ) ) {
+
+		foreach ( $member_types as $member_type ){
+			$mtypes[$member_type->name] = $member_type->labels['name'];
+		}
+
+		$form_fields['BuddyPress']['member_types'] = new Element_Checkbox( '<b>' . __( 'Member Types', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][member_types]",$mtypes, array(
+			'value'     => '',
+			'class'     => 'bf_tax_select',
+			'field_id'  => $field_id,
+			'id'        => 'member_taxonomy_field_id_' . $field_id,
+			'shortDesc' => 'Select the Member Types this field should get displayed.'
+		) );
+	}
+
 	$buddypress_settings = get_option( 'buddyforms_buddypress_settings' );
 
 	?>
@@ -29,84 +56,33 @@ function buddyforms_buddypress_settings_page_tab( $tab ) {
                     <table class="form-table">
 
                         <tbody>
-                        <tr valign="top">
-                            <th scope="row" class="titledesc">
-                                <label for="buddyforms_buddypress">Login Page</label>
-                                <span class="buddyforms-help-tip"></span></th>
-                            <td class="forminp forminp-select">
-								<?php
-								$pages = buddyforms_get_all_pages( 'id', 'settings' );
-								$login_page  = empty( $buddypress_settings['login_page'] ) ? '' : $buddypress_settings['login_page'];
 
-								if ( isset( $pages ) && is_array( $pages ) ) {
-									echo '<select name="buddyforms_buddypress_settings[login_page]" id="buddyforms_buddypress_login_page">';
-									$pages['none'] = 'WordPress Default';
-									foreach ( $pages as $page_id => $page_name ) {
-										if ( ! empty( $page_name ) ) {
-											echo '<option ' . selected( $login_page, $page_id ) . 'value="' . $page_id . '">' . $page_name . '</option>';
-										}
-									}
-									echo '</select>';
-								} ?>
-                            </td>
-                        </tr>
-                        <tr valign="top">
-                            <th scope="row" class="titledesc">
-                                <label for="buddyforms_buddypress_lavel_1">Display Login Form?</label>
-                                <span class="buddyforms-help-tip"></span></th>
-                            <td class="forminp forminp-select">
-		                        <?php
-		                        $display_login_form  = empty( $buddypress_settings['display_login_form'] ) ? '' : $buddypress_settings['display_login_form'];
-		                        ?>
-                                <select name="buddyforms_buddypress_settings[display_login_form]" id="buddyforms_buddypress_display_login_form">
-                                    <option <?php selected( $display_login_form, 'overwrite'); ?> value="overwrite">Overwrite Page Content</option>
-                                    <option <?php selected( $display_login_form, 'above'); ?> value="above">Above the Content</option>
-                                    <option <?php selected( $display_login_form, 'under'); ?> value="under">Under the Content</option>
-                                    <option <?php selected( $display_login_form, 'shortcode'); ?> value="shortcode">I use the Shortcode</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr valign="top">
-                            <th scope="row" class="titledesc">
-                                <label for="buddyforms_buddypress_lavel_1">Display Registration Link?</label>
-                                <span class="buddyforms-help-tip"></span></th>
-                            <td>
-		                        <?php
-		                        $register_page  = empty( $buddypress_settings['register_page'] ) ? '' : $buddypress_settings['register_page'];
 
-		                        if ( isset( $pages ) && is_array( $pages ) ) {
-			                        echo '<select name="buddyforms_buddypress_settings[register_page]" id="buddyforms_registration_form">';
-			                        echo '<option value="default">' . __( 'WordPress Default', 'buddyforms' ) . '</option>';
-			                        echo '<option value="none">' . __( 'None', 'buddyforms' ) . '</option>';
-			                        foreach ( $pages as $page_id => $page_name ) {
-				                        if ( ! empty( $page_name ) ) {
-					                        echo '<option ' . selected( $register_page, $page_id ) . 'value="' . $page_id . '">' . $page_name . '</option>';
-				                        }
-			                        }
-			                        echo '</select>';
-		                        }
-		                        ?>
-                            </td>
-                        </tr>
-                        <tr valign="top">
-                            <th scope="row" class="titledesc">
-                                <label for="buddyforms_buddypress_lavel_1">Redirect after Login</label>
-                                <span class="buddyforms-help-tip"></span></th>
-                            <td class="forminp forminp-select">
-		                        <?php
-		                        $redirect_page  = empty( $buddypress_settings['redirect_page'] ) ? '' : $buddypress_settings['redirect_page'];
-		                        if ( isset( $pages ) && is_array( $pages ) ) {
-			                        echo '<select name="buddyforms_buddypress_settings[redirect_page]" id="buddyforms_buddypress_redirect_page">';
-			                        $pages['default'] = 'WordPress Default';
-			                        foreach ( $pages as $page_id => $page_name ) {
-				                        if ( ! empty( $page_name ) ) {
-					                        echo '<option ' . selected( $redirect_page, $page_id ) . 'value="' . $page_id . '">' . $page_name . '</option>';
-				                        }
-			                        }
-			                        echo '</select>';
-		                        } ?>
-                            </td>
-                        </tr>
+                        <?php foreach ( $mtypes as $key => $type ){ ?>
+                            <tr valign="top">
+                                <th scope="row" class="titledesc">
+                                    <label for="buddyforms_buddypress"><?php echo $type ?></label>
+                                    <span class="buddyforms-help-tip"></span></th>
+                                <td class="forminp forminp-select">
+	                                <?php
+	                                if ( isset( $buddyforms ) && is_array( $buddyforms ) ) {
+		                                echo '<select name="buddyforms_buddypress_settings[' . $key . ']" id="buddyforms_registration_form_' . $key . '">';
+		                                echo '<option value="none">' . __( 'BuddyPress Default', 'buddyforms' ) . '</option>';
+		                                foreach ( $buddyforms as $form_slug => $form ) {
+			                                if ( $form['form_type'] == 'registration' ) {
+				                                echo '<option ' . selected( $buddypress_settings[$key], $form['slug'] ) . 'value="' . $form['slug'] . '">' . $form['name'] . '</option>';
+			                                }
+		                                }
+		                                echo '</select>';
+	                                }
+	                                ?>
+                                </td>
+                            </tr>
+                        <?php } ?>
+
+
+
+
                         </tbody>
                     </table>
 					<?php submit_button(); ?>

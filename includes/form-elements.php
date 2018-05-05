@@ -617,7 +617,7 @@ function buddyforms_members_formbuilder_fields_options( $form_fields, $field_typ
 	if ( $member_types = bp_get_member_types( array(), 'objects' ) ) {
 
 		foreach ( $member_types as $member_type ){
-			$mtypes[] = $member_type->labels['name'];
+			$mtypes[$member_type->name] = $member_type->labels['name'];
 		}
 
 		$form_fields['BuddyPress']['member_types'] = new Element_Checkbox( '<b>' . __( 'Member Types', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][member_types]",$mtypes, array(
@@ -673,6 +673,16 @@ function my_template_part_filter( $templates, $slug, $name ) {
 	if ( 'members/single/profile/edit.php' != $templates[0] )
 		return $templates;
 
+	$member_type = bp_get_member_type( get_current_user_id() );
+	$buddypress_settings = get_option( 'buddyforms_buddypress_settings' );
+
+	if( ! isset( $buddypress_settings[$member_type] ) ){
+		return $templates;
+	}
+	if( $buddypress_settings[$member_type] == 'none' ){
+		return $templates;
+	}
+
 	return bp_get_template_part( 'members/single/plugins' );
 }
 
@@ -682,12 +692,10 @@ function my_filter_template_title() {
 
 function my_filter_template_content() {
 	$member_type = bp_get_member_type( get_current_user_id() );
+	$buddypress_settings = get_option( 'buddyforms_buddypress_settings' );
 
+	if( isset($buddypress_settings[$member_type]) ){
+		echo do_shortcode( '[bf form_slug="' . $buddypress_settings[$member_type] . '"]' );
+	}
 
-
-	if( $member_type == 'vendor' ):
-		echo do_shortcode( '[bf form_slug="vendor-profile"]' );
-	else:
-		echo do_shortcode( '[bf form_slug="vendor-profile"]' );
-	endif;
 }
