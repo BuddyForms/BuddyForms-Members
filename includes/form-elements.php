@@ -533,16 +533,13 @@ function buddyforms_members_process_submission_end( $args ) {
 
 				if( $field['type'] == 'member_taxonomy' ){
 					if( isset( $user_id ) ) {
-						$xprofile_data = xprofile_get_field_data($field['xprofile_field'], $user_id);
+
 						$options = isset($_POST[$field['xprofile_field']]) ? $_POST[$field['xprofile_field']] : '';
-
-						//$xfield = xprofile_get_field($field['xprofile_field']);
-
 
 						$xfield = new BP_XProfile_Field( $field['xprofile_field'] );
 						$children = $xfield->get_children();
 
-						$thenew = array();
+						$the_new_options = array();
 
 						foreach (  $options as $option ) {
 							$term = get_term( $option, $field['member_taxonomy']);
@@ -564,9 +561,9 @@ function buddyforms_members_process_submission_end( $args ) {
 									'name'			=> $term->name,
 								));
 							}
-							$thenew[$term->term_id] = $term->name;
+							$the_new_options[$term->term_id] = $term->name;
 						}
-						$xprofile_data = xprofile_set_field_data( $field['xprofile_field'], $user_id, $thenew );
+						xprofile_set_field_data( $field['xprofile_field'], $user_id, $the_new_options );
 					}
 				}
 
