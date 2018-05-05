@@ -107,6 +107,7 @@ function buddyforms_members_create_new_form_builder_form_element( $form_fields, 
 	switch ( $field_type ) {
 
 		case 'bp_member_type':
+
 			unset( $form_fields );
 
 			$name = isset( $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['name'] ) ? $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['name'] : 'Member Type';
@@ -133,6 +134,7 @@ function buddyforms_members_create_new_form_builder_form_element( $form_fields, 
 
 			break;
 		case 'xprofile_group':
+
 			unset( $form_fields );
 
 			$name = 'xProfile Group';
@@ -166,7 +168,6 @@ function buddyforms_members_create_new_form_builder_form_element( $form_fields, 
 			}
 			break;
 		case 'xprofile_field':
-
 
 			unset( $form_fields );
 
@@ -265,36 +266,6 @@ function buddyforms_members_create_new_form_builder_form_element( $form_fields, 
 				'value' => $create_new_tax,
 				'class' => ''
 			) );
-
-			$member_taxonomy = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['data_type'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['data_type'] : '';
-			$form_fields['advanced']['data_type'] = new Element_Select( '<b>' . __( 'Store data as', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][data_type]", array('user-meta' => 'User Meta Data', 'xprofile' => 'BuddyPress xProfile Data'), array(
-				'value'    => $member_taxonomy,
-				'class'    => 'bf_tax_select',
-				'field_id' => $field_id,
-				'id'       => 'member_taxonomy_field_id_' . $field_id,
-			) );
-
-
-			$profile_groups = BP_XProfile_Group::get( array( 'fetch_fields' => true	) );
-
-			$bp_xp_fields = array();
-			if ( !empty( $profile_groups ) ) {
-				foreach ( $profile_groups as $profile_group ) {
-					if ( !empty( $profile_group->fields ) ) {
-						foreach ( $profile_group->fields as $field ) {
-							$bp_xp_fields[$field->id] = $profile_group->name . ' - ' . $field->name;
-						}
-					}
-				}
-			}
-			$member_taxonomy = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_fields'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_fields'] : '';
-			$form_fields['advanced']['xprofile_fields'] = new Element_Select( '<b>' . __( 'Store data as', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][xprofile_fields]",$bp_xp_fields, array(
-				'value'    => $member_taxonomy,
-				'class'    => 'bf_tax_select',
-				'field_id' => $field_id,
-				'id'       => 'member_taxonomy_field_id_' . $field_id,
-			) );
-
 
 			break;
 
@@ -593,4 +564,130 @@ function buddyforms_members_process_submission_end( $args ) {
 		}
 	}
 
+}
+
+add_filter('buddyforms_formbuilder_fields_options', 'buddyforms_members_formbuilder_fields_options', 10, 3);
+
+function buddyforms_members_formbuilder_fields_options( $form_fields, $field_type, $field_id ){
+
+	$data_type = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['data_type'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['data_type'] : '';
+	$form_fields['BuddyPress']['data_type'] = new Element_Select( '<b>' . __( 'Store data as', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][data_type]", array('none' => __('Default Form Settings', 'buddyforms'), 'user-meta' => __('User Meta Data', 'buddyforms' ), 'xprofile' => __('BuddyPress xProfile Data', 'buddyforms')), array(
+		'value'    => $data_type,
+		'class'    => 'bf_tax_select',
+		'field_id' => $field_id,
+		'id'       => 'member_taxonomy_field_id_' . $field_id,
+	) );
+
+
+	$profile_groups = BP_XProfile_Group::get( array( 'fetch_fields' => true	) );
+	$bp_xp_fields = array('none' => 'Select an existing field');
+	if ( !empty( $profile_groups ) ) {
+		foreach ( $profile_groups as $profile_group ) {
+			if ( !empty( $profile_group->fields ) ) {
+				foreach ( $profile_group->fields as $field ) {
+					$bp_xp_fields[$field->id] = $profile_group->name . ' - ' . $field->name;
+				}
+			}
+		}
+	}
+	$xprofile_fields = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_fields'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_fields'] : '';
+	$form_fields['BuddyPress']['xprofile_fields'] = new Element_Select( '<b>' . __( 'Map with existing xProfiele Field', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][xprofile_fields]",$bp_xp_fields, array(
+		'value'    => $xprofile_fields,
+		'class'    => 'bf_tax_select',
+		'field_id' => $field_id,
+		'id'       => 'member_taxonomy_field_id_' . $field_id,
+	) );
+
+
+	$field_types = array();
+	foreach ( bp_xprofile_get_field_types() as $type => $class ) {
+		$field_types[$type] = $type;
+	}
+	$data_type = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['data_type'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['data_type'] : '';
+	$form_fields['BuddyPress']['create_new_xprofile_field'] = new Element_Select( '<b>' . __( 'Create a new xProfile field', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][data_type]",$field_types, array(
+		'value'     => $data_type,
+		'class'     => 'bf_tax_select',
+		'field_id'  => $field_id,
+		'id'        => 'member_taxonomy_field_id_' . $field_id,
+		'shortDesc' => 'Select the xProfile field type this form element should get mapped to.'
+	) );
+
+
+    $mtypes = array();
+	if ( $member_types = bp_get_member_types( array(), 'objects' ) ) {
+
+		foreach ( $member_types as $member_type ){
+			$mtypes[] = $member_type->labels['name'];
+		}
+
+		$form_fields['BuddyPress']['member_types'] = new Element_Checkbox( '<b>' . __( 'Member Types', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][member_types]",$mtypes, array(
+			'value'     => '',
+			'class'     => 'bf_tax_select',
+			'field_id'  => $field_id,
+			'id'        => 'member_taxonomy_field_id_' . $field_id,
+			'shortDesc' => 'Select the Member Types this field should get displayed.'
+		) );
+	}
+
+	$visibility_levels = array();
+	foreach( bp_xprofile_get_visibility_levels() as $level ){
+		$visibility_levels[esc_attr( $level['id'] )] = esc_html( $level['label'] );
+	}
+	$form_fields['BuddyPress']['visibility_levels'] = new Element_Select( '<b>' . __( 'Visibility', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][visibility_levels]",$visibility_levels, array(
+		'value'    => '',
+		'class'    => 'bf_tax_select',
+		'field_id' => $field_id,
+		'id'       => 'member_taxonomy_field_id_' . $field_id,
+	) );
+
+	$form_fields['BuddyPress']['visibility_levels_overwrite'] = new Element_Radio( '<b>' . __( '', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][member_types]",array( 'allowed' => __('Allow members to override', 'buddyforms'), 'disabled' => __('Enforce field visibility', 'buddyforms')), array(
+		'value'     => '',
+		'class'     => '',
+		'field_id'  => $field_id,
+		'id'        => 'member_taxonomy_field_id_' . $field_id,
+		'shortDesc' => 'Select the Member Types this field should get displayed.'
+	) );
+
+
+	$form_fields['BuddyPress']['autolink'] = new Element_Select( '<b>' . __( 'Autolink', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][visibility_levels]",array('on' => 'Enabled', 'off' => 'Disabled'), array(
+		'value'    => '',
+		'class'    => 'bf_tax_select',
+		'field_id' => $field_id,
+		'id'       => 'member_taxonomy_field_id_' . $field_id,
+	) );
+	return $form_fields;
+}
+
+
+function my_template_filter_init() {
+
+	add_action( 'bp_template_title', 'my_filter_template_title' );
+	add_action( 'bp_template_content', 'my_filter_template_content' );
+	add_filter( 'bp_get_template_part', 'my_template_part_filter', 10, 3 );
+
+}
+add_action('bp_init', 'my_template_filter_init');
+
+function my_template_part_filter( $templates, $slug, $name ) {
+
+	if ( 'members/single/profile/edit.php' != $templates[0] )
+		return $templates;
+
+	return bp_get_template_part( 'members/single/plugins' );
+}
+
+function my_filter_template_title() {
+	echo 'Title';
+}
+
+function my_filter_template_content() {
+	$member_type = bp_get_member_type( get_current_user_id() );
+
+
+
+	if( $member_type == 'vendor' ):
+		echo do_shortcode( '[bf form_slug="vendor-profile"]' );
+	else:
+		echo do_shortcode( '[bf form_slug="vendor-profile"]' );
+	endif;
 }

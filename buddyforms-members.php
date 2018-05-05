@@ -107,6 +107,7 @@ class BuddyForms_Members {
 		require_once( BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'form-elements.php' );
 		require_once( BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'member-extension.php' );
 		require_once( BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'redirect.php' );
+		require_once( BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'admin-settings-tab.php' );
 		require_once( BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'resources/tgm/class-tgm-plugin-activation.php' );
 
 		if ( ! class_exists( 'BP_Theme_Compat' ) ) {
