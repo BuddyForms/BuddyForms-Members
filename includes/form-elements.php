@@ -393,7 +393,7 @@ function buddyforms_members_create_frontend_form_element( $form, $form_args ) {
 
 			$dropdown = str_replace( 'id=', 'data-placeholder="' . $placeholder . '" id=', $dropdown );
 			$dropdown = str_replace( 'id=', 'style="width:100%;" id=', $dropdown );
-			
+
 
 			// Start getting the value
 			$user_terms = xprofile_get_field_data( $slug, bp_loggedin_user_id() );
@@ -533,41 +533,81 @@ function buddyforms_members_process_submission_end( $args ) {
 		if( isset( $buddyforms[$form_slug]['form_fields'] ) ){
 
 			foreach ($buddyforms[$form_slug]['form_fields'] as $field_key => $field ){
+				
+				if( isset( $field['xprofile_field'] ) ){
+					$xfield = new BP_XProfile_Field( $field['xprofile_field'] );
+					switch ($xfield->type){
+						case 'checkbox':
+
+							break;
+						case 'datebox':
+
+							break;
+						case 'multiselectbox':
+							if( isset( $user_id ) ) {
+
+								$options = isset($_POST[$field['xprofile_field']]) ? $_POST[$field['xprofile_field']] : '';
+
+								$xfield = new BP_XProfile_Field( $field['xprofile_field'] );
+								$children = $xfield->get_children();
+
+								$the_new_options = array();
+
+								foreach (  $options as $option ) {
+									$term = get_term( $option, $field['member_taxonomy']);
+
+									$exist = false;
+									if ( $children ) {
+										foreach ( $children as $child ) {
+											if($child->name == $term->name){
+												$exist = true;
+											}
+										}
+									}
+
+									if( ! $exist ) {
+										xprofile_insert_field( array(
+											'field_group_id'=> $xfield->group_id,
+											'parent_id'		=> $field['xprofile_field'],
+											'type'			=> $xfield->type,
+											'name'			=> $term->name,
+										));
+									}
+									$the_new_options[$term->term_id] = $term->name;
+								}
+								xprofile_set_field_data( $field['xprofile_field'], $user_id, $the_new_options );
+							}
+							break;
+						case 'number':
+
+							break;
+						case 'url':
+
+							break;
+						case 'radio':
+
+							break;
+						case 'selectbox':
+
+							break;
+						case 'textarea':
+
+							break;
+						case 'textbox':
+
+							break;
+						default:
+
+							break;
+					}
+				}
+
+
+
+
 
 				if( $field['type'] == 'member_taxonomy' ){
-					if( isset( $user_id ) ) {
 
-						$options = isset($_POST[$field['xprofile_field']]) ? $_POST[$field['xprofile_field']] : '';
-
-						$xfield = new BP_XProfile_Field( $field['xprofile_field'] );
-						$children = $xfield->get_children();
-
-						$the_new_options = array();
-
-						foreach (  $options as $option ) {
-							$term = get_term( $option, $field['member_taxonomy']);
-
-							$exist = false;
-							if ( $children ) {
-								foreach ( $children as $child ) {
-									if($child->name == $term->name){
-										$exist = true;
-									}
-								}
-							}
-
-							if( ! $exist ) {
-								xprofile_insert_field( array(
-									'field_group_id'=> $xfield->group_id,
-									'parent_id'		=> $field['xprofile_field'],
-									'type'			=> $xfield->type,
-									'name'			=> $term->name,
-								));
-							}
-							$the_new_options[$term->term_id] = $term->name;
-						}
-						xprofile_set_field_data( $field['xprofile_field'], $user_id, $the_new_options );
-					}
 				}
 
 				if( $field['type'] == 'bp_member_type' ){
@@ -621,7 +661,6 @@ function buddyforms_members_formbuilder_fields_options( $form_fields, $field_typ
 		'field_id' => $field_id,
 		'id'       => 'member_taxonobuddyforms_membersfield_id_' . $field_id,
 	) );
-
 
 	$profile_groups = BP_XProfile_Group::get( array( 'fetch_fields' => true	) );
 	$bp_xp_fields = array('none' => 'Select an existing field');
