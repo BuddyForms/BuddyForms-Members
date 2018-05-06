@@ -393,14 +393,17 @@ function buddyforms_members_create_frontend_form_element( $form, $form_args ) {
 
 			$dropdown = str_replace( 'id=', 'data-placeholder="' . $placeholder . '" id=', $dropdown );
 			$dropdown = str_replace( 'id=', 'style="width:100%;" id=', $dropdown );
+			
 
-			if ( isset( $customfield['taxonomy'] ) ) {
-				$the_post_terms = get_the_terms( $post_id, $customfield['taxonomy'] );
-			}
+			// Start getting the value
+			$user_terms = xprofile_get_field_data( $slug, bp_loggedin_user_id() );
 
-			if ( isset( $the_post_terms ) && is_array( $the_post_terms ) ) {
-				foreach ( $the_post_terms as $key => $post_term ) {
-					$dropdown = str_replace( ' value="' . $post_term->term_id . '"', ' value="' . $post_term->term_id . '" selected="selected"', $dropdown );
+			if ( isset( $user_terms ) && is_array( $user_terms ) ) {
+
+				foreach ( $user_terms as $key => $user_term ) {
+					$term = get_term_by('name', $user_term, $customfield['member_taxonomy']);
+
+					$dropdown = str_replace( ' value="' . $term->term_id . '"', ' value="' . $term->term_id . '" selected="selected"', $dropdown );
 				}
 			} else {
 				if ( isset( $customfield['taxonobuddyforms_membersdefault'] ) ) {
