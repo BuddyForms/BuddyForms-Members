@@ -529,91 +529,86 @@ function buddyforms_members_process_submission_end( $args ) {
 
 	extract( $args );
 
+	if( ! isset( $user_id ) ) {
+		return;
+	}
+
 	if( isset( $buddyforms[$form_slug] ) ){
 		if( isset( $buddyforms[$form_slug]['form_fields'] ) ){
 
 			foreach ($buddyforms[$form_slug]['form_fields'] as $field_key => $field ){
-				
-				if( isset( $field['xprofile_field'] ) ){
+
+				if( isset( $field['xprofile_field' ] ) && $field['xprofile_field' ] != 'none' ){
 					$xfield = new BP_XProfile_Field( $field['xprofile_field'] );
 					switch ($xfield->type){
-						case 'checkbox':
 
-							break;
 						case 'datebox':
-
-							break;
-						case 'multiselectbox':
-							if( isset( $user_id ) ) {
-
-								$options = isset($_POST[$field['xprofile_field']]) ? $_POST[$field['xprofile_field']] : '';
-
-								$xfield = new BP_XProfile_Field( $field['xprofile_field'] );
-								$children = $xfield->get_children();
-
-								$the_new_options = array();
-
-								foreach (  $options as $option ) {
-									$term = get_term( $option, $field['member_taxonomy']);
-
-									$exist = false;
-									if ( $children ) {
-										foreach ( $children as $child ) {
-											if($child->name == $term->name){
-												$exist = true;
-											}
-										}
-									}
-
-									if( ! $exist ) {
-										xprofile_insert_field( array(
-											'field_group_id'=> $xfield->group_id,
-											'parent_id'		=> $field['xprofile_field'],
-											'type'			=> $xfield->type,
-											'name'			=> $term->name,
-										));
-									}
-									$the_new_options[$term->term_id] = $term->name;
-								}
-								xprofile_set_field_data( $field['xprofile_field'], $user_id, $the_new_options );
+							$date = isset($_POST[$field['slug']]) ? date('Y-m-d H:i:s', strtotime($_POST[$field['slug']])) : '';
+							if( ! empty($date) ){
+								$field_data = xprofile_set_field_data( $field['xprofile_field'], $user_id, $date );
 							}
 							break;
-						case 'number':
 
+						case 'multiselectbox':
+							if( $field['type'] != 'member_taxonomy' ){
+								$options = isset($_POST[$field['slug']]) ? $_POST[$field['slug']] : '';
+								$field_data = xprofile_set_field_data( $field['xprofile_field'], $user_id, $options );
+							}
 							break;
-						case 'url':
 
-							break;
 						case 'radio':
-
-							break;
+						case 'checkbox':
 						case 'selectbox':
+							$options = isset($_POST[$field['slug']]) ? $_POST[$field['slug']] : '';
 
+							if( ! is_array($options) ){
+								$options = array($options);
+							}
+							$field_data = xprofile_set_field_data( $field['xprofile_field'], $user_id, $options );
 							break;
-						case 'textarea':
 
-							break;
-						case 'textbox':
-
-							break;
 						default:
-
+							$text = isset($_POST[$field['slug']]) ? $_POST[$field['slug']] : '';
+							$field_data = xprofile_set_field_data( $field['xprofile_field'], $user_id, $text );
 							break;
 					}
 				}
 
-
-
-
-
 				if( $field['type'] == 'member_taxonomy' ){
+					$options = isset($_POST[$field['xprofile_field']]) ? $_POST[$field['xprofile_field']] : '';
 
+					$xfield = new BP_XProfile_Field( $field['xprofile_field'] );
+					$children = $xfield->get_children();
+
+					$the_new_options = array();
+
+					foreach (  $options as $option ) {
+						$term = get_term( $option, $field['member_taxonomy']);
+
+						$exist = false;
+						if ( $children ) {
+							foreach ( $children as $child ) {
+								if($child->name == $term->name){
+									$exist = true;
+								}
+							}
+						}
+
+						if( ! $exist ) {
+							xprofile_insert_field( array(
+								'field_group_id'=> $xfield->group_id,
+								'parent_id'		=> $field['xprofile_field'],
+								'type'			=> $xfield->type,
+								'name'			=> $term->name,
+							));
+						}
+						$the_new_options[$term->term_id] = $term->name;
+					}
+					xprofile_set_field_data( $field['xprofile_field'], $user_id, $the_new_options );
 				}
 
 				if( $field['type'] == 'bp_member_type' ){
-					if( isset( $user_id ) ){
 						bp_set_member_type( $user_id, $_POST[$field['slug']] );
-					}
 				}
 
 				if( $field['type'] == 'xprofile_group' ){
@@ -654,13 +649,13 @@ function buddyforms_members_formbuilder_fields_options( $form_fields, $field_typ
 		return $form_fields;
 	}
 
-	$data_type = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['data_type'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['data_type'] : '';
-	$form_fields['BuddyPress']['data_type'] = new Element_Select( '<b>' . __( 'Store data as', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][data_type]", array('none' => __('Default Form Settings', 'buddyforms'), 'user-meta' => __('User Meta Data', 'buddyforms' ), 'xprofile' => __('BuddyPress xProfile Data', 'buddyforms')), array(
-		'value'    => $data_type,
-		'class'    => 'bf_tax_select',
-		'field_id' => $field_id,
-		'id'       => 'member_taxonobuddyforms_membersfield_id_' . $field_id,
-	) );
+//	$data_type = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['data_type'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['data_type'] : '';
+//	$form_fields['BuddyPress']['data_type'] = new Element_Select( '<b>' . __( 'Store data as', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][data_type]", array('none' => __('Default Form Settings', 'buddyforms'), 'user-meta' => __('User Meta Data', 'buddyforms' ), 'xprofile' => __('BuddyPress xProfile Data', 'buddyforms')), array(
+//		'value'    => $data_type,
+//		'class'    => 'bf_tax_select',
+//		'field_id' => $field_id,
+//		'id'       => 'member_taxonobuddyforms_membersfield_id_' . $field_id,
+//	) );
 
 	$profile_groups = BP_XProfile_Group::get( array( 'fetch_fields' => true	) );
 	$bp_xp_fields = array('none' => 'Select an existing field');
@@ -692,7 +687,7 @@ function buddyforms_members_formbuilder_fields_options( $form_fields, $field_typ
 //		'class'     => 'bf_tax_select',
 //		'field_id'  => $field_id,
 //		'id'        => 'member_taxonobuddyforms_membersfield_id_' . $field_id,
-//		'shortDesc' => 'Select the xProfile field type this form element should get mapped to.'
+//		'shortDesc' => 'Select the xProfile field type with the correct data type for this form element.'
 //	) );
 
 
