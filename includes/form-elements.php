@@ -478,11 +478,11 @@ function buddyforms_members_edit_field_html($form_slug){
 
 	ob_start();
 	if ( isset( $buddyforms[ $form_slug ]['layout']['desc_position'] ) && $buddyforms[ $form_slug ]['layout']['desc_position'] == 'above_field' ) {
-		echo '<span class="help-inline">' . bp_the_profile_field_description() . '</span>';
+		echo '<span class="help-inline">' . bp_get_the_profile_field_description() . '</span>';
 		$field_type->edit_field_html();
 	} else {
 		$field_type->edit_field_html();
-		echo '<span class="help-inline">' . bp_the_profile_field_description() . '</span>';
+		echo '<span class="help-inline">' . bp_get_the_profile_field_description() . '</span>';
 	}
 	$tmp = ob_get_clean();
 
@@ -520,6 +520,11 @@ function buddyforms_members_edit_field_html($form_slug){
 	if($field->type == 'number'){
 		$tmp = str_replace( 'type="text"', 'type="number"', $tmp );
 	}
+
+
+	$tmp = str_replace( '<p class="description"', '<p class="description" style="display:none;"', $tmp );
+
+
 	return $tmp;
 }
 

@@ -256,3 +256,16 @@ function buddyforms_members_login_form_redirect_url( $redirect_url ){
 	}
 	return $redirect_url;
 }
+
+add_filter( 'buddyforms_reset_password_redirect', 'buddyforms_members_reset_password_redirect');
+
+function buddyforms_members_reset_password_redirect($redirect_url){
+
+	if(is_user_logged_in() && $redirect_url == 'profile'){
+		$redirect_url = $redirect_url = bp_core_get_user_domain( get_current_user_id() );
+	}
+	if(is_user_logged_in() && $redirect_url == 'profile_edit'){
+		$redirect_url = $redirect_url = bp_core_get_user_domain( get_current_user_id() ) . 'profile/edit/';
+	}
+	return $redirect_url;
+}
