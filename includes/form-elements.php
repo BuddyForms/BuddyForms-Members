@@ -421,6 +421,17 @@ function buddyforms_members_create_frontend_form_element( $form, $form_args ) {
 			$tags                   = isset( $customfield['create_new_tax'] ) ? 'tags: true,' : '';
 			$maximumSelectionLength = isset( $customfield['maximumSelectionLength'] ) ? 'maximumSelectionLength: ' . $customfield['maximumSelectionLength'] . ',' : '';
 
+
+			$name = '';
+			if ( isset( $customfield['name'] ) ) {
+				$name = stripcslashes( $customfield['name'] );
+			}
+			
+			$description = '';
+			if ( isset( $customfield['description'] ) ) {
+				$description = stripcslashes( $customfield['description'] );
+			}
+
 			$dropdown = '
 						<script>
 							jQuery(document).ready(function () {
