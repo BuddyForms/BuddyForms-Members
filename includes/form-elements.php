@@ -606,13 +606,16 @@ function buddyforms_members_process_submission_end( $args ) {
 
 					$the_new_options = array();
 
-					foreach ( $options as $option ) {
+					foreach ( (array)$options as $option ) {
 						$term = get_term( $option, $field['member_taxonomy'] );
+						if(! isset($term->name) ){
+							continue;
+						}
 
 						$exist = false;
-						if ( $children ) {
+						if ( $children) {
 							foreach ( $children as $child ) {
-								if ( $child->name == $term->name ) {
+								if ( isset($child->name) && $child->name == $term->name ) {
 									$exist = true;
 								}
 							}
