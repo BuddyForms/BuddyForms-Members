@@ -33,16 +33,9 @@ function buddyforms_buddypress_settings_page_tab( $tab ) {
 			$mtypes[$member_type->name] = $member_type->labels['name'];
 		}
 
-		$form_fields['BuddyPress']['member_types'] = new Element_Checkbox( '<b>' . __( 'Member Types', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][member_types]",$mtypes, array(
-			'value'     => '',
-			'class'     => 'bf_tax_select',
-			'field_id'  => $field_id,
-			'id'        => 'member_taxonomy_field_id_' . $field_id,
-			'shortDesc' => 'Select the Member Types this field should get displayed.'
-		) );
 	}
 
-	$buddypress_settings = get_option( 'buddyforms_buddypress_settings' );
+ 	$buddypress_settings = get_option( 'buddyforms_buddypress_settings' );
 
 	?>
 
@@ -56,7 +49,11 @@ function buddyforms_buddypress_settings_page_tab( $tab ) {
                     <table class="form-table">
 
                         <tbody>
-
+                        <tr>
+                            <th colspan="2">
+                                <h3><span>Overwrite the BuddyPress edit profile form</span></h3>
+                            </th>
+                        </tr>
                         <tr valign="top">
                             <th scope="row" class="titledesc">
                                 <label for="buddyforms_buddypress">No Member Type</label>
