@@ -2,8 +2,8 @@
 Contributors: svenl77, konradS, themekraft, buddyforms
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing, form, forms, form builder, forms builder, post forms, user generated content, form, forms, frontend forms, contact form, contact forms, content form, post form, post forms, content forms, registration form, registration forms, custom form, custom forms, form, form administration, form builder, form creation, form creator, form manager, forms, forms builder, forms creation, forms creator, forms manager, community, content, content generation, crowdsourced content, frontend generated content, images, post, posts, public, publish, share, submission, submissions, submit, submitted, upload, user submitted, user-generated, user-submit, user-generated content
 Requires at least: 3.9
-Tested up to: 4.9.4
-Stable tag: 1.3.4
+Tested up to: 4.9
+Stable tag: 1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -105,14 +105,28 @@ Yes, you can add login and registration Form Elements to any form and ask your u
 
 == Changelog ==
 
+= 1.4 21 Jun. 2018 =
+* Created a new form element to select a "Member Taxonomy". This was done with the "Custom xProfile Field Types" plugin. But the plugin is discontinued. "This plugin was closed on January 26, 2018 and is no longer available for download. Reason: Security Issue."
+* Added a new options for the data type and xprofile field select
+* Added new option for the select box. multiple, create new, limit
+* Added a new tab BuddyPress to all form elements with options for all xprofile relevant data. To map existing.
+* Added a new tab BuddyPress to the general settings page to overwrite the BuddyPress edit screen. You can select a different form for any member type
+* Added option to select a form for each member type
+* Added data mapping for all registration for elements
+* Added new option for user with no member type to select a default form. Otherwise user with no member type would always get the BuddyPress default.
+* Added new function to redirect to profile or profile edit
+* Added the label and description to the member taxonomy form element
+* Fixed a issue with the xprofile description
+* Fixed some array loop issues
+
 = 1.3.4 27 Mar. 2018 =
-Fixed an issue with saving the xprofile fields if new user registration the user id was missing if bp_loggedin_user_id was used. switched to the attribute $user_id
+* Fixed an issue with saving the xprofile fields if new user registration the user id was missing if bp_loggedin_user_id was used. switched to the attribute $user_id
 
 = 1.3.3 27 Mar. 2018 =
-Fixed an issue with in the xProfile fields. The url and the member field was not validated.
+* Fixed an issue with in the xProfile fields. The url and the member field was not validated.
 
 = 1.3.2 22 Mar. 2018 =
-Added new options to the form element to select a member type default and hide the member type form element to auto assign a member type during submit of a form.
+* Added new options to the form element to select a member type default and hide the member type form element to auto assign a member type during submit of a form.
 
 = 1.3.1 8 Feb. 2018 =
 * Added select 2 support to the xProfile fields and display the field label in the form builder
