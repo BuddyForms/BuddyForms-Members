@@ -105,6 +105,9 @@ Yes, you can add login and registration Form Elements to any form and ask your u
 
 == Changelog ==
 
+= 1.4.1 15 August. 2018 =
+* Fixed an issue with the labels of the member types
+
 = 1.4 21 Jun. 2018 =
 * Created a new form element to select a "Member Taxonomy". This was done with the "Custom xProfile Field Types" plugin. But the plugin is discontinued. "This plugin was closed on January 26, 2018 and is no longer available for download. Reason: Security Issue."
 * Added a new options for the data type and xprofile field select
