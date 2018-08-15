@@ -119,7 +119,16 @@ function buddyforms_members_create_new_form_builder_form_element( $form_fields, 
 			$form_fields['general']['name'] = new Element_Textbox( '<b>' . __( 'Name', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][name]", array( 'value' => $name ) );
 
 
-			$member_types_select = bp_get_member_types();
+			$member_types_object = bp_get_member_types(array(),'objects');
+
+			$member_types_select = array();
+			if( is_array( $member_types_object ) ){
+				foreach ( $member_types_object as $key => $value ){
+					$member_types_select[$key] = $value->labels['name'];
+				}
+			}
+
+
 			$member_types        = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['member_types'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['member_types'] : '';
 			$element             = new Element_Checkbox( 'Allow the User to select Member Types', "buddyforms_options[form_fields][" . $field_id . "][member_types]", $member_types_select, array( 'value' => $member_types ) );
 			if ( buddyforms_members_fs()->is_not_paying() ) {
