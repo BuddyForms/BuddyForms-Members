@@ -36,10 +36,8 @@ ul.product_images.ui-sortable li img {
     }
 }
 
-/** Other **/
-/*#sub_nav_home, #sub_nav_home-personal-li{*/
-/*display:none !important;*/
-/*}*/
+/** Other Fixes & Additions **/
+
 #sub_nav_edit, #sub_nav_edit-personal-li {
     display: none !important;
 }
@@ -54,4 +52,12 @@ ul.product_images.ui-sortable li img {
 
 #sub_nav_page, #sub_nav_page-personal-li {
     display: none !important;
+}
+
+#buddypress .the_buddyforms_form form fieldset {
+   border: 0;
+   padding: 0;
+   width: 100%;
+   max-width: 100%;
+   min-width: 100%;
 }
