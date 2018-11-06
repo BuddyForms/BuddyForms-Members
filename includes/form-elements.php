@@ -82,7 +82,7 @@ function buddyforms_members_add_form_element_to_select( $elements_select_options
 		return;
 	}
 
-	$elements_select_options['buddyforms']['label']                     = 'Buddyforms';
+	$elements_select_options['buddyforms']['label']                     = 'BuddyPress';
 	$elements_select_options['buddyforms']['class']                     = 'bf_show_if_f_type_all';
 	$elements_select_options['buddyforms']['fields']['bp_member_type']  = array(
 		'label'  => __( 'Member Types', 'buddyforms' ),
