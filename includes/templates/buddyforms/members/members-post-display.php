@@ -9,8 +9,8 @@
 
 	$current_component = $bp->current_component;
 
-	$list_posts_option = $buddyforms[ $form_slug ]['list_posts_option'];
-	$list_posts_style  = $buddyforms[ $form_slug ]['list_posts_style'];
+	$list_posts_option = isset( $buddyforms[ $form_slug ]['list_posts_option'] ) ? $buddyforms[ $form_slug ]['list_posts_option'] : '';
+	$list_posts_style  = isset( $buddyforms[ $form_slug ]['list_posts_style'] ) ? $buddyforms[ $form_slug ]['list_posts_style'] : 'list';
 
 	$query_args = array(
 		'post_type'      => $post_type,
