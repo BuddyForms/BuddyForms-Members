@@ -326,7 +326,21 @@ function buddyforms_members_create_frontend_form_element( $form, $form_args ) {
 				$form->addElement( new Element_Hidden( $customfield['slug'], $customfield['member_type_default'] ) );
 			} else {
 				if ( isset( $customfield['member_types'] ) ) {
-					$form->addElement( new Element_Select( $customfield['name'], $customfield['slug'], $customfield['member_types'], $element_attr ) );
+
+
+					$member_types_object = bp_get_member_types(array(),'objects');
+					$member_types = $customfield['member_types'];
+
+
+					$member_types_select = array();
+					if( is_array( $member_types_object ) ){
+						foreach ( $member_types as $key => $value ){
+
+								$member_types_select[$value] = $member_types_object[$value]->labels['name'];
+
+						}
+					}
+					$form->addElement( new Element_Select( $customfield['name'], $customfield['slug'], $member_types_select, $element_attr ) );
 				}
 			}
 
