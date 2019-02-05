@@ -796,7 +796,6 @@ function buddyforms_members_formbuilder_fields_options( $form_fields, $field_typ
 
 function buddyforms_memberstemplate_filter_init() {
 	if(bp_is_current_action('edit')){
-		add_action( 'bp_template_title', 'buddyforms_membersfilter_template_title' );
 		add_action( 'bp_template_content', 'buddyforms_membersfilter_template_content' );
 		add_filter( 'bp_get_template_part', 'buddyforms_memberstemplate_part_filter', 10, 3 );
 	}
@@ -824,20 +823,26 @@ function buddyforms_memberstemplate_part_filter( $templates, $slug, $name ) {
 	return $templates;
 }
 
-function buddyforms_membersfilter_template_title() {
+function buddyforms_members_get_form_by_member_type($member_type = 'none'){
+	$buddypress_settings = get_option( 'buddyforms_buddypress_settings' );
+
+	$form_slug = false;
+	if ( isset( $buddypress_settings[ $member_type ] ) &&  $buddypress_settings[ $member_type ] !== 'none') {
+		$form_slug = $buddypress_settings[ $member_type ];
+	}
+
+	return $form_slug;
 }
 
 function buddyforms_membersfilter_template_content() {
 	$member_type         = bp_get_member_type( get_current_user_id() );
-	$buddypress_settings = get_option( 'buddyforms_buddypress_settings' );
 
-	$form_slug = false;
-	if ( isset( $buddypress_settings[ $member_type ] ) ) {
-		$form_slug = $buddypress_settings[ $member_type ];
+	$form_slug = buddyforms_members_get_form_by_member_type($member_type);
+
+	if ( ! $form_slug) {
+		$form_slug = buddyforms_members_get_form_by_member_type('none');
 	}
-	if ( ! $form_slug && isset( $buddypress_settings['none'] ) && $buddypress_settings['none'] != 'none' ) {
-		$form_slug = $buddypress_settings['none'];
-	}
+
 	if ( $form_slug ) {
 		echo do_shortcode( '[bf form_slug="' . $form_slug . '"]' );
 	}

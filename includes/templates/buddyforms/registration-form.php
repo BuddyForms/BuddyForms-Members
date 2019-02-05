@@ -19,6 +19,5 @@ $buddyforms_registration_form = get_option( 'buddyforms_registration_form' );
 
 echo do_shortcode( '[bf form_slug="' . $buddyforms_registration_form . '"]' );
 
-?>
 
 
