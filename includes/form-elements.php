@@ -287,6 +287,21 @@ function buddyforms_members_create_new_form_builder_form_element( $form_fields, 
 				'class' => ''
 			) );
 
+			$is_ajax                        = isset($buddyforms[$form_slug]['form_fields'][$field_id]['ajax']) ? $buddyforms[$form_slug]['form_fields'][$field_id]['ajax'] : 'false';
+			$form_fields['general']['ajax'] = new Element_Checkbox('<b>' . __('Ajax', 'buddyforms') . '</b>', "buddyforms_options[form_fields][" . $field_id . "][ajax]", array('is_ajax' => '<b>' . __('Enabled Ajax', 'buddyforms') . '</b>'), array(
+				'value' => $is_ajax,
+				'data'  => $field_id,
+				'class' => 'bf_hide_if_post_type_none bf_taxonomy_ajax_ready'
+			));
+
+			$minimum_input_length                         = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['minimumInputLength'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['minimumInputLength'] : 0;
+			$form_fields['general']['minimumInputLength'] = new Element_Number( '<b>' . __( 'Minimum characters ', 'buddyforms' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][minimumInputLength]", array(
+				'data'      => $field_id,
+				'value'     => $minimum_input_length,
+				'shortDesc' => __( 'Minimum number of characters required to start a search.', 'buddyforms' ),
+				'class'     => 'bf_hide_if_post_type_none bf_hide_if_not_ajax_ready'
+			) );
+
 			break;
 
 	}
@@ -381,10 +396,16 @@ function buddyforms_members_create_frontend_form_element( $form, $form_args ) {
 				break;
 			}
 
+			$slug = $customfield['slug'];
+
 			if ( isset( $customfield['mapped_xprofile_field'] ) ) {
 				$slug = $customfield['mapped_xprofile_field'];
 			}
 
+			$taxonomy = isset( $customfield['member_taxonomy'] ) && $customfield['member_taxonomy'] != 'none' ? $customfield['member_taxonomy'] : '';
+			$order    = isset( $customfield['taxonobuddyforms_membersorder'] ) ? $customfield['taxonobuddyforms_membersorder'] : 'DESC';
+			$exclude  = isset( $customfield['taxonobuddyforms_membersexclude'] ) ? $customfield['taxonobuddyforms_membersexclude'] : '';
+			$include  = isset( $customfield['taxonobuddyforms_membersinclude'] ) ? $customfield['taxonobuddyforms_membersinclude'] : '';
 
 			$args = array(
 				'hide_empty'    => 0,
@@ -399,10 +420,10 @@ function buddyforms_members_create_frontend_form_element( $form, $form_args ) {
 				'tab_index'     => 0,
 				'hide_if_empty' => false,
 				'orderby'       => 'SLUG',
-				'taxonomy'      => isset( $customfield['member_taxonomy'] ) && $customfield['member_taxonomy'] != 'none' ? $customfield['member_taxonomy'] : '',
-				'order'         => isset( $customfield['taxonobuddyforms_membersorder'] ) ? $customfield['taxonobuddyforms_membersorder'] : 'DESC',
-				'exclude'       => isset( $customfield['taxonobuddyforms_membersexclude'] ) ? $customfield['taxonobuddyforms_membersexclude'] : '',
-				'include'       => isset( $customfield['taxonobuddyforms_membersinclude'] ) ? $customfield['taxonobuddyforms_membersinclude'] : '',
+				'taxonomy'      => $taxonomy,
+				'order'         => $order,
+				'exclude'       => $exclude,
+				'include'       => $include,
 			);
 
 			$placeholder = isset( $customfield['placeholder'] ) ? $customfield['placeholder'] : 'Select an option';
@@ -454,6 +475,30 @@ function buddyforms_members_create_frontend_form_element( $form, $form_args ) {
 
 			$tags                   = isset( $customfield['create_new_tax'] ) ? 'tags: true,' : '';
 			$maximumSelectionLength = isset( $customfield['maximumSelectionLength'] ) ? 'maximumSelectionLength: ' . $customfield['maximumSelectionLength'] . ',' : '';
+			$minimumInputLength = isset( $customfield['minimumInputLength'] ) ? 'minimumInputLength: ' . $customfield['minimumInputLength'] . ',' : '';
+			$ajax_options = '';
+			$is_ajax      = isset($customfield['ajax']);
+			if ($is_ajax) {
+				$ajax_options .= $minimumInputLength;
+				$ajax_options .= 'ajax:{ ' .
+				                 'url: "' . admin_url('admin-ajax.php') . '", ' .
+				                 'delay: 250, ' .
+				                 'method : "POST", ' .
+				                 'data: function (params) { ' .
+				                 'var query = { ' .
+				                 'search: params.term, ' .
+				                 'type: "public", ' .
+				                 'action: "bf_load_taxonomy", ' .
+				                 'nonce: "' . wp_create_nonce('bf_tax_loading') . '", ' .
+				                 'taxonomy: "' . $taxonomy . '", ' .
+				                 'order: "' . $order . '", ' .
+				                 'exclude: "' . $exclude . '", ' .
+				                 'include: "' . $include . '" ' .
+				                 '}; ' .
+				                 'return query; ' .
+				                 ' } ' .
+				                 '}, ';
+			}
 
 			$name = '';
 			if ( isset( $customfield['name'] ) ) {
@@ -471,6 +516,7 @@ function buddyforms_members_create_frontend_form_element( $form, $form_args ) {
 							    jQuery(".bf-select2-' . $field_id . '").select2({
 //							            minimumResultsForSearch: -1,
 										' . $maximumSelectionLength . '
+										' . $ajax_options . '
 										    placeholder: function(){
 										        jQuery(this).data("placeholder");
 										    },
