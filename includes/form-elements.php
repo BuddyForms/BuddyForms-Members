@@ -291,7 +291,7 @@ function buddyforms_members_create_new_form_builder_form_element( $form_fields, 
 			$form_fields['general']['ajax'] = new Element_Checkbox('<b>' . __('Ajax', 'buddyforms') . '</b>', "buddyforms_options[form_fields][" . $field_id . "][ajax]", array('is_ajax' => '<b>' . __('Enabled Ajax', 'buddyforms') . '</b>'), array(
 				'value' => $is_ajax,
 				'data'  => $field_id,
-				'class' => 'bf_hide_if_post_type_none bf_taxonomy_ajax_ready'
+				'class' => 'bf_taxonomy_ajax_ready'
 			));
 
 			$minimum_input_length                         = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['minimumInputLength'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['minimumInputLength'] : 0;
@@ -299,7 +299,7 @@ function buddyforms_members_create_new_form_builder_form_element( $form_fields, 
 				'data'      => $field_id,
 				'value'     => $minimum_input_length,
 				'shortDesc' => __( 'Minimum number of characters required to start a search.', 'buddyforms' ),
-				'class'     => 'bf_hide_if_post_type_none bf_hide_if_not_ajax_ready'
+				'class'     => 'bf_hide_if_not_ajax_ready'
 			) );
 
 			break;
