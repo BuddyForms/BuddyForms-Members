@@ -183,7 +183,8 @@ function bf_members_page_link_router_pagination( $result ) {
 	if ( isset( $bp->current_component ) && isset( $buddyforms_member_tabs[ $bp->current_component ] ) ) {
 
 		$result    = rtrim( $result, "/" );
-		$this_page = end( explode( '/', $result ) );
+		$result_array = explode( '/', $result );
+		$this_page = end( $result_array );
 
 		$domain = is_user_logged_in() ? bp_loggedin_user_domain() : bp_displayed_user_domain();
 
