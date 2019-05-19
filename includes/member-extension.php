@@ -348,29 +348,29 @@ class BuddyForms_Members_Extention extends BP_Component {
 
 			// add our hook to inject content into BP
 			if ( $bp->current_action == $form_slug . '-posts' ) {
-				add_action( 'bp_template_content', create_function( '', "
+				add_action( 'bp_template_content', function () {
 					bp_get_template_part( 'buddyforms/members/members-post-display' );
-				" ) );
+				} );
 			} elseif ( $bp->current_action == $form_slug . '-create' ) {
-				add_action( 'bp_template_content', create_function( '', "
+				add_action( 'bp_template_content', function () {
 					bp_get_template_part( 'buddyforms/members/members-post-create' );
-				" ) );
+				} );
 			} elseif ( $bp->current_action == $form_slug . '-edit' ) {
-				add_action( 'bp_template_content', create_function( '', "
+				add_action( 'bp_template_content', function () {
 					bp_get_template_part( 'buddyforms/members/members-post-create' );
-				" ) );
+				} );
 			} elseif ( $bp->current_action == $form_slug . '-revision' ) {
-				add_action( 'bp_template_content', create_function( '', "
+				add_action( 'bp_template_content', function () {
 					bp_get_template_part( 'buddyforms/members/members-post-create' );
-				" ) );
+				} );
 			} elseif ( $bp->current_action == $form_slug . '-page' ) {
-				add_action( 'bp_template_content', create_function( '', "
+				add_action( 'bp_template_content', function () {
 					bp_get_template_part( 'buddyforms/members/members-post-display' );
-				" ) );
+				} );
 			} elseif ( $bp->current_action == $form_slug . '-posts-all' ) {
-				add_action( 'bp_template_content', create_function( '', "
+				add_action( 'bp_template_content', function () {
 					bp_get_template_part( 'buddyforms/members/members-post-display' );
-				" ) );
+				} );
 			}
 		}
 
