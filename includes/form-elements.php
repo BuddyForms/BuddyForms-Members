@@ -842,6 +842,11 @@ function buddyforms_members_formbuilder_fields_options( $form_fields, $field_typ
 
 function buddyforms_memberstemplate_filter_init() {
 	if(bp_is_current_action('edit')){
+
+		if ( ! bp_get_member_types() ){
+			return;
+		}
+
 		add_action( 'bp_template_content', 'buddyforms_membersfilter_template_content' );
 		add_filter( 'bp_get_template_part', 'buddyforms_memberstemplate_part_filter', 10, 3 );
 	}
@@ -852,6 +857,11 @@ add_action( 'bp_init', 'buddyforms_memberstemplate_filter_init' );
 function buddyforms_memberstemplate_part_filter( $templates, $slug, $name ) {
 
 	if ( 'members/single/profile/edit.php' == $templates[0] ) {
+
+		if ( ! bp_get_member_types() ){
+			return;
+		}
+
 		$member_type         = bp_get_member_type( get_current_user_id() );
 		$buddypress_settings = get_option( 'buddyforms_buddypress_settings' );
 
