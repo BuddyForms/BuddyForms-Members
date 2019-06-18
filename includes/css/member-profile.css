@@ -62,3 +62,10 @@ ul.product_images.ui-sortable li img {
    max-width: 100%;
    min-width: 100%;
 }
+
+#buddypress .standard-form .bf_field_group.bf-input .form-control.error {
+	background-color: #fdc;
+	border: 1px solid #a00;
+	clear: left;
+	color: #800;
+}

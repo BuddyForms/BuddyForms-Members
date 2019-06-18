@@ -12,7 +12,4 @@ jQuery(document).ready(function (jQuery) {
         parent.replaceChild(wrapper, element);
         wrapper.appendChild(element);
     }
-
-
-
 });
