@@ -336,6 +336,7 @@ function buddyforms_members_create_frontend_form_element( $form, $form_args ) {
 				'value'     => is_user_logged_in() ? bp_get_member_type( get_current_user_id() ) : '',
 				'class'     => 'settings-input',
 				'shortDesc' => empty( $customfield['description'] ) ? '' : $customfield['description'],
+				'data-form'  => $form_slug
 			);
 			if ( isset( $customfield['member_type_hidden'] ) ) {
 				$form->addElement( new Element_Hidden( $customfield['slug'], $customfield['member_type_default'] ) );
@@ -446,6 +447,7 @@ function buddyforms_members_create_frontend_form_element( $form, $form_args ) {
 				$dropdown = str_replace( 'id=', 'required id=', $dropdown );
 			}
 
+			$dropdown = str_replace( 'id=', 'data-form="' . $form_slug . '" id=', $dropdown );
 			$dropdown = str_replace( 'id=', 'data-placeholder="' . $placeholder . '" id=', $dropdown );
 			$dropdown = str_replace( 'id=', 'style="width:100%;" id=', $dropdown );
 
@@ -611,7 +613,7 @@ function buddyforms_members_edit_field_html( $form_slug ) {
 		$tmp = str_replace( 'type="text"', 'type="number"', $tmp );
 	}
 
-
+	$tmp = str_replace( '<select', '<select data-form="' . $form_slug . '" ', $tmp );
 	$tmp = str_replace( '<p class="description"', '<p class="description" style="display:none;"', $tmp );
 
 
