@@ -314,6 +314,12 @@ function buddyforms_members_create_new_form_builder_form_element( $form_fields, 
  *
  */
 add_filter( 'buddyforms_create_edit_form_display_element', 'buddyforms_members_create_frontend_form_element', 1, 2 );
+/**
+ * @param Form $form
+ * @param $form_args
+ *
+ * @return mixed
+ */
 function buddyforms_members_create_frontend_form_element( $form, $form_args ) {
 	global $buddyforms, $field;
 
@@ -375,7 +381,7 @@ function buddyforms_members_create_frontend_form_element( $form, $form_args ) {
 							while ( bp_profile_groups() ) : bp_the_profile_group();
 								while ( bp_profile_fields() ) : bp_the_profile_field();
 									$field = new BP_XProfile_Field( bp_get_the_profile_field_id() );
-									$form->addElement( new Element_HTML( '<div class="bf_field_group bf-input">' . buddyforms_members_edit_field_html( $form_slug ) . '</div>' ) );
+									$form->addElement( new Element_HTML( '<div class="bf_field_group bf-input">' . buddyforms_members_edit_field_html( $form_slug, $field ) . '</div>' ) );
 								endwhile;
 							endwhile; endif;
 					}
@@ -387,7 +393,7 @@ function buddyforms_members_create_frontend_form_element( $form, $form_args ) {
 
 			if ( class_exists( 'BP_XProfile_Field' ) ) {
 				$field = new BP_XProfile_Field( $customfield['xprofile_field'] );
-				$form->addElement( new Element_HTML( '<div class="bf_field_group bf-input">' . buddyforms_members_edit_field_html( $form_slug ) . '</div>' ) );
+				$form->addElement( new Element_HTML( '<div class="bf_field_group bf-input">' . buddyforms_members_edit_field_html( $form_slug, $field ) . '</div>' ) );
 			}
 
 			break;
@@ -563,8 +569,8 @@ function buddyforms_everything_in_tags( $string, $tagname ) {
 	return false;
 }
 
-function buddyforms_members_edit_field_html( $form_slug ) {
-	global $buddyforms, $field;
+function buddyforms_members_edit_field_html( $form_slug, $field ) {
+	global $buddyforms;
 
 	$field_type = bp_xprofile_create_field_type( bp_get_the_profile_field_type() );
 
