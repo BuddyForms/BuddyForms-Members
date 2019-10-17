@@ -1,0 +1,41 @@
+{
+  "name": "themekraft/buddyforms-members",
+  "description": "This is a free extension for the form builder plugin BuddyForms which makes user generated content easy using BuddyPress.",
+  "type": "wordpress-plugin",
+  "keywords": [
+    "form builder",
+    "contact forms",
+    "post forms",
+    "user-generated content",
+    "custom post types",
+    "user submitted posts",
+    "contact form",
+    "form",
+    "forms",
+    "frontend post"
+  ],
+  "homepage": "https://themekraft.com/products/buddyforms-members/",
+  "license": "GPLv2 or later",
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.6"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.1",
+    "php-coveralls/php-coveralls": "^2.0@dev",
+    "squizlabs/php_codesniffer": "3.*",
+    "friendsofphp/php-cs-fixer": "^2.9",
+    "jakub-onderka/php-parallel-lint": "dev-master",
+    "jakub-onderka/php-console-highlighter": "dev-master",
+    "wp-coding-standards/wpcs": "dev-master",
+    "symplify/easy-coding-standard": "^5.2@dev",
+    "brainmaestro/composer-git-hooks": "dev-master"
+  },
+  "scripts": {
+    "package": "sh .tk/package.sh loader",
+    "wp-release": "sh .tk/wp_release.sh",
+    "beta-release": "sh .tk/full-deploy.sh loader 408 false beta",
+    "full-release": "sh .tk/full-deploy.sh loader 408 false released",
+    "update-freemius": "sh .tk/update-freemius.sh ../wordpress-sdk includes/resources/freemius"
+  }
+}
