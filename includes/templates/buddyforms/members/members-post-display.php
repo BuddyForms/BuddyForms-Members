@@ -46,11 +46,11 @@
 	$the_lp_query = apply_filters('buddyforms_the_lp_query', $the_lp_query );
 
 	if ( $list_posts_style == 'table' ) {
-		buddyforms_locate_template( 'the-table' );
+		buddyforms_locate_template( 'the-table', $form_slug );
 	} elseif( $list_posts_style == 'list') {
-		buddyforms_locate_template( 'the-loop' );
+		buddyforms_locate_template( 'the-loop', $form_slug );
 	} else {
-		buddyforms_locate_template( $list_posts_style );
+		buddyforms_locate_template( $list_posts_style, $form_slug );
 	}
 
 
