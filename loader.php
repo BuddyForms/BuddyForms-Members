@@ -4,7 +4,7 @@
  * Plugin Name: BuddyForms Members
  * Plugin URI: http://buddyforms.com/downloads/buddyforms-members/
  * Description: The BuddyForms Members Component. Let your members write right out of their profiles.
- * Version: 1.4.6
+ * Version: 1.4.7
  * Author: ThemeKraft
  * Author URI: https://themekraft.com/buddyforms/
  * License: GPLv2 or later
@@ -111,28 +111,32 @@ function buddyforms_members_fs() {
 			require_once dirname( dirname( __FILE__ ) ) . '/buddyforms-premium/includes/resources/freemius/start.php';
 		}
 
-		$buddyforms_members_fs = fs_dynamic_init( array(
-			'id'                  => '408',
-			'slug'                => 'buddyforms-members',
-			'type'                => 'plugin',
-			'public_key'          => 'pk_0dc82cbd48e6935bba8e2ff431777',
-			'is_premium'          => true,
-			'has_paid_plans'      => true,
-			'trial'               => array(
-				'days'               => 7,
-				'is_require_payment' => false,
-			),
-			'parent'              => array(
-				'id'         => '391',
-				'slug'       => 'buddyforms',
-				'public_key' => 'pk_dea3d8c1c831caf06cfea10c7114c',
-				'name'       => 'BuddyForms',
-			),
-			'menu'                => array(
-				'first-path'     => 'plugins.php',
-				'support'        => false,
-			)
-		) );
+		try {
+			$buddyforms_members_fs = fs_dynamic_init( array(
+				'id'             => '408',
+				'slug'           => 'buddyforms-members',
+				'type'           => 'plugin',
+				'public_key'     => 'pk_0dc82cbd48e6935bba8e2ff431777',
+				'is_premium'     => true,
+				'has_paid_plans' => true,
+				'trial'          => array(
+					'days'               => 7,
+					'is_require_payment' => false,
+				),
+				'parent'         => array(
+					'id'         => '391',
+					'slug'       => 'buddyforms',
+					'public_key' => 'pk_dea3d8c1c831caf06cfea10c7114c',
+					'name'       => 'BuddyForms',
+				),
+				'menu'           => array(
+					'first-path' => 'plugins.php',
+					'support'    => false,
+				)
+			) );
+		} catch ( Freemius_Exception $e ) {
+
+		}
 	}
 
 	return $buddyforms_members_fs;
