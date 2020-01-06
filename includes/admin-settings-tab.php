@@ -4,7 +4,7 @@ add_filter( 'buddyforms_admin_tabs', 'buddyforms_buddypress_admin_tab', 1, 1 );
 function buddyforms_buddypress_admin_tab( $tabs ) {
 
 	if ( ! $member_types = bp_get_member_types( array(), 'objects' ) ) {
-	    return;
+	    return $tabs;
 	}
 
 	$tabs['buddypress'] = 'BuddyPress';
