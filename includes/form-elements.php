@@ -628,13 +628,13 @@ function buddyforms_members_edit_field_html( $form_slug, $field ) {
 
 add_action( 'buddyforms_process_submission_end', 'buddyforms_members_process_submission_end', 10, 1 );
 function buddyforms_members_process_submission_end( $args ) {
-	global $buddyforms;
-
 	extract( $args );
 
 	if ( ! isset( $user_id ) ) {
 		return;
 	}
+
+	global $buddyforms;
 
 	if ( isset( $buddyforms[ $form_slug ] ) ) {
 		if ( isset( $buddyforms[ $form_slug ]['form_fields'] ) ) {
@@ -643,6 +643,7 @@ function buddyforms_members_process_submission_end( $args ) {
 
 				if ( isset( $field['mapped_xprofile_field'] ) && $field['mapped_xprofile_field'] != 'none' ) {
 					$xfield = new BP_XProfile_Field( $field['mapped_xprofile_field'] );
+					do_action('buddyforms_members_sync_mapped_xprofile_field', $user_id, $field, $xfield);
 					switch ( $xfield->type ) {
 
 						case 'datebox':
