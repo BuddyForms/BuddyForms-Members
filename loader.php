@@ -31,6 +31,13 @@
  ****************************************************************************
  */
 
+function buddyforms_members_is_buddyboss_theme_active() {
+	$theme = wp_get_theme();
+
+	// gets the current theme
+	return 'BuddyBoss Theme' === $theme->name || 'BuddyBoss Theme' === $theme->parent_theme;
+}
+
 //
 // Check the plugin dependencies
 //
@@ -47,12 +54,15 @@ add_action( 'init', function () {
 	// Hook required plugins function to the tgmpa_register action
 	add_action( 'tgmpa_register', function () {
 
-		// Create the required plugins array
-		$plugins['buddypress'] = array(
-			'name'     => 'BuddyPress',
-			'slug'     => 'buddypress',
-			'required' => true,
-		);
+		$is_buddyboss_theme_active = buddyforms_members_is_buddyboss_theme_active();
+		if ( ! $is_buddyboss_theme_active ) {
+			// Create the required plugins array
+			$plugins['buddypress'] = array(
+				'name'     => 'BuddyPress',
+				'slug'     => 'buddypress',
+				'required' => true,
+			);
+		}
 
 		if ( ! defined( 'BUDDYFORMS_PRO_VERSION' ) ) {
 			$plugins['buddyforms'] = array(
