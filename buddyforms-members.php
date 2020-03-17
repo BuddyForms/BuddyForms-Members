@@ -134,26 +134,26 @@ class BuddyForms_Members {
 		global $bp;
 
 		$bp->buddyforms = new BuddyForms_Members_Extention();
-
 	}
 
 	function buddyforms_members_register_required_plugins() {
-		$plugins = array(
-
-			array(
-				'name'         => 'BuddyPress',
-				'slug'         => 'buddypress',
-				'required'     => true,
-				'is_automatic' => true
-			),
+		$plugins                   = array(
 			array(
 				'name'         => 'BuddyForms',
 				'slug'         => 'buddyforms',
 				'required'     => true,
 				'is_automatic' => true
 			),
-
 		);
+		$is_buddyboss_theme_active = buddyforms_members_is_buddyboss_theme_active();
+		if ( ! $is_buddyboss_theme_active ) {
+			$plugins[] = array(
+				'name'         => 'BuddyPress',
+				'slug'         => 'buddypress',
+				'required'     => true,
+				'is_automatic' => true
+			);
+		}
 		tgmpa( $plugins );
 	}
 

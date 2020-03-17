@@ -53,7 +53,7 @@ add_action( 'init', function () {
 
 	// Hook required plugins function to the tgmpa_register action
 	add_action( 'tgmpa_register', function () {
-
+		$plugins = array();
 		$is_buddyboss_theme_active = buddyforms_members_is_buddyboss_theme_active();
 		if ( ! $is_buddyboss_theme_active ) {
 			// Create the required plugins array
