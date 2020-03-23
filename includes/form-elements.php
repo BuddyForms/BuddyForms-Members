@@ -79,7 +79,7 @@ function buddyforms_members_add_form_element_to_select( $elements_select_options
 	global $post;
 
 	if ( $post->post_type != 'buddyforms' ) {
-		return;
+		return $elements_select_options;
 	}
 
 	$elements_select_options['buddyforms']['label']                     = 'BuddyPress';
