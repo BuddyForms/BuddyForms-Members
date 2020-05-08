@@ -4,7 +4,7 @@
  * Plugin Name: BuddyForms Members
  * Plugin URI: http://buddyforms.com/downloads/buddyforms-members/
  * Description: The BuddyForms Members Component. Let your members write right out of their profiles.
- * Version: 1.4.9
+ * Version: 1.4.10
  * Author: ThemeKraft
  * Author URI: https://themekraft.com/buddyforms/
  * License: GPLv2 or later
@@ -52,7 +52,7 @@ add_action( 'init', function () {
 	require( dirname( __FILE__ ) . '/includes/resources/tgm/class-tgm-plugin-activation.php' );
 
 	// Hook required plugins function to the tgmpa_register action
-	add_action( 'tgmpa_register', function () {
+	add_action( 'buddyforms_members_tgmpa', function () {
 		$plugins = array();
 		$is_buddyboss_theme_active = buddyforms_members_is_buddyboss_theme_active();
 		if ( ! $is_buddyboss_theme_active ) {
@@ -73,7 +73,7 @@ add_action( 'init', function () {
 		}
 
 		$config = array(
-			'id'           => 'tgmpa',
+			'id'           => 'buddyforms_members',
 			// Unique ID for hashing notices for multiple instances of TGMPA.
 			'parent_slug'  => 'plugins.php',
 			// Parent menu slug.
@@ -88,7 +88,7 @@ add_action( 'init', function () {
 		);
 
 		// Call the tgmpa function to register the required plugins
-		tgmpa( $plugins, $config );
+		buddyforms_members_tgmpa( $plugins, $config );
 
 	} );
 }, 1, 1 );
