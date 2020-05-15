@@ -104,8 +104,10 @@ Yes, you can add login and registration Form Elements to any form and ask your u
 5. **Backend Overview** - The backend overview of your existing forms.
 
 == Changelog ==
-= 1.4.10 - 8 May 2020 =
+= 1.4.10 - 17 May 2020 =
 * Fixed error code related to the tmpga library.
+* Improved the localization of the plugin.
+* Added compatibility with loco translate.
 
 = 1.4.9 - 17 March 2020 =
 * Fixed the compatibility with BuddyBoss Platform.

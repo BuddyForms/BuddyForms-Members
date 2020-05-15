@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bundle name="BuddyForms Members">
+  <domain name="buddyforms-members">
+    <project name="BuddyForms Members" slug="buddyforms-members">
+      <source>
+        <directory>includes</directory>
+      </source>
+      <target>
+        <directory>languages</directory>
+      </target>
+      <template>
+        <file>languages/buddyforms-members.pot</file>
+      </template>
+    </project>
+  </domain>
+  <exclude>
+    <directory>includes/resources</directory>
+  </exclude>
+</bundle>

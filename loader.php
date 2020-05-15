@@ -9,7 +9,8 @@
  * Author URI: https://themekraft.com/buddyforms/
  * License: GPLv2 or later
  * Network: false
- * Text Domain: buddyforms
+ * Text Domain: buddyforms-members
+ * Domain Path: /languages
  * Svn: buddyforms-members
  *
  *****************************************************************************
@@ -104,8 +105,8 @@ function buddyforms_members_init() {
 
 	require( dirname( __FILE__ ) . '/buddyforms-members.php' );
 	$buddyforms_members = new BuddyForms_Members();
-
 }
+
 
 // Create a helper function for easy SDK access.
 function buddyforms_members_fs() {

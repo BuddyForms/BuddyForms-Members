@@ -122,7 +122,7 @@ class BuddyForms_Members {
 	 * @since 0.1 beta
 	 */
 	public function load_plugin_textdomain() {
-		load_plugin_textdomain( 'buddyforms', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'buddyforms-members', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 
 	/**

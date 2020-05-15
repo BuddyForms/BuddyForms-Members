@@ -168,7 +168,7 @@ function bf_members_page_link_router_edit( $link, $id ) {
 
 	$domain = is_user_logged_in() ? bp_loggedin_user_domain() : bp_displayed_user_domain();
 
-	return '<a title="' . __( 'Edit', 'buddyforms' ) . '" id="' . $id . '" class="bf_edit_post" href="' . $domain . $parent_tab . '/' . $form_slug . '-edit/' . $id . '"><span aria-label="' . __( 'Edit', 'buddyforms' ) . '" class="dashicons dashicons-edit"></span></a>';
+	return '<a title="' . __( 'Edit', 'buddyforms-members' ) . '" id="' . $id . '" class="bf_edit_post" href="' . $domain . $parent_tab . '/' . $form_slug . '-edit/' . $id . '"><span aria-label="' . __( 'Edit', 'buddyforms-members' ) . '" class="dashicons dashicons-edit"></span></a>';
 }
 
 add_filter( 'buddyforms_loop_edit_post_link', 'bf_members_page_link_router_edit', 30, 2 );

@@ -1,0 +1,684 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: BuddyForms Members\n"
+"POT-Creation-Date: 2020-05-15 07:22-0300\n"
+"PO-Revision-Date: 2020-05-15 07:23-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.3.1\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: loader.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: includes/admin-settings-tab.php:65 includes/admin-settings-tab.php:86
+msgid "BuddyPress Default"
+msgstr ""
+
+#: includes/form-elements.php:3
+msgid "BP Member Profiles"
+msgstr ""
+
+#: includes/form-elements.php:42
+msgid "Add this form as Profile Tab"
+msgstr ""
+
+#: includes/form-elements.php:44
+msgid ""
+"Many forms can share the same attached page. All Forms with the same "
+"attached page can be grouped together with this option. All Forms will be "
+"listed as sub nav tabs of the page main nav"
+msgstr ""
+
+#: includes/form-elements.php:46
+msgid ""
+"Use Attached Page as Parent Tab and make this form a sub tab of the parent"
+msgstr ""
+
+#: includes/form-elements.php:48
+msgid ""
+"Many Forms can have the same attached Page. All Forms with the same page "
+"with page as parent enabled will be listed as sub forms. This why you can "
+"group forms."
+msgstr ""
+
+#: includes/form-elements.php:50
+msgid "Activity Support"
+msgstr ""
+
+#: includes/form-elements.php:52
+msgid ""
+"Every time a new Post is created with this Form a BuddyPress Activity Item "
+"will be added to the Members Activity Stream"
+msgstr ""
+
+#: includes/form-elements.php:59
+msgid "Visibility"
+msgstr "Visibilidade"
+
+#: includes/form-elements.php:65
+msgid "Who can see submissions in Profiles?"
+msgstr ""
+
+#: includes/form-elements.php:88
+msgid "Member Types"
+msgstr "Tipos de Membros"
+
+#: includes/form-elements.php:93 includes/form-elements.php:257
+msgid "Member Taxonomy"
+msgstr ""
+
+#: includes/form-elements.php:96
+msgid "xProfile Field"
+msgstr ""
+
+#: includes/form-elements.php:99
+msgid "xProfile Field Group"
+msgstr ""
+
+#: includes/form-elements.php:119
+msgid "Name"
+msgstr "Nome"
+
+#: includes/form-elements.php:185 includes/form-elements.php:243
+msgid "You need to enable BuddyPress Groups to use this form element"
+msgstr ""
+
+#: includes/form-elements.php:265
+msgid "Taxonomy Placeholder"
+msgstr ""
+
+#: includes/form-elements.php:268
+msgid ""
+"You can change the placeholder to something meaningful like Select a "
+"Category or what make sense for your taxonomy."
+msgstr ""
+
+#: includes/form-elements.php:272
+msgid "Multiple Selection"
+msgstr "Seleção múltipla"
+
+#: includes/form-elements.php:272
+msgid "Multiple"
+msgstr "Múltiplo"
+
+#: includes/form-elements.php:278
+msgid "Limit Selections"
+msgstr ""
+
+#: includes/form-elements.php:281
+msgid "Add a number to limit the Selection amount"
+msgstr ""
+
+#: includes/form-elements.php:285
+msgid "New Taxonomy Item"
+msgstr ""
+
+#: includes/form-elements.php:285
+msgid "User can create new"
+msgstr ""
+
+#: includes/form-elements.php:291
+msgid "Ajax"
+msgstr "Ajax"
+
+#: includes/form-elements.php:291
+msgid "Enabled Ajax"
+msgstr ""
+
+#: includes/form-elements.php:298
+msgid "Minimum characters "
+msgstr "Caracteres mínimos "
+
+#: includes/form-elements.php:301
+msgid "Minimum number of characters required to start a search."
+msgstr ""
+
+#: includes/form-elements.php:784
+msgid "Map with existing xProfiele Field"
+msgstr ""
+
+#: includes/functions.php:55
+msgid "View my "
+msgstr ""
+
+#: includes/functions.php:61
+msgid "New "
+msgstr "Novo "
+
+#: includes/member-extension.php:156
+#, php-format
+msgid " Add %s"
+msgstr " Adicionar %s"
+
+#: includes/member-extension.php:169
+#, php-format
+msgid " Edit %s"
+msgstr "  Editar %s"
+
+#: includes/member-extension.php:182
+#, php-format
+msgid " Revision %s"
+msgstr ""
+
+#: includes/member-extension.php:195
+#, php-format
+msgid " Page %s"
+msgstr " Página %s"
+
+#: includes/member-extension.php:425
+msgid "Published a new "
+msgstr ""
+
+#: includes/member-extension.php:429 includes/member-extension.php:430
+#, php-format
+msgid "%1$s posted a new <a href=\"%2$s\">"
+msgstr ""
+
+#: includes/redirect.php:171
+msgid "Edit"
+msgstr "Editar"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:336
+msgid "Install Required Plugins"
+msgstr "Instalar Plugins Requeridos"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:337
+msgid "Install Plugins"
+msgstr "Instalar Plugins"
+
+#. translators: %s: plugin name.
+#: includes/resources/tgm/class-tgm-plugin-activation.php:339
+#, php-format
+msgid "Installing Plugin: %s"
+msgstr "Instalando Plugin: %s"
+
+#. translators: %s: plugin name.
+#: includes/resources/tgm/class-tgm-plugin-activation.php:341
+#, php-format
+msgid "Updating Plugin: %s"
+msgstr "Atualizando Plugin: %s"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:342
+msgid "Something went wrong with the plugin API."
+msgstr "Algo deu errado com a API do plugin."
+
+#. translators: 1: plugin name(s).
+#: includes/resources/tgm/class-tgm-plugin-activation.php:345
+#, php-format
+msgid "This theme requires the following plugin: %1$s."
+msgid_plural "This theme requires the following plugins: %1$s."
+msgstr[0] "Este tema requer o seguinte plug-in: %1$s ."
+msgstr[1] "Este tema requer os seguintes plugins: %1$s."
+
+#. translators: 1: plugin name(s).
+#: includes/resources/tgm/class-tgm-plugin-activation.php:351
+#, php-format
+msgid "This theme recommends the following plugin: %1$s."
+msgid_plural "This theme recommends the following plugins: %1$s."
+msgstr[0] "Este tema recomenda o seguinte plug-in: %1$s."
+msgstr[1] "Este tema recomenda os seguintes plugins: %1$s."
+
+#. translators: 1: plugin name(s).
+#: includes/resources/tgm/class-tgm-plugin-activation.php:357
+#, php-format
+msgid ""
+"The following plugin needs to be updated to its latest version to ensure "
+"maximum compatibility with this theme: %1$s."
+msgid_plural ""
+"The following plugins need to be updated to their latest version to ensure "
+"maximum compatibility with this theme: %1$s."
+msgstr[0] ""
+"O seguinte plug-in precisa ser atualizado para sua versão mais recente para "
+"garantir a máxima compatibilidade com este tema: %1$s ."
+msgstr[1] ""
+"Os seguintes plugins precisam ser atualizados para a versão mais recente, "
+"para assegurar o máximo de compatibilidade com este tema: %1$s."
+
+#. translators: 1: plugin name(s).
+#: includes/resources/tgm/class-tgm-plugin-activation.php:363
+#, php-format
+msgid "There is an update available for: %1$s."
+msgid_plural "There are updates available for the following plugins: %1$s."
+msgstr[0] "Existe uma atualização disponível para: %1$s."
+msgstr[1] "Existem atualizações disponíveis para: %1$s."
+
+#. translators: 1: plugin name(s).
+#: includes/resources/tgm/class-tgm-plugin-activation.php:369
+#, php-format
+msgid "The following required plugin is currently inactive: %1$s."
+msgid_plural "The following required plugins are currently inactive: %1$s."
+msgstr[0] "O plugin necessário seguinte está atualmente inativo: %1$s."
+msgstr[1] "Os seguintes plugins necessários estão atualmente inativos: %1$s."
+
+#. translators: 1: plugin name(s).
+#: includes/resources/tgm/class-tgm-plugin-activation.php:375
+#, php-format
+msgid "The following recommended plugin is currently inactive: %1$s."
+msgid_plural "The following recommended plugins are currently inactive: %1$s."
+msgstr[0] "O seguinte plug-in recomendado está atualmente inativo: %1$s."
+msgstr[1] "Os seguintes plugins recomendados estão atualmente inativos: %1$s."
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:380
+msgid "Begin installing plugin"
+msgid_plural "Begin installing plugins"
+msgstr[0] "Comece a instalar o plugin"
+msgstr[1] "Comece a instalar os plugins"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:385
+msgid "Begin updating plugin"
+msgid_plural "Begin updating plugins"
+msgstr[0] "Começar a atualizar o plugin"
+msgstr[1] "Começar a atualizar os plugins"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:390
+msgid "Begin activating plugin"
+msgid_plural "Begin activating plugins"
+msgstr[0] "Começar a ativação do plugin"
+msgstr[1] "Comece a ativar os plugins"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:394
+msgid "Return to Required Plugins Installer"
+msgstr "Voltar para instalador de Plugins necessários"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:395
+#: includes/resources/tgm/class-tgm-plugin-activation.php:938
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2691
+#: includes/resources/tgm/class-tgm-plugin-activation.php:3752
+msgid "Return to the Dashboard"
+msgstr "Voltar ao Painel"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:396
+#: includes/resources/tgm/class-tgm-plugin-activation.php:3326
+msgid "Plugin activated successfully."
+msgstr "Plugin ativado com sucesso."
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:397
+#: includes/resources/tgm/class-tgm-plugin-activation.php:3113
+msgid "The following plugin was activated successfully:"
+msgid_plural "The following plugins were activated successfully:"
+msgstr[0] "O plugin a seguir foi ativado com sucesso:"
+msgstr[1] "Os seguintes plugins foram ativados com sucesso:"
+
+#. translators: 1: plugin name.
+#: includes/resources/tgm/class-tgm-plugin-activation.php:399
+#, php-format
+msgid "No action taken. Plugin %1$s was already active."
+msgstr "Nenhuma ação tomada. O plugin %1$s já estava ativo."
+
+#. translators: 1: plugin name.
+#: includes/resources/tgm/class-tgm-plugin-activation.php:401
+#, php-format
+msgid ""
+"Plugin not activated. A higher version of %s is needed for this theme. "
+"Please update the plugin."
+msgstr ""
+"Plugin não ativado. Uma versão mais atual de %s é necessária para este tema. "
+"Por favor, atualize o plugin."
+
+#. translators: 1: dashboard link.
+#: includes/resources/tgm/class-tgm-plugin-activation.php:403
+#, php-format
+msgid "All plugins installed and activated successfully. %1$s"
+msgstr "Todos os plugins instalados e ativados com sucesso. %1$s"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:404
+msgid "Dismiss this notice"
+msgstr "Descartar essa notificação"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:405
+msgid ""
+"There are one or more required or recommended plugins to install, update or "
+"activate."
+msgstr ""
+"Há um ou mais plugins necessários ou recomendados para instalar, atualizar "
+"ou ativar."
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:406
+msgid "Please contact the administrator of this site for help."
+msgstr "Entre em contato com o administrador deste site para obter ajuda."
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:624
+msgid "This plugin needs to be updated to be compatible with your theme."
+msgstr "Este plugin precisa ser atualizado para ser compatível com seu tema."
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:625
+msgid "Update Required"
+msgstr "Atualização necessária"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:742
+msgid "Set the parent_slug config variable instead."
+msgstr "Defina a variável de configuração parent_slug em vez disso."
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:1046
+msgid ""
+"The remote plugin package does not contain a folder with the desired slug "
+"and renaming did not work."
+msgstr ""
+"O pacote de plug-in remoto não contém uma pasta com o slug desejado e a "
+"renomeação não funcionou."
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:1046
+#: includes/resources/tgm/class-tgm-plugin-activation.php:1052
+msgid ""
+"Please contact the plugin provider and ask them to package their plugin "
+"according to the WordPress guidelines."
+msgstr ""
+"Entre em contato com o provedor de plugins e peça-lhes para empacotar seu "
+"plugin de acordo com as diretrizes do WordPress."
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:1052
+msgid ""
+"The remote plugin package consists of more than one file, but the files are "
+"not packaged in a folder."
+msgstr ""
+"O pacote de plugin remoto consiste em mais de um arquivo, mas os arquivos "
+"não são empacotados em uma pasta."
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:1240
+#: includes/resources/tgm/class-tgm-plugin-activation.php:3109
+msgctxt "plugin A *and* plugin B"
+msgid "and"
+msgstr "e"
+
+#. translators: %s: version number
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2127
+#, php-format
+msgid "TGMPA v%s"
+msgstr "TGMPA v%s"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2424
+msgid "Required"
+msgstr "Obrigatório"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2427
+msgid "Recommended"
+msgstr "Recomendado"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2444
+msgid "WordPress Repository"
+msgstr "Repositório WordPress"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2447
+msgid "External Source"
+msgstr "Fonte externa"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2450
+msgid "Pre-Packaged"
+msgstr "Pré-embalados"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2468
+msgid "Not Installed"
+msgstr "Não instalado"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2472
+msgid "Installed But Not Activated"
+msgstr "Instalado mas não ativado"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2474
+msgid "Active"
+msgstr "Ativo"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2480
+msgid "Required Update not Available"
+msgstr "Atualização necessária não disponível"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2483
+msgid "Requires Update"
+msgstr "Requer atualização"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2486
+msgid "Update recommended"
+msgstr "Atualização recomendada"
+
+#. translators: 1: install status, 2: update status
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2495
+#, php-format
+msgctxt "Install/Update Status"
+msgid "%1$s, %2$s"
+msgstr "%1$s, %2$s"
+
+#. translators: 1: number of plugins.
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2542
+#, php-format
+msgctxt "plugins"
+msgid "All <span class=\"count\">(%s)</span>"
+msgid_plural "All <span class=\"count\">(%s)</span>"
+msgstr[0] "Tudo <span class=\"count\">(%s)</span>"
+msgstr[1] "Tudo <span class=\"count\">(%s)</span>"
+
+#. translators: 1: number of plugins.
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2546
+#, php-format
+msgid "To Install <span class=\"count\">(%s)</span>"
+msgid_plural "To Install <span class=\"count\">(%s)</span>"
+msgstr[0] "Para Instalar <span class=\"count\">(%s)</span>"
+msgstr[1] "Para Instalar <span class=\"count\">(%s)</span>"
+
+#. translators: 1: number of plugins.
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2550
+#, php-format
+msgid "Update Available <span class=\"count\">(%s)</span>"
+msgid_plural "Update Available <span class=\"count\">(%s)</span>"
+msgstr[0] "Atualização disponível <span class=\"count\">(%s)</span>"
+msgstr[1] "Atualização disponível <span class=\"count\">(%s)</span>"
+
+#. translators: 1: number of plugins.
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2554
+#, php-format
+msgid "To Activate <span class=\"count\">(%s)</span>"
+msgid_plural "To Activate <span class=\"count\">(%s)</span>"
+msgstr[0] "Para Ativar <span class=\"count\">(%s)</span>"
+msgstr[1] "Para Ativar <span class=\"count\">(%s)</span>"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2640
+msgctxt "as in: \"version nr unknown\""
+msgid "unknown"
+msgstr "desconhecido"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2648
+msgid "Installed version:"
+msgstr "Versão instalada:"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2656
+msgid "Minimum required version:"
+msgstr "Versão mínima necessária:"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2668
+msgid "Available version:"
+msgstr "Versão disponível:"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2691
+msgid "No plugins to install, update or activate."
+msgstr "Não há plugins para instalar, atualizar ou ativar."
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2705
+msgid "Plugin"
+msgstr "Plugin"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2706
+msgid "Source"
+msgstr "Fonte"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2707
+msgid "Type"
+msgstr "Tipo"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2711
+msgid "Version"
+msgstr "Versão"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2712
+msgid "Status"
+msgstr "Status"
+
+#. translators: %2$s: plugin name in screen reader markup
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2762
+#, php-format
+msgid "Install %2$s"
+msgstr "Instalar %2$s"
+
+#. translators: %2$s: plugin name in screen reader markup
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2767
+#, php-format
+msgid "Update %2$s"
+msgstr "Atualizar %2$s"
+
+#. translators: %2$s: plugin name in screen reader markup
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2773
+#, php-format
+msgid "Activate %2$s"
+msgstr "Ativar %2$s"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2845
+msgid "Upgrade message from the plugin author:"
+msgstr "Mensagem de atualização do autor do plugin:"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2878
+msgid "Install"
+msgstr "Instalar"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2884
+msgid "Update"
+msgstr "Atualizar"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2887
+msgid "Activate"
+msgstr "Ativar"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2918
+msgid "No plugins were selected to be installed. No action taken."
+msgstr "Nenhum plugin foi selecionado para ser instalado. Nenhuma ação tomada."
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2920
+msgid "No plugins were selected to be updated. No action taken."
+msgstr ""
+"Nenhum plugin foi selecionado para ser atualizado. Nenhuma ação tomada."
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2961
+msgid "No plugins are available to be installed at this time."
+msgstr "Nenhum plugin está disponível para ser instalado no momento."
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:2963
+msgid "No plugins are available to be updated at this time."
+msgstr "Nenhum plug-in está disponível para ser atualizado neste momento."
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:3069
+msgid "No plugins were selected to be activated. No action taken."
+msgstr "Nenhum plugin foi selecionado para ser ativado. Nenhuma ação tomada."
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:3095
+msgid "No plugins are available to be activated at this time."
+msgstr "Nenhum plugin está disponível para ser ativado neste momento."
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:3325
+msgid "Plugin activation failed."
+msgstr "Ativação do plugin falhou."
+
+#. translators: 1: plugin name, 2: action number 3: total number of actions.
+#: includes/resources/tgm/class-tgm-plugin-activation.php:3670
+#, php-format
+msgid "Updating Plugin %1$s (%2$d/%3$d)"
+msgstr "Atualizando Plugin %1$s (%2$d/%3$d)"
+
+#. translators: 1: plugin name, 2: error message.
+#: includes/resources/tgm/class-tgm-plugin-activation.php:3673
+#, php-format
+msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
+msgstr "Ocorreu um erro ao instalar %1$s: <strong>%2$s</strong>."
+
+#. translators: 1: plugin name.
+#: includes/resources/tgm/class-tgm-plugin-activation.php:3675
+#, php-format
+msgid "The installation of %1$s failed."
+msgstr "A instalação de %1$s falhou."
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:3679
+msgid ""
+"The installation and activation process is starting. This process may take a "
+"while on some hosts, so please be patient."
+msgstr ""
+"O processo de instalação e ativação está começando. Este processo pode levar "
+"algum tempo em alguns hosts, por isso, seja paciente."
+
+#. translators: 1: plugin name.
+#: includes/resources/tgm/class-tgm-plugin-activation.php:3681
+#, php-format
+msgid "%1$s installed and activated successfully."
+msgstr "%1$s instalado e ativado com sucesso."
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:3681
+#: includes/resources/tgm/class-tgm-plugin-activation.php:3689
+msgid "Show Details"
+msgstr "Mostrar detalhes"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:3681
+#: includes/resources/tgm/class-tgm-plugin-activation.php:3689
+msgid "Hide Details"
+msgstr "Ocultar detalhes"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:3682
+msgid "All installations and activations have been completed."
+msgstr "Todas as instalações e ativações foram concluídas."
+
+#. translators: 1: plugin name, 2: action number 3: total number of actions.
+#: includes/resources/tgm/class-tgm-plugin-activation.php:3684
+#, php-format
+msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
+msgstr "Instalando e Ativando o Plugin %1$s (%2$d/%3$d)"
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:3687
+msgid ""
+"The installation process is starting. This process may take a while on some "
+"hosts, so please be patient."
+msgstr ""
+"O processo de instalação está começando. Este processo pode levar algum "
+"tempo em alguns hosts, por isso, seja paciente."
+
+#. translators: 1: plugin name.
+#: includes/resources/tgm/class-tgm-plugin-activation.php:3689
+#, php-format
+msgid "%1$s installed successfully."
+msgstr "%1$s instalado com sucesso."
+
+#: includes/resources/tgm/class-tgm-plugin-activation.php:3690
+msgid "All installations have been completed."
+msgstr "Todas as instalações foram concluídas."
+
+#. translators: 1: plugin name, 2: action number 3: total number of actions.
+#: includes/resources/tgm/class-tgm-plugin-activation.php:3692
+#, php-format
+msgid "Installing Plugin %1$s (%2$d/%3$d)"
+msgstr "Instalando o Plugin %1$s (%2$d/%3$d)"
+
+#. Plugin Name of the plugin/theme
+msgid "BuddyForms Members"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://buddyforms.com/downloads/buddyforms-members/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"The BuddyForms Members Component. Let your members write right out of their "
+"profiles."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "ThemeKraft"
+msgstr "ThemeKraft"
+
+#. Author URI of the plugin/theme
+msgid "https://themekraft.com/buddyforms/"
+msgstr ""

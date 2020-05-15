@@ -153,7 +153,7 @@ class BuddyForms_Members_Extention extends BP_Component {
 						$position ++;
 
 						$sub_nav[]                                                 = array(
-							'name'            => sprintf( __( ' Add %s', 'buddyforms' ), $member_form['singular_name'] ),
+							'name'            => sprintf( __( ' Add %s', 'buddyforms-members' ), $member_form['singular_name'] ),
 							'slug'            => $key . '-create',
 							'parent_slug'     => $parent_tab,
 							'parent_url'      => trailingslashit( bp_displayed_user_domain() . $parent_tab ),
@@ -166,7 +166,7 @@ class BuddyForms_Members_Extention extends BP_Component {
 						$position ++;
 
 						$sub_nav[]                                               = array(
-							'name'            => sprintf( __( ' Edit %s', 'buddyforms' ), $member_form['singular_name'] ),
+							'name'            => sprintf( __( ' Edit %s', 'buddyforms-members' ), $member_form['singular_name'] ),
 							'slug'            => $key . '-edit',
 							'parent_slug'     => $parent_tab,
 							'parent_url'      => trailingslashit( bp_displayed_user_domain() . $parent_tab ),
@@ -179,7 +179,7 @@ class BuddyForms_Members_Extention extends BP_Component {
 						$position ++;
 
 						$sub_nav[]                                                   = array(
-							'name'            => sprintf( __( ' Revision %s', 'buddyforms' ), $member_form['singular_name'] ),
+							'name'            => sprintf( __( ' Revision %s', 'buddyforms-members' ), $member_form['singular_name'] ),
 							'slug'            => $key . '-revision',
 							'parent_slug'     => $parent_tab,
 							'parent_url'      => trailingslashit( bp_loggedin_user_domain() . $parent_tab ),
@@ -192,7 +192,7 @@ class BuddyForms_Members_Extention extends BP_Component {
 						$position ++;
 
 						$sub_nav[]                                               = array(
-							'name'            => sprintf( __( ' Page %s', 'buddyforms' ), $member_form['singular_name'] ),
+							'name'            => sprintf( __( ' Page %s', 'buddyforms-members' ), $member_form['singular_name'] ),
 							'slug'            => $key . '-page',
 							'parent_slug'     => $parent_tab,
 							'parent_url'      => trailingslashit( bp_loggedin_user_domain() . $parent_tab ),
@@ -422,12 +422,12 @@ function buddyforms_members_activity_stream_support() {
 				bp_activity_set_post_type_tracking_args( $buddyform['post_type'] , array(
 					'component_id'             => 'activity',
 					'action_id'                => 'new_post_' . $buddyform['post_type'] ,
-					'bp_activity_admin_filter' => __( 'Published a new ' . $name_singular , 'buddyforms' ),
-					'bp_activity_front_filter' => __( $name_singular , 'buddyforms' ),
+					'bp_activity_admin_filter' => __( 'Published a new ' . $name_singular , 'buddyforms-members' ),
+					'bp_activity_front_filter' => __( $name_singular , 'buddyforms-members' ),
 					'contexts'                 => array( 'activity', 'member' ),
 					'activity_comment'         => true,
-					'bp_activity_new_post'     => __( '%1$s posted a new <a href="%2$s">' . $name_singular . '</a>', 'buddyforms' ),
-					'bp_activity_new_post_ms'  => __( '%1$s posted a new <a href="%2$s">' . $name_singular . '</a>, on the site %3$s', 'buddyforms' ),
+					'bp_activity_new_post'     => __( '%1$s posted a new <a href="%2$s">' . $name_singular . '</a>', 'buddyforms-members' ),
+					'bp_activity_new_post_ms'  => __( '%1$s posted a new <a href="%2$s">' . $name_singular . '</a>, on the site %3$s', 'buddyforms-members' ),
 					'position'                 => 100,
 				) );
 
