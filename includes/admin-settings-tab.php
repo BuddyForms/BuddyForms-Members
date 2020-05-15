@@ -62,7 +62,7 @@ function buddyforms_buddypress_settings_page_tab( $tab ) {
 		                        <?php
 		                        if ( isset( $buddyforms ) && is_array( $buddyforms ) ) {
 			                        echo '<select name="buddyforms_buddypress_settings[none]" id="buddyforms_registration_form_none">';
-                                        echo '<option ' . selected( $buddypress_settings['none'], 'none' ) . '  value="none">' . __( 'BuddyPress Default',  ) . '</option>';
+                                        echo '<option ' . selected( $buddypress_settings['none'], 'none' ) . '  value="none">' . __( 'BuddyPress Default', 'buddyforms-members' ) . '</option>';
 			                        foreach ( $buddyforms as $form_slug => $form ) {
 				                        if ( $form['form_type'] == 'registration' ) {
 					                        echo '<option ' . selected( $buddypress_settings['none'], $form['slug'] ) . ' value="' . $form['slug'] . '">' . $form['name'] . '</option>';
