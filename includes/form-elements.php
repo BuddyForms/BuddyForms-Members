@@ -38,6 +38,11 @@ function buddyforms_members_admin_settings_sidebar_metabox_html() {
 		$bp_activity_stream = $buddyform['bp_activity_stream'];
 	}
 
+	$bp_profile_member_message = false;
+	if ( isset( $buddyform['bp_profile_member_message'] ) ) {
+		$bp_profile_member_message = $buddyform['bp_profile_member_message'];
+	}
+
 
 	$form_setup[] = new Element_Checkbox( "<b>" . __( 'Add this form as Profile Tab', 'buddyforms-members' ) . "</b>", "buddyforms_options[profiles_integration]", array( "integrate" => "Integrate this Form" ), array(
 		'value'     => $attache,
@@ -47,14 +52,25 @@ function buddyforms_members_admin_settings_sidebar_metabox_html() {
 		'value'     => $profiles_parent_tab,
 		'shortDesc' => __( 'Many Forms can have the same attached Page. All Forms with the same page with page as parent enabled will be listed as sub forms. This why you can group forms.', 'buddyforms-members' )
 	) );
+
+	$form_setup[]  = new Element_Checkbox( "<br><b>" . __( 'Send Message to Member', 'buddyforms-members' ) . "</b>", "buddyforms_options[bp_profile_member_message]", array( "bp_profile_member_message" => "Send a copy of the submission to the profile member" ), array(
+		'value'     => $bp_profile_member_message,
+		'shortDesc' => __( 'If you want to create a contact form for yor members so that visitor of the profile can write directly to the BuddyPress Member, you can use this option so that the memebr get a copy of the submission and can answer to the submitter by email ' )
+	) );
+
+
 	$element      = new Element_Checkbox( "<br><b>" . __( 'Activity Support', 'buddyforms-members' ) . "</b>", "buddyforms_options[bp_activity_stream]", array( "bp_activity_stream" => "Add Activity Support" ), array(
 		'value'     => $bp_activity_stream,
 		'shortDesc' => __( 'Every time a new Post is created with this Form a BuddyPress Activity Item will be added to the Members Activity Stream', 'buddyforms-members' )
 	) );
+
 	if ( buddyforms_members_fs()->is_not_paying() ) {
 		$element->setAttribute( 'disabled', 'disabled' );
 	}
 	$form_setup[] = $element;
+
+
+
 
 	$form_setup[] = new Element_Select( "<br><b>" . __( 'Visibility', 'buddyforms-members' ) . "</b>", "buddyforms_options[profile_visibility]", array(
 		"private"        => "Private - Only the logged in member in his profile.",
