@@ -58,7 +58,6 @@ function buddyforms_members_admin_settings_sidebar_metabox_html() {
 		'shortDesc' => __( 'If you want to create a contact form for yor members so that visitor of the profile can write directly to the BuddyPress Member, you can use this option so that the memebr get a copy of the submission and can answer to the submitter by email ' )
 	) );
 
-
 	$element      = new Element_Checkbox( "<br><b>" . __( 'Activity Support', 'buddyforms-members' ) . "</b>", "buddyforms_options[bp_activity_stream]", array( "bp_activity_stream" => "Add Activity Support" ), array(
 		'value'     => $bp_activity_stream,
 		'shortDesc' => __( 'Every time a new Post is created with this Form a BuddyPress Activity Item will be added to the Members Activity Stream', 'buddyforms-members' )
@@ -68,8 +67,6 @@ function buddyforms_members_admin_settings_sidebar_metabox_html() {
 		$element->setAttribute( 'disabled', 'disabled' );
 	}
 	$form_setup[] = $element;
-
-
 
 
 	$form_setup[] = new Element_Select( "<br><b>" . __( 'Visibility', 'buddyforms-members' ) . "</b>", "buddyforms_options[profile_visibility]", array(
