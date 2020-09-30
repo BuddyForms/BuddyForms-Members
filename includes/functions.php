@@ -172,3 +172,50 @@ function buddyforms_members_button_add_new( $button, $args ) {
 
 	return $button;
 }
+
+
+add_filter('buddyforms_mail_to_before_send_notification', 'buddyforms_send_notifiction_to_member', 10, 3 );
+function buddyforms_send_notifiction_to_member( $mail_to, $notification, $form_slug ) {
+	global $buddyforms;
+
+	if ( ! isset( $buddyforms[$form_slug] ) ) {
+		return $mail_to;
+	}
+
+	$form = $buddyforms[$form_slug];
+	
+	if ( $form['form_type'] !== 'contact' || ! isset( $form['bp_profile_member_message'] ) ) {
+		return $mail_to;
+	}
+
+	$member = get_userdata( bp_displayed_user_id() );
+
+	if ( ! isset( $member->user_email ) ) {
+		return $mail_to;
+	}
+
+	if ( isset( $notification['mail_to'] ) && in_array( 'member', $notification['mail_to'] ) ) {
+		array_push( $mail_to, $member->user_email );
+	}
+
+	return $mail_to;
+}
+
+add_filter('buddyforms_notifications_send_mail_to_options', 'buddyforms_notification_send_mail_to_member_option', 10, 3 );
+function buddyforms_notification_send_mail_to_member_option($mail_to_options, $trigger, $form_slug ) {
+	global $buddyforms;
+
+	if ( ! isset( $buddyforms[$form_slug] ) ) {
+		return $mail_to_options;
+	}
+
+	$form = $buddyforms[$form_slug];
+
+	if ( $form['form_type'] !== 'contact' || ! isset( $form['bp_profile_member_message'] ) ) {
+		return $mail_to_options;
+	}
+
+	$mail_to_options['member'] = __( 'Member - send to displayed member', 'buddyforms' );
+
+	return $mail_to_options;
+}

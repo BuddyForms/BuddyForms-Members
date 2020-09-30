@@ -53,10 +53,12 @@ function buddyforms_members_admin_settings_sidebar_metabox_html() {
 		'shortDesc' => __( 'Many Forms can have the same attached Page. All Forms with the same page with page as parent enabled will be listed as sub forms. This why you can group forms.', 'buddyforms-members' )
 	) );
 
-	$form_setup[]  = new Element_Checkbox( "<br><b>" . __( 'Send Message to Member', 'buddyforms-members' ) . "</b>", "buddyforms_options[bp_profile_member_message]", array( "bp_profile_member_message" => "Send a copy of the submission to the profile member" ), array(
-		'value'     => $bp_profile_member_message,
-		'shortDesc' => __( 'If you want to create a contact form for yor members so that visitor of the profile can write directly to the BuddyPress Member, you can use this option so that the memebr get a copy of the submission and can answer to the submitter by email ' )
-	) );
+	if ( $buddyform['form_type'] === 'contact' ) {
+		$form_setup[]  = new Element_Checkbox( "<br><b>" . __( 'Send Message to Member', 'buddyforms-members' ) . "</b>", "buddyforms_options[bp_profile_member_message]", array( "bp_profile_member_message" => "Integrate this form as a member contact form" ), array(
+			'value'     => $bp_profile_member_message,
+			'shortDesc' => __( 'Visibility: This tab is only visible in other user profiles. You will not see it in your profile. It is visible to your profile visitors only. A new sen to option is added to the notifications. please make sure you have at least one notification send to the member.' )
+		) );
+	}
 
 	$element      = new Element_Checkbox( "<br><b>" . __( 'Activity Support', 'buddyforms-members' ) . "</b>", "buddyforms_options[bp_activity_stream]", array( "bp_activity_stream" => "Add Activity Support" ), array(
 		'value'     => $bp_activity_stream,
