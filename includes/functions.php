@@ -219,3 +219,33 @@ function buddyforms_notification_send_mail_to_member_option($mail_to_options, $t
 
 	return $mail_to_options;
 }
+
+add_action('post_submitbox_start', 'buddyforms_check_send_message_to_member_conditions');
+function buddyforms_check_send_message_to_member_conditions() {
+	global $buddyform;
+
+	$messages = array();
+
+	if ( ! isset( $buddyform['form_type'] )
+		 || $buddyform['form_type'] !== 'contact'
+		 || ! isset( $buddyform['bp_profile_member_message'] )
+	) {
+		return;
+	}
+
+	$mail_to = array();
+	$bf_notice = new BfAdminNotices();
+	$notifications = $buddyform['mail_submissions'];
+
+	foreach ($notifications as $notification) {
+		$mail_to = array_merge( $mail_to, $notification['mail_to'] );
+	}
+
+	if ( ! in_array( 'member', $mail_to ) ) {
+		$messages[] = __( 'At least one Mail Notification must have selected Send mail to Member.', 'buddyforms' );
+	}
+
+	if ( ! empty( $messages ) ) {
+		$bf_notice->show_form_notices($messages);
+	}
+}
