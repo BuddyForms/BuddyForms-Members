@@ -70,6 +70,7 @@ add_action( 'init', function () {
 				'name'     => 'BuddyForms',
 				'slug'     => 'buddyforms',
 				'required' => true,
+				'version'  => '2.5.23-beta.2',
 			);
 		}
 
