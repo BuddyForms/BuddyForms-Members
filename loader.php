@@ -53,7 +53,7 @@ add_action( 'init', function () {
 	require( dirname( __FILE__ ) . '/includes/resources/tgm/class-tgm-plugin-activation.php' );
 
 	// Hook required plugins function to the tgmpa_register action
-	add_action( 'buddyforms_members_tgmpa', function () {
+	add_action( 'buddyforms_members_tgmpa_register', function () {
 		$plugins = array();
 		$is_buddyboss_theme_active = buddyforms_members_is_buddyboss_theme_active();
 		if ( ! $is_buddyboss_theme_active ) {
