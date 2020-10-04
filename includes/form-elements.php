@@ -56,7 +56,7 @@ function buddyforms_members_admin_settings_sidebar_metabox_html() {
 	if ( isset( $buddyform['form_type'] ) && $buddyform['form_type'] === 'contact' ) {
 		$form_setup[]  = new Element_Checkbox( "<br><b>" . __( 'Send Message to Member', 'buddyforms-members' ) . "</b>", "buddyforms_options[bp_profile_member_message]", array( "bp_profile_member_message" => "Integrate this form as a member contact form" ), array(
 			'value'     => $bp_profile_member_message,
-			'shortDesc' => __( 'Visibility: This tab is only visible in other user profiles. You will not see it in your profile. It is visible to your profile visitors only. A new sen to option is added to the notifications. please make sure you have at least one notification send to the member.' )
+			'shortDesc' => __( 'Visibility: This tab is only visible in other user profiles. You will not see it in your profile. It is visible to your profile visitors only. A new send to option is added to the notifications. Please make sure you have at least one notification send to the member.' )
 		) );
 	}
 
