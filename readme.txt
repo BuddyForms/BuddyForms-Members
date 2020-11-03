@@ -104,8 +104,12 @@ Yes, you can add login and registration Form Elements to any form and ask your u
 5. **Backend Overview** - The backend overview of your existing forms.
 
 == Changelog ==
-= 1.4.11 - 30 September =
-* Added new option to integrate a form as a member contact form.
+= 1.4.12 - 3 November 2020 =
+* Added: New option to integrate a form as a member contact form.
+* Feature: Show notice when the Send Message to Member feature is enabled and Send Email to Member has not been checked on any Notification.
+* Fixed: Add missing validation in the code to avoid warnings and notices.
+* Fixed: Spelling correction.
+* Fixed: add missing pro labels and restriction over te form builder related to Member Type, xProfile Field, and xProfile Group.
 
 = 1.4.10 - 17 May 2020 =
 * Fixed error code related to the tmpga library.
