@@ -8,7 +8,7 @@ class RoboFile extends RoboFileBase {
 	}
 
 	public function fileStructure() {
-		return array( 'loader.php', 'buddyforms-members.php', 'composer.json', 'license.txt', 'readme.txt' );
+		return array( 'loader.php', 'buddyforms-members.php', 'loco.xml', 'composer.json', 'license.txt', 'readme.txt' );
 	}
 
 	public function cleanPhpDirectories() {
