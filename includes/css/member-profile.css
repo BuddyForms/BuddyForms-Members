@@ -3,7 +3,10 @@
 * BuddyPress Specific CSS for Front End Form on Profiles
 *
 **/
-#buddypress,.secondary-inner>a img{position:unset !important; }
+#buddypress:not(.bb-media-model-wrapper.bb-internal-model),
+.secondary-inner>a img { 
+    position:unset !important; 
+}
 
 ul.product_images.ui-sortable li img {
     width: 100px;
