@@ -237,6 +237,10 @@ function buddyforms_check_send_message_to_member_conditions() {
 	$bf_notice = new BfAdminNotices();
 	$notifications = $buddyform['mail_submissions'];
 
+	if ( ! is_array( $notifications ) ) {
+		return;
+	}
+
 	foreach ($notifications as $notification) {
 		$mail_to = array_merge( $mail_to, $notification['mail_to'] );
 	}
