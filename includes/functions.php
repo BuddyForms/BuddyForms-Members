@@ -251,7 +251,7 @@ function buddyforms_check_send_message_to_member_conditions() {
 }
 
 add_action( 'buddyforms_before_update_form_options', 'buddyforms_enable_at_least_one_send_to_member_in_notifications', 10, 2 );
-function buddyforms_enable_at_least_one_send_to_member_in_notifications( $post_id, $buddyform ) {
+function buddyforms_enable_at_least_one_send_to_member_in_notifications( $buddyform, $post_id ) {
 
 	$old_data = get_post_meta( $post_id, '_buddyforms_options', true );
 
@@ -262,10 +262,10 @@ function buddyforms_enable_at_least_one_send_to_member_in_notifications( $post_i
 		$notifications = $buddyform['mail_submissions'];
 
 		if ( ! is_array( $notifications ) && count( $notifications ) > 0 ) {
-			return;
+			return $buddyform;
 		}
 
-		foreach ($notifications as $index => $notification) {
+		foreach ($notifications as $notification) {
 			$mail_to = array_merge( $mail_to, $notification['mail_to'] );
 		}
 
