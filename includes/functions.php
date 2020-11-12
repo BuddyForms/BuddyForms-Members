@@ -249,3 +249,36 @@ function buddyforms_check_send_message_to_member_conditions() {
 		$bf_notice->show_form_notices($messages);
 	}
 }
+
+add_action( 'buddyforms_before_update_form_options', 'buddyforms_enable_at_least_one_send_to_member_in_notifications', 10, 2 );
+function buddyforms_enable_at_least_one_send_to_member_in_notifications( $post_id, $buddyform ) {
+
+	$old_data = get_post_meta( $post_id, '_buddyforms_options', true );
+
+	// Send message to member is about to be enabled? 	
+	if ( isset( $buddyform['bp_profile_member_message'] ) && ! isset( $old_data['bp_profile_member_message'] ) ) {
+
+		$mail_to = array();
+		$notifications = $buddyform['mail_submissions'];
+
+		if ( ! is_array( $notifications ) && count( $notifications ) > 0 ) {
+			return;
+		}
+
+		foreach ($notifications as $index => $notification) {
+			$mail_to = array_merge( $mail_to, $notification['mail_to'] );
+		}
+
+		if ( ! in_array( 'member', $mail_to ) ) {
+
+			foreach ($notifications as &$notification ) {
+				$notification['mail_to'][] = 'member'; 
+				break;
+			}
+
+			$buddyform['mail_submissions'] = $notifications;
+		}
+	}
+
+	return $buddyform;
+}
