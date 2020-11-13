@@ -132,7 +132,7 @@ function buddyforms_members_create_new_form_builder_form_element( $form_fields, 
 
 			unset( $form_fields );
 
-			$name                           = isset( $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['name'] ) ? $buddyforms_options[ $form_slug ]['form_fields'][ $field_id ]['name'] : 'Member Type';
+			$name                           = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['name'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['name'] : 'Member Type';
 			$form_fields['general']['name'] = new Element_Textbox( '<b>' . __( 'Name', 'buddyforms-members' ) . '</b>', "buddyforms_options[form_fields][" . $field_id . "][name]", array( 'value' => $name ) );
 
 
