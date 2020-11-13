@@ -359,9 +359,11 @@ function buddyforms_members_create_frontend_form_element( $form, $form_args ) {
 	switch ( $customfield['type'] ) {
 		case 'bp_member_type':
 
+			$custom_class = ! empty( $customfield['custom_class'] ) ? $customfield['custom_class'] : '';
+
 			$element_attr = array(
 				'value'     => is_user_logged_in() ? bp_get_member_type( get_current_user_id() ) : '',
-				'class'     => 'settings-input',
+				'class'     => 'settings-input ' . $custom_class,
 				'shortDesc' => empty( $customfield['description'] ) ? '' : $customfield['description'],
 				'data-form'  => $form_slug
 			);
