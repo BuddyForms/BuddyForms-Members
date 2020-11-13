@@ -108,7 +108,7 @@ Yes, you can add login and registration Form Elements to any form and ask your u
 * Fixed CSS issue related with build-in modals in BuddyBoss.
 * Added extra validation on the hook "buddyforms_check_send_message_to_member_conditions" to avoid notices.
 * Feature added to auto-select "Send to Member" on at least one notification after enabled the option "Send Message to Member".
-* Fixed issue related to the custom class option on the BP Member Type field that was being added on the Front-end.
+* Fixed issue related to the custom class option on the BP Member Type field which was not being added in the Front-end.
 * Fixed issue on BP Member Type field that was avoiding the name being properly updated.
 
 = 1.4.12 - 3 November 2020 =
