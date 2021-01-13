@@ -110,7 +110,7 @@ function buddyforms_members_add_form_element_to_select( $elements_select_options
 	
 	// TODO: implement an alternative solution
 	// that doesn't hide the pro elements.
-	if ( buddyforms_members_fs()->is_not_paying() ) {
+	if ( ! buddyforms_members_fs()->is_not_paying() ) {
 		$elements_select_options['buddyforms']['fields']['xprofile_field']  = array(
 			'label' => __( 'xProfile Field', 'buddyforms-members' ),
 		);
