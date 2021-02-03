@@ -3,7 +3,7 @@ Contributors: svenl77, themekraft, buddyforms, gfirem
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing, form, forms, form builder, forms builder, post forms, user generated content, form, forms, frontend forms, contact form, contact forms, content form, post form, post forms, content forms, registration form, registration forms, custom form, custom forms, form, form administration, form builder, form creation, form creator, form manager, forms, forms builder, forms creation, forms creator, forms manager, community, content, content generation, crowdsourced content, frontend generated content, images, post, posts, public, publish, share, submission, submissions, submit, submitted, upload, user submitted, user-generated, user-submit, user-generated content
 Requires at least: 3.9
 Tested up to: 5.4
-Stable tag: 1.4.13
+Stable tag: 1.4.14
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -104,6 +104,10 @@ Yes, you can add login and registration Form Elements to any form and ask your u
 5. **Backend Overview** - The backend overview of your existing forms.
 
 == Changelog ==
+= 1.4.14 - 3 Feb 2021 =
+* Fixed issue with the "pro" fields (xprofile ones) that are remained disabled when BuddyForms was free but BF Members pro.
+* Add support to form_action use in PR 714 to fix an issue on the parent extension.
+
 = 1.4.13 - 12 Nov 2020 =
 * Fixed CSS issue related with build-in modals in BuddyBoss.
 * Added extra validation on the hook "buddyforms_check_send_message_to_member_conditions" to avoid notices.
