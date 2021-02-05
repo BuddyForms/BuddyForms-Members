@@ -263,6 +263,77 @@ function buddyforms_members_create_new_form_builder_form_element( $form_fields, 
 				}
 				$form_fields['general']['xprofile_field'] = $element;
 
+				// Let's add an script to handled the update of xprofile field selector 
+
+				$script = "<script>
+					jQuery(function() {	
+						const \$xprofile_group = jQuery('[name=\'buddyforms_options[form_fields][" . $field_id . "][xprofile_group]\']');
+
+						const ajaxReq = function(){
+
+							debugger;
+						
+							const \$xprofile_field = jQuery('[name=\'buddyforms_options[form_fields][" . $field_id . "][xprofile_field]\']');
+							const selected_group_id = \$xprofile_group.val();
+
+							// Let's disabled the event & input 
+							// until the request get ready.
+							\$xprofile_group.off('changed');
+							\$xprofile_field.attr('disabled', true);
+
+							if ( buddyformsGlobal && buddyformsGlobal.admin_url) {
+
+								jQuery.post( buddyformsGlobal.admin_url, { action: 'buddyforms_update_xprofile_field_selector', group_id: selected_group_id })
+
+								.done(function(resp){
+
+									try {
+										
+										if (resp.success === false) {
+											throw data.server_msg
+										}
+										
+										const data = JSON.parse(resp.data);
+
+										if (data.group_fields !== 'object') {
+								
+											\$xprofile_field.find('option').not('option[value=\'none\']').remove();
+
+											const group_fields = Object.entries(data.group_fields);
+
+											group_fields.forEach(function(field){
+												\$xprofile_field.append(`<option value=\${field[0]}>\${field[1]}</option>`);
+											});
+											
+										}										
+							
+									} catch (error) {
+										console.error(error)
+									}
+
+								})
+								.fail(function(jqXHR, textStatus, errorThrown){
+
+									console.log(textStatus);
+
+								}).always(function(){
+
+									// Let's enabled all again.		
+									\$xprofile_group.off('change').change(ajaxReq);
+									\$xprofile_field.attr('disabled', false);
+
+								});
+							}
+						};
+
+						\$xprofile_group.off('change').change(ajaxReq);
+
+					});
+				</script>";
+
+				$form_fields['general']['xprofile_field_script'] = new Element_HTML( $script );
+
+
 			} else {
 				$form_fields['general']['notice'] = new Element_HTML( __( 'You need to enable BuddyPress Groups to use this form element', 'buddyforms-members' ) );
 			}
@@ -332,6 +403,47 @@ function buddyforms_members_create_new_form_builder_form_element( $form_fields, 
 
 	return $form_fields;
 }
+
+function buddyforms_update_xprofile_field_selector() {
+	$ajax_resp = array(
+		'server_msg' => '',
+	);
+
+	try {
+
+		if ( ! isset( $_POST['action'] ) || $_POST['action'] !== 'buddyforms_update_xprofile_field_selector' ) {
+			throw new Exception('Something is wrong in your request', 1);
+		}
+
+		if ( ! isset( $_POST['group_id'] ) ) {
+			throw new Exception('Something is wrong in your request', 1);
+		}
+
+		$selected_group = $_POST['group_id'] !== 'none' ?
+			BP_XProfile_Group::get( array( 'profile_group_id' => (int) $_POST['group_id'], 'fetch_fields' => true ) ) : null;
+
+		$group_fields = array();
+
+		if ( isset( $selected_group[0]->fields ) && ! empty( $selected_group[0]->fields ) ) {
+
+			foreach ($selected_group[0]->fields as $field ) {
+				$group_fields[ $field->id ] = $field->name;
+			}
+		}
+
+		$ajax_resp['group_fields'] = $group_fields;	
+		$ajax_resp['server_msg'] = '1';
+
+		// Success
+		wp_send_json_success( json_encode( $ajax_resp ) );
+
+	} catch ( Exception $e ) {
+		$ajax_resp['server_msg'] = $e->getMessage();
+		wp_send_json_error(  json_encode( $ajax_resp ) );
+	}
+}
+
+add_action( 'wp_ajax_buddyforms_update_xprofile_field_selector', 'buddyforms_update_xprofile_field_selector' );
 
 /*
  * Display the new Form Element in the Frontend Form
