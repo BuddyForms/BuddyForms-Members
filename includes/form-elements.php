@@ -712,12 +712,17 @@ function buddyforms_members_edit_field_html( $form_slug, $field ) {
 
 	$field_type = bp_xprofile_create_field_type( bp_get_the_profile_field_type() );
 
+	$member_id = bp_displayed_user_id();
+	if ( empty( $member_id ) ) {
+		$member_id = get_current_user_id();
+	}
+
 	ob_start();
 	if ( isset( $buddyforms[ $form_slug ]['layout']['desc_position'] ) && $buddyforms[ $form_slug ]['layout']['desc_position'] == 'above_field' ) {
 		echo '<span class="help-inline">' . bp_get_the_profile_field_description() . '</span>';
-		$field_type->edit_field_html();
+		$field_type->edit_field_html( array( 'user_id' => $member_id ) );
 	} else {
-		$field_type->edit_field_html();
+		$field_type->edit_field_html( array( 'user_id' => $member_id ) );
 		echo '<span class="help-inline">' . bp_get_the_profile_field_description() . '</span>';
 	}
 	$tmp = ob_get_clean();
