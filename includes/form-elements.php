@@ -787,6 +787,24 @@ function buddyforms_members_process_submission_end( $args ) {
 				if ( isset( $field['mapped_xprofile_field'] ) && $field['mapped_xprofile_field'] != 'none' ) {
 					$xfield = new BP_XProfile_Field( $field['mapped_xprofile_field'] );
 					do_action('buddyforms_members_sync_mapped_xprofile_field', $user_id, $field, $xfield);
+
+					$user_xfields_visibility_levels = get_user_meta( $user_id, 'bp_xprofile_visibility_levels', true );
+
+					// If the xfiel have no visibility settings yet 
+					// let us set up the default ones.
+					if ( empty( $user_xfields_visibility_levels[ $xfield->id ] ) ) {
+
+						$xfield_default_visibility = $xfield->get_default_visibility();
+
+						if ( ! is_array( $user_xfields_visibility_levels ) ) {
+							$user_xfields_visibility_levels = array();
+						}
+
+						$user_xfields_visibility_levels[ $xfield->id ] = $xfield_default_visibility;
+
+						update_user_meta( $user_id, 'bp_xprofile_visibility_levels', $user_xfields_visibility_levels );
+					}
+
 					switch ( $xfield->type ) {
 
 						case 'datebox':
