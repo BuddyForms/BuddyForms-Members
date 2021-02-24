@@ -90,7 +90,12 @@ class BuddyForms_Members_Extention extends BP_Component {
 					}
 
 					if ( isset( $member_form['name'] ) ) {
-						$name = $member_form['name'];
+						$name = __($member_form['name'], 'buddyforms-members');
+					}
+
+					$singular_name = '';
+					if ( ! empty( $member_form['singular_name'] ) ) {
+						$singular_name = __($member_form['singular_name'], 'buddyforms-members');
 					}
 
 					$parent_tab = buddyforms_members_parent_tab( $member_form );
@@ -160,7 +165,7 @@ class BuddyForms_Members_Extention extends BP_Component {
 							);
 							$buddyforms_member_tabs[ $parent_tab ][ $key . '-create' ] = $key;
 							$position ++;
-							
+
 						} else {
 							$sub_nav[]                                                = array(
 								'name'            => sprintf( '%s <span>%d</span>', $name, $count ),
@@ -174,9 +179,9 @@ class BuddyForms_Members_Extention extends BP_Component {
 							);
 							$buddyforms_member_tabs[ $parent_tab ][ $key . '-posts' ] = $key;
 							$position ++;
-	
+
 							$sub_nav[]                                                 = array(
-								'name'            => sprintf( __( ' Add %s', 'buddyforms-members' ), $member_form['singular_name'] ),
+								'name'            => sprintf( __( ' Add %s', 'buddyforms-members' ), $singular_name),
 								'slug'            => $key . '-create',
 								'parent_slug'     => $parent_tab,
 								'parent_url'      => trailingslashit( bp_displayed_user_domain() . $parent_tab ),
@@ -187,9 +192,9 @@ class BuddyForms_Members_Extention extends BP_Component {
 							);
 							$buddyforms_member_tabs[ $parent_tab ][ $key . '-create' ] = $key;
 							$position ++;
-	
+
 							$sub_nav[]                                               = array(
-								'name'            => sprintf( __( ' Edit %s', 'buddyforms-members' ), $member_form['singular_name'] ),
+								'name'            => sprintf( __( ' Edit %s', 'buddyforms-members' ), $singular_name),
 								'slug'            => $key . '-edit',
 								'parent_slug'     => $parent_tab,
 								'parent_url'      => trailingslashit( bp_displayed_user_domain() . $parent_tab ),
@@ -200,9 +205,9 @@ class BuddyForms_Members_Extention extends BP_Component {
 							);
 							$buddyforms_member_tabs[ $parent_tab ][ $key . '-edit' ] = $key;
 							$position ++;
-	
+
 							$sub_nav[]                                                   = array(
-								'name'            => sprintf( __( ' Revision %s', 'buddyforms-members' ), $member_form['singular_name'] ),
+								'name'            => sprintf( __( ' Revision %s', 'buddyforms-members' ), $singular_name ),
 								'slug'            => $key . '-revision',
 								'parent_slug'     => $parent_tab,
 								'parent_url'      => trailingslashit( bp_loggedin_user_domain() . $parent_tab ),
@@ -213,9 +218,9 @@ class BuddyForms_Members_Extention extends BP_Component {
 							);
 							$buddyforms_member_tabs[ $parent_tab ][ $key . '-revision' ] = $key;
 							$position ++;
-	
+
 							$sub_nav[]                                               = array(
-								'name'            => sprintf( __( ' Page %s', 'buddyforms-members' ), $member_form['singular_name'] ),
+								'name'            => sprintf( __( ' Page %s', 'buddyforms-members' ), $singular_name ),
 								'slug'            => $key . '-page',
 								'parent_slug'     => $parent_tab,
 								'parent_url'      => trailingslashit( bp_loggedin_user_domain() . $parent_tab ),
