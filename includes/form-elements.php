@@ -727,15 +727,17 @@ function buddyforms_members_edit_field_html( $form_slug, $field ) {
 	}
 	$tmp = ob_get_clean();
 
-	$tmp = str_replace( '<input', '<input class="form-control"', $tmp );
+	if ( $field->type !== 'checkbox' && $field->type !== 'radio' ) {
+		$tmp = str_replace( '<select', '<select class="form-control"', $tmp );
+		$tmp = str_replace( '<input', '<input class="form-control"', $tmp );
+	} else {
+		$tmp = str_replace( '<label', '<label class="form-control option-label"', $tmp );
+	}
 
 	if ( isset( $buddyforms[ $form_slug ]['layout']['labels_layout'] ) && $buddyforms[ $form_slug ]['layout']['labels_layout'] == 'inline' ) {
 
-		$label = buddyforms_everything_in_tags( $tmp, 'label' );
-
-		$tmp = str_replace( $label, '', $tmp );
-
-		$label = preg_replace( '/\s+/', '', strip_tags( $label ) );
+		$label = ! empty( $field->name ) ? $field->name : '';
+		$tmp = preg_replace( '/<.+>\s*' . $label . '\s*<\/.+>/', '', $tmp );
 
 		if ( strpos( $label, '(required)' ) !== false ) {
 			$tmp   = str_replace( '<input', '<input required "', $tmp );
