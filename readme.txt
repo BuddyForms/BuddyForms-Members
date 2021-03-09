@@ -2,8 +2,8 @@
 Contributors: svenl77, themekraft, buddyforms, gfirem
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing, form, forms, form builder, forms builder, post forms, user generated content, form, forms, frontend forms, contact form, contact forms, content form, post form, post forms, content forms, registration form, registration forms, custom form, custom forms, form, form administration, form builder, form creation, form creator, form manager, forms, forms builder, forms creation, forms creator, forms manager, community, content, content generation, crowdsourced content, frontend generated content, images, post, posts, public, publish, share, submission, submissions, submit, submitted, upload, user submitted, user-generated, user-submit, user-generated content
 Requires at least: 3.9
-Tested up to: 5.6
-Stable tag: 1.4.14
+Tested up to: 5.7
+Stable tag: 1.4.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -104,6 +104,15 @@ Yes, you can add login and registration Form Elements to any form and ask your u
 5. **Backend Overview** - The backend overview of your existing forms.
 
 == Changelog ==
+= 1.4.15 - 9 Mar 2021 =
+* Tested up with WordPress 5.7
+* Added auto-refresh feature for the Xprofile field on the Form Builder.
+* Fixed issue with Xprofile field type Selector, which was not showing the saved value in the form on the Frontend view.
+* Fixed on the "Map with existing xProfile Field" feature to allow to set up the default visibility level on Xprofiles on the user registration.
+* Fixed on HTML structure for Xprofile when labels are disabled.
+* Improved support for locals translations to Singular Name on members nav items.
+* Fixed issue with Checkboxes & Radios Xprofile fields. Unchecked values were not being saved.
+
 = 1.4.14 - 3 Feb 2021 =
 * Fixed issue with the "pro" fields (xprofile ones) that are remained disabled when BuddyForms was free but BF Members pro.
 * Add support to form_action use in PR 714 to fix an issue on the parent extension.
