@@ -242,7 +242,9 @@ function buddyforms_check_send_message_to_member_conditions() {
 	}
 
 	foreach ($notifications as $notification) {
-		$mail_to = array_merge( $mail_to, $notification['mail_to'] );
+		if ( isset( $notification['mail_to'] ) && is_array( $notification['mail_to'] ) ) {
+			$mail_to = array_merge( $mail_to, $notification['mail_to'] );
+		}
 	}
 
 	if ( ! in_array( 'member', $mail_to ) ) {
