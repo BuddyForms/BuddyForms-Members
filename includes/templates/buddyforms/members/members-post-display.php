@@ -33,6 +33,8 @@
 		$query_args['post_status'] = array( 'publish', 'pending', 'draft' );
 	}
 
+	$query_args['post_status'] = apply_filters( 'buddyforms_shortcode_the_loop_post_status', $query_args['post_status'], $form_slug );
+
 	// New
 	$query_args = apply_filters( 'buddyforms_user_posts_query_args', $query_args );
 	// Deprecated
