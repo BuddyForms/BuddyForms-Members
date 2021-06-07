@@ -235,6 +235,10 @@ class BuddyForms_Members_Extention extends BP_Component {
 
 					$buddyforms_members_parent_setup_nav  = apply_filters( 'buddyforms_members_parent_setup_nav', true, $key  );
 
+					if ( apply_filters( 'buddyforms_members_skip_setup_nav', false, $main_nav, $sub_nav, $member_form ) ) {
+						continue;
+					}
+
 					if($buddyforms_members_parent_setup_nav){
 						parent::setup_nav( $main_nav, $sub_nav );
 					} else {
