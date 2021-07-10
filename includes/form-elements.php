@@ -812,31 +812,29 @@ function buddyforms_members_process_submission_end( $args ) {
 						case 'datebox':
 							$date = isset( $_POST[ $field['slug'] ] ) ? date( 'Y-m-d H:i:s', strtotime( $_POST[ $field['slug'] ] ) ) : '';
 							if ( ! empty( $date ) ) {
-								$field_data = xprofile_set_field_data( $field['mapped_xprofile_field'], $user_id, $date );
+								xprofile_set_field_data( $field['mapped_xprofile_field'], $user_id, $date );
 							}
 							break;
 
 						case 'multiselectbox':
 							if ( $field['type'] != 'member_taxonomy' ) {
 								$options    = isset( $_POST[ $field['slug'] ] ) ? $_POST[ $field['slug'] ] : '';
-								$field_data = xprofile_set_field_data( $field['mapped_xprofile_field'], $user_id, $options );
+								xprofile_set_field_data( $field['mapped_xprofile_field'], $user_id, $options );
 							}
 							break;
 
-						case 'radio':
 						case 'checkbox':
-						case 'selectbox':
 							$options = isset( $_POST[ $field['slug'] ] ) ? $_POST[ $field['slug'] ] : '';
 
 							if ( ! is_array( $options ) ) {
 								$options = array( $options );
 							}
-							$field_data = xprofile_set_field_data( $field['mapped_xprofile_field'], $user_id, $options );
+							xprofile_set_field_data( $field['mapped_xprofile_field'], $user_id, $options );
 							break;
 
 						default:
-							$text       = isset( $_POST[ $field['slug'] ] ) ? $_POST[ $field['slug'] ] : '';
-							$field_data = xprofile_set_field_data( $field['mapped_xprofile_field'], $user_id, $text );
+							$value       = isset( $_POST[ $field['slug'] ] ) ? $_POST[ $field['slug'] ] : '';
+							xprofile_set_field_data( $field['mapped_xprofile_field'], $user_id, $value );
 							break;
 					}
 				}
