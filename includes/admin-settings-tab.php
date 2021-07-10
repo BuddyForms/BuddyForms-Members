@@ -2,14 +2,8 @@
 
 add_filter( 'buddyforms_admin_tabs', 'buddyforms_buddypress_admin_tab', 1, 1 );
 function buddyforms_buddypress_admin_tab( $tabs ) {
-
-	if ( ! $member_types = bp_get_member_types( array(), 'objects' ) ) {
-	    return $tabs;
-	}
-
 	$tabs['buddypress'] = 'BuddyPress';
 	return $tabs;
-
 }
 
 add_action( 'buddyforms_settings_page_tab', 'buddyforms_buddypress_settings_page_tab' );
@@ -19,12 +13,6 @@ function buddyforms_buddypress_settings_page_tab( $tab ) {
 	if ( $tab != 'buddypress' ) {
 		return $tab;
 	}
-
-
-	if ( ! $member_types = bp_get_member_types( array(), 'objects' ) ) {
-	    return;
-	}
-
 
 	$mtypes = array();
 	if ( $member_types = bp_get_member_types( array(), 'objects' ) ) {
@@ -51,7 +39,7 @@ function buddyforms_buddypress_settings_page_tab( $tab ) {
                         <tbody>
                         <tr>
                             <th colspan="2">
-                                <h3><span>Overwrite the BuddyPress edit profile form</span></h3>
+                                <h3><span><?php _e('Overwrite the BuddyPress Edit Profile Form', 'buddyforms') ?></span></h3>
                             </th>
                         </tr>
                         <tr valign="top">
