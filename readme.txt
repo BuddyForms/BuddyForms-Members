@@ -3,7 +3,7 @@ Contributors: svenl77, themekraft, buddyforms, gfirem
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing, form, forms, form builder, forms builder, post forms, user generated content, form, forms, frontend forms, contact form, contact forms, content form, post form, post forms, content forms, registration form, registration forms, custom form, custom forms, form, form administration, form builder, form creation, form creator, form manager, forms, forms builder, forms creation, forms creator, forms manager, community, content, content generation, crowdsourced content, frontend generated content, images, post, posts, public, publish, share, submission, submissions, submit, submitted, upload, user submitted, user-generated, user-submit, user-generated content
 Requires at least: 3.9
 Tested up to: 5.9
-Stable tag: 1.4.19
+Stable tag: 1.4.20
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,6 +12,8 @@ BuddyPress User Generated Content made easy. Let your Members submit, create, ed
 == Description ==
 
 This is a free extension for the form builder plugin BuddyForms which makes user generated content easy using BuddyPress.
+
+[youtube https://www.youtube.com/watch?v=K3JK9ISu0-w]
 
 ### The extension allows you to:
 > * Integrate Forms into your BuddyPress members profile. Allow your users to write - edit - upload posts, images, video, & just about any other content to your community, right from their BuddyPress Member Profile!
@@ -30,11 +32,6 @@ This is a free extension for the form builder plugin BuddyForms which makes user
 
 → Check out the [BuddyForms](https://wordpress.org/plugins/buddyforms/) plugin for more information and other free extensions that come with it
 
-See the plugin in action:
-
-[youtube https://www.youtube.com/watch?v=Gt8dcLZPR9A&t=60s]
-
-
 ### Perfect for online magazines, blogs, directories, stores, FAQ’s… you name it.
 > * Bring your existing plugins or theme post types into the BuddyPress ecosystem and make it accessible for your users right from their profile.
 
@@ -48,7 +45,6 @@ See the plugin in action:
 
 > #### Submit Issues - Contribute
 > * Pull request are welcome. BuddyForms is community driven and developed on [Github](https://buddyforms.github.io/BuddyForms/)
-
 
 ---
 
@@ -104,6 +100,10 @@ Yes, you can add login and registration Form Elements to any form and ask your u
 5. **Backend Overview** - The backend overview of your existing forms.
 
 == Changelog ==
+= 1.4.20 - 9 Mar 2022 =
+* Added descriptive video about the main features of the plugin.
+* Updated the readme.text
+
 = 1.4.19 - 6 Mar 2022 =
 * Fixed issue with xprofile fields displaying in free version.
 * Tested up WordPress to 5.9
