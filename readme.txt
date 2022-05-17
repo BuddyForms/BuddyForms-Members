@@ -2,8 +2,8 @@
 Contributors: svenl77, themekraft, buddyforms, gfirem
 Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing, form, forms, form builder, forms builder, post forms, user generated content, form, forms, frontend forms, contact form, contact forms, content form, post form, post forms, content forms, registration form, registration forms, custom form, custom forms, form, form administration, form builder, form creation, form creator, form manager, forms, forms builder, forms creation, forms creator, forms manager, community, content, content generation, crowdsourced content, frontend generated content, images, post, posts, public, publish, share, submission, submissions, submit, submitted, upload, user submitted, user-generated, user-submit, user-generated content
 Requires at least: 3.9
-Tested up to: 5.9
-Stable tag: 1.4.20
+Tested up to: 5.9.3
+Stable tag: 1.4.21
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -100,6 +100,9 @@ Yes, you can add login and registration Form Elements to any form and ask your u
 5. **Backend Overview** - The backend overview of your existing forms.
 
 == Changelog ==
+= 1.4.21 - 16 May 2022 =
+* Updated readme.txt
+
 = 1.4.20 - 9 Mar 2022 =
 * Added descriptive video about the main features of the plugin.
 * Updated the readme.text
