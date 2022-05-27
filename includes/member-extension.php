@@ -34,11 +34,11 @@ class BuddyForms_Members_Extention extends BP_Component {
 	 * @since     Marketplace 0.9
 	 * @global    object $bp The one true BuddyPress instance
 	 */
-	public function setup_globals( $args = Array() ) {
+	public function setup_globals( $args = array() ) {
 		$globals = array(
 			'path'          => BUDDYFORMS_MEMBERS_INSTALL_PATH,
 			'slug'          => 'buddyforms',
-			'has_directory' => false
+			'has_directory' => false,
 		);
 		parent::setup_globals( $globals );
 	}
@@ -49,7 +49,7 @@ class BuddyForms_Members_Extention extends BP_Component {
 	 * @package BuddyForms
 	 * @since 0.1 beta
 	 */
-	public function setup_nav( $main_nav = Array(), $sub_nav = Array() ) {
+	public function setup_nav( $main_nav = array(), $sub_nav = array() ) {
 		global $buddyforms, $buddyforms_member_tabs, $bp;
 
 		if ( ! bp_is_user() ) {
@@ -81,7 +81,6 @@ class BuddyForms_Members_Extention extends BP_Component {
 
 				if ( current_user_can( 'buddyforms_' . $key . '_create' ) || user_can( bp_displayed_user_id(), 'buddyforms_' . $key . '_create' ) ) {
 
-
 					$post_type_object = get_post_type_object( $member_form['post_type'] );
 					$count            = $this->get_user_posts_count( $bp->displayed_user->id, $member_form['post_type'], $key );
 
@@ -90,12 +89,12 @@ class BuddyForms_Members_Extention extends BP_Component {
 					}
 
 					if ( isset( $member_form['name'] ) ) {
-						$name = __($member_form['name'], 'buddyforms-members');
+						$name = __( $member_form['name'], 'buddyforms-members' );
 					}
 
 					$singular_name = '';
 					if ( ! empty( $member_form['singular_name'] ) ) {
-						$singular_name = __($member_form['singular_name'], 'buddyforms-members');
+						$singular_name = __( $member_form['singular_name'], 'buddyforms-members' );
 					}
 
 					$parent_tab = buddyforms_members_parent_tab( $member_form );
@@ -103,12 +102,12 @@ class BuddyForms_Members_Extention extends BP_Component {
 					if ( $parent_tab ) {
 
 						$buddyforms_member_tabs[ $parent_tab ][ $member_form['slug'] ] = $key;
-						$parent_tab_name                                               = $name;
+						$parent_tab_name = $name;
 
 						$attached_page = false;
 						if ( isset( $member_form['profiles_parent_tab'] )
-						     && isset( $member_form['attached_page'] )
-						     && isset( $parent_tab )
+							 && isset( $member_form['attached_page'] )
+							 && isset( $parent_tab )
 						) {
 							$attached_page   = $member_form['attached_page'];
 							$parent_tab_page = get_post( $attached_page, 'OBJECT' );
@@ -134,17 +133,17 @@ class BuddyForms_Members_Extention extends BP_Component {
 						}
 
 						if ( ! array_key_exists( $parent_tab, (array) $bp->bp_nav ) && ! isset( $done )
-						     || ! array_key_exists( $parent_tab, (array) $bp->bp_nav ) && isset( $done ) && $done != $attached_page
-						     || ! array_key_exists( $parent_tab, (array) $bp->bp_nav ) && ! isset( $member_form['profiles_parent_tab'] )
+							 || ! array_key_exists( $parent_tab, (array) $bp->bp_nav ) && isset( $done ) && $done != $attached_page
+							 || ! array_key_exists( $parent_tab, (array) $bp->bp_nav ) && ! isset( $member_form['profiles_parent_tab'] )
 						) {
-							$done                                                     = $attached_page;
-							$main_nav                                                 = array(
+							$done     = $attached_page;
+							$main_nav = array(
 								'name'                => $parent_tab_name,
 								'slug'                => $parent_tab,
 								'position'            => $position,
 								'default_subnav_slug' => $key . '-posts',
 								'user_has_access'     => $profile_visibility,
-								'position' => $position,
+								'position'            => $position,
 							);
 							$buddyforms_member_tabs[ $parent_tab ][ $key . '-posts' ] = $key;
 							$position ++;
@@ -152,8 +151,8 @@ class BuddyForms_Members_Extention extends BP_Component {
 
 						if ( $member_form['form_type'] === 'contact' && $is_member_message_enabled && ! bp_is_my_profile() ) {
 
-							$main_nav['default_subnav_slug'] 						  = $key . '-create';
-							$sub_nav[]                                                = array(
+							$main_nav['default_subnav_slug'] = $key . '-create';
+							$sub_nav[]                       = array(
 								'name'            => sprintf( __( ' Contact with %s', 'buddyforms-members' ), bp_get_displayed_user_fullname() ),
 								'slug'            => $key . '-create',
 								'parent_slug'     => $parent_tab,
@@ -161,13 +160,13 @@ class BuddyForms_Members_Extention extends BP_Component {
 								'item_css_id'     => 'add_sub_nav_' . $key,
 								'screen_function' => array( $this, 'buddyforms_screen_settings' ),
 								'user_has_access' => $profile_visibility,
-								'position' => $position,
+								'position'        => $position,
 							);
 							$buddyforms_member_tabs[ $parent_tab ][ $key . '-create' ] = $key;
 							$position ++;
 
 						} else {
-							$sub_nav[]                                                = array(
+							$sub_nav[] = array(
 								'name'            => sprintf( '%s <span>%d</span>', $name, $count ),
 								'slug'            => $key . '-posts',
 								'parent_slug'     => $parent_tab,
@@ -175,38 +174,38 @@ class BuddyForms_Members_Extention extends BP_Component {
 								'item_css_id'     => 'sub_nav_home',
 								'screen_function' => array( $this, 'buddyforms_screen_settings' ),
 								'user_has_access' => $profile_visibility,
-								'position' => $position,
+								'position'        => $position,
 							);
 							$buddyforms_member_tabs[ $parent_tab ][ $key . '-posts' ] = $key;
 							$position ++;
 
-							$sub_nav[]                                                 = array(
-								'name'            => sprintf( __( ' Add %s', 'buddyforms-members' ), $singular_name),
+							$sub_nav[] = array(
+								'name'            => sprintf( __( ' Add %s', 'buddyforms-members' ), $singular_name ),
 								'slug'            => $key . '-create',
 								'parent_slug'     => $parent_tab,
 								'parent_url'      => trailingslashit( bp_displayed_user_domain() . $parent_tab ),
 								'item_css_id'     => 'add_sub_nav_' . $key,
 								'screen_function' => array( $this, 'load_members_post_create' ),
 								'user_has_access' => bp_is_my_profile(),
-								'position' => $position,
+								'position'        => $position,
 							);
 							$buddyforms_member_tabs[ $parent_tab ][ $key . '-create' ] = $key;
 							$position ++;
 
-							$sub_nav[]                                               = array(
-								'name'            => sprintf( __( ' Edit %s', 'buddyforms-members' ), $singular_name),
+							$sub_nav[] = array(
+								'name'            => sprintf( __( ' Edit %s', 'buddyforms-members' ), $singular_name ),
 								'slug'            => $key . '-edit',
 								'parent_slug'     => $parent_tab,
 								'parent_url'      => trailingslashit( bp_displayed_user_domain() . $parent_tab ),
 								'item_css_id'     => 'sub_nav_edit',
 								'screen_function' => array( $this, 'buddyforms_screen_settings' ),
 								'user_has_access' => bp_is_my_profile(),
-								'position' => $position,
+								'position'        => $position,
 							);
 							$buddyforms_member_tabs[ $parent_tab ][ $key . '-edit' ] = $key;
 							$position ++;
 
-							$sub_nav[]                                                   = array(
+							$sub_nav[] = array(
 								'name'            => sprintf( __( ' Revision %s', 'buddyforms-members' ), $singular_name ),
 								'slug'            => $key . '-revision',
 								'parent_slug'     => $parent_tab,
@@ -214,41 +213,39 @@ class BuddyForms_Members_Extention extends BP_Component {
 								'item_css_id'     => 'sub_nav_revison',
 								'screen_function' => array( $this, 'buddyforms_screen_settings' ),
 								'user_has_access' => bp_is_my_profile(),
-								'position' => $position,
+								'position'        => $position,
 							);
 							$buddyforms_member_tabs[ $parent_tab ][ $key . '-revision' ] = $key;
 							$position ++;
 
-							$sub_nav[]                                               = array(
+							$sub_nav[] = array(
 								'name'            => sprintf( __( ' Page %s', 'buddyforms-members' ), $singular_name ),
 								'slug'            => $key . '-page',
 								'parent_slug'     => $parent_tab,
 								'parent_url'      => trailingslashit( bp_loggedin_user_domain() . $parent_tab ),
 								'item_css_id'     => 'sub_nav_page',
 								'screen_function' => array( $this, 'buddyforms_screen_settings' ),
-								'position' => $position,
+								'position'        => $position,
 							);
 							$buddyforms_member_tabs[ $parent_tab ][ $key . '-page' ] = $key;
 							$position ++;
 						}
 					}
 
-					$buddyforms_members_parent_setup_nav  = apply_filters( 'buddyforms_members_parent_setup_nav', true, $key  );
+					$buddyforms_members_parent_setup_nav = apply_filters( 'buddyforms_members_parent_setup_nav', true, $key );
 
 					if ( apply_filters( 'buddyforms_members_skip_setup_nav', false, $main_nav, $sub_nav, $member_form ) ) {
 						continue;
 					}
 
-					if($buddyforms_members_parent_setup_nav){
+					if ( $buddyforms_members_parent_setup_nav ) {
 						parent::setup_nav( $main_nav, $sub_nav );
 					} else {
-						foreach ( $sub_nav as $nav ){
-							bp_core_new_subnav_item($nav);
+						foreach ( $sub_nav as $nav ) {
+							bp_core_new_subnav_item( $nav );
 						}
 					}
-
 				}
-
 			}
 		}
 	}
@@ -272,7 +269,7 @@ class BuddyForms_Members_Extention extends BP_Component {
 			$args['meta_value'] = $form_slug;
 		}
 
-		$post_status_array   = buddyforms_get_post_status_array();
+		$post_status_array = buddyforms_get_post_status_array();
 
 		unset( $post_status_array['trash'] );
 
@@ -379,32 +376,49 @@ class BuddyForms_Members_Extention extends BP_Component {
 
 			// add our hook to inject content into BP
 			if ( $bp->current_action == $form_slug . '-posts' ) {
-				add_action( 'bp_template_content', function () {
-					bp_get_template_part( 'buddyforms/members/members-post-display' );
-				} );
+				add_action(
+					'bp_template_content',
+					function () {
+						bp_get_template_part( 'buddyforms/members/members-post-display' );
+					}
+				);
 			} elseif ( $bp->current_action == $form_slug . '-create' ) {
-				add_action( 'bp_template_content', function () {
-					bp_get_template_part( 'buddyforms/members/members-post-create' );
-				} );
+				add_action(
+					'bp_template_content',
+					function () {
+						bp_get_template_part( 'buddyforms/members/members-post-create' );
+					}
+				);
 			} elseif ( $bp->current_action == $form_slug . '-edit' ) {
-				add_action( 'bp_template_content', function () {
-					bp_get_template_part( 'buddyforms/members/members-post-create' );
-				} );
+				add_action(
+					'bp_template_content',
+					function () {
+						bp_get_template_part( 'buddyforms/members/members-post-create' );
+					}
+				);
 			} elseif ( $bp->current_action == $form_slug . '-revision' ) {
-				add_action( 'bp_template_content', function () {
-					bp_get_template_part( 'buddyforms/members/members-post-create' );
-				} );
+				add_action(
+					'bp_template_content',
+					function () {
+						bp_get_template_part( 'buddyforms/members/members-post-create' );
+					}
+				);
 			} elseif ( $bp->current_action == $form_slug . '-page' ) {
-				add_action( 'bp_template_content', function () {
-					bp_get_template_part( 'buddyforms/members/members-post-display' );
-				} );
+				add_action(
+					'bp_template_content',
+					function () {
+						bp_get_template_part( 'buddyforms/members/members-post-display' );
+					}
+				);
 			} elseif ( $bp->current_action == $form_slug . '-posts-all' ) {
-				add_action( 'bp_template_content', function () {
-					bp_get_template_part( 'buddyforms/members/members-post-display' );
-				} );
+				add_action(
+					'bp_template_content',
+					function () {
+						bp_get_template_part( 'buddyforms/members/members-post-display' );
+					}
+				);
 			}
 		}
-
 
 		return apply_filters( 'buddyforms_members_load_template_filter', $found_template );
 	}
@@ -430,7 +444,7 @@ function buddyforms_members_parent_tab( $member_form ) {
 		$parent_tab_name = $parent_tab_page->post_name;
 	}
 
-	return apply_filters('buddyforms_members_parent_tab', $parent_tab_name, $member_form['slug']);
+	return apply_filters( 'buddyforms_members_parent_tab', $parent_tab_name, $member_form['slug'] );
 
 }
 
@@ -442,25 +456,28 @@ function buddyforms_members_activity_stream_support() {
 		return;
 	}
 
-	if( isset($buddyforms) && is_array($buddyforms) ){
-		foreach ( $buddyforms as $form_slug => $buddyform ){
-			if( isset( $buddyform['bp_activity_stream'] )  && isset( $buddyform['post_type'] ) ){
+	if ( isset( $buddyforms ) && is_array( $buddyforms ) ) {
+		foreach ( $buddyforms as $form_slug => $buddyform ) {
+			if ( isset( $buddyform['bp_activity_stream'] ) && isset( $buddyform['post_type'] ) ) {
 
 				$name          = isset( $buddyform['name'] ) && ! empty( $buddyform['name'] ) ? $buddyform['name'] : $buddyform['post_type'];
 				$name_singular = isset( $buddyform['singular_name'] ) && ! empty( $buddyform['singular_name'] ) ? $buddyform['singular_name'] : $name;
 
 				// Set the activity tracking args
-				bp_activity_set_post_type_tracking_args( $buddyform['post_type'] , array(
-					'component_id'             => 'activity',
-					'action_id'                => 'new_post_' . $buddyform['post_type'] ,
-					'bp_activity_admin_filter' => __( 'Published a new ' . $name_singular , 'buddyforms-members' ),
-					'bp_activity_front_filter' => __( $name_singular , 'buddyforms-members' ),
-					'contexts'                 => array( 'activity', 'member' ),
-					'activity_comment'         => true,
-					'bp_activity_new_post'     => __( '%1$s posted a new <a href="%2$s">' . $name_singular . '</a>', 'buddyforms-members' ),
-					'bp_activity_new_post_ms'  => __( '%1$s posted a new <a href="%2$s">' . $name_singular . '</a>, on the site %3$s', 'buddyforms-members' ),
-					'position'                 => 100,
-				) );
+				bp_activity_set_post_type_tracking_args(
+					$buddyform['post_type'],
+					array(
+						'component_id'             => 'activity',
+						'action_id'                => 'new_post_' . $buddyform['post_type'],
+						'bp_activity_admin_filter' => __( 'Published a new ' . $name_singular, 'buddyforms-members' ),
+						'bp_activity_front_filter' => __( $name_singular, 'buddyforms-members' ),
+						'contexts'                 => array( 'activity', 'member' ),
+						'activity_comment'         => true,
+						'bp_activity_new_post'     => __( '%1$s posted a new <a href="%2$s">' . $name_singular . '</a>', 'buddyforms-members' ),
+						'bp_activity_new_post_ms'  => __( '%1$s posted a new <a href="%2$s">' . $name_singular . '</a>, on the site %3$s', 'buddyforms-members' ),
+						'position'                 => 100,
+					)
+				);
 
 				// Don't forget to add the 'buddypress-activity' support to the filter select box!
 				add_post_type_support( $buddyform['post_type'], 'buddypress-activity' );

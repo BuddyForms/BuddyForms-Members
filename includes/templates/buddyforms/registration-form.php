@@ -4,7 +4,6 @@
  * Auth form login
  *
  * This template can be overridden by copying it to yourtheme/buddyforms/form-login.php.
- *
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

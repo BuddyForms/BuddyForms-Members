@@ -13,7 +13,7 @@
  * Domain Path: /languages
  * Svn: buddyforms-members
  *
- *****************************************************************************
+ * ****************************************************************************
  *
  * This script is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- ****************************************************************************
+ * ***************************************************************************
  */
 
 function buddyforms_members_is_buddyboss_theme_active() {
@@ -42,58 +42,66 @@ function buddyforms_members_is_buddyboss_theme_active() {
 //
 // Check the plugin dependencies
 //
-add_action( 'init', function () {
+add_action(
+	'init',
+	function () {
 
-	// Only Check for requirements in the admin
-	if ( ! is_admin() ) {
-		return;
-	}
-
-	// Require TGM
-	require( dirname( __FILE__ ) . '/includes/resources/tgm/class-tgm-plugin-activation.php' );
-
-	// Hook required plugins function to the tgmpa_register action
-	add_action( 'buddyforms_members_tgmpa_register', function () {
-		$plugins = array();
-		$is_buddyboss_theme_active = buddyforms_members_is_buddyboss_theme_active();
-		if ( ! $is_buddyboss_theme_active ) {
-			// Create the required plugins array
-			$plugins['buddypress'] = array(
-				'name'     => 'BuddyPress',
-				'slug'     => 'buddypress',
-				'required' => true,
-			);
+		// Only Check for requirements in the admin
+		if ( ! is_admin() ) {
+			return;
 		}
 
-		if ( ! defined( 'BUDDYFORMS_PRO_VERSION' ) ) {
-			$plugins['buddyforms'] = array(
-				'name'     => 'BuddyForms',
-				'slug'     => 'buddyforms',
-				'required' => true,
-				'version'  => '2.6.1',
-			);
-		}
+		// Require TGM
+		require dirname( __FILE__ ) . '/includes/resources/tgm/class-tgm-plugin-activation.php';
 
-		$config = array(
-			'id'           => 'buddyforms_members',
-			// Unique ID for hashing notices for multiple instances of TGMPA.
-			'parent_slug'  => 'plugins.php',
-			// Parent menu slug.
-			'capability'   => 'manage_options',
-			// Capability needed to view plugin install page, should be a capability associated with the parent menu used.
-			'has_notices'  => true,
-			// Show admin notices or not.
-			'dismissable'  => false,
-			// If false, a user cannot dismiss the nag message.
-			'is_automatic' => true,
-			// Automatically activate plugins after installation or not.
+		// Hook required plugins function to the tgmpa_register action
+		add_action(
+			'buddyforms_members_tgmpa_register',
+			function () {
+				$plugins                   = array();
+				$is_buddyboss_theme_active = buddyforms_members_is_buddyboss_theme_active();
+				if ( ! $is_buddyboss_theme_active ) {
+					// Create the required plugins array
+					$plugins['buddypress'] = array(
+						'name'     => 'BuddyPress',
+						'slug'     => 'buddypress',
+						'required' => true,
+					);
+				}
+
+				if ( ! defined( 'BUDDYFORMS_PRO_VERSION' ) ) {
+					$plugins['buddyforms'] = array(
+						'name'     => 'BuddyForms',
+						'slug'     => 'buddyforms',
+						'required' => true,
+						'version'  => '2.6.1',
+					);
+				}
+
+				$config = array(
+					'id'           => 'buddyforms_members',
+					// Unique ID for hashing notices for multiple instances of TGMPA.
+					'parent_slug'  => 'plugins.php',
+					// Parent menu slug.
+					'capability'   => 'manage_options',
+					// Capability needed to view plugin install page, should be a capability associated with the parent menu used.
+					'has_notices'  => true,
+					// Show admin notices or not.
+					'dismissable'  => false,
+					// If false, a user cannot dismiss the nag message.
+					'is_automatic' => true,
+				// Automatically activate plugins after installation or not.
+				);
+
+				// Call the tgmpa function to register the required plugins
+				buddyforms_members_tgmpa( $plugins, $config );
+
+			}
 		);
-
-		// Call the tgmpa function to register the required plugins
-		buddyforms_members_tgmpa( $plugins, $config );
-
-	} );
-}, 1, 1 );
+	},
+	1,
+	1
+);
 
 // BuddyForms Members init
 add_action( 'bp_loaded', 'buddyforms_members_init' );
@@ -104,7 +112,7 @@ function buddyforms_members_init() {
 		return;
 	}
 
-	require( dirname( __FILE__ ) . '/buddyforms-members.php' );
+	require dirname( __FILE__ ) . '/buddyforms-members.php';
 	$buddyforms_members = new BuddyForms_Members();
 }
 
@@ -118,34 +126,36 @@ function buddyforms_members_fs() {
 		if ( file_exists( dirname( dirname( __FILE__ ) ) . '/buddyforms/includes/resources/freemius/start.php' ) ) {
 			// Try to load SDK from parent plugin folder.
 			require_once dirname( dirname( __FILE__ ) ) . '/buddyforms/includes/resources/freemius/start.php';
-		} else if ( file_exists( dirname( dirname( __FILE__ ) ) . '/buddyforms-premium/includes/resources/freemius/start.php' ) ) {
+		} elseif ( file_exists( dirname( dirname( __FILE__ ) ) . '/buddyforms-premium/includes/resources/freemius/start.php' ) ) {
 			// Try to load SDK from premium parent plugin folder.
 			require_once dirname( dirname( __FILE__ ) ) . '/buddyforms-premium/includes/resources/freemius/start.php';
 		}
 
 		try {
-			$buddyforms_members_fs = fs_dynamic_init( array(
-				'id'             => '408',
-				'slug'           => 'buddyforms-members',
-				'type'           => 'plugin',
-				'public_key'     => 'pk_0dc82cbd48e6935bba8e2ff431777',
-				'is_premium'     => true,
-				'has_paid_plans' => true,
-				'trial'          => array(
-					'days'               => 7,
-					'is_require_payment' => false,
-				),
-				'parent'         => array(
-					'id'         => '391',
-					'slug'       => 'buddyforms',
-					'public_key' => 'pk_dea3d8c1c831caf06cfea10c7114c',
-					'name'       => 'BuddyForms',
-				),
-				'menu'           => array(
-					'first-path' => 'plugins.php',
-					'support'    => false,
+			$buddyforms_members_fs = fs_dynamic_init(
+				array(
+					'id'             => '408',
+					'slug'           => 'buddyforms-members',
+					'type'           => 'plugin',
+					'public_key'     => 'pk_0dc82cbd48e6935bba8e2ff431777',
+					'is_premium'     => true,
+					'has_paid_plans' => true,
+					'trial'          => array(
+						'days'               => 7,
+						'is_require_payment' => false,
+					),
+					'parent'         => array(
+						'id'         => '391',
+						'slug'       => 'buddyforms',
+						'public_key' => 'pk_dea3d8c1c831caf06cfea10c7114c',
+						'name'       => 'BuddyForms',
+					),
+					'menu'           => array(
+						'first-path' => 'plugins.php',
+						'support'    => false,
+					),
 				)
-			) );
+			);
 		} catch ( Freemius_Exception $e ) {
 
 		}
@@ -164,7 +174,7 @@ function buddyforms_members_fs_is_parent_active() {
 
 	foreach ( $active_plugins_basenames as $plugin_basename ) {
 		if ( 0 === strpos( $plugin_basename, 'buddyforms/' ) ||
-		     0 === strpos( $plugin_basename, 'buddyforms-premium/' )
+			 0 === strpos( $plugin_basename, 'buddyforms-premium/' )
 		) {
 			return true;
 		}
@@ -187,7 +197,7 @@ function buddyforms_members_fs_init() {
 if ( buddyforms_members_fs_is_parent_active_and_loaded() ) {
 	// If parent already included, init add-on.
 	buddyforms_members_fs_init();
-} else if ( buddyforms_members_fs_is_parent_active() ) {
+} elseif ( buddyforms_members_fs_is_parent_active() ) {
 	// Init add-on only after the parent is loaded.
 	add_action( 'buddyforms_core_fs_loaded', 'buddyforms_members_fs_init' );
 } else {

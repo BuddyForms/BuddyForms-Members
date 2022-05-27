@@ -21,7 +21,7 @@
 		'paged'          => $paged,
 		'author'         => $bp->displayed_user->id,
 		'meta_key'       => '_bf_form_slug',
-		'meta_value'     => $form_slug
+		'meta_value'     => $form_slug,
 	);
 
 	if ( isset( $list_posts_option ) && $list_posts_option == 'list_all' ) {
@@ -45,11 +45,11 @@
 	}
 
 	$the_lp_query = new WP_Query( $query_args );
-	$the_lp_query = apply_filters('buddyforms_the_lp_query', $the_lp_query );
+	$the_lp_query = apply_filters( 'buddyforms_the_lp_query', $the_lp_query );
 
 	if ( $list_posts_style == 'table' ) {
 		buddyforms_locate_template( 'the-table', $form_slug );
-	} elseif( $list_posts_style == 'list') {
+	} elseif ( $list_posts_style == 'list' ) {
 		buddyforms_locate_template( 'the-loop', $form_slug );
 	} else {
 		buddyforms_locate_template( $list_posts_style, $form_slug );
