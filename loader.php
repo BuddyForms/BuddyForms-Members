@@ -4,7 +4,7 @@
  * Plugin Name: BuddyForms Members
  * Plugin URI: http://buddyforms.com/downloads/buddyforms-members/
  * Description: The BuddyForms Members Component. Let your members write right out of their profiles.
- * Version: 1.4.22
+ * Version: 1.5.0
  * Author: ThemeKraft
  * Author URI: https://themekraft.com/buddyforms/
  * License: GPLv2 or later
@@ -154,6 +154,7 @@ function buddyforms_members_fs() {
 						'first-path' => 'plugins.php',
 						'support'    => false,
 					),
+					'bundle_license_auto_activation' => true,
 				)
 			);
 		} catch ( Freemius_Exception $e ) {
