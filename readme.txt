@@ -1,17 +1,19 @@
-=== BuddyForms Members ===
+=== BuddyPress Members ===
 Contributors: svenl77, themekraft, buddyforms, gfirem
-Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing, form, forms, form builder, forms builder, post forms, user generated content, form, forms, frontend forms, contact form, contact forms, content form, post form, post forms, content forms, registration form, registration forms, custom form, custom forms, form, form administration, form builder, form creation, form creator, form manager, forms, forms builder, forms creation, forms creator, forms manager, community, content, content generation, crowdsourced content, frontend generated content, images, post, posts, public, publish, share, submission, submissions, submit, submitted, upload, user submitted, user-generated, user-submit, user-generated content
+Tags: buddypress, buddypress registration, post from profile, member profiles, user profile, 
 Requires at least: 3.9
 Tested up to: 6.0.2
 Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-BuddyPress User Generated Content made easy. Let your Members submit, create, edit, delete posts from there profile. Easy Form builder - Full control!
+BuddyPress and BuddyBoss Registation Form. Create Profile Forms for User Generated Content. Let your Members submit, create, edit, delete posts from there profile. Easy Form builder - Full control!
 
 == Description ==
 
-This is a free extension for the form builder plugin BuddyForms which makes user generated content easy using BuddyPress.
+BuddyPress and BuddyBoss Registation and Profiel Forms. Create Member Profiele Tabs form Forms. Let your Members Create, edit, delete posts from there profile.
+
+Integrate Forms into the BuddyPress Members Profile. Allow your users to write - edit - upload posts, images, video, & just about any other content to your community, right from their BuddyPress Member Profile!
 
 [youtube https://www.youtube.com/watch?v=K3JK9ISu0-w]
 
