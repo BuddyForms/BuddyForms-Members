@@ -1,4 +1,4 @@
-=== Member Profile Forms / Custom Registartion / Post From Profile in BuddyPress / BuddyBoss ===
+=== Member Profile Forms / Custom Registration / Post From Profile in BuddyPress / BuddyBoss ===
 Contributors: svenl77, themekraft, buddyforms, gfirem
 Tags: buddypress, buddypress registration, post from profile, member profiles, user profile, 
 Requires at least: 3.9
@@ -7,44 +7,42 @@ Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-BuddyPress and BuddyBoss Registation and Profiel Forms. Create Member Profiele Tabs form Forms. Let your Members create, edit, delete any kind of data from there profile.
+BuddyPress and BuddyBoss Registration and Profile Forms. Create Member Profile Tabs form Forms. Let your Members create, edit, and delete any kind of data from their profile.
 
 == Description ==
 
-Integrate Forms into the BuddyPress Members Profile. Allow your users to write - edit - update posts, images, video, & just about any other content to your community, right from their BuddyPress Member Profile! 
+Integrate Forms into the BuddyPress Members Profile. Allow your users to write - edit - update posts, images, videos, & just about any other content to your community, right from their BuddyPress Member Profile! 
 
-Enable Submiting and Managieng any kind of data from the User Profile for Different Member Types. 
+Enable Submitting and managing any kind of data from the User Profile for Different Member Types. 
 
 [youtube https://www.youtube.com/watch?v=K3JK9ISu0-w]
 
 ### The extension allows you to:
-> * Integrate Forms into your BuddyPress members profile. Allow your users to write - edit - upload posts, images, video, & just about any other content to your community, right from their BuddyPress Member Profile!
-> * Create group forms: Many forms can share the same Profile Tab . All Forms with the same attached page can be grouped together. They will be listed as sub-navigation tabs in the main menu of the profile tab.
+> * Integrate Forms into the BuddyPress Member Profile. Allow your users to write - edit - upload posts, images, videos, & just about any other content to your community, right from their BuddyPress Member Profile!
+> * Create group forms: Many forms can share the same Profile Tab. All Forms with the same attached page can be grouped together. They will be listed as sub-navigation tabs in the main menu of the profile tab.
 > * Manage the visibility of who can see your submissions in your profile
-> * > Private - Only the logged in member in his profile.
-> * > Community - Logged in user can see other users profile posts
+> * > Private - Only the logged-in member in his profile.
+> * > Community - Logged in user can see other users' profile posts
 > * > Public Visible - Unregistered users can see user profile posts
 > * Manage permissions: define, create, edit and delete rights for each user role and form.
 > * Create Member Type Forms.
-> * Overwrite the BuddyPress and BuddyBoss Profile Form with a MemebrType Specific Form.
-> * MAny Addons for Moderation and other Integartion
+> * Overwrite the BuddyPress and BuddyBoss Profile Forms with a Member Type specific Form.
+> * MAny Addons for Moderation and other Integration
 
-### Use ACF Fields in the BuddyPress Registartion and Profile Forms.
+### Use ACF Fields in the BuddyPress Registration and Profile Forms.
 Create Registration Forms Form ACF (Advanced Custo Fields)
 Sync ACF with BuddyPress xProfile Fields 
 
-### Use Pods Fields in the BuddyPress Registartion and Profile Forms.
+### Use Pods Fields in the BuddyPress Registration and Profile Forms.
 Create Registration Forms Form Pods
 Sync Pods with BuddyPress xProfile Fields 
 
-
----
+### How to Post and Manage Content from a BuddyPress/BuddyBoss Member Profile or Group 
+Publishing Content in BuddyPress or BuddyBoss Made Easy. Enable your users to create content and bring your community to life. Easy Front-End Blogging with BuddyPress and BuddyForms!
+[How To Member Profile CMS with BuddyPress or BuddyBoss](https://themekraft.com/wordpress-solutions/post-manage-content-buddypress/
 
 > #### Docs & Support
 > * Find our Getting Started, How-to and Developer Docs on [docs.buddyforms.com](http://docs.buddyforms.com/)
-
-
----
 
 > #### Follow Us
 > [Blog](https://themekraft.com/blog/) | [Twitter](https://twitter.com/buddyforms) | [Facebook](https://www.facebook.com/buddyforms/) | [YouTube](https://www.youtube.com/playlist?list=PLYPguOC5yk7_aB2Q2FTaktqHCXDc_mzqb)
@@ -61,17 +59,24 @@ Head to the 'BuddyForms' menu item in your admin sidebar
 
 == Frequently Asked Questions ==
 
-= Can I create a normal Contact Forms =
-Yes, you can create Simple Contact Forms or Complex Contact Forms with many different actions to create your submission logic.
+= Can user post from there profile =
+Yes, you can create new tabs from any form type and post type
 
 = Can I create a Registration Forms =
-Yes, you can Create Registration Forms
+Yes, you can Create Registration Forms and use BuddyPress and WordPress or ACF and many other form elements and keep all in sync
 
 = Can I create a Content Forms =
-Yes, you can create Content forms for any post type.
+Yes, you can create Content forms for any post type and also group forms unde rone parent tab in the user profile.
 
 = Can I Combine Registration Forms and Content Forms =
 Yes, you can add login and registration Form Elements to any form and ask your user to Login or Register during form submission.
+
+= Can I create different prtofile forms for different member types =
+Yes, you can create different member type forms and also overwrite teh feault BuddyPress or BuddyBoss Profile edit form
+
+= Can I use ACF Fields in the BuddyPress Registation =
+Yes, you can use ACF and Podsfirlds and many other by using our Extensions
+
 
 == Documentation & Support ==
 
@@ -382,3 +387,4 @@ Added a filter buddyforms_user_posts_query_args_posts_per_page to allow change t
 
 = 1.0 =
 * final 1.0 version
+
