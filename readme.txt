@@ -1,8 +1,9 @@
 === Member Profile Forms / Custom Registration / Post From Profile in BuddyPress / BuddyBoss ===
 Contributors: svenl77, themekraft, buddyforms, gfirem
 Tags: buddypress, buddypress registration, post from profile, member profile, user profile, 
-Requires at least: 3.9
+Requires at least: 4.0
 Tested up to: 6.0.2
+Requires PHP: 5.3
 Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
