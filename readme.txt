@@ -1,4 +1,4 @@
-=== BuddyPress Members ===
+=== Member Profile Forms / Custom Registartion / Post From Profile in BuddyPress / BuddyBoss ===
 Contributors: svenl77, themekraft, buddyforms, gfirem
 Tags: buddypress, buddypress registration, post from profile, member profiles, user profile, 
 Requires at least: 3.9
@@ -7,13 +7,13 @@ Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-BuddyPress and BuddyBoss Registation Form. Create Profile Forms for User Generated Content. Let your Members submit, create, edit, delete posts from there profile. Easy Form builder - Full control!
+BuddyPress and BuddyBoss Registation and Profiel Forms. Create Member Profiele Tabs form Forms. Let your Members create, edit, delete any kind of data from there profile.
 
 == Description ==
 
-BuddyPress and BuddyBoss Registation and Profiel Forms. Create Member Profiele Tabs form Forms. Let your Members Create, edit, delete posts from there profile.
+Integrate Forms into the BuddyPress Members Profile. Allow your users to write - edit - update posts, images, video, & just about any other content to your community, right from their BuddyPress Member Profile! 
 
-Integrate Forms into the BuddyPress Members Profile. Allow your users to write - edit - upload posts, images, video, & just about any other content to your community, right from their BuddyPress Member Profile!
+Enable Submiting and Managieng any kind of data from the User Profile for Different Member Types. 
 
 [youtube https://www.youtube.com/watch?v=K3JK9ISu0-w]
 
@@ -24,45 +24,34 @@ Integrate Forms into the BuddyPress Members Profile. Allow your users to write -
 > * > Private - Only the logged in member in his profile.
 > * > Community - Logged in user can see other users profile posts
 > * > Public Visible - Unregistered users can see user profile posts
+> * Manage permissions: define, create, edit and delete rights for each user role and form.
+> * Create Member Type Forms.
+> * Overwrite the BuddyPress and BuddyBoss Profile Form with a MemebrType Specific Form.
+> * MAny Addons for Moderation and other Integartion
 
-### About the core form builder plugin BuddyForms:
-> * From simple to advanced forms you can build forms in minutes.
-> * Manage permissions: define, create, edit and delete rights for each role and form.
-> * Get all the necessary form elements like text fields, email input, checkboxes, dropdowns and more.
-> * Choose how your members create, manage and edit their posts. With moderation and permission control you can automate your publishing process and save a lot of time.
+### Use ACF Fields in the BuddyPress Registartion and Profile Forms.
+Create Registration Forms Form ACF (Advanced Custo Fields)
+Sync ACF with BuddyPress xProfile Fields 
 
+### Use Pods Fields in the BuddyPress Registartion and Profile Forms.
+Create Registration Forms Form Pods
+Sync Pods with BuddyPress xProfile Fields 
 
-→ Check out the [BuddyForms](https://wordpress.org/plugins/buddyforms/) plugin for more information and other free extensions that come with it
-
-### Perfect for online magazines, blogs, directories, stores, FAQ’s… you name it.
-> * Bring your existing plugins or theme post types into the BuddyPress ecosystem and make it accessible for your users right from their profile.
 
 ---
 
 > #### Docs & Support
 > * Find our Getting Started, How-to and Developer Docs on [docs.buddyforms.com](http://docs.buddyforms.com/)
-> * or watch one of our Video Tutorials [Videos](https://themekraft.com/buddyforms-videos/)
 
----
-
-> #### Submit Issues - Contribute
-> * Pull request are welcome. BuddyForms is community driven and developed on [Github](https://buddyforms.github.io/BuddyForms/)
 
 ---
 
 > #### Follow Us
-> [Blog](https://themekraft.com/blog/) | [Twitter](https://twitter.com/buddyforms) | [Facebook](https://www.facebook.com/buddyforms/) | [Google+](https://plus.google.com/u/0/b/100975390423636463712/?pageId=100975390423636463712) | [YouTube](https://www.youtube.com/playlist?list=PLYPguOC5yk7_aB2Q2FTaktqHCXDc_mzqb)
+> [Blog](https://themekraft.com/blog/) | [Twitter](https://twitter.com/buddyforms) | [Facebook](https://www.facebook.com/buddyforms/) | [YouTube](https://www.youtube.com/playlist?list=PLYPguOC5yk7_aB2Q2FTaktqHCXDc_mzqb)
 
 ---
 
 > **Powered with ❤ by [ThemeKraft](https://themekraft.com)**
-
----
-
-#### Tags
-buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing, form, forms, form builder, forms builder, post forms, user generated content, form, forms, frontend forms, contact form, contact forms, content form, post form, post forms, content forms, registration form, registration forms, custom form, custom forms, form, form administration, form builder, form creation, form creator, form manager, forms, forms builder, forms creation, forms creator, forms manager, community, content, content generation, crowdsourced content, frontend generated content, images, post, posts, public, publish, share, submission, submissions, submit, submitted, upload, user submitted, user-generated, user-submit, user-generated content
-
----
 
 == Installation ==
 
