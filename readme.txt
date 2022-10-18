@@ -1,9 +1,8 @@
 === Member Profile Forms / Custom Registration / Post From Profile in BuddyPress / BuddyBoss ===
 Contributors: svenl77, themekraft, buddyforms, gfirem
 Tags: buddypress, buddypress registration, post from profile, member profile, user profile, 
-Requires at least: 4.0
+Requires at least: 3.9
 Tested up to: 6.0.2
-Requires PHP: 5.3
 Stable tag: 1.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -40,7 +39,7 @@ Sync Pods with BuddyPress xProfile Fields
 
 ### How to Post and Manage Content from a BuddyPress/BuddyBoss Member Profile or Group 
 Publishing Content in BuddyPress or BuddyBoss Made Easy. Enable your users to create content and bring your community to life. Easy Front-End Blogging with BuddyPress and BuddyForms!
-[How To Member Profile CMS with BuddyPress or BuddyBoss](https://themekraft.com/wordpress-solutions/post-manage-content-buddypress/
+[How To Member Profile CMS with BuddyPress or BuddyBoss](https://themekraft.com/wordpress-solutions/post-manage-content-buddypress/)
 
 > #### Docs & Support
 > * Find our Getting Started, How-to and Developer Docs on [docs.buddyforms.com](http://docs.buddyforms.com/)
@@ -82,10 +81,8 @@ Yes, you can use ACF and Podsfirlds and many other by using our Extensions
 == Documentation & Support ==
 
 > #### Extensive Documentation and Support
-> * All code is neat, clean and well documented (inline as well as in the documentation).
-> * The BuddyForms Documentation with many how-to’s will help you on your way.
+> * The Documentation with many how-to’s will help you on your way.
 > * Find our Getting Started, How-to and Developer Docs on [docs.buddyforms.com](http://docs.buddyforms.com/)
-> * or watch one of our [Video Tutorials](https://themekraft.com/buddyforms-videos/)
 > * If you still get stuck somewhere, our support gets you back on the right track. You can find all help buttons in your BuddyForms Settings Panel in your WP Dashboard and the Help Center!
 
 == Screenshots ==
