@@ -342,8 +342,8 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 				'oops'                            => __( 'Something went wrong with the plugin API.', 'buddyforms_members_tgmpa' ),
 				'notice_can_install_required'     => _n_noop(
 				/* translators: 1: plugin name(s). */
-					'This theme requires the following plugin: %1$s.',
-					'This theme requires the following plugins: %1$s.',
+					'Before you can use this plugin you need to install: %1$s.',
+					'Before you can use this plugin you need to install: %1$s.',
 					'buddyforms_members_tgmpa'
 				),
 				'notice_can_install_recommended'  => _n_noop(
@@ -1410,7 +1410,7 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
 				'version'            => '',      // String
 				'force_activation'   => false,   // Boolean
 				'force_deactivation' => false,   // Boolean
-				'external_url'       => '',      // String
+				'external_url'       => 'https://themekraft.com/wordpress-products/frontend-post-form-buddyforms/#price',      // String
 				'is_callable'        => '',      // String|Array.
 			);
 
