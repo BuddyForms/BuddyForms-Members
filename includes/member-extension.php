@@ -490,7 +490,7 @@ function buddyforms_members_activity_stream_support() {
 add_action( 'init', 'buddyforms_members_activity_stream_support', 999 );
 
 // Add Support for BuddyPress Activity Stream in Contact Forms
-function custom_activity_update_buddyforms_after_save_post($args){
+function contact_forms_activity_update_buddyforms_after_submission_end($args){
 	global $buddyforms;
 
 	// Check if the Activity component is active before using it.
@@ -509,7 +509,7 @@ function custom_activity_update_buddyforms_after_save_post($args){
 	
 	// Check if the submission exist as a post id
 	if( ! isset($args['post_id'] ) ){
-			return;
+		return;
 	}
 
 	// get the message frompost meta
@@ -533,5 +533,5 @@ function custom_activity_update_buddyforms_after_save_post($args){
 	bp_activity_post_update($args);
 
 }
-add_action('buddyforms_after_submission_end', 'custom_activity_update_buddyforms_after_save_post');
+add_action('buddyforms_after_submission_end', 'contact_forms_activity_update_buddyforms_after_submission_end');
 
