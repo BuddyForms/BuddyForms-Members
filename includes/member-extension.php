@@ -493,25 +493,28 @@ add_action( 'init', 'buddyforms_members_activity_stream_support', 999 );
 function custom_activity_update_buddyforms_after_save_post($args){
 	global $buddyforms;
 
-
 	// Check if the Activity component is active before using it.
 	if ( ! bp_is_active( 'activity' ) ) {
 		return;
 	}
 
+	// Check if the form exist
 	if( !isset($args['form_slug'] ) ){
 		return;
 	}
-
+	// Check if activity integration is enabled
 	if ( ! isset( $buddyforms[$args['form_slug']]['bp_activity_stream'] ) ){
 		return;
 	}
-
+	
+	// Check if the submission exist as a post id
 	if( ! isset($args['post_id'] ) ){
 			return;
 	}
 
+	// get the message frompost meta
 	$message = get_post_meta($args['post_id'], 'message', true);
+	// Allow other plugins to change the message 
 	$message = apply_filters('bf_bp_activity_stream_message', $message, $args);
 
 	if( empty($message) ){
