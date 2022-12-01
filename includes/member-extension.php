@@ -488,3 +488,47 @@ function buddyforms_members_activity_stream_support() {
 
 }
 add_action( 'init', 'buddyforms_members_activity_stream_support', 999 );
+
+// Add Support for BuddyPress Activity Stream in Contact Forms
+function custom_activity_update_buddyforms_after_save_post($args){
+	global $buddyforms;
+
+
+	// Check if the Activity component is active before using it.
+	if ( ! bp_is_active( 'activity' ) ) {
+		return;
+	}
+
+	if( !isset($args['form_slug'] ) ){
+		return;
+	}
+
+	if ( ! isset( $buddyforms[$args['form_slug']]['bp_activity_stream'] ) ){
+		return;
+	}
+
+	if( ! isset($args['post_id'] ) ){
+			return;
+	}
+
+	$message = get_post_meta($args['post_id'], 'message', true);
+	$message = apply_filters('bf_bp_activity_stream_message', $message, $args);
+
+	if( empty($message) ){
+		return;
+	}
+
+	$args = array(
+		'content'       => $message,
+		'user_id'       => bp_loggedin_user_id(),
+		'hide_sitewide' => false,
+		'type'          => 'activity_update',
+		'privacy'       => 'public',
+		'error_type'    => 'bool',
+	);
+
+	bp_activity_post_update($args);
+
+}
+add_action('buddyforms_after_submission_end', 'custom_activity_update_buddyforms_after_save_post');
+
