@@ -2,8 +2,8 @@
 Contributors: svenl77, themekraft, buddyforms, gfirem
 Tags: buddypress, buddypress registration, post from profile, member profile, user profile, 
 Requires at least: 3.9
-Tested up to: 6.1
-Stable tag: 1.5.1
+Tested up to: 6.1.1
+Stable tag: 1.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -94,6 +94,11 @@ Yes, you can use ACF and Podsfirlds and many other by using our Extensions
 5. **Backend Overview** - The backend overview of your existing forms.
 
 == Changelog ==
+= 1.5.2 - 05 Dec 2022 =
+* Added support to activity stream in contact forms.
+* Added new option to customize activity stream message in contact forms.
+* Tested up to WordPress 6.1.1
+
 = 1.5.1 - 03 Nov 2022 =
 * Fixed issue with required plugin download link.
 * Updated plugin name.
