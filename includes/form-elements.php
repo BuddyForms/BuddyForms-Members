@@ -38,6 +38,11 @@ function buddyforms_members_admin_settings_sidebar_metabox_html() {
 		$bp_activity_stream = $buddyform['bp_activity_stream'];
 	}
 
+	$bp_activity_stream_format = '';
+	if ( isset( $buddyform['bp_activity_stream_format'] ) ) {
+		$bp_activity_stream_format = $buddyform['bp_activity_stream_format'];
+	}
+
 	$bp_profile_member_message = false;
 	if ( isset( $buddyform['bp_profile_member_message'] ) ) {
 		$bp_profile_member_message = $buddyform['bp_profile_member_message'];
@@ -88,6 +93,20 @@ function buddyforms_members_admin_settings_sidebar_metabox_html() {
 		$element->setAttribute( 'disabled', 'disabled' );
 	}
 	$form_setup[] = $element;
+
+	if( $bp_activity_stream == true && $buddyform['form_type'] == 'contact' ){
+		$form_setup[] = new Element_Textarea(
+			'<b>' . __( 'Activity Stream custom message', 'buddyforms' ) . '</b>',
+			'buddyforms_options[bp_activity_stream_format]',
+			array(
+				'rows'  => 3,
+				'style' => 'width:100%',
+				'class' => 'display_message display_form',
+				'value' => $bp_activity_stream_format,
+				'id'    => 'bp_activity_stream_format',
+			)
+		);
+	}
 
 	$form_setup[] = new Element_Select(
 		'<br><b>' . __( 'Visibility', 'buddyforms-members' ) . '</b>',

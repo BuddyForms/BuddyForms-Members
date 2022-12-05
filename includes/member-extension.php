@@ -490,47 +490,56 @@ function buddyforms_members_activity_stream_support() {
 add_action( 'init', 'buddyforms_members_activity_stream_support', 999 );
 
 // Add Support for BuddyPress Activity Stream in Contact Forms
-function contact_forms_activity_update_buddyforms_after_submission_end($args){
+function contact_forms_activity_update_buddyforms_after_submission_end( $args ){
 	global $buddyforms;
 
 	// Check if the Activity component is active before using it.
 	if ( ! bp_is_active( 'activity' ) ) {
 		return;
 	}
-
 	// Check if the form exist
-	if( !isset($args['form_slug'] ) ){
-		return;
-	}
-	// Check if activity integration is enabled
-	if ( ! isset( $buddyforms[$args['form_slug']]['bp_activity_stream'] ) ){
-		return;
-	}
-	
-	// Check if the submission exist as a post id
-	if( ! isset($args['post_id'] ) ){
+	if( ! isset( $args['form_slug'] ) ){
 		return;
 	}
 
-	// get the message frompost meta
-	$message = get_post_meta($args['post_id'], 'message', true);
-	// Allow other plugins to change the message 
-	$message = apply_filters('bf_bp_activity_stream_message', $message, $args);
+	if ( isset( $args['form_type'] ) && $args['form_type'] == 'contact' ) {
+		
+		// Check if activity integration is enabled
+		if ( ! isset( $buddyforms[$args['form_slug']]['bp_activity_stream'] ) ){
+			return;
+		}
+		
+		// Check if the submission exist as a post id
+		if( ! isset( $args['post_id'] ) ){
+			return;
+		}
 
-	if( empty($message) ){
-		return;
+		// get the message frompost meta
+		$message = get_post_meta( $args['post_id'], 'message', true );
+		// Allow other plugins to change the message 
+		$message = apply_filters( 'bf_bp_activity_stream_message', $message, $args );
+
+		if( empty( $message ) ){
+			return;
+		}
+
+		if( isset( $buddyforms[$args['form_slug']]['bp_activity_stream_format'] ) ){
+			$custom_format = $buddyforms[$args['form_slug']]['bp_activity_stream_format'];
+			$message = $custom_format . $message;
+		}
+
+		$args = array(
+			'content'       => $message,
+			'user_id'       => bp_loggedin_user_id(),
+			'hide_sitewide' => false,
+			'type'          => 'activity_update',
+			'privacy'       => 'public',
+			'error_type'    => 'bool',
+		);
+
+		bp_activity_post_update( $args );
+
 	}
-
-	$args = array(
-		'content'       => $message,
-		'user_id'       => bp_loggedin_user_id(),
-		'hide_sitewide' => false,
-		'type'          => 'activity_update',
-		'privacy'       => 'public',
-		'error_type'    => 'bool',
-	);
-
-	bp_activity_post_update($args);
 
 }
 add_action('buddyforms_after_submission_end', 'contact_forms_activity_update_buddyforms_after_submission_end');
