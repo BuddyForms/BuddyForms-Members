@@ -1,6 +1,6 @@
 === Member Profile Forms / Custom Registration / Post From Profile in BuddyPress / BuddyBoss ===
 Contributors: svenl77, themekraft, buddyforms, gfirem
-Tags: buddypress, buddypress registration, post from profile, member profile, user profile, 
+Tags: buddypress, buddypress registration, post from profile, member profile, user profile,
 Requires at least: 3.9
 Tested up to: 6.1.1
 Stable tag: 1.5.2
@@ -11,9 +11,9 @@ BuddyPress and BuddyBoss Registration and Profile Forms. Create Member Profile T
 
 == Description ==
 
-Integrate Forms into the BuddyPress Members Profile. Allow your users to write - edit - update posts, images, videos, & just about any other content to your community, right from their BuddyPress Member Profile! 
+Integrate Forms into the BuddyPress Members Profile. Allow your users to write - edit - update posts, images, videos, & just about any other content to your community, right from their BuddyPress Member Profile!
 
-Enable Submitting and managing any kind of data from the User Profile for Different Member Types. 
+Enable Submitting and managing any kind of data from the User Profile for Different Member Types.
 
 [youtube https://www.youtube.com/watch?v=K3JK9ISu0-w]
 
@@ -31,13 +31,13 @@ Enable Submitting and managing any kind of data from the User Profile for Differ
 
 ### Use ACF Fields in the BuddyPress Registration and Profile Forms.
 Create Registration Forms Form ACF (Advanced Custo Fields)
-Sync ACF with BuddyPress xProfile Fields 
+Sync ACF with BuddyPress xProfile Fields
 
 ### Use Pods Fields in the BuddyPress Registration and Profile Forms.
 Create Registration Forms Form Pods
-Sync Pods with BuddyPress xProfile Fields 
+Sync Pods with BuddyPress xProfile Fields
 
-### How to Post and Manage Content from a BuddyPress/BuddyBoss Member Profile or Group 
+### How to Post and Manage Content from a BuddyPress/BuddyBoss Member Profile or Group
 Publishing Content in BuddyPress or BuddyBoss Made Easy. Enable your users to create content and bring your community to life. Easy Front-End Blogging with BuddyPress and BuddyForms!
 [How To Member Profile CMS with BuddyPress or BuddyBoss](https://themekraft.com/wordpress-solutions/post-manage-content-buddypress/)
 
@@ -395,4 +395,3 @@ Added a filter buddyforms_user_posts_query_args_posts_per_page to allow change t
 
 = 1.0 =
 * final 1.0 version
-
