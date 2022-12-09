@@ -449,7 +449,7 @@ function buddyforms_members_parent_tab( $member_form ) {
 }
 
 function buddyforms_members_activity_stream_support() {
-	global $buddyforms;
+	global $buddyforms, $post;
 
 	// Check if the Activity component is active before using it.
 	if ( ! bp_is_active( 'activity' ) ) {
@@ -463,6 +463,19 @@ function buddyforms_members_activity_stream_support() {
 				$name          = isset( $buddyform['name'] ) && ! empty( $buddyform['name'] ) ? $buddyform['name'] : $buddyform['post_type'];
 				$name_singular = isset( $buddyform['singular_name'] ) && ! empty( $buddyform['singular_name'] ) ? $buddyform['singular_name'] : $name;
 
+
+				$bp_activity_new_post = __( '%1$s posted a new <a href="%2$s">' . $name_singular . '</a>', 'buddyforms-members' );
+				// if( isset( $buddyform['bp_activity_stream_format'] ) ){
+				// 	$bp_activity_new_post = $buddyform['bp_activity_stream_format'];
+				// 	$bp_activity_new_post = buddyforms_get_field_value_from_string( $bp_activity_new_post_ms, $post->ID, $form_slug );
+				// }
+
+				$bp_activity_new_post_ms = __( '%1$s posted a new <a href="%2$s">' . $name_singular . '</a>, on the site %3$s', 'buddyforms-members' );
+				// if( isset( $buddyform['bp_activity_stream_format'] ) ){
+				// 	$bp_activity_new_post_ms = $buddyform['bp_activity_stream_format'];
+				// 	$bp_activity_new_post_ms = buddyforms_get_field_value_from_string( $bp_activity_new_post_ms, $post->ID, $form_slug );
+				// }
+
 				// Set the activity tracking args
 				bp_activity_set_post_type_tracking_args(
 					$buddyform['post_type'],
@@ -473,8 +486,8 @@ function buddyforms_members_activity_stream_support() {
 						'bp_activity_front_filter' => __( $name_singular, 'buddyforms-members' ),
 						'contexts'                 => array( 'activity', 'member' ),
 						'activity_comment'         => true,
-						'bp_activity_new_post'     => __( '%1$s posted a new <a href="%2$s">' . $name_singular . '</a>', 'buddyforms-members' ),
-						'bp_activity_new_post_ms'  => __( '%1$s posted a new <a href="%2$s">' . $name_singular . '</a>, on the site %3$s', 'buddyforms-members' ),
+						'bp_activity_new_post'     => $bp_activity_new_post,
+						'bp_activity_new_post_ms'  => $bp_activity_new_post_ms,
 						'position'                 => 100,
 					)
 				);
@@ -490,57 +503,111 @@ function buddyforms_members_activity_stream_support() {
 add_action( 'init', 'buddyforms_members_activity_stream_support', 999 );
 
 // Add Support for BuddyPress Activity Stream in Contact Forms
-function contact_forms_activity_update_buddyforms_after_submission_end( $args ){
+function contact_forms_activity_update_buddyforms_after_submission_end($args){
 	global $buddyforms;
 
 	// Check if the Activity component is active before using it.
 	if ( ! bp_is_active( 'activity' ) ) {
 		return;
 	}
+
 	// Check if the form exist
-	if( ! isset( $args['form_slug'] ) ){
+	if( !isset($args['form_slug'] ) ){
+		return;
+	}
+	// Check if activity integration is enabled
+	if ( ! isset( $buddyforms[$args['form_slug']]['bp_activity_stream'] ) ){
 		return;
 	}
 
-	if ( isset( $args['form_type'] ) && $args['form_type'] == 'contact' ) {
-		
-		// Check if activity integration is enabled
-		if ( ! isset( $buddyforms[$args['form_slug']]['bp_activity_stream'] ) ){
-			return;
-		}
-		
-		// Check if the submission exist as a post id
-		if( ! isset( $args['post_id'] ) ){
-			return;
-		}
-
-		// get the message frompost meta
-		$message = get_post_meta( $args['post_id'], 'message', true );
-		// Allow other plugins to change the message 
-		$message = apply_filters( 'bf_bp_activity_stream_message', $message, $args );
-
-		if( empty( $message ) ){
-			return;
-		}
-
-		if( isset( $buddyforms[$args['form_slug']]['bp_activity_stream_format'] ) ){
-			$custom_format = $buddyforms[$args['form_slug']]['bp_activity_stream_format'];
-			$message = $custom_format . $message;
-		}
-
-		$args = array(
-			'content'       => $message,
-			'user_id'       => bp_loggedin_user_id(),
-			'hide_sitewide' => false,
-			'type'          => 'activity_update',
-			'privacy'       => 'public',
-			'error_type'    => 'bool',
-		);
-
-		bp_activity_post_update( $args );
-
+	// Check if the submission exist as a post id
+	if( ! isset($args['post_id'] ) ){
+		return;
 	}
+
+	// get the message frompost meta
+	$message = get_post_meta($args['post_id'], 'message', true);
+	// Allow other plugins to change the message
+	$message = apply_filters('bf_bp_activity_stream_message', $message, $args);
+
+	if( empty($message) ){
+		return;
+	}
+
+	if( !empty( trim( $buddyforms[$args['form_slug']]['bp_activity_stream_format'] ) ) ){
+		$custom_format = $buddyforms[$args['form_slug']]['bp_activity_stream_format'];
+		$message = buddyforms_get_field_value_from_string($custom_format, $args['post_id'], $args['form_slug']);
+	}
+
+	$args = array(
+		'content'       => $message,
+		'user_id'       => bp_loggedin_user_id(),
+		'hide_sitewide' => false,
+		'type'          => 'activity_update',
+		'privacy'       => 'public',
+		'error_type'    => 'bool',
+	);
+
+	bp_activity_post_update($args);
 
 }
 add_action('buddyforms_after_submission_end', 'contact_forms_activity_update_buddyforms_after_submission_end');
 
+
+function bf_bp_activity_create_summary( $summary, $content, $activity, $extracted_media ){
+	global $buddyforms;
+
+	if( ! isset( $activity['secondary_item_id'] ) ){
+		return $summary;
+	}
+
+	$form_slug = get_post_meta( $activity['secondary_item_id'], '_bf_form_slug', true);
+	if( empty($form_slug) ){
+		return $summary;
+	}
+
+
+	if( ! empty( trim( $buddyforms[$form_slug]['bp_activity_stream_format'] ) ) ){
+		$summary = $buddyforms[$form_slug]['bp_activity_stream_format'];
+		$summary = buddyforms_get_field_value_from_string($summary, $activity['secondary_item_id'], $form_slug);
+	}
+
+	return $summary;
+
+}
+add_filter('bp_activity_create_summary', 'bf_bp_activity_create_summary', 10, 4);
+
+
+function bf_bp_activity_custom_post_type_post_action( $action, $activity ){
+	global $buddyforms;
+
+	// echo '<pre>';
+	// print_r($activity);
+	// echo '</pre>';
+
+	if( ! isset( $activity->secondary_item_id ) ){
+		return $action;
+	}
+
+	$form_slug = get_post_meta( $activity->secondary_item_id, '_bf_form_slug', true);
+	if( empty($form_slug) ){
+		return $action;
+	}
+
+	$action = $activity->display_name . ' posted a new post <a href="' . $activity->primary_link . '">' . get_the_title( $activity->secondary_item_id ) . '</a>';
+
+	if( ! empty( trim( $buddyforms[$form_slug]['bp_activity_stream_action_message'] ) ) ){
+		$action = $buddyforms[$form_slug]['bp_activity_stream_action_message'];
+		$action = buddyforms_get_field_value_from_string($action, $activity->id, $form_slug);
+	}
+
+	return $action;
+}
+add_filter('bp_activity_custom_post_type_post_action', 'bf_bp_activity_custom_post_type_post_action', 10, 2);
+
+function bf_bp_activity_new_update_action( $action, $activity ){
+
+		$bp_activity_new_post = $activity->display_name . ' posted a new <a href="' . $activity->primary_link . '">' . $name_singular . '</a>';
+return 'nada' . $bp_activity_new_post;
+}
+//add_filter('bp_activity_new_update_action', 'bf_bp_activity_new_update_action', 10, 2);

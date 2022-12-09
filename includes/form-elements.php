@@ -38,6 +38,11 @@ function buddyforms_members_admin_settings_sidebar_metabox_html() {
 		$bp_activity_stream = $buddyform['bp_activity_stream'];
 	}
 
+	$bp_activity_stream_action_message = '';
+	if ( isset( $buddyform['bp_activity_stream_action_message'] ) ) {
+		$bp_activity_stream_action_message = $buddyform['bp_activity_stream_action_message'];
+	}
+
 	$bp_activity_stream_format = '';
 	if ( isset( $buddyform['bp_activity_stream_format'] ) ) {
 		$bp_activity_stream_format = $buddyform['bp_activity_stream_format'];
@@ -94,7 +99,20 @@ function buddyforms_members_admin_settings_sidebar_metabox_html() {
 	}
 	$form_setup[] = $element;
 
-	if( $bp_activity_stream == true && $buddyform['form_type'] == 'contact' ){
+	if( $bp_activity_stream == true ){
+		$form_setup[] = new Element_Textbox(
+			'<b>' . __( 'Activity Stream action message', 'buddyforms' ) . '</b>',
+			'buddyforms_options[bp_activity_stream_action_message]',
+			array(
+				'rows'  => 3,
+				'style' => 'width:100%',
+				'class' => 'display_message display_form',
+				'value' => $bp_activity_stream_action_message,
+				'id'    => 'bp_activity_stream_action_message',
+			)
+		);
+	}
+	if( $bp_activity_stream == true ){
 		$form_setup[] = new Element_Textarea(
 			'<b>' . __( 'Activity Stream custom message', 'buddyforms' ) . '</b>',
 			'buddyforms_options[bp_activity_stream_format]',
@@ -104,6 +122,7 @@ function buddyforms_members_admin_settings_sidebar_metabox_html() {
 				'class' => 'display_message display_form',
 				'value' => $bp_activity_stream_format,
 				'id'    => 'bp_activity_stream_format',
+				'shortDesc' => 'this si only for the message of the fields'
 			)
 		);
 	}
@@ -319,17 +338,17 @@ endif;
 				// Let's add an script to handled the update of xprofile field selector
 
 				$script = "<script>
-					jQuery(function() {	
+					jQuery(function() {
 						const \$xprofile_group = jQuery('[name=\'buddyforms_options[form_fields][" . $field_id . "][xprofile_group]\']');
 
 						const ajaxReq = function(){
 
 							debugger;
-						
+
 							const \$xprofile_field = jQuery('[name=\'buddyforms_options[form_fields][" . $field_id . "][xprofile_field]\']');
 							const selected_group_id = \$xprofile_group.val();
 
-							// Let's disabled the event & input 
+							// Let's disabled the event & input
 							// until the request get ready.
 							\$xprofile_group.off('changed');
 							\$xprofile_field.attr('disabled', true);
@@ -341,15 +360,15 @@ endif;
 								.done(function(resp){
 
 									try {
-										
+
 										if (resp.success === false) {
 											throw data.server_msg
 										}
-										
+
 										const data = JSON.parse(resp.data);
 
 										if (data.group_fields !== 'object') {
-								
+
 											\$xprofile_field.find('option').not('option[value=\'none\']').remove();
 
 											const group_fields = Object.entries(data.group_fields);
@@ -357,9 +376,9 @@ endif;
 											group_fields.forEach(function(field){
 												\$xprofile_field.append(`<option value=\${field[0]}>\${field[1]}</option>`);
 											});
-											
-										}										
-							
+
+										}
+
 									} catch (error) {
 										console.error(error)
 									}
@@ -371,7 +390,7 @@ endif;
 
 								}).always(function(){
 
-									// Let's enabled all again.		
+									// Let's enabled all again.
 									\$xprofile_group.off('change').change(ajaxReq);
 									\$xprofile_field.attr('disabled', false);
 
