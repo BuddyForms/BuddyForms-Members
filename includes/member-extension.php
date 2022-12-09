@@ -581,9 +581,9 @@ add_filter('bp_activity_create_summary', 'bf_bp_activity_create_summary', 10, 4)
 function bf_bp_activity_custom_post_type_post_action( $action, $activity ){
 	global $buddyforms;
 
-	// echo '<pre>';
-	// print_r($activity);
-	// echo '</pre>';
+	echo '<pre>';
+	print_r($activity);
+	echo '</pre>';
 
 	if( ! isset( $activity->secondary_item_id ) ){
 		return $action;
