@@ -1,70 +1,55 @@
-=== BuddyForms Members ===
+=== Member Profile Forms / Custom Registration / Post From Profile in BuddyPress / BuddyBoss ===
 Contributors: svenl77, themekraft, buddyforms, gfirem
-Tags: buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing, form, forms, form builder, forms builder, post forms, user generated content, form, forms, frontend forms, contact form, contact forms, content form, post form, post forms, content forms, registration form, registration forms, custom form, custom forms, form, form administration, form builder, form creation, form creator, form manager, forms, forms builder, forms creation, forms creator, forms manager, community, content, content generation, crowdsourced content, frontend generated content, images, post, posts, public, publish, share, submission, submissions, submit, submitted, upload, user submitted, user-generated, user-submit, user-generated content
+Tags: buddypress, buddypress registration, post from profile, member profile, user profile, 
 Requires at least: 3.9
-Tested up to: 5.7
-Stable tag: 1.4.16
+Tested up to: 6.1.1
+Stable tag: 1.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-BuddyPress User Generated Content made easy. Let your Members submit, create, edit, delete posts from there profile. Easy Form builder - Full control!
+BuddyPress and BuddyBoss Registration and Profile Forms. Create Member Profile Tabs form Forms. Let your Members create, edit, and delete any kind of data from their profile.
 
 == Description ==
 
-This is a free extension for the form builder plugin BuddyForms which makes user generated content easy using BuddyPress.
+Integrate Forms into the BuddyPress Members Profile. Allow your users to write - edit - update posts, images, videos, & just about any other content to your community, right from their BuddyPress Member Profile! 
+
+Enable Submitting and managing any kind of data from the User Profile for Different Member Types. 
+
+[youtube https://www.youtube.com/watch?v=K3JK9ISu0-w]
 
 ### The extension allows you to:
-> * Integrate Forms into your BuddyPress members profile. Allow your users to write - edit - upload posts, images, video, & just about any other content to your community, right from their BuddyPress Member Profile!
-> * Create group forms: Many forms can share the same Profile Tab . All Forms with the same attached page can be grouped together. They will be listed as sub-navigation tabs in the main menu of the profile tab.
+> * Integrate Forms into the BuddyPress Member Profile. Allow your users to write - edit - upload posts, images, videos, & just about any other content to your community, right from their BuddyPress Member Profile!
+> * Create group forms: Many forms can share the same Profile Tab. All Forms with the same attached page can be grouped together. They will be listed as sub-navigation tabs in the main menu of the profile tab.
 > * Manage the visibility of who can see your submissions in your profile
-> * > Private - Only the logged in member in his profile.
-> * > Community - Logged in user can see other users profile posts
+> * > Private - Only the logged-in member in his profile.
+> * > Community - Logged in user can see other users' profile posts
 > * > Public Visible - Unregistered users can see user profile posts
+> * Manage permissions: define, create, edit and delete rights for each user role and form.
+> * Create Member Type Forms.
+> * Overwrite the BuddyPress and BuddyBoss Profile Forms with a Member Type specific Form.
+> * MAny Addons for Moderation and other Integration
 
-### About the core form builder plugin BuddyForms:
-> * From simple to advanced forms you can build forms in minutes.
-> * Manage permissions: define, create, edit and delete rights for each role and form.
-> * Get all the necessary form elements like text fields, email input, checkboxes, dropdowns and more.
-> * Choose how your members create, manage and edit their posts. With moderation and permission control you can automate your publishing process and save a lot of time.
+### Use ACF Fields in the BuddyPress Registration and Profile Forms.
+Create Registration Forms Form ACF (Advanced Custo Fields)
+Sync ACF with BuddyPress xProfile Fields 
 
+### Use Pods Fields in the BuddyPress Registration and Profile Forms.
+Create Registration Forms Form Pods
+Sync Pods with BuddyPress xProfile Fields 
 
-→ Check out the [BuddyForms](https://wordpress.org/plugins/buddyforms/) plugin for more information and other free extensions that come with it
-
-See the plugin in action:
-
-[youtube https://www.youtube.com/watch?v=Gt8dcLZPR9A&t=60s]
-
-
-### Perfect for online magazines, blogs, directories, stores, FAQ’s… you name it.
-> * Bring your existing plugins or theme post types into the BuddyPress ecosystem and make it accessible for your users right from their profile.
-
----
+### How to Post and Manage Content from a BuddyPress/BuddyBoss Member Profile or Group 
+Publishing Content in BuddyPress or BuddyBoss Made Easy. Enable your users to create content and bring your community to life. Easy Front-End Blogging with BuddyPress and BuddyForms!
+[How To Member Profile CMS with BuddyPress or BuddyBoss](https://themekraft.com/wordpress-solutions/post-manage-content-buddypress/)
 
 > #### Docs & Support
 > * Find our Getting Started, How-to and Developer Docs on [docs.buddyforms.com](http://docs.buddyforms.com/)
-> * or watch one of our Video Tutorials [Videos](https://themekraft.com/buddyforms-videos/)
-
----
-
-> #### Submit Issues - Contribute
-> * Pull request are welcome. BuddyForms is community driven and developed on [Github](https://buddyforms.github.io/BuddyForms/)
-
-
----
 
 > #### Follow Us
-> [Blog](https://themekraft.com/blog/) | [Twitter](https://twitter.com/buddyforms) | [Facebook](https://www.facebook.com/buddyforms/) | [Google+](https://plus.google.com/u/0/b/100975390423636463712/?pageId=100975390423636463712) | [YouTube](https://www.youtube.com/playlist?list=PLYPguOC5yk7_aB2Q2FTaktqHCXDc_mzqb)
+> [Blog](https://themekraft.com/blog/) | [Twitter](https://twitter.com/buddyforms) | [Facebook](https://www.facebook.com/buddyforms/) | [YouTube](https://www.youtube.com/playlist?list=PLYPguOC5yk7_aB2Q2FTaktqHCXDc_mzqb)
 
 ---
 
 > **Powered with ❤ by [ThemeKraft](https://themekraft.com)**
-
----
-
-#### Tags
-buddypress, user, members, profiles, custom post types, taxonomy, frontend posting, frontend editing, form, forms, form builder, forms builder, post forms, user generated content, form, forms, frontend forms, contact form, contact forms, content form, post form, post forms, content forms, registration form, registration forms, custom form, custom forms, form, form administration, form builder, form creation, form creator, form manager, forms, forms builder, forms creation, forms creator, forms manager, community, content, content generation, crowdsourced content, frontend generated content, images, post, posts, public, publish, share, submission, submissions, submit, submitted, upload, user submitted, user-generated, user-submit, user-generated content
-
----
 
 == Installation ==
 
@@ -74,25 +59,30 @@ Head to the 'BuddyForms' menu item in your admin sidebar
 
 == Frequently Asked Questions ==
 
-= Can I create a normal Contact Forms =
-Yes, you can create Simple Contact Forms or Complex Contact Forms with many different actions to create your submission logic.
+= Can user post from there profile =
+Yes, you can create new tabs from any form type and post type
 
 = Can I create a Registration Forms =
-Yes, you can Create Registration Forms
+Yes, you can Create Registration Forms and use BuddyPress and WordPress or ACF and many other form elements and keep all in sync
 
 = Can I create a Content Forms =
-Yes, you can create Content forms for any post type.
+Yes, you can create Content forms for any post type and also group forms unde rone parent tab in the user profile.
 
 = Can I Combine Registration Forms and Content Forms =
 Yes, you can add login and registration Form Elements to any form and ask your user to Login or Register during form submission.
 
+= Can I create different prtofile forms for different member types =
+Yes, you can create different member type forms and also overwrite teh feault BuddyPress or BuddyBoss Profile edit form
+
+= Can I use ACF Fields in the BuddyPress Registation =
+Yes, you can use ACF and Podsfirlds and many other by using our Extensions
+
+
 == Documentation & Support ==
 
 > #### Extensive Documentation and Support
-> * All code is neat, clean and well documented (inline as well as in the documentation).
-> * The BuddyForms Documentation with many how-to’s will help you on your way.
+> * The Documentation with many how-to’s will help you on your way.
 > * Find our Getting Started, How-to and Developer Docs on [docs.buddyforms.com](http://docs.buddyforms.com/)
-> * or watch one of our [Video Tutorials](https://themekraft.com/buddyforms-videos/)
 > * If you still get stuck somewhere, our support gets you back on the right track. You can find all help buttons in your BuddyForms Settings Panel in your WP Dashboard and the Help Center!
 
 == Screenshots ==
@@ -104,6 +94,47 @@ Yes, you can add login and registration Form Elements to any form and ask your u
 5. **Backend Overview** - The backend overview of your existing forms.
 
 == Changelog ==
+= 1.5.3 - 16 Dec 2022 =
+* Added support to activity stream on contact forms.
+* Added new option to create custom message on activity stream.
+* Tested up to WordPress 6.1.1
+
+= 1.5.1 - 03 Nov 2022 =
+* Fixed issue with required plugin download link.
+* Updated plugin name.
+* Tested up to WordPress 6.1
+
+= 1.5.0 - 04 Oct 2022 =
+* Fixed issue with plugin download url
+* Tested up to WordPress 6.0.2
+
+= 1.4.22 - 26 May 2022 =
+* Fixed security issue.
+* Tested up to WordPress 6.0
+
+= 1.4.21 - 16 May 2022 =
+* Updated readme.txt
+
+= 1.4.20 - 9 Mar 2022 =
+* Added descriptive video about the main features of the plugin.
+* Updated the readme.text
+
+= 1.4.19 - 6 Mar 2022 =
+* Fixed issue with xprofile fields displaying in free version.
+* Tested up WordPress to 5.9
+
+= 1.4.18 - 6 Jan 2022 =
+* Improved Freemius integration.
+* Tested up BuddyPress 9.2
+
+= 1.4.17 - 10 Jul 2021 =
+* Tested up WordPress 5.8
+* Fixed PHP exception when a notification doesn't have any send_to email checked.
+* Added filter (hook) "buddyforms_shortcode_the_loop_post_status" used to fix compatibility issue with BuddyForms Moderation.
+* Add filter (hook) "buddyforms_members_skip_setup_nav" to skip nav item on the Member Profile nav.
+* Fixed issue with xProfile integration on Select and Radio form fields.
+* Removed Member Type restriction on the "Override Edit Profile Form" functionality, now users can use this functionality even if there's no any Member Type created.
+
 = 1.4.16 - 13 May 2021 =
 * Remove un-used composer dev dependencies.
 * Fixed issue with missing form's integrated tabs on the Member Profile.
@@ -364,3 +395,4 @@ Added a filter buddyforms_user_posts_query_args_posts_per_page to allow change t
 
 = 1.0 =
 * final 1.0 version
+

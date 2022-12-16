@@ -43,24 +43,30 @@ function buddyforms_members_wp_before_admin_bar_render() {
 
 			if ( isset( $buddyform['admin_bar'][0] ) ) {
 				if ( current_user_can( 'buddyforms_' . $key . '_create' ) ) {
-					$wp_admin_bar->add_menu( array(
-						'parent' => 'my-account-buddypress',
-						'id'     => 'my-account-buddypress-' . $key,
-						'title'  => __( $name, 'buddypress' ),
-						'href'   => trailingslashit( bp_loggedin_user_domain() . $slug )
-					) );
-					$wp_admin_bar->add_menu( array(
-						'parent' => 'my-account-buddypress-' . $key,
-						'id'     => 'my-account-buddypress-' . $key . '-view',
-						'title'  => __( 'View my ', 'buddyforms-members' ) . $buddyform['name'],
-						'href'   => trailingslashit( bp_loggedin_user_domain() . $slug )
-					) );
-					$wp_admin_bar->add_menu( array(
-						'parent' => 'my-account-buddypress-' . $key,
-						'id'     => 'my-account-buddypress-' . $key . '-new',
-						'title'  => __( 'New ', 'buddyforms-members' ) . $buddyform['singular_name'],
-						'href'   => trailingslashit( bp_loggedin_user_domain() . $slug . $key . '-create' )
-					) );
+					$wp_admin_bar->add_menu(
+						array(
+							'parent' => 'my-account-buddypress',
+							'id'     => 'my-account-buddypress-' . $key,
+							'title'  => __( $name, 'buddypress' ),
+							'href'   => trailingslashit( bp_loggedin_user_domain() . $slug ),
+						)
+					);
+					$wp_admin_bar->add_menu(
+						array(
+							'parent' => 'my-account-buddypress-' . $key,
+							'id'     => 'my-account-buddypress-' . $key . '-view',
+							'title'  => __( 'View my ', 'buddyforms-members' ) . $buddyform['name'],
+							'href'   => trailingslashit( bp_loggedin_user_domain() . $slug ),
+						)
+					);
+					$wp_admin_bar->add_menu(
+						array(
+							'parent' => 'my-account-buddypress-' . $key,
+							'id'     => 'my-account-buddypress-' . $key . '-new',
+							'title'  => __( 'New ', 'buddyforms-members' ) . $buddyform['singular_name'],
+							'href'   => trailingslashit( bp_loggedin_user_domain() . $slug . $key . '-create' ),
+						)
+					);
 				}
 			}
 		endif;
@@ -92,7 +98,6 @@ function buddyforms_admin_bar_members() {
 		if ( isset( $buddyform['profiles_integration'] ) ) {
 			$wp_admin_bar->remove_menu( 'my-account-' . $key );
 		}
-
 	}
 
 }
@@ -120,7 +125,7 @@ function buddyforms_members_locate_template( $file ) {
 	if ( locate_template( array( $file ), false ) ) {
 		locate_template( array( $file ), true );
 	} else {
-		include( BUDDYFORMS_MEMBERS_TEMPLATE_PATH . $file );
+		include BUDDYFORMS_MEMBERS_TEMPLATE_PATH . $file;
 	}
 }
 
@@ -139,14 +144,19 @@ function buddyforms_front_js_loader_bp_members_support( $found ) {
 	return $found;
 }
 
-//add_filter('buddyforms_button_view_posts', 'buddyforms_members_button_view_posts', 10, 2);
+// add_filter('buddyforms_button_view_posts', 'buddyforms_members_button_view_posts', 10, 2);
 function buddyforms_members_button_view_posts( $button, $args ) {
 	global $buddyforms;
 
-	extract( shortcode_atts( array(
-		'form_slug' => '',
-		'label'     => 'View',
-	), $args ) );
+	extract(
+		shortcode_atts(
+			array(
+				'form_slug' => '',
+				'label'     => 'View',
+			),
+			$args
+		)
+	);
 
 	if ( isset( $buddyforms[ $form_slug ]['profiles_integration'] ) ) {
 		$url    = trailingslashit( bp_loggedin_user_domain() );
@@ -156,14 +166,19 @@ function buddyforms_members_button_view_posts( $button, $args ) {
 	return $button;
 }
 
-//add_filter('buddyforms_button_add_new', 'buddyforms_members_button_add_new', 10, 2);
+// add_filter('buddyforms_button_add_new', 'buddyforms_members_button_add_new', 10, 2);
 function buddyforms_members_button_add_new( $button, $args ) {
 	global $buddyforms;
 
-	extract( shortcode_atts( array(
-		'form_slug' => '',
-		'label'     => 'Add New',
-	), $args ) );
+	extract(
+		shortcode_atts(
+			array(
+				'form_slug' => '',
+				'label'     => 'Add New',
+			),
+			$args
+		)
+	);
 
 	if ( isset( $buddyforms[ $form_slug ]['profiles_integration'] ) ) {
 		$url    = trailingslashit( bp_loggedin_user_domain() );
@@ -174,16 +189,16 @@ function buddyforms_members_button_add_new( $button, $args ) {
 }
 
 
-add_filter('buddyforms_mail_to_before_send_notification', 'buddyforms_send_notifiction_to_member', 10, 3 );
+add_filter( 'buddyforms_mail_to_before_send_notification', 'buddyforms_send_notifiction_to_member', 10, 3 );
 function buddyforms_send_notifiction_to_member( $mail_to, $notification, $form_slug ) {
 	global $buddyforms;
 
-	if ( ! isset( $buddyforms[$form_slug] ) ) {
+	if ( ! isset( $buddyforms[ $form_slug ] ) ) {
 		return $mail_to;
 	}
 
-	$form = $buddyforms[$form_slug];
-	
+	$form = $buddyforms[ $form_slug ];
+
 	if ( $form['form_type'] !== 'contact' || ! isset( $form['bp_profile_member_message'] ) ) {
 		return $mail_to;
 	}
@@ -201,15 +216,15 @@ function buddyforms_send_notifiction_to_member( $mail_to, $notification, $form_s
 	return $mail_to;
 }
 
-add_filter('buddyforms_notifications_send_mail_to_options', 'buddyforms_notification_send_mail_to_member_option', 10, 3 );
-function buddyforms_notification_send_mail_to_member_option($mail_to_options, $trigger, $form_slug ) {
+add_filter( 'buddyforms_notifications_send_mail_to_options', 'buddyforms_notification_send_mail_to_member_option', 10, 3 );
+function buddyforms_notification_send_mail_to_member_option( $mail_to_options, $trigger, $form_slug ) {
 	global $buddyforms;
 
-	if ( ! isset( $buddyforms[$form_slug] ) ) {
+	if ( ! isset( $buddyforms[ $form_slug ] ) ) {
 		return $mail_to_options;
 	}
 
-	$form = $buddyforms[$form_slug];
+	$form = $buddyforms[ $form_slug ];
 
 	if ( $form['form_type'] !== 'contact' || ! isset( $form['bp_profile_member_message'] ) ) {
 		return $mail_to_options;
@@ -220,7 +235,7 @@ function buddyforms_notification_send_mail_to_member_option($mail_to_options, $t
 	return $mail_to_options;
 }
 
-add_action('post_submitbox_start', 'buddyforms_check_send_message_to_member_conditions');
+add_action( 'post_submitbox_start', 'buddyforms_check_send_message_to_member_conditions' );
 function buddyforms_check_send_message_to_member_conditions() {
 	global $buddyform;
 
@@ -233,16 +248,18 @@ function buddyforms_check_send_message_to_member_conditions() {
 		return;
 	}
 
-	$mail_to = array();
-	$bf_notice = new BfAdminNotices();
+	$mail_to       = array();
+	$bf_notice     = new BfAdminNotices();
 	$notifications = $buddyform['mail_submissions'];
 
 	if ( ! is_array( $notifications ) ) {
 		return;
 	}
 
-	foreach ($notifications as $notification) {
-		$mail_to = array_merge( $mail_to, $notification['mail_to'] );
+	foreach ( $notifications as $notification ) {
+		if ( isset( $notification['mail_to'] ) && is_array( $notification['mail_to'] ) ) {
+			$mail_to = array_merge( $mail_to, $notification['mail_to'] );
+		}
 	}
 
 	if ( ! in_array( 'member', $mail_to ) ) {
@@ -250,7 +267,7 @@ function buddyforms_check_send_message_to_member_conditions() {
 	}
 
 	if ( ! empty( $messages ) ) {
-		$bf_notice->show_form_notices($messages);
+		$bf_notice->show_form_notices( $messages );
 	}
 }
 
@@ -259,24 +276,24 @@ function buddyforms_enable_at_least_one_send_to_member_in_notifications( $buddyf
 
 	$old_data = get_post_meta( $post_id, '_buddyforms_options', true );
 
-	// Send message to member is about to be enabled? 	
+	// Send message to member is about to be enabled?
 	if ( isset( $buddyform['bp_profile_member_message'] ) && ! isset( $old_data['bp_profile_member_message'] ) ) {
 
-		$mail_to = array();
+		$mail_to       = array();
 		$notifications = $buddyform['mail_submissions'];
 
 		if ( ! is_array( $notifications ) && count( $notifications ) > 0 ) {
 			return $buddyform;
 		}
 
-		foreach ($notifications as $notification) {
+		foreach ( $notifications as $notification ) {
 			$mail_to = array_merge( $mail_to, $notification['mail_to'] );
 		}
 
 		if ( ! in_array( 'member', $mail_to ) ) {
 
-			foreach ($notifications as &$notification ) {
-				$notification['mail_to'][] = 'member'; 
+			foreach ( $notifications as &$notification ) {
+				$notification['mail_to'][] = 'member';
 				break;
 			}
 

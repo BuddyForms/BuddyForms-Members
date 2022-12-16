@@ -103,15 +103,15 @@ class BuddyForms_Members {
 	 */
 	public function includes() {
 
-		require_once( BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'functions.php' );
-		require_once( BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'form-elements.php' );
-		require_once( BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'member-extension.php' );
-		require_once( BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'redirect.php' );
-		require_once( BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'admin-settings-tab.php' );
-		require_once( BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'resources/tgm/class-tgm-plugin-activation.php' );
+		require_once BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'functions.php';
+		require_once BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'form-elements.php';
+		require_once BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'member-extension.php';
+		require_once BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'redirect.php';
+		require_once BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'admin-settings-tab.php';
+		require_once BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'resources/tgm/class-tgm-plugin-activation.php';
 
 		if ( ! class_exists( 'BP_Theme_Compat' ) ) {
-			require_once( BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'bp-backwards-compatibililty-functions.php' );
+			require_once BUDDYFORMS_MEMBERS_INCLUDES_PATH . 'bp-backwards-compatibililty-functions.php';
 		}
 	}
 
@@ -142,7 +142,7 @@ class BuddyForms_Members {
 				'name'         => 'BuddyForms',
 				'slug'         => 'buddyforms',
 				'required'     => true,
-				'is_automatic' => true
+				'is_automatic' => true,
 			),
 		);
 		$is_buddyboss_theme_active = buddyforms_members_is_buddyboss_theme_active();
@@ -151,7 +151,7 @@ class BuddyForms_Members {
 				'name'         => 'BuddyPress',
 				'slug'         => 'buddypress',
 				'required'     => true,
-				'is_automatic' => true
+				'is_automatic' => true,
 			);
 		}
 		tgmpa( $plugins );

@@ -21,7 +21,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 function bf_members_get_redirect_link( $id = false ) {
 	global $bp, $buddyforms;
 
-
 	if ( ! $id ) {
 		return false;
 	}
@@ -79,11 +78,8 @@ function bf_members_get_redirect_link( $id = false ) {
 				if ( $bp->unfiltered_uri[1] == 'page' ) {
 					$link = $domain . '/' . $parent_tab . '/' . $form_slug . '-posts/' . $bp->unfiltered_uri[2] . '/' . $bp->unfiltered_uri[3];
 				}
-
 			}
-
 		}
-
 	}
 
 	return apply_filters( 'bf_members_get_redirect_link', $link );
@@ -127,7 +123,6 @@ function bf_members_page_link_router( $link, $id ) {
 	}
 
 	global $buddyforms;
-
 
 	$form_slug = get_post_meta( $id, '_bf_form_slug', true );
 
@@ -182,9 +177,9 @@ function bf_members_page_link_router_pagination( $result ) {
 
 	if ( isset( $bp->current_component ) && isset( $buddyforms_member_tabs[ $bp->current_component ] ) ) {
 
-		$result    = rtrim( $result, "/" );
+		$result       = rtrim( $result, '/' );
 		$result_array = explode( '/', $result );
-		$this_page = end( $result_array );
+		$this_page    = end( $result_array );
 
 		$domain = is_user_logged_in() ? bp_loggedin_user_domain() : bp_displayed_user_domain();
 
@@ -199,15 +194,14 @@ add_filter( 'get_pagenum_link', 'bf_members_page_link_router_pagination', 10, 2 
 
 
 add_filter( 'buddyforms_after_save_post_redirect', 'buddyforms_members_after_save_post_redirect', 10, 1 );
-function buddyforms_members_after_save_post_redirect($post_list_link){
+function buddyforms_members_after_save_post_redirect( $post_list_link ) {
 	global $buddyforms, $bp;
-
 
 	if ( ! isset( $_POST['form_slug'] ) ) {
 		return $post_list_link;
 	}
 
-	$form_slug = $_POST['form_slug'];
+	$form_slug = sanitize_text_field( wp_unslash( $_POST['form_slug'] ) );
 
 	if ( ! isset( $buddyforms[ $form_slug ] ) ) {
 		return $post_list_link;
@@ -219,8 +213,8 @@ function buddyforms_members_after_save_post_redirect($post_list_link){
 	$parent_tab = buddyforms_members_parent_tab( $buddyforms[ $form_slug ] );
 
 	$link_array = parse_url( $post_list_link );
-	$path = trim( $link_array['path'], '/' );
-	$action = explode( '/', $path );
+	$path       = trim( $link_array['path'], '/' );
+	$action     = explode( '/', $path );
 
 	$domain = is_user_logged_in() ? bp_loggedin_user_domain() : bp_displayed_user_domain();
 
@@ -239,18 +233,18 @@ function buddyforms_members_after_save_post_redirect($post_list_link){
 	if ( in_array( 'page', $action ) ) {
 		return $domain . '/' . $parent_tab . '/' . $form_slug . '-posts/' . $bp->unfiltered_uri[2] . '/' . $bp->unfiltered_uri[3];
 	}
-	if( in_array( $form_slug, $action ) ){
+	if ( in_array( $form_slug, $action ) ) {
 		return $domain . $parent_tab . '/' . $form_slug . '-posts';
 	}
 
 	return $post_list_link;
 }
 
-add_filter('buddyforms_login_form_redirect_url', 'buddyforms_members_login_form_redirect_url', 10, 1 );
-function buddyforms_members_login_form_redirect_url( $redirect_url ){
-	$redirect = explode('//', $redirect_url);
+add_filter( 'buddyforms_login_form_redirect_url', 'buddyforms_members_login_form_redirect_url', 10, 1 );
+function buddyforms_members_login_form_redirect_url( $redirect_url ) {
+	$redirect = explode( '//', $redirect_url );
 
-	if( isset($redirect[1]) && $redirect[1] == 'profile' ){
+	if ( isset( $redirect[1] ) && $redirect[1] == 'profile' ) {
 
 		global $user;
 		$redirect_url = bp_core_get_user_domain( $user->ID );
@@ -258,14 +252,14 @@ function buddyforms_members_login_form_redirect_url( $redirect_url ){
 	return $redirect_url;
 }
 
-add_filter( 'buddyforms_reset_password_redirect', 'buddyforms_members_reset_password_redirect');
+add_filter( 'buddyforms_reset_password_redirect', 'buddyforms_members_reset_password_redirect' );
 
-function buddyforms_members_reset_password_redirect($redirect_url){
+function buddyforms_members_reset_password_redirect( $redirect_url ) {
 
-	if(is_user_logged_in() && $redirect_url == 'profile'){
+	if ( is_user_logged_in() && $redirect_url == 'profile' ) {
 		$redirect_url = $redirect_url = bp_core_get_user_domain( get_current_user_id() );
 	}
-	if(is_user_logged_in() && $redirect_url == 'profile_edit'){
+	if ( is_user_logged_in() && $redirect_url == 'profile_edit' ) {
 		$redirect_url = $redirect_url = bp_core_get_user_domain( get_current_user_id() ) . 'profile/edit/';
 	}
 	return $redirect_url;
