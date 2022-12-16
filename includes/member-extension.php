@@ -465,14 +465,14 @@ function buddyforms_members_activity_stream_support() {
 
 
 				$bp_activity_new_post = __( '%1$s posted a new <a href="%2$s">' . $name_singular . '</a>', 'buddyforms-members' );
-				// if( isset( $buddyform['bp_activity_stream_format'] ) ){
-				// 	$bp_activity_new_post = $buddyform['bp_activity_stream_format'];
+				// if( isset( $buddyform['bp_activity_stream_content'] ) ){
+				// 	$bp_activity_new_post = $buddyform['bp_activity_stream_content'];
 				// 	$bp_activity_new_post = buddyforms_get_field_value_from_string( $bp_activity_new_post_ms, $post->ID, $form_slug );
 				// }
 
 				$bp_activity_new_post_ms = __( '%1$s posted a new <a href="%2$s">' . $name_singular . '</a>, on the site %3$s', 'buddyforms-members' );
-				// if( isset( $buddyform['bp_activity_stream_format'] ) ){
-				// 	$bp_activity_new_post_ms = $buddyform['bp_activity_stream_format'];
+				// if( isset( $buddyform['bp_activity_stream_content'] ) ){
+				// 	$bp_activity_new_post_ms = $buddyform['bp_activity_stream_content'];
 				// 	$bp_activity_new_post_ms = buddyforms_get_field_value_from_string( $bp_activity_new_post_ms, $post->ID, $form_slug );
 				// }
 
@@ -534,21 +534,23 @@ function contact_forms_activity_update_buddyforms_after_submission_end($args){
 		return;
 	}
 
-	if( !empty( trim( $buddyforms[$args['form_slug']]['bp_activity_stream_format'] ) ) ){
-		$custom_format = $buddyforms[$args['form_slug']]['bp_activity_stream_format'];
+	if( !empty( trim( $buddyforms[$args['form_slug']]['bp_activity_stream_content'] ) ) ){
+		$custom_format = $buddyforms[$args['form_slug']]['bp_activity_stream_content'];
 		$message = buddyforms_get_field_value_from_string($custom_format, $args['post_id'], $args['form_slug']);
 	}
 
-	$args = array(
+	$activity_args = array(
 		'content'       => $message,
 		'user_id'       => bp_loggedin_user_id(),
 		'hide_sitewide' => false,
 		'type'          => 'activity_update',
 		'privacy'       => 'public',
-		'error_type'    => 'bool',
+		'error_type'    => 'bool'
 	);
 
-	bp_activity_post_update($args);
+	$activity_id = bp_activity_post_update($activity_args);
+
+	update_post_meta( $args['post_id'], 'bf_bp_activity_id', $activity_id );
 
 }
 add_action('buddyforms_after_submission_end', 'contact_forms_activity_update_buddyforms_after_submission_end');
@@ -567,8 +569,8 @@ function bf_bp_activity_create_summary( $summary, $content, $activity, $extracte
 	}
 
 
-	if( ! empty( trim( $buddyforms[$form_slug]['bp_activity_stream_format'] ) ) ){
-		$summary = $buddyforms[$form_slug]['bp_activity_stream_format'];
+	if( ! empty( trim( $buddyforms[$form_slug]['bp_activity_stream_content'] ) ) ){
+		$summary = $buddyforms[$form_slug]['bp_activity_stream_content'];
 		$summary = buddyforms_get_field_value_from_string($summary, $activity['secondary_item_id'], $form_slug);
 	}
 
@@ -577,13 +579,8 @@ function bf_bp_activity_create_summary( $summary, $content, $activity, $extracte
 }
 add_filter('bp_activity_create_summary', 'bf_bp_activity_create_summary', 10, 4);
 
-
 function bf_bp_activity_custom_post_type_post_action( $action, $activity ){
 	global $buddyforms;
-
-	echo '<pre>';
-	print_r($activity);
-	echo '</pre>';
 
 	if( ! isset( $activity->secondary_item_id ) ){
 		return $action;
@@ -596,9 +593,9 @@ function bf_bp_activity_custom_post_type_post_action( $action, $activity ){
 
 	$action = $activity->display_name . ' posted a new post <a href="' . $activity->primary_link . '">' . get_the_title( $activity->secondary_item_id ) . '</a>';
 
-	if( ! empty( trim( $buddyforms[$form_slug]['bp_activity_stream_action_message'] ) ) ){
-		$action = $buddyforms[$form_slug]['bp_activity_stream_action_message'];
-		$action = buddyforms_get_field_value_from_string($action, $activity->id, $form_slug);
+	if( ! empty( trim( $buddyforms[$form_slug]['bp_activity_stream_title'] ) ) ){
+		$action = $buddyforms[$form_slug]['bp_activity_stream_title'];
+		$action = buddyforms_get_field_value_from_string($action, $activity->secondary_item_id, $form_slug);
 	}
 
 	return $action;
@@ -607,7 +604,34 @@ add_filter('bp_activity_custom_post_type_post_action', 'bf_bp_activity_custom_po
 
 function bf_bp_activity_new_update_action( $action, $activity ){
 
-		$bp_activity_new_post = $activity->display_name . ' posted a new <a href="' . $activity->primary_link . '">' . $name_singular . '</a>';
-return 'nada' . $bp_activity_new_post;
+	global $buddyforms;
+
+	if( ! isset( $activity->id ) ){
+		return $action;
+	}
+
+	$posts = get_posts(array(
+	    'numberposts'   => -1,
+	    'post_type'     => 'bf_submissions',
+	    'meta_key'      => 'bf_bp_activity_id',
+	    'meta_value'    => $activity->id
+	));
+
+	if ( ! isset( $posts[0]->ID ) ){
+		return $action;
+	}
+
+	$form_slug = get_post_meta( $posts[0]->ID, '_bf_form_slug', true);
+
+	if( empty($form_slug) ){
+		return $action;
+	}
+
+	if( ! empty( trim( $buddyforms[$form_slug]['bp_activity_stream_title'] ) ) ){
+		$action = $buddyforms[$form_slug]['bp_activity_stream_title'];
+		$action = buddyforms_get_field_value_from_string($action, $posts[0]->ID, $form_slug);
+	}
+
+	return $action;
 }
-//add_filter('bp_activity_new_update_action', 'bf_bp_activity_new_update_action', 10, 2);
+add_filter('bp_activity_new_update_action', 'bf_bp_activity_new_update_action', 10, 2);

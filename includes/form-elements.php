@@ -38,14 +38,14 @@ function buddyforms_members_admin_settings_sidebar_metabox_html() {
 		$bp_activity_stream = $buddyform['bp_activity_stream'];
 	}
 
-	$bp_activity_stream_action_message = '';
-	if ( isset( $buddyform['bp_activity_stream_action_message'] ) ) {
-		$bp_activity_stream_action_message = $buddyform['bp_activity_stream_action_message'];
+	$bp_activity_stream_title = '';
+	if ( isset( $buddyform['bp_activity_stream_title'] ) ) {
+		$bp_activity_stream_title = $buddyform['bp_activity_stream_title'];
 	}
 
-	$bp_activity_stream_format = '';
-	if ( isset( $buddyform['bp_activity_stream_format'] ) ) {
-		$bp_activity_stream_format = $buddyform['bp_activity_stream_format'];
+	$bp_activity_stream_content = '';
+	if ( isset( $buddyform['bp_activity_stream_content'] ) ) {
+		$bp_activity_stream_content = $buddyform['bp_activity_stream_content'];
 	}
 
 	$bp_profile_member_message = false;
@@ -102,26 +102,26 @@ function buddyforms_members_admin_settings_sidebar_metabox_html() {
 	if( $bp_activity_stream == true ){
 		$form_setup[] = new Element_Textbox(
 			'<b>' . __( 'Activity Stream action message', 'buddyforms' ) . '</b>',
-			'buddyforms_options[bp_activity_stream_action_message]',
+			'buddyforms_options[bp_activity_stream_title]',
 			array(
 				'rows'  => 3,
 				'style' => 'width:100%',
 				'class' => 'display_message display_form',
-				'value' => $bp_activity_stream_action_message,
-				'id'    => 'bp_activity_stream_action_message',
+				'value' => $bp_activity_stream_title,
+				'id'    => 'bp_activity_stream_title',
 			)
 		);
 	}
 	if( $bp_activity_stream == true ){
 		$form_setup[] = new Element_Textarea(
 			'<b>' . __( 'Activity Stream custom message', 'buddyforms' ) . '</b>',
-			'buddyforms_options[bp_activity_stream_format]',
+			'buddyforms_options[bp_activity_stream_content]',
 			array(
 				'rows'  => 3,
 				'style' => 'width:100%',
 				'class' => 'display_message display_form',
-				'value' => $bp_activity_stream_format,
-				'id'    => 'bp_activity_stream_format',
+				'value' => $bp_activity_stream_content,
+				'id'    => 'bp_activity_stream_content',
 				'shortDesc' => 'this si only for the message of the fields'
 			)
 		);
