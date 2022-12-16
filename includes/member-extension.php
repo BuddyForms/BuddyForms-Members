@@ -539,6 +539,7 @@ function contact_forms_activity_update_buddyforms_after_submission_end($args){
 		$message = buddyforms_get_field_value_from_string($custom_format, $args['post_id'], $args['form_slug']);
 	}
 
+	// Create the activity stream arguments
 	$activity_args = array(
 		'content'       => $message,
 		'user_id'       => bp_loggedin_user_id(),
@@ -548,8 +549,10 @@ function contact_forms_activity_update_buddyforms_after_submission_end($args){
 		'error_type'    => 'bool'
 	);
 
+	// Create the new Activity
 	$activity_id = bp_activity_post_update($activity_args);
 
+	// Save the Activity ID as post meta, so that we can query for thet post meta and find the related post
 	update_post_meta( $args['post_id'], 'bf_bp_activity_id', $activity_id );
 
 }
@@ -568,9 +571,10 @@ function bf_bp_activity_create_summary( $summary, $content, $activity, $extracte
 		return $summary;
 	}
 
-
+	// Get the custom activity message
 	if( ! empty( trim( $buddyforms[$form_slug]['bp_activity_stream_content'] ) ) ){
 		$summary = $buddyforms[$form_slug]['bp_activity_stream_content'];
+		// Process the field shortcodes in the text and replace with the values.
 		$summary = buddyforms_get_field_value_from_string($summary, $activity['secondary_item_id'], $form_slug);
 	}
 
@@ -593,8 +597,10 @@ function bf_bp_activity_custom_post_type_post_action( $action, $activity ){
 
 	$action = $activity->display_name . ' posted a new post <a href="' . $activity->primary_link . '">' . get_the_title( $activity->secondary_item_id ) . '</a>';
 
+	// Get the custom post activity title
 	if( ! empty( trim( $buddyforms[$form_slug]['bp_activity_stream_title'] ) ) ){
 		$action = $buddyforms[$form_slug]['bp_activity_stream_title'];
+		// Process the field shortcodes in the text and replace with the values.
 		$action = buddyforms_get_field_value_from_string($action, $activity->secondary_item_id, $form_slug);
 	}
 
@@ -627,8 +633,10 @@ function bf_bp_activity_new_update_action( $action, $activity ){
 		return $action;
 	}
 
+	// Get the custom contact form activity title
 	if( ! empty( trim( $buddyforms[$form_slug]['bp_activity_stream_title'] ) ) ){
 		$action = $buddyforms[$form_slug]['bp_activity_stream_title'];
+		// Process the field shortcodes in the text and replace with the values.
 		$action = buddyforms_get_field_value_from_string($action, $posts[0]->ID, $form_slug);
 	}
 
