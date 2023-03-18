@@ -3,7 +3,7 @@ Contributors: svenl77, themekraft, buddyforms, gfirem
 Tags: buddypress, buddypress registration, post from profile, member profile, user profile, 
 Requires at least: 3.9
 Tested up to: 6.1.1
-Stable tag: 1.5.3
+Stable tag: 1.5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -94,6 +94,9 @@ Yes, you can use ACF and Podsfirlds and many other by using our Extensions
 5. **Backend Overview** - The backend overview of your existing forms.
 
 == Changelog ==
+= 1.5.4 - 14 Mar 2023 =
+* Fixed issue with xProfile fields in form setup. 
+
 = 1.5.3 - 16 Dec 2022 =
 * Added support to activity stream on contact forms.
 * Added new option to create custom message on activity stream.

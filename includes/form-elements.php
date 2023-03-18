@@ -403,7 +403,7 @@ endif;
 					});
 				</script>";
 
-				$form_fields['general']['xprofile_field_script'] = new Element_HTML( $script );
+				echo $script;
 
 			} else {
 				$form_fields['general']['notice'] = new Element_HTML( __( 'You need to enable BuddyPress Groups to use this form element', 'buddyforms-members' ) );
