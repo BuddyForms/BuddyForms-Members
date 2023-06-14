@@ -186,7 +186,7 @@ class BuddyForms_Members_Extention extends BP_Component {
 								'parent_url'      => trailingslashit( bp_displayed_user_domain() . $parent_tab ),
 								'item_css_id'     => 'add_sub_nav_' . $key,
 								'screen_function' => array( $this, 'load_members_post_create' ),
-								'user_has_access' => bp_is_my_profile(),
+								'user_has_access' => isset( $member_form['bp_profile_guest_post'] ) ? true : bp_is_my_profile(),
 								'position'        => $position,
 							);
 							$buddyforms_member_tabs[ $parent_tab ][ $key . '-create' ] = $key;

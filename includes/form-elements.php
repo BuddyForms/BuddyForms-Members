@@ -48,6 +48,11 @@ function buddyforms_members_admin_settings_sidebar_metabox_html() {
 		$bp_activity_stream_content = $buddyform['bp_activity_stream_content'];
 	}
 
+	$bp_guest_post_submission = '';
+	if ( isset( $buddyform['bp_profile_guest_post'] ) ) {
+		$bp_guest_post_submission = $buddyform['bp_profile_guest_post'];
+	}
+
 	$bp_profile_member_message = false;
 	if ( isset( $buddyform['bp_profile_member_message'] ) ) {
 		$bp_profile_member_message = $buddyform['bp_profile_member_message'];
@@ -138,6 +143,16 @@ function buddyforms_members_admin_settings_sidebar_metabox_html() {
 		array(
 			'value'     => $profile_visibility,
 			'shortDesc' => __( 'Who can see submissions in Profiles?', 'buddyforms-members' ),
+		)
+	);
+
+	$form_setup[] = new Element_Checkbox(
+		'<br><b>' . __( 'Enable Post Access for Profile Visitors', 'buddyforms-members' ) . '</b>',
+		'buddyforms_options[bp_profile_guest_post]',
+		array( 'enabled_guest_post' => 'Enable guest post' ),
+		array(
+			'value'     => $bp_guest_post_submission,
+			'shortDesc' => __( 'By default, the create tab is only visible for logged-in users if they visit their own profile. With this option, you can enable the Create tab for other users. The tab will work based on the permission set in the form Permission. The new post will be assigned to the displayed users and can be found in his profile.', 'buddyforms-members' ),
 		)
 	);
 
