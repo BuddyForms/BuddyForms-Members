@@ -2,8 +2,8 @@
 Contributors: svenl77, themekraft, buddyforms, gfirem
 Tags: buddypress, buddypress registration, post from profile, member profile, user profile, 
 Requires at least: 3.9
-Tested up to: 6.1.1
-Stable tag: 1.5.4
+Tested up to: 6.2.2
+Stable tag: 1.5.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -94,6 +94,10 @@ Yes, you can use ACF and Podsfirlds and many other by using our Extensions
 5. **Backend Overview** - The backend overview of your existing forms.
 
 == Changelog ==
+= 1.5.5 - 13 Jun 2023 =
+* Added New option to enable guest post from user profile.
+* Tested up to WordPress 6.2.2
+
 = 1.5.4 - 14 Mar 2023 =
 * Fixed issue with xProfile fields in form setup. 
 
