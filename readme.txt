@@ -7,47 +7,45 @@ Stable tag: 1.5.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-BuddyPress and BuddyBoss Registration and Profile Forms. Create Member Profile Tabs form Forms. Let your Members create, edit, and delete any kind of data from their profile.
+**BuddyPress and BuddyBoss Registration and Profile Forms. Create Member Profile Tabs from Forms. Let your Members create, edit, and delete any kind of data from their profile.**
 
 == Description ==
 
-Integrate Forms into the BuddyPress Members Profile. Allow your users to write - edit - update posts, images, videos, & just about any other content to your community, right from their BuddyPress Member Profile! 
+Integrate Forms into the BuddyPress Members Profile. Allow your users to write, edit, and update posts, images, videos, and just about any other content in your community, right from their BuddyPress Member Profile!
 
-Enable Submitting and managing any kind of data from the User Profile for Different Member Types. 
+Enable submitting and managing any kind of data from the User Profile for Different Member Types.
 
 [youtube https://www.youtube.com/watch?v=K3JK9ISu0-w]
 
 ### The extension allows you to:
-* Integrate Forms into the BuddyPress Member Profile. Allow your users to write - edit - upload posts, images, videos, & just about any other content to your community, right from their BuddyPress Member Profile!
+* Integrate Forms into the BuddyPress Member Profile. Allow your users to write, edit, upload posts, images, videos, and just about any other content in your community, right from their BuddyPress Member Profile!
 * Create group forms: Many forms can share the same Profile Tab. All Forms with the same attached page can be grouped together. They will be listed as sub-navigation tabs in the main menu of the profile tab.
 * Manage the visibility of who can see your submissions in your profile
 * > Private - Only the logged-in member in his profile.
-* > Community - Logged in user can see other users' profile posts
+* > Community - Logged in users can see other users' profile posts
 * > Public Visible - Unregistered users can see user profile posts
-* Manage permissions: define, create, edit and delete rights for each user role and form.
+* Manage permissions: define, create, edit, and delete rights for each user role and form.
 * Create Member Type Forms.
-* Overwrite the BuddyPress and BuddyBoss Profile Forms with a Member Type specific Form.
-* MAny Addons for Moderation and other Integration
+* Overwrite the BuddyPress and BuddyBoss Profile Forms with a Member Type-specific Form.
+* Many Addons for Moderation and other Integrations
 
 #### Use ACF Fields in the BuddyPress Registration and Profile Forms.
-Create Registration Forms Form ACF (Advanced Custo Fields)
-Sync ACF with BuddyPress xProfile Fields 
+Create Registration Forms from ACF (Advanced Custom Fields)
+Sync ACF with BuddyPress xProfile Fields
 
 #### Use Pods Fields in the BuddyPress Registration and Profile Forms.
-Create Registration Forms Form Pods
-Sync Pods with BuddyPress xProfile Fields 
+Create Registration Forms from Pods
+Sync Pods with BuddyPress xProfile Fields
 
-#### How to Post and Manage Content from a BuddyPress/BuddyBoss Member Profile or Group 
+#### How to Post and Manage Content from a BuddyPress/BuddyBoss Member Profile or Group
 Publishing Content in BuddyPress or BuddyBoss Made Easy. Enable your users to create content and bring your community to life. Easy Front-End Blogging with BuddyPress and BuddyForms!
 [How To Member Profile CMS with BuddyPress or BuddyBoss](https://themekraft.com/wordpress-solutions/post-manage-content-buddypress/)
 
-####How to Enable Your BuddyPress/BuddyBoss Members to Post from Their Profile Using BuddyForms Members!
+#### How to Enable Your BuddyPress/BuddyBoss Members to Post from Their Profile Using BuddyForms Members!
 [youtube https://www.youtube.com/watch?v=3n-NDIcUZAE&ab_channel=Themekraft]
 
-
 > #### Docs & Support
-> * Find our Getting Started, How-to and Developer Docs on [docs.buddyforms.com](http://docs.buddyforms.com/)
-
+> * Find our Getting Started, How-to, and Developer Docs on [docs.buddyforms.com](http://docs.buddyforms.com/)
 
 ---
 
@@ -61,30 +59,29 @@ Head to the 'BuddyForms' menu item in your admin sidebar
 
 == Frequently Asked Questions ==
 
-= Can user post from there profile =
-Yes, you can create new tabs from any form type and post type
+= Can users post from their profile? =
+Yes, you can create new tabs from any form type and post type.
 
-= Can I create a Registration Forms =
-Yes, you can Create Registration Forms and use BuddyPress and WordPress or ACF and many other form elements and keep all in sync
+= Can I create Registration Forms? =
+Yes, you can create Registration Forms and use BuddyPress and WordPress or ACF and many other form elements and keep all in sync.
 
-= Can I create a Content Forms =
-Yes, you can create Content forms for any post type and also group forms unde rone parent tab in the user profile.
+= Can I create Content Forms? =
+Yes, you can create Content forms for any post type and also group forms under one parent tab in the user profile.
 
-= Can I Combine Registration Forms and Content Forms =
-Yes, you can add login and registration Form Elements to any form and ask your user to Login or Register during form submission.
+= Can I Combine Registration Forms and Content Forms? =
+Yes, you can add login and registration Form Elements to any form and ask your users to Login or Register during form submission.
 
-= Can I create different prtofile forms for different member types =
-Yes, you can create different member type forms and also overwrite teh feault BuddyPress or BuddyBoss Profile edit form
+= Can I create different profile forms for different member types? =
+Yes, you can create different member type forms and also overwrite the default BuddyPress or BuddyBoss Profile edit form.
 
-= Can I use ACF Fields in the BuddyPress Registation =
-Yes, you can use ACF and Podsfirlds and many other by using our Extensions
-
+= Can I use ACF Fields in the BuddyPress Registration? =
+Yes, you can use ACF and Pods fields, and many others by using our Extensions.
 
 == Documentation & Support ==
 
 > #### Extensive Documentation and Support
 > * The Documentation with many how-to’s will help you on your way.
-> * Find our Getting Started, How-to and Developer Docs on [docs.buddyforms.com](http://docs.buddyforms.com/)
+> * Find our Getting Started, How-to, and Developer Docs on [docs.buddyforms.com](http://docs.buddyforms.com/)
 > * If you still get stuck somewhere, our support gets you back on the right track. You can find all help buttons in your BuddyForms Settings Panel in your WP Dashboard and the Help Center!
 
 == Screenshots ==
@@ -97,40 +94,40 @@ Yes, you can use ACF and Podsfirlds and many other by using our Extensions
 
 == Changelog ==
 = 1.5.5 - 13 Jun 2023 =
-* Added New option to enable guest post from user profile.
+* Added a new option to enable guest post from the user profile.
 * Tested up to WordPress 6.2.2
 
 = 1.5.4 - 14 Mar 2023 =
-* Fixed issue with xProfile fields in form setup. 
+* Fixed an issue with xProfile fields in form setup.
 
 = 1.5.3 - 16 Dec 2022 =
-* Added support to activity stream on contact forms.
-* Added new option to create custom message on activity stream.
+* Added support to the activity stream on contact forms.
+* Added a new option to create custom messages on the activity stream.
 * Tested up to WordPress 6.1.1
 
 = 1.5.1 - 03 Nov 2022 =
-* Fixed issue with required plugin download link.
-* Updated plugin name.
+* Fixed an issue with the required plugin download link.
+* Updated the plugin name.
 * Tested up to WordPress 6.1
 
 = 1.5.0 - 04 Oct 2022 =
-* Fixed issue with plugin download url
+* Fixed an issue with the plugin download URL.
 * Tested up to WordPress 6.0.2
 
 = 1.4.22 - 26 May 2022 =
-* Fixed security issue.
+* Fixed a security issue.
 * Tested up to WordPress 6.0
 
 = 1.4.21 - 16 May 2022 =
 * Updated readme.txt
 
 = 1.4.20 - 9 Mar 2022 =
-* Added descriptive video about the main features of the plugin.
+* Added a descriptive video about the main features of the plugin.
 * Updated the readme.text
 
 = 1.4.19 - 6 Mar 2022 =
-* Fixed issue with xprofile fields displaying in free version.
-* Tested up WordPress to 5.9
+* Fixed an issue with xProfile fields displaying in the free version.
+* Tested up WordPress to
 
 = 1.4.18 - 6 Jan 2022 =
 * Improved Freemius integration.
