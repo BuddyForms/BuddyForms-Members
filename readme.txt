@@ -1,4 +1,4 @@
-=== Member Profile Forms / Custom Registration / Post From Profile in BuddyPress / BuddyBoss ===
+=== BuddyPress & BuddyBoss Member Profile Forms ===
 Contributors: svenl77, themekraft, buddyforms, gfirem
 Tags: buddypress, buddyboss, buddypress registration, member forms, buddypress profile
 Requires at least: 3.9
@@ -26,11 +26,27 @@ With this extension, you can:
 
 [youtube https://www.youtube.com/watch?v=K3JK9ISu0-w]
 
-### How to Post and Manage Content from a BuddyPress/BuddyBoss Member Profile or Group 
+### Usage Examples:
+
+#### Integrate BuddyForms with BuddyPress Profile:
+Create a new form that allows users to create and manage custom posts and content within their BuddyPress Member Profile. Enable community members to easily publish articles, images, and videos, enhancing engagement and interaction.
+
+#### Create Member Type Forms:
+Customize the registration and profile experience for different Member Types with unique forms tailored to their needs. Overwrite the default BuddyPress and BuddyBoss Profile Forms with personalized options.
+
+#### ACF & Pods Integration:
+Elevate the BuddyPress registration and profile forms using Advanced Custom Fields (ACF) and Pods fields. Sync ACF and Pods with BuddyPress xProfile Fields to enrich user profiles and capture valuable data.
+
+#### Front-End Content Management:
+Empower your BuddyPress and BuddyBoss community with front-end content management capabilities. Allow users to post, edit, and manage their content directly from their profiles, making content creation a seamless process.
+
+###Tutoriala
+
+#### How to Post and Manage Content from a BuddyPress/BuddyBoss Member Profile or Group 
 Publishing Content in BuddyPress or BuddyBoss Made Easy. Enable your users to create content and bring your community to life. Easy Front-End Blogging with BuddyPress and BuddyForms!
 [How To Member Profile CMS with BuddyPress or BuddyBoss](https://themekraft.com/wordpress-solutions/post-manage-content-buddypress/)
 
-### How to Enable Your BuddyPress/BuddyBoss Members to Post from Their Profile Using BuddyForms Members!
+#### How to Enable Your BuddyPress/BuddyBoss Members to Post from Their Profile Using BuddyForms Members!
 [youtube https://www.youtube.com/watch?v=3n-NDIcUZAE&ab_channel=Themekraft]
 
 > #### Docs & Support
