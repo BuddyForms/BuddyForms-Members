@@ -13,7 +13,7 @@ Create custom Member Profile Tabs and Registration Forms in BuddyPress and Buddy
 
 Integrate Forms into the BuddyPress Members Profile. Empower your users to write, edit, upload posts, images, videos, and various other content within your community, all from their BuddyPress Member Profile!
 
-With this extension, you can:
+###With this extension, you can:
 * Enable easy integration of Forms into the BuddyPress Member Profile.
 * Create Group Forms to group multiple forms under the same Profile Tab. Forms with the same attached page will be listed as sub-navigation tabs in the main menu of the profile tab.
 * Manage the visibility of user submissions in their profile based on privacy settings:
