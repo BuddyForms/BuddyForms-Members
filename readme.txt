@@ -100,6 +100,7 @@ Yes, you can use ACF, Pods fields, and many others using our Extensions.
 == Changelog ==
 = 1.5.6 - 26 Dec 2023 =
 * Updated Freemius SDK
+* Fixed syntax issue.
 * Tested up to WordPress 6.4.2
 
 = 1.5.5 - 13 Jun 2023 =

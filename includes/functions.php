@@ -312,7 +312,7 @@ function buddyforms_profile_user_id_test( $is_current_component, $component ){
 	return $is_current_component;
 }
 
-add_filter( 'buddyforms_the_author_id', 'buddyforms_get_profile_form_author_id', );
+add_filter( 'buddyforms_the_author_id', 'buddyforms_get_profile_form_author_id' );
 function buddyforms_get_profile_form_author_id( $the_author_id ){
 	global $buddyforms;
 	if( bp_is_user_profile() ){
