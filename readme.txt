@@ -100,7 +100,7 @@ Yes, you can use ACF, Pods fields, and many others using our Extensions.
 
 == Changelog ==
 = 1.5.9 - 09 Nov 2026 =
-* Security: the xProfile field selector in the form builder now verifies the session nonce and requires edit permission before loading field data.
+* Security: the xProfile field selector in the form builder now verifies the session nonce and requires edit permission before loading field data. Thanks to Jonathan Aponte for reporting this issue.
 
 = 1.5.8 - 03 Oct 2026 =
 * Required plugins are now declared with the WordPress "Requires Plugins" header instead of the bundled TGM Plugin Activation library.
