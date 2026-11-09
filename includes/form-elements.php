@@ -357,14 +357,13 @@ endif;
 				// Let's add an script to handled the update of xprofile field selector
 
 				$js_field_id = esc_js( $field_id );
+				$js_nonce    = esc_js( wp_create_nonce( 'bf_xprofile_field_selector' ) );
 
 				$script = "
 					jQuery(function() {
 						const \$xprofile_group = jQuery('[name=\'buddyforms_options[form_fields][" . $js_field_id . "][xprofile_group]\']');
 
 						const ajaxReq = function(){
-
-							debugger;
 
 							const \$xprofile_field = jQuery('[name=\'buddyforms_options[form_fields][" . $js_field_id . "][xprofile_field]\']');
 							const selected_group_id = \$xprofile_group.val();
@@ -376,14 +375,14 @@ endif;
 
 							if ( buddyformsGlobal && buddyformsGlobal.admin_url) {
 
-								jQuery.post( buddyformsGlobal.admin_url, { action: 'buddyforms_update_xprofile_field_selector', group_id: selected_group_id })
+								jQuery.post( buddyformsGlobal.admin_url, { action: 'buddyforms_update_xprofile_field_selector', group_id: selected_group_id, nonce: '" . $js_nonce . "' })
 
 								.done(function(resp){
 
 									try {
 
 										if (resp.success === false) {
-											throw data.server_msg
+											throw resp.data;
 										}
 
 										const data = JSON.parse(resp.data);
@@ -532,6 +531,11 @@ function buddyforms_update_xprofile_field_selector() {
 		'server_msg' => '',
 	);
 
+	if ( ! check_ajax_referer( 'bf_xprofile_field_selector', 'nonce', false ) || ! current_user_can( 'edit_posts' ) ) {
+		$ajax_resp['server_msg'] = __( 'You are not allowed to do this.', 'buddyforms-members' );
+		wp_send_json_error( wp_json_encode( $ajax_resp ), 403 );
+	}
+
 	try {
 
 		if ( ! isset( $_POST['action'] ) || $_POST['action'] !== 'buddyforms_update_xprofile_field_selector' ) {
@@ -542,10 +546,16 @@ function buddyforms_update_xprofile_field_selector() {
 			throw new Exception( 'Something is wrong in your request', 1 );
 		}
 
-		$selected_group = $_POST['group_id'] !== 'none' ?
+		if ( ! class_exists( 'BP_XProfile_Group' ) ) {
+			throw new Exception( 'Something is wrong in your request', 1 );
+		}
+
+		$group_id = sanitize_text_field( wp_unslash( $_POST['group_id'] ) );
+
+		$selected_group = 'none' !== $group_id ?
 			BP_XProfile_Group::get(
 				array(
-					'profile_group_id' => (int) $_POST['group_id'],
+					'profile_group_id' => absint( $group_id ),
 					'fetch_fields'     => true,
 				)
 			) : null;
