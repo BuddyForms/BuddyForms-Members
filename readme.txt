@@ -4,7 +4,7 @@ Tags: buddypress, buddyboss, buddypress registration, member forms, buddypress p
 Requires at least: 5.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.5.8
+Stable tag: 1.5.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -99,6 +99,9 @@ Yes, you can use ACF, Pods fields, and many others using our Extensions.
 5. **Backend Overview** - The backend overview of your existing forms.
 
 == Changelog ==
+= 1.5.9 - 09 Nov 2026 =
+* Security: the xProfile field selector in the form builder now verifies the session nonce and requires edit permission before loading field data.
+
 = 1.5.8 - 03 Oct 2026 =
 * Required plugins are now declared with the WordPress "Requires Plugins" header instead of the bundled TGM Plugin Activation library.
 * Fixed translations: every string now uses the plugin's own text domain, and activity and button texts are translatable.
