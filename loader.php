@@ -94,10 +94,6 @@ function buddyforms_members_fs() {
 					'public_key'     => 'pk_0dc82cbd48e6935bba8e2ff431777',
 					'is_premium'     => true,
 					'has_paid_plans' => true,
-					'trial'          => array(
-						'days'               => 7,
-						'is_require_payment' => false,
-					),
 					'parent'         => array(
 						'id'         => '391',
 						'slug'       => 'buddyforms',

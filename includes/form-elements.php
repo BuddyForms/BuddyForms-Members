@@ -103,9 +103,6 @@ function buddyforms_members_admin_settings_sidebar_metabox_html() {
 		)
 	);
 
-	if ( buddyforms_members_fs()->is_not_paying() ) {
-		$element->setAttribute( 'disabled', 'disabled' );
-	}
 	$form_setup[] = $element;
 
 	if( $bp_activity_stream == true ){
@@ -226,21 +223,15 @@ function buddyforms_members_create_new_form_builder_form_element( $form_fields, 
 
 			$member_types = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['member_types'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['member_types'] : '';
 			$element      = new Element_Checkbox( '<b>Allow the User to select Member Types</b>', 'buddyforms_options[form_fields][' . $field_id . '][member_types]', $member_types_select, array( 'value' => $member_types ) );
-			if ( buddyforms_members_fs()->is_not_paying() ) {
-				$element->setAttribute( 'disabled', 'disabled' );
-			}
 			$form_fields['general']['member_types'] = $element;
 
 			$member_type_hidden      = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['member_type_hidden'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['member_type_hidden'] : '';
 			$member_type_hidden_prop = array(
-				'value'     => buddyforms_members_fs()->is_not_paying() ? true : $member_type_hidden,
+				'value'     => $member_type_hidden,
 				'shortDesc' => 'Hide this form element to auto assign the default member type',
 			);
 			$element                 = new Element_Checkbox( '<b>Hide this form element</b>', 'buddyforms_options[form_fields][' . $field_id . '][member_type_hidden]', array( 'hide' => 'Hidden' ), $member_type_hidden_prop );
 
-			if ( buddyforms_members_fs()->is_not_paying() ) {
-				$element->setAttribute( 'disabled', 'disabled' );
-			}
 			$form_fields['general']['member_type_hidden'] = $element;
 
 			$member_types                     = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['member_type_default'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['member_type_default'] : '';
@@ -286,9 +277,6 @@ endif;
 
 				$xprofile_group = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_group'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_group'] : '';
 				$element        = new Element_Select( '<b>xProfile Group</b>', 'buddyforms_options[form_fields][' . $field_id . '][xprofile_group]', $groups_select, array( 'value' => $xprofile_group ) );
-				if ( buddyforms_members_fs()->is_not_paying() ) {
-					$element->setAttribute( 'disabled', 'disabled' );
-				}
 				$form_fields['general']['xprofile_group'] = $element;
 
 			} else {
@@ -326,9 +314,6 @@ endif;
 
 				$xprofile_group = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_group'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_group'] : '';
 				$element        = new Element_Select( '<b>xProfile Group</b>', 'buddyforms_options[form_fields][' . $field_id . '][xprofile_group]', $groups_select, array( 'value' => $xprofile_group ) );
-				if ( buddyforms_members_fs()->is_not_paying() ) {
-					$element->setAttribute( 'disabled', 'disabled' );
-				}
 				$form_fields['general']['xprofile_group'] = $element;
 
 				$group_fields_select['none'] = 'Select the xProfile Field';
@@ -349,9 +334,6 @@ endif;
 
 				$xprofile_field = isset( $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_field'] ) ? $buddyforms[ $form_slug ]['form_fields'][ $field_id ]['xprofile_field'] : '';
 				$element        = new Element_Select( '<b>xProfile Field</b>', 'buddyforms_options[form_fields][' . $field_id . '][xprofile_field]', $group_fields_select, array( 'value' => $xprofile_field ) );
-				if ( buddyforms_members_fs()->is_not_paying() ) {
-					$element->setAttribute( 'disabled', 'disabled' );
-				}
 				$form_fields['general']['xprofile_field'] = $element;
 
 				// Let's add an script to handled the update of xprofile field selector
