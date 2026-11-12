@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Plugin Name: BuddyForms Members
  * Plugin URI: http://buddyforms.com/downloads/buddyforms-members/
  * Description: The BuddyForms Members Component. Let your members write right out of their profiles.
- * Version: 1.5.10-beta.1
+ * Version: 1.5.10-beta.2
  * Requires at least: 5.9
  * Requires PHP: 7.4
  * Requires Plugins: buddyforms
